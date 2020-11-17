@@ -19,5 +19,5 @@ jobs:
           host: ${{ secrets.host }}
           username: ${{ secrets.username }}
           port: ${{ secrets.port }}
-          key: ${{ secrets.privateKey }}
+          password: ${{ secrets.password }}
           script: ./deploy.sh
