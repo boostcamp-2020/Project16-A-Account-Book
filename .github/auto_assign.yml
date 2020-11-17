@@ -1,0 +1,11 @@
+addReviewers: true
+
+addAssignees: author
+
+reviewers:
+  - rolled-potatoes
+  - yejineee
+  - pkiop
+  - dbstrwnekd
+
+numberOfReviewers: 0
