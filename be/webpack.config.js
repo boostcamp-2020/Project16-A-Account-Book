@@ -10,7 +10,7 @@ module.exports = {
     alias: {},
   },
   entry: {
-    index: ['./app.ts'],
+    index: ['./src/app.ts'],
   },
   module: {
     rules: [
