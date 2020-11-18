@@ -9,8 +9,6 @@ export interface Props {
   height?: number;
   fontSize?: number;
   border?: string;
-  link?: string;
-  to?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
