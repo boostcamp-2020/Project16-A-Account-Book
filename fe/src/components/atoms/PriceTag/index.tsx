@@ -16,7 +16,7 @@ const PriceTag: React.FC<Props> = ({
 }): React.ReactElement => {
   return (
     <PriceContainer bold={bold} size={size} color={color}>
-      {value.toLocaleString()}
+      {`${value.toLocaleString()}원`}
     </PriceContainer>
   );
 };
