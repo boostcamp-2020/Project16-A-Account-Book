@@ -11,12 +11,12 @@ export interface ButtonStyleProps {
 }
 
 export const ButtonStyle = css<ButtonStyleProps>`
-  background-color: ${prop('bgColor', 'grayscale')};
-  color: ${prop('color', 'red')};
+  background-color: ${prop('bgColor', 'black')};
+  color: ${prop('color', 'white')};
   width: ${prop('width', '7')}rem;
   height: ${prop('height', '2')}rem;
   border: ${prop('border', 'none')};
-  font-size: ${prop('fontSize', '3')}rem;
+  font-size: ${prop('fontSize', '1')}rem;
 
   text-align: center;
 `;
