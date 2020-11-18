@@ -9,6 +9,9 @@ export interface Props {
   height?: number;
   fontSize?: number;
   border?: string;
+  link?: string;
+  to?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const App: FC<Props> = ({
@@ -19,8 +22,9 @@ const App: FC<Props> = ({
   height,
   fontSize,
   border,
+  onClick,
 }) => {
-  const onClickHandler = useCallback(() => {}, []);
+  const onClickHandler = onClick ? useCallback(onClick!, []) : undefined;
 
   return (
     <>
