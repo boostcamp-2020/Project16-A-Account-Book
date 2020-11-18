@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  root: true,
   extends: [
     'plugin:react/recommended',
     'airbnb',
@@ -25,6 +26,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'react/prop-types': 0,
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
