@@ -1,24 +1,40 @@
-import React, { FC, useCallback, useState } from 'react';
-import styled from 'styled-components';
-
-const Button = styled.button`
-  background-color: black;
-  color: white;
-`;
+import React, { FC, useCallback } from 'react';
+import { Button } from './style';
 
 export interface Props {
   title?: string;
+  bgColor?: string;
+  color?: string;
+  width?: number;
+  height?: number;
+  fontSize?: number;
+  border?: string;
 }
 
-const App: FC<Props> = ({ title }) => {
-  const [Title, setTitle] = useState(title);
-  const onClickHandler = useCallback(() => {
-    setTitle(`${Title}1`);
-  }, [Title]);
+const App: FC<Props> = ({
+  title,
+  bgColor,
+  color,
+  width,
+  height,
+  fontSize,
+  border,
+}) => {
+  const onClickHandler = useCallback(() => {}, []);
 
   return (
     <>
-      <Button onClick={onClickHandler}>{Title}</Button>
+      <Button
+        bgColor={bgColor}
+        color={color}
+        width={width}
+        height={height}
+        fontSize={fontSize}
+        border={border}
+        onClick={onClickHandler}
+      >
+        {title}
+      </Button>
     </>
   );
 };
