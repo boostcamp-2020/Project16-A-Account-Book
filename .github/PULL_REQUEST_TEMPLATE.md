@@ -5,7 +5,4 @@
 ## Linked Issues
 
 ## 멘토님들
-@kimwonyong
-@kwangdosa
-@mysticPrg
-@chanmo-kim
+@boostcamp-2020/accountbook_mentor
