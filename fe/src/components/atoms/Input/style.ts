@@ -4,6 +4,8 @@ interface Prop {
   disabled: boolean;
   color: string;
   placeholder: string;
+  defaultValue: string;
+  onChange: any;
 }
 
 const SInput = styled.input`
@@ -14,7 +16,7 @@ const SInput = styled.input`
   background-color: ${(prop: Prop): string =>
     prop.disabled ? 'gray' : 'white'}
   disabled:${(prop: Prop): string => (prop.disabled ? 'disabled' : 'false')}
-
+  default-value:${(prop: Prop): string => prop.defaultValue}
   border: 1px solid;
   border-radius: 1.5px;
   placeholder:${(prop: Prop): string => prop.placeholder};
