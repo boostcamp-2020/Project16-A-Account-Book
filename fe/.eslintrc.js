@@ -25,6 +25,9 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'react/prop-types': 0,
+    'no-undef': 0,
+    'import/no-extraneous-dependencies': 0,
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
