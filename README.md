@@ -12,5 +12,11 @@
 
 📈 입력된 데이터를 시작화하여 분석 및 파악 할 수 있는 기능을 제공합니다. 
 
+## 📌 팀원소개
+- J128 윤석주
+- J114 양예진
+- J075 박상신
+- J081 박승환
+
 ## 📌 기술 스택
 <center><img src="https://user-images.githubusercontent.com/44409642/99674728-c9ecfc80-2ab9-11eb-8039-06b9ebdc5e38.png"/></center>
