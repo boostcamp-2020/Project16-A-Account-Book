@@ -1,15 +1,8 @@
 import Koa from 'koa';
-import mongoose from 'mongoose';
-
-import { dbConfig } from './config';
+import { connect as dbConnect } from './models';
 
 const app = new Koa();
-
-const DB_URL = `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
-
-mongoose.connect(DB_URL, {
-  useNewUrlParser: true,
-});
+dbConnect();
 
 app.use((ctx: Koa.Context) => {
   ctx.body = 'hello, Koa!';
