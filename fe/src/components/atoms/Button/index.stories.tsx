@@ -1,6 +1,8 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Story } from '@storybook/react/types-6-0';
 import Button, { Props } from '.';
+import naverSVG from '../../../assets/svg/naver.svg';
 
 export default {
   title: 'atoms/Button',
@@ -14,7 +16,7 @@ const Template: Story<Props> = (args) => <Button {...args} />;
 export const Test = Template.bind({});
 Test.args = {
   size: 'sm',
-  title: 'hello',
+  children: 'default',
 };
 
 export const defaultButton = () => {
@@ -24,8 +26,9 @@ export const defaultButton = () => {
       onClick={() => {
         alert(title);
       }}
-      title={title}
-    />
+    >
+      {title}
+    </Button>
   );
 };
 
@@ -37,8 +40,9 @@ export const smButton = () => {
       onClick={() => {
         alert(title);
       }}
-      title={title}
-    />
+    >
+      {title}
+    </Button>
   );
 };
 
@@ -50,8 +54,9 @@ export const mdButton = () => {
       onClick={() => {
         alert(title);
       }}
-      title={title}
-    />
+    >
+      {title}
+    </Button>
   );
 };
 
@@ -63,8 +68,9 @@ export const lgButton = () => {
       onClick={() => {
         alert(title);
       }}
-      title={title}
-    />
+    >
+      {title}
+    </Button>
   );
 };
 
@@ -76,7 +82,35 @@ export const xlButton = () => {
       onClick={() => {
         alert(title);
       }}
-      title={title}
-    />
+    >
+      {title}
+    </Button>
+  );
+};
+
+const NaverButton = styled(Button)`
+  background-color: green;
+`;
+
+const Wrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 0.4rem;
+`;
+
+export const NaverLogin = () => {
+  return (
+    <NaverButton
+      size="lg"
+      onClick={() => {
+        alert('NAVER LOGIN~!');
+      }}
+    >
+      <Wrap>
+        <img src={naverSVG} width="14px" alt="naver" />
+        <div>NAVER LOGIN</div>
+      </Wrap>
+    </NaverButton>
   );
 };
