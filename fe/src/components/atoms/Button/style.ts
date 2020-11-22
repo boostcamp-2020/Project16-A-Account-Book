@@ -39,9 +39,9 @@ const setButtonFontsizeUsingSize = (size: string) => {
     case 'sm':
       return '0.6rem';
     case 'md':
-      return '0.8rem';
+      return '0.6rem';
     case 'lg':
-      return '1rem';
+      return '0.6rem';
     case 'xl':
       return '1.2rem';
     default:
