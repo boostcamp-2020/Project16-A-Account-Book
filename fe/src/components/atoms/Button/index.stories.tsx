@@ -18,7 +18,7 @@ Test.args = {
 };
 
 export const defaultButton = () => {
-  const title = 'sm Button';
+  const title = 'default Button';
   return (
     <Button
       onClick={() => {
