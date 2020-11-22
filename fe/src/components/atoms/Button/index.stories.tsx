@@ -13,66 +13,70 @@ const Template: Story<Props> = (args) => <Button {...args} />;
 
 export const Test = Template.bind({});
 Test.args = {
+  size: 'sm',
   title: 'hello',
 };
 
-export const Login = () => {
-  const title = '로그인';
+export const defaultButton = () => {
+  const title = 'sm Button';
   return (
     <Button
-      types="localLogin"
       onClick={() => {
         alert(title);
       }}
       title={title}
-      bgColor="#20c997"
-      color="#ffffff"
     />
   );
 };
 
-export const Signup = () => {
-  const title = '회원가입';
+export const smButton = () => {
+  const title = 'sm Button';
   return (
     <Button
-      types="localLogin"
-      border="1px solid #20c997"
+      size="sm"
       onClick={() => {
         alert(title);
       }}
       title={title}
-      bgColor="#ffffff"
-      color="#20c997"
     />
   );
 };
 
-export const NaverLogin = () => {
-  const title = 'Naver Login';
+export const mdButton = () => {
+  const title = 'md Button';
   return (
     <Button
-      types="OAuthLogin"
+      size="md"
       onClick={() => {
         alert(title);
       }}
       title={title}
-      bgColor="#19ce60"
-      color="#ffffff"
     />
   );
 };
 
-export const GitHubLogin = () => {
-  const title = 'GitHub Login';
+export const lgButton = () => {
+  const title = 'lg Button';
   return (
     <Button
-      types="OAuthLogin"
+      size="lg"
       onClick={() => {
         alert(title);
       }}
       title={title}
-      bgColor="#080909"
-      color="#ffffff"
+    />
+  );
+};
+
+export const xlButton = () => {
+  const title = 'xl Button';
+  return (
+    <Button
+      size="xl"
+      onClick={() => {
+        alert(title);
+      }}
+      title={title}
     />
   );
 };
