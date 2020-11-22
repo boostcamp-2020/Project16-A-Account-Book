@@ -1,48 +1,67 @@
 import styled, { css } from 'styled-components';
-import { prop } from 'styled-tools';
 
 export interface ButtonStyleProps {
-  types?: string;
-  border?: string;
+  size?: string;
 }
 
-export const ButtonStyle = css<ButtonStyleProps>`
-  background-color: ${prop('bgColor', 'black')};
-  color: ${prop('color', 'white')};
-  width: ${prop('width', '100%')};
-  height: ${prop('height', '100%')};
-  border: ${prop('border', 'none')};
-  font-size: ${prop('fontSize', '1rem')};
+const setButtonWidthUsingSize = (size: string) => {
+  switch (size) {
+    case 'sm':
+      return '3.8rem';
+    case 'md':
+      return '5.5rem';
+    case 'lg':
+      return '7.1rem';
+    case 'xl':
+      return '12rem';
+    default:
+      return '100%';
+  }
+};
 
+const setButtonHeightUsingSize = (size: string) => {
+  switch (size) {
+    case 'sm':
+      return '1.2rem';
+    case 'md':
+      return '1.6rem';
+    case 'lg':
+      return '2rem';
+    case 'xl':
+      return '2.4rem';
+    default:
+      return '100%';
+  }
+};
+
+const setButtonFontsizeUsingSize = (size: string) => {
+  switch (size) {
+    case 'sm':
+      return '0.6rem';
+    case 'md':
+      return '0.8rem';
+    case 'lg':
+      return '1rem';
+    case 'xl':
+      return '1.2rem';
+    default:
+      return '100%';
+  }
+};
+
+export const ButtonStyle = css<ButtonStyleProps>`
+  background-color: 'black';
+  color: 'white';
+  width: ${(props) =>
+    props.size ? setButtonWidthUsingSize(props.size) : '100%'};
+  height: ${(props) =>
+    props.size ? setButtonHeightUsingSize(props.size) : '100%'};
+  border: 'none';
+  font-size: ${(props) =>
+    props.size ? setButtonFontsizeUsingSize(props.size) : '100%'};
   text-align: center;
 `;
 
 export const Button = styled.button`
   ${ButtonStyle}
-`;
-
-const localLoginSize = {
-  width: '3.8rem',
-  height: '1.2rem',
-  fontSize: '0.6rem',
-};
-
-export const LocalLogin = styled.button`
-  ${ButtonStyle}
-  width: ${localLoginSize.width};
-  height: ${localLoginSize.height};
-  font-size: ${localLoginSize.fontSize};
-`;
-
-const oauthLoginSize = {
-  width: '7.1rem',
-  height: '2rem',
-  fontSize: '1rem',
-};
-
-export const OAuthLogin = styled.button`
-  ${ButtonStyle}
-  width: ${oauthLoginSize.width};
-  height: ${oauthLoginSize.height};
-  font-size: ${oauthLoginSize.fontSize};
 `;
