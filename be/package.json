@@ -16,11 +16,16 @@
   },
   "dependencies": {
     "@types/koa": "^2.11.6",
-    "@types/koa-router": "^7.4.1",
+
+  "devDependencies": {
+    "@types/mongoose": "^5.10.1",
+    "dotenv": "^8.2.0",
     "koa": "^2.13.0",
-    "koa-router": "^10.0.0"
+    "koa-router": "^10.0.0",
+    "mongoose": "^5.10.15"
   },
   "devDependencies": {
+    "@types/koa-router": "^7.4.1",
     "@typescript-eslint/eslint-plugin": "^4.8.0",
     "@typescript-eslint/parser": "^4.8.0",
     "eslint": "^7.13.0",
