@@ -13,6 +13,9 @@ const color = {
   blud: '#0000ff',
   red: '#ff0000',
   gray: '#e1e1e1',
+  darkgray: '#bababc',
+
+  lightBorder: '#e6e6e6',
 };
 
 const theme = {
