@@ -10,9 +10,14 @@ export default {
 };
 
 export const monthInfoHeader = () => {
+  const month = 11;
+  const total = {
+    income: 1000,
+    expense: 987654321,
+  };
   return (
     <ThemeProvider theme={theme}>
-      <MonthInfoHeader />
+      <MonthInfoHeader month={month} total={total} />
     </ThemeProvider>
   );
 };
