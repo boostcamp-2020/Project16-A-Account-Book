@@ -1,5 +1,5 @@
 import React from 'react';
-import PriceTag from 'components/atoms/PriceTag';
+import TotalBox from 'components/molecules/TotalBox';
 import { MonthInfoHeaderContainer, MonthButton } from './style';
 
 interface MonthInfoHeaderInterface {
@@ -9,6 +9,7 @@ interface MonthInfoHeaderInterface {
     expense: number;
   };
 }
+
 const MonthInfoHeader = ({ month, total }: MonthInfoHeaderInterface) => {
   return (
     <MonthInfoHeaderContainer>
@@ -16,16 +17,9 @@ const MonthInfoHeader = ({ month, total }: MonthInfoHeaderInterface) => {
         {`${month}월 ▾`}
       </MonthButton>
 
-      <div className="total-container">
-        <div className="total-container__box">
-          <div className="total-container__title">수입</div>
-          <PriceTag color="white" value={total.income} bold />
-        </div>
-
-        <div className="total-container__box">
-          <div className="total-container__title">지출</div>
-          <PriceTag color="white" value={total.expense} bold />
-        </div>
+      <div>
+        <TotalBox title="수입" total={total.income} />
+        <TotalBox title="지출" total={total.expense} />
       </div>
 
       <MonthButton onClick={() => {}} size="md">

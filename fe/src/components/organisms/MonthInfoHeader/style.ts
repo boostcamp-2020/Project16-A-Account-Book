@@ -32,19 +32,5 @@ export const MonthInfoHeaderContainer = styled.section`
   justify-content: center;
   align-items: center;
   background: ${({ theme }) => theme.color.grean};
-  .total-container {
-    font-size: ${({ theme }) => theme.fontSize.xs};
-    &__title {
-      margin-right: 0.4rem;
-      color: ${({ theme }) => theme.color.gray2};
-    }
-    &__box {
-      display: flex;
-      justify-content: center;
-    }
-  }
-  .total-container__box + .total-container__box {
-    margin-top: 0.5rem;
-  }
 `;
 export default {};
