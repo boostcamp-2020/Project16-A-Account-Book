@@ -1,4 +1,5 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   name: 'ts-back-setting',
@@ -7,7 +8,12 @@ module.exports = {
   resolve: {
     modules: ['node_modules'],
     extensions: ['.ts', 'json', '.jsx', '.js'],
-    alias: {},
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: 'tsconfig.json',
+        baseUrl: './',
+      }),
+    ],
   },
   entry: {
     index: ['./src/app.ts'],

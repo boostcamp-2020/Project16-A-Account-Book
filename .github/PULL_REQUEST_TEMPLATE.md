@@ -5,6 +5,4 @@
 ## Linked Issues
 
 ## 멘토님들
-@kimwonyong
-
-@kwangdosa
+@boostcamp-2020/accountbook_mentor

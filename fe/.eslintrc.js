@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  root: true,
   extends: [
     'plugin:react/recommended',
     'airbnb',
@@ -25,6 +26,9 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    'react/prop-types': 0,
+    'no-undef': 0,
+    'import/no-extraneous-dependencies': 0,
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
@@ -39,5 +43,8 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'react/jsx-props-no-spreading': 'off',
+    'no-use-before-define': 'off',
+    'import/no-unresolved': 'off',
   },
 };
