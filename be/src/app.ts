@@ -1,20 +1,14 @@
 import Koa from 'koa';
-import mongoose from 'mongoose';
+import bodyParser from 'koa-bodyparser';
 import authRouter from './router/auth';
-import { dbConfig } from './config';
+import { connect as dbConnect } from './models';
 
 const app = new Koa();
+dbConnect();
 
-const DB_URL = `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
-
-mongoose.connect(DB_URL, {
-  useNewUrlParser: true,
-});
-
+app.use(bodyParser());
 app.use(authRouter.routes());
-app.use((ctx: Koa.Context) => {
-  ctx.body = 'hello, Koa!';
-});
+app.use(authRouter.allowedMethods());
 
 app.listen(4000, () => {
   console.log('Listening to port 4000');
