@@ -7,6 +7,15 @@ const fontSize = {
   lg: calRem(18),
   xl: calRem(20),
 };
+
+const len = {
+  xs: '0.5rem',
+  sm: '1.0rem',
+  md: '1.5rem',
+  lg: '2.5rem',
+  xl: '3.5rem',
+};
+
 const color = {
   black: '#000000',
   white: '#ffffff',
@@ -21,6 +30,7 @@ const color = {
 const theme = {
   fontSize,
   color,
+  len,
 };
 
 export default theme;
