@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import DateAtom from 'components/atoms/DateAtom';
 
-export interface ButtonStyleProps {
-  size?: string;
-}
-
 export interface ReducedDateProps {
   theme: {
     [propName: string]: any;

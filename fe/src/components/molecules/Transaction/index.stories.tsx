@@ -7,8 +7,6 @@ import Transaction, { transaction } from '.';
 export default {
   title: 'molecules/AccountDate',
   component: Transaction,
-  parameters: { actions: { argTypesRegex: '^on.*' } },
-  argTypes: { onClick: { action: 'clicked' } },
 };
 
 export const TransactionSample1 = () => {

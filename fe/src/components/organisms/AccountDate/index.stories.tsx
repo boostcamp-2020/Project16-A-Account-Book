@@ -8,8 +8,6 @@ import AccountDate from '.';
 export default {
   title: 'organisms/AccountDate',
   component: AccountDate,
-  parameters: { actions: { argTypesRegex: '^on.*' } },
-  argTypes: { onClick: { action: 'clicked' } },
 };
 
 export const AccountDateSample = () => {
