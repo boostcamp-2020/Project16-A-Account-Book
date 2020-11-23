@@ -1,11 +1,38 @@
 import React from 'react';
-import Icon, { types } from '.';
+import { ThemeProvider } from 'styled-components';
+import { withKnobs, select } from '@storybook/addon-knobs';
+import theme from 'styles/theme';
+import Icon, { iconTypes } from '.';
 
 export default {
   title: 'atoms/Icon',
+  decorators: [withKnobs],
 };
 
-export const PlusIcon = () => <Icon icon={types.plus} />;
-export const GithubIcon = () => <Icon icon={types.github} />;
-export const smNaverIcon = () => <Icon icon={types.smNaver} />;
-export const midNaverIcon = () => <Icon icon={types.midNaver} />;
+export const GithubIcon = () => {
+  const size = select('size', [...Object.keys(theme.len), '10rem'], 'md');
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Icon icon={iconTypes.github} size={size} />
+    </ThemeProvider>
+  );
+};
+export const NaverIcon = () => {
+  const size = select('size', [...Object.keys(theme.len), '10rem'], 'md');
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Icon icon={iconTypes.naver} size={size} />
+    </ThemeProvider>
+  );
+};
+export const PlusIcon = () => {
+  const size = select('size', [...Object.keys(theme.len), '10rem'], 'md');
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Icon icon={iconTypes.plus} size={size} />
+    </ThemeProvider>
+  );
+};
