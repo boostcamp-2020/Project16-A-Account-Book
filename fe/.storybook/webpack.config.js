@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = ({ config, mode }) => {
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
@@ -11,6 +12,9 @@ module.exports = ({ config, mode }) => {
       require.resolve('react-docgen-typescript-loader'),
     ],
   });
+
+  config.resolve.modules.push(path.resolve('./src'));
+  config.resolve.modules.push(path.resolve('./node_modules'));
   config.resolve.extensions.push('.ts', '.tsx');
   return config;
 };

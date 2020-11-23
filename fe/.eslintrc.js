@@ -43,5 +43,8 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'react/jsx-props-no-spreading': 'off',
+    'no-use-before-define': 'off',
+    'import/no-unresolved': 'off',
   },
 };
