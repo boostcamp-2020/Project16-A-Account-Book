@@ -1,21 +1,22 @@
-import React, { FC } from 'react';
-import PlusSvg from '../../../assets/svg/plus';
-import GithubSvg from '../../../assets/svg/github';
-import NaverSvg from '../../../assets/svg/naver';
+import React from 'react';
+import plusSvg from 'assets/svg/plus.svg';
+import githubSvg from 'assets/svg/github.svg';
+import naverSvg from 'assets/svg/naver.svg';
+import IconStyle from './style';
 
 export interface Props {
-  icon: React.ReactElement;
+  icon: string;
+  size?: string;
 }
 
-export const types = {
-  plus: <PlusSvg />,
-  github: <GithubSvg />,
-  smNaver: <NaverSvg size="sm" />,
-  midNaver: <NaverSvg size="mid" />,
+export const iconTypes = {
+  plus: plusSvg,
+  github: githubSvg,
+  naver: naverSvg,
 };
 
-const Icon: FC<Props> = ({ icon }): React.ReactElement => {
-  return icon;
+const Icon = ({ icon, size = 'md' }: Props): React.ReactElement => {
+  return <IconStyle src={icon} alt="icon" size={size} />;
 };
 
 export default Icon;
