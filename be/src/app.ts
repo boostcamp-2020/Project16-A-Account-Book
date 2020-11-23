@@ -1,6 +1,6 @@
 import Koa from 'koa';
+import authRouter from 'router/auth';
 import mongoose from 'mongoose';
-
 import { dbConfig } from './config';
 
 const app = new Koa();
@@ -11,6 +11,7 @@ mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
 
+app.use(authRouter.routes());
 app.use((ctx: Koa.Context) => {
   ctx.body = 'hello, Koa!';
 });
