@@ -7,8 +7,8 @@ export interface Props {
   date: Date;
 }
 
-const App = ({ parseString = 'ymdz', date }: Props) => {
-  return <DateAtom>{parseDate(date, parseString)}</DateAtom>;
+const App = ({ parseString = 'ymdz', date, ...props }: Props) => {
+  return <DateAtom {...props}>{parseDate(date, parseString)}</DateAtom>;
 };
 
 export default App;
