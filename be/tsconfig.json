@@ -41,9 +41,7 @@
 
     "baseUrl": ".",                      
     "paths": {
-      "@Controller/*": ["./src/controller/*"],
-      "@Router/*": ["./src/router/*"],
-      "@Api/*": ["./src/api/*"],                        
+      "router/*": ["./src/router/*"],
     },
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */

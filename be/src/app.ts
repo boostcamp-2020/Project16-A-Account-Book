@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import authRouter from '@Router/auth';
+import authRouter from 'router/auth';
 
 const app = new Koa();
 
