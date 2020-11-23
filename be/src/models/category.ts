@@ -22,4 +22,4 @@ export interface Category extends Document {
   title: String;
 }
 
-export const CategoryModel = model<Category>('category', CategorySchema);
+export const CategoryModel = model<Category>('categories', CategorySchema);

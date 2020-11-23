@@ -36,4 +36,4 @@ export interface User extends Document {
   salt?: String;
 }
 
-export const UserModel = model<User>('user', UserSchema);
+export const UserModel = model<User>('users', UserSchema);

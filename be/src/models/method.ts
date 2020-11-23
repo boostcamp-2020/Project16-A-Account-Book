@@ -11,4 +11,4 @@ export interface Method extends Document {
   title: String;
 }
 
-export const MethodModel = model<Method>('method', MethodSchema);
+export const MethodModel = model<Method>('methods', MethodSchema);

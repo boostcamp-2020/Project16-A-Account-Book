@@ -44,6 +44,6 @@ export interface Transaction extends Document {
 }
 
 export const TransactionModel = model<Transaction>(
-  'transaction',
+  'transactions',
   TransactionSchema,
 );

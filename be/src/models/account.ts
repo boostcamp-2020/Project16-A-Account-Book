@@ -27,4 +27,4 @@ export interface Account extends Document {
   methods?: [String];
 }
 
-export const AccountModel = model<Account>('account', AccountSchema);
+export const AccountModel = model<Account>('accounts', AccountSchema);
