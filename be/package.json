@@ -16,11 +16,13 @@
   },
   "dependencies": {
     "@types/koa": "^2.11.6",
+    "dotenv": "^8.2.0",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
-    "dotenv": "^8.2.0",
-    "mongoose": "^5.10.15"
+    "mongoose": "^5.10.15",
+    "passport": "^0.4.1",
+    "passport-github": "^1.1.0"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.0",
