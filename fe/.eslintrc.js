@@ -43,9 +43,7 @@ module.exports = {
       },
     ],
     'react/jsx-props-no-spreading': 'off',
-    'no-undef': 'off',
     'no-use-before-define': 'off',
     'import/no-unresolved': 'off',
-    'react/prop-types': 0,
   },
 };
