@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     {
       type: Types.ObjectId,
       required: true,
-      ref: 'account',
+      ref: 'accounts',
     },
   ],
 });

@@ -20,12 +20,12 @@ const TransactionSchema = new Schema({
   method: {
     type: Types.ObjectId,
     required: true,
-    ref: 'method',
+    ref: 'methods',
   },
   category: {
     type: Types.ObjectId,
     required: true,
-    ref: 'category',
+    ref: 'categories',
   },
   excludeFromBudget: {
     type: Boolean,

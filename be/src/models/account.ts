@@ -4,19 +4,19 @@ const AccountSchema = new Schema({
   transactions: [
     {
       type: Types.ObjectId,
-      ref: 'transaction',
+      ref: 'transactions',
     },
   ],
   categories: [
     {
       type: Types.ObjectId,
-      ref: 'category',
+      ref: 'categories',
     },
   ],
   methods: [
     {
       type: Types.ObjectId,
-      ref: 'method',
+      ref: 'methods',
     },
   ],
 });
