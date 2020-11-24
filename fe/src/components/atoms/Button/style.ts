@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export interface ButtonStyleProps {
   size?: string;
@@ -49,7 +49,7 @@ const setButtonFontsizeUsingSize = (size: string) => {
   }
 };
 
-export const ButtonStyle = css<ButtonStyleProps>`
+export const ButtonStyle = styled.button<ButtonStyleProps>`
   background-color: black;
   color: white;
   width: ${(props) =>
@@ -60,8 +60,6 @@ export const ButtonStyle = css<ButtonStyleProps>`
   font-size: ${(props) =>
     props.size ? setButtonFontsizeUsingSize(props.size) : '100%'};
   text-align: center;
-`;
-
-export const Button = styled.button`
-  ${ButtonStyle}
+  cursor: pointer;
+  outline: 0;
 `;
