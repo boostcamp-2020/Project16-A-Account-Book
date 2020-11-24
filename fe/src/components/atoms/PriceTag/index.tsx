@@ -13,9 +13,10 @@ const PriceTag: React.FC<Props> = ({
   bold = false,
   size = 'normal',
   color = '#000',
+  ...props
 }): React.ReactElement => {
   return (
-    <PriceContainer bold={bold} size={size} color={color}>
+    <PriceContainer bold={bold} size={size} color={color} {...props}>
       {`${value.toLocaleString()}원`}
     </PriceContainer>
   );
