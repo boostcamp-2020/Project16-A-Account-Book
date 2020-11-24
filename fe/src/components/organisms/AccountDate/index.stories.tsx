@@ -6,7 +6,7 @@ import { transaction } from 'components/molecules/Transaction';
 import AccountDate from '.';
 
 export default {
-  title: 'organisms/AccountDate',
+  title: 'organisms / AccountDate',
   component: AccountDate,
 };
 
