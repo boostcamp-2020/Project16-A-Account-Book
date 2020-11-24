@@ -1,4 +1,4 @@
-import { randomNumber, randomString } from '../libs/random';
+import { randomLengthString } from '../libs/random';
 import { MethodModel, Method } from '../models';
 
 interface DummyArray {
@@ -6,19 +6,19 @@ interface DummyArray {
 }
 const SEED_LENGTH = 15;
 
-export const up = async (): Promise<Method> => {
-  const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
-    const randomLength = randomNumber({ start: 2, end: 15 });
-    const randomTitle = randomString({ length: randomLength });
-    dummyArray.push({
-      title: randomTitle,
-    });
-    return dummyArray;
-  };
+export const up = () => {
+  return new Promise<[Method]>((resolve: any) => {
+    const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
+      const title = randomLengthString({ minLength: 2, maxLength: 15 });
+      dummyArray.push({
+        title,
+      });
+      return dummyArray;
+    };
 
-  const dummies = Array(SEED_LENGTH).fill(0).reduce(reducer, []);
-  const methods = await MethodModel.create(dummies);
-  return methods;
+    const dummies = Array(SEED_LENGTH).fill(0).reduce(reducer, []);
+    MethodModel.create(dummies).then((methods: Method) => resolve(methods));
+  });
 };
 
 export const down = async () => {

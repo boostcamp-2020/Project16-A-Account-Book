@@ -8,7 +8,6 @@ const MethodSchema = new Schema({
 });
 
 export interface Method extends Document {
-  [x: string]: any;
   title: String;
 }
 

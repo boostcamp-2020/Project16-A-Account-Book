@@ -1,22 +1,27 @@
-import { randomNumber, randomString } from '../libs/random';
+import { randomLengthString } from '../libs/random';
 import { UserModel, User } from '../models';
 
 interface DummyArray {
   id: string;
 }
-const SEED_LENGTH = 10;
-export const up = async (): Promise<User> => {
-  const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
-    const randomLength = randomNumber({ start: 5, end: 15 });
-    const randomId = randomString({ length: randomLength });
-    dummyArray.push({
-      id: randomId,
+
+const SEED_LENGTH = 5;
+
+export const up = () => {
+  return new Promise<[User]>((resolve: any) => {
+    const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
+      const id = randomLengthString({ minLength: 5, maxLength: 16 });
+      dummyArray.push({
+        id,
+      });
+      return dummyArray;
+    };
+    const dummies = Array(SEED_LENGTH).fill(0).reduceRight(reducer, []);
+
+    UserModel.create(dummies).then((users: User) => {
+      resolve(users);
     });
-    return dummyArray;
-  };
-  const dummies = Array(SEED_LENGTH).fill(0).reduceRight(reducer, []);
-  const users = await UserModel.create(dummies);
-  return users;
+  });
 };
 
 export const down = async () => {

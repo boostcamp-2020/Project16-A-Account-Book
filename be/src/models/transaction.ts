@@ -29,7 +29,6 @@ const TransactionSchema = new Schema({
 });
 
 export interface Transaction extends Document {
-  slice: any;
   client: String;
   method: String;
   classification: String;

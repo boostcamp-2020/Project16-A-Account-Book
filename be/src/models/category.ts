@@ -18,7 +18,6 @@ const CategorySchema = new Schema({
 });
 
 export interface Category extends Document {
-  [x: string]: any;
   type: String;
   title: String;
 }
