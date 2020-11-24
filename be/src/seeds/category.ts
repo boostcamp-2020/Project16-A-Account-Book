@@ -1,5 +1,5 @@
 import { randomNumber, randomString } from '../libs/random';
-import { CategoryModel } from '../models';
+import { CategoryModel, Category } from '../models';
 
 interface DummyArray {
   title: string;
@@ -8,7 +8,7 @@ interface DummyArray {
 const enums = ['INCOME', 'EXPENSE', 'TRANSFER'];
 const SEED_LENGTH = 15;
 
-export const up = async () => {
+export const up = async (): Promise<Category> => {
   const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
     const randomLength = randomNumber({ start: 2, end: 10 });
     const randomTitle = randomString({ length: randomLength });
@@ -19,7 +19,8 @@ export const up = async () => {
     return dummyArray;
   };
   const dummies = Array(SEED_LENGTH).fill(0).reduce(reducer, []);
-  await CategoryModel.create(dummies);
+  const categorire = await CategoryModel.create(dummies);
+  return categorire;
 };
 export const down = async () => {
   await CategoryModel.deleteMany({});
