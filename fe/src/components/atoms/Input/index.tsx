@@ -2,7 +2,9 @@ import React from 'react';
 import SInput from './style';
 
 export interface Props {
-  onChangeHandler: any;
+  id?: string;
+  name?: string;
+  onChangeHandler?: any;
   disabled?: boolean;
   placeholder?: string;
   value?: any;
@@ -15,14 +17,20 @@ const Input = ({
   value,
   onChangeHandler,
   type,
+  name,
+  id,
+  ...props
 }: Props): React.ReactElement => {
   return (
     <SInput
+      id={id}
+      name={name}
       placeholder={placeholder}
       type={type}
       onChange={onChangeHandler}
       value={value}
       disabled={disabled}
+      {...props}
     />
   );
 };
