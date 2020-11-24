@@ -8,7 +8,7 @@ const TransactionSchema = new Schema({
   classification: {
     type: String,
     required: true,
-    enum: ['수입', '분류', '이체'],
+    enum: ['수입', '지출', '이체'],
   },
   date: {
     type: Date,
@@ -26,6 +26,10 @@ const TransactionSchema = new Schema({
     type: Types.ObjectId,
     required: true,
     ref: 'categories',
+  },
+  price: {
+    type: Number,
+    required: true,
   },
   excludeFromBudget: {
     type: Boolean,
