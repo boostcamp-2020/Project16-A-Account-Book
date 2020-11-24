@@ -19,6 +19,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'import/no-unresolved': 0,
+    'no-await-in-loop': 0,
     'import/extensions': [
       'error',
       'ignorePackages',
