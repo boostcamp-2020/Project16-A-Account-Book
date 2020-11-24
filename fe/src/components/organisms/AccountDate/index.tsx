@@ -32,7 +32,7 @@ const App = ({ date, transactionList, ...props }: Props) => {
   useEffect(() => {
     setTotalPayment(res.totalPrice);
     setTransactionListComponent(res.transList);
-  }, [totalPayment]);
+  });
 
   return (
     <AccountDate {...props}>
