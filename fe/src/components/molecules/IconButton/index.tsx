@@ -14,10 +14,8 @@ const IconButton = ({
 }: Props): React.ReactElement => {
   return (
     <S.IconButton size={size} onClick={onClick} {...props}>
-      <>
-        <Icon icon={icon} size={size} {...props} />
-        <S.Content size={size}>{children}</S.Content>
-      </>
+      <Icon icon={icon} size={size} {...props} />
+      <S.Content size={size}>{children}</S.Content>
     </S.IconButton>
   );
 };

@@ -4,7 +4,7 @@ import { ButtonStyle } from './style';
 export interface Props {
   size?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  children: React.ReactElement | string;
+  children: React.ReactElement | React.ReactElement[] | string;
 }
 
 const Button = ({ size, onClick, children, ...props }: Props) => {
