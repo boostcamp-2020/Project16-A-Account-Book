@@ -1,21 +1,24 @@
+/* eslint-disable no-underscore-dangle */
 import * as categorySeed from './category';
 import * as methodSeed from './method';
 import * as UserSeed from './user';
 import * as transactionSeed from './transaction';
-import { AccountModel } from '../models';
+import * as accountSeed from './account';
+
+import { Account } from '../models';
 
 const REPEAT_LENGTH = 5;
 const TRANSACTION_LENGTH = 30;
 const METHOD_LENGTH = 3;
 
 export const totalSeed = async () => {
-  const [, methods, categories] = await Promise.all([
+  const [users, methods, categories] = await Promise.all([
     UserSeed.up(),
     methodSeed.up(),
     categorySeed.up(),
   ]);
   const transactions = await transactionSeed.up({ methods, categories });
-  const accounts = Array(REPEAT_LENGTH)
+  const accountsList = Array(REPEAT_LENGTH)
     .fill(0)
     .reduce((acc, cur, idx) => {
       const transactionBase = idx * TRANSACTION_LENGTH;
@@ -30,7 +33,12 @@ export const totalSeed = async () => {
       });
       return acc;
     }, []);
-  await AccountModel.create(accounts);
+  accountSeed.up(accountsList).then((docs: [Account]) => {
+    for (let i = 0; i < users.length; i += 1) {
+      users[i].accounts = docs[i]._id;
+      users[i].save();
+    }
+  });
 };
 
 export default {};
