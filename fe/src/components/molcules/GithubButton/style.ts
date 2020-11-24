@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import Button from '../../atoms/Button';
 
 export const GithubButton = styled(Button)`
-  background-color: #fafbfc;
+  background-color: gray;
   color: white;
+  border-radius: 2.5px;
 `;
 
 export const Wrap = styled.div`
