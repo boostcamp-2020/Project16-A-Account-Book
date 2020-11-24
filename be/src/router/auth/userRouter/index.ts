@@ -2,8 +2,12 @@ import Router from 'koa-router';
 import randomstring from 'randomstring';
 import querystring from 'querystring';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import { UserModel } from '../../../models/user';
 
 const router = new Router();
+
+const jwtString: string = process.env.JWT_SECRET || '모듈화수정?';
 
 router.get('/', (ctx) => {
   ctx.body = 'this is user...';
@@ -24,6 +28,11 @@ router.get('/auth/github', (ctx) => {
 
 router.get('/auth/github/callback', async (ctx) => {
   const { code } = ctx.query;
+  ctx.redirect(`/temppage?code=${code}`);
+});
+
+router.get('/auth/github/access_token', async (ctx) => {
+  const { code } = ctx.params;
   const res = await axios.post(
     'https://github.com/login/oauth/access_token',
     {
@@ -44,11 +53,22 @@ router.get('/auth/github/callback', async (ctx) => {
       Authorization: `token ${accessToken}`,
     },
   });
-  ctx.cookies.set('access_token', accessToken, {
+  const profile = data.data;
+  const user = await UserModel.findOne({ where: { id: profile.id } });
+  if (!user) {
+    const newUser = new UserModel({
+      id: profile.id,
+    });
+    newUser.save((err) => {
+      if (err) ctx.body = { error: err };
+    });
+  }
+  const token = jwt.sign(profile.id, jwtString);
+  ctx.cookies.set('access_token', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 7,
-  }); // 이걸로 바로 token?
-  ctx.body = data.data; // 회원가입 하고 token넘겨주기...?
+  });
+  ctx.body = { success: true };
 });
 
 export default router;
