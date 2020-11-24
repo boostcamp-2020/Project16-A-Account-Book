@@ -1,14 +1,16 @@
 import React from 'react';
 import parseDate from 'utils/parseDate';
-import { DateAtom } from './style';
+import { DateAtomStyle } from './style';
 
 export interface Props {
   parseString?: string;
   date: Date;
 }
 
-const App = ({ parseString = 'ymdz', date, ...props }: Props) => {
-  return <DateAtom {...props}>{parseDate(date, parseString)}</DateAtom>;
+const DateAtom = ({ parseString = 'ymdz', date, ...props }: Props) => {
+  return (
+    <DateAtomStyle {...props}>{parseDate(date, parseString)}</DateAtomStyle>
+  );
 };
 
-export default App;
+export default DateAtom;

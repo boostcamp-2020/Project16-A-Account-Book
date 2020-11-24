@@ -1,7 +1,7 @@
 import React from 'react';
 import doubleArrowIcon from 'assets/svg/doubleArrow.svg';
 import {
-  Transaction,
+  TransactionStyle,
   TransactionIcon,
   Client,
   Classification,
@@ -24,11 +24,11 @@ export interface Props {
   trans: transaction;
 }
 
-const App = ({ trans, ...props }: Props) => {
+const Transaction = ({ trans, ...props }: Props) => {
   const classificationString = `${trans.classification} | ${trans.method}`;
 
   return (
-    <Transaction {...props}>
+    <TransactionStyle {...props}>
       <TransactionIcon
         icon={trans.icon ? trans.icon : doubleArrowIcon}
         size="sm"
@@ -42,8 +42,8 @@ const App = ({ trans, ...props }: Props) => {
         </Wrap1>
         <Price value={trans.price} />
       </Wrap>
-    </Transaction>
+    </TransactionStyle>
   );
 };
 
-export default App;
+export default Transaction;

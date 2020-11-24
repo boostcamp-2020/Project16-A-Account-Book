@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Icon from 'components/atoms/Icons';
 import PriceTag from 'components/atoms/PriceTag';
 
-export const Transaction = styled.div`
+export const TransactionStyle = styled.div`
   width: 100%;
   display: flex;
   align-items: center;

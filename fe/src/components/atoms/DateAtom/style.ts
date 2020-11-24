@@ -1,4 +1,4 @@
 import styled from 'styled-components';
 
-export const DateAtom = styled.div``;
+export const DateAtomStyle = styled.div``;
 export default {};
