@@ -2,7 +2,10 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withKnobs, select } from '@storybook/addon-knobs';
 import theme from 'styles/theme';
-import Icon, { iconTypes } from '.';
+import plusSvg from 'assets/svg/plus.svg';
+import githubSvg from 'assets/svg/github.svg';
+import naverSvg from 'assets/svg/naver.svg';
+import Icon from '.';
 
 export default {
   title: 'atoms/Icon',
@@ -14,7 +17,7 @@ export const GithubIcon = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Icon icon={iconTypes.github} size={size} />
+      <Icon icon={githubSvg} size={size} />
     </ThemeProvider>
   );
 };
@@ -23,7 +26,7 @@ export const NaverIcon = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Icon icon={iconTypes.naver} size={size} />
+      <Icon icon={naverSvg} size={size} />
     </ThemeProvider>
   );
 };
@@ -32,7 +35,7 @@ export const PlusIcon = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Icon icon={iconTypes.plus} size={size} />
+      <Icon icon={plusSvg} size={size} />
     </ThemeProvider>
   );
 };
