@@ -22,6 +22,8 @@ const color = {
   blud: '#0000ff',
   red: '#ff0000',
   gray: '#e1e1e1',
+  grean: '#20C997',
+  gray2: '#e9ecef',
 };
 
 const theme = {
