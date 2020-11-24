@@ -1,6 +1,9 @@
 {
   "scripts": {
     "dev": "cd src && nodemon --exec ts-node -r tsconfig-paths/register app.ts",
+    "seed": "cd src && NODE_ENV=SEED ts-node -r tsconfig-paths/register seed.ts",
+    "unseed": "cd src && NODE_ENV=UNSEED ts-node -r tsconfig-paths/register seed.ts",
+    "seed-dev" :"npm run seed && npm run dev",
     "build": "npx webpack"
   },
   "husky": {
@@ -18,11 +21,11 @@
     "@types/koa": "^2.11.6",
     "mongoose": "^5.10.15",
     "koa": "^2.13.0",
-    "koa-router": "^10.0.0"
+    "koa-router": "^10.0.0",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@types/mongoose": "^5.10.1",
-    "dotenv": "^8.2.0",
     "@types/koa-router": "^7.4.1",
     "@typescript-eslint/eslint-plugin": "^4.8.0",
     "@typescript-eslint/parser": "^4.8.0",
