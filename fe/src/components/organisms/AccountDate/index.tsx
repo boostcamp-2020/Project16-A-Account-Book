@@ -7,17 +7,31 @@ export interface Props {
   transactionList: transaction[];
 }
 
+interface accType {
+  transList: JSX.Element[];
+  totalPrice: number;
+}
+
+const reduceTransactionList = (acc: accType, transEl: transaction) => {
+  acc.transList.push(<AccountTransaction key={transEl.id} trans={transEl} />);
+  acc.totalPrice += transEl.price;
+  return acc;
+};
+
 const App = ({ date, transactionList, ...props }: Props) => {
   const [totalPayment, setTotalPayment] = useState(10000);
+  const [transactionListComponent, setTransactionListComponent] = useState<
+    JSX.Element[]
+  >();
 
-  let totalPay = 0;
-  const transactionListComponent = transactionList.map((transEl) => {
-    totalPay += transEl.price;
-    return <AccountTransaction key={transEl.id} trans={transEl} />;
+  const res = transactionList.reduce(reduceTransactionList, {
+    transList: [],
+    totalPrice: 0,
   });
 
   useEffect(() => {
-    setTotalPayment(totalPay);
+    setTotalPayment(res.totalPrice);
+    setTransactionListComponent(res.transList);
   }, [totalPayment]);
 
   return (
