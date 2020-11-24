@@ -1,28 +1,18 @@
 import styled from 'styled-components';
 
-interface Prop {
-  disabled: boolean;
-  color: string;
-  placeholder: string;
-  defaultValue: string;
-  onChange: any;
+export interface Prop {
+  disabled?: boolean;
 }
 
-const SInput = styled.input`
+const SInput = styled.input<Prop>`
   height: 4rem;
   width: 100%;
-  padding: 0.5% 1%;
-  color: ${(prop: Prop): string => prop.color};
-  background-color: ${(prop: Prop): string =>
-    prop.disabled ? 'gray' : 'white'}
-  disabled:${(prop: Prop): string => (prop.disabled ? 'disabled' : 'false')}
-  default-value:${(prop: Prop): string => prop.defaultValue}
   border: 1px solid;
-  border-radius: 1.5px;
-  placeholder:${(prop: Prop): string => prop.placeholder};
-  $:focus {
-    outline: none;
-  }
+  border-radius: 0.1rem;
+  padding: 0.5% 1%;
+
+  background-color: ${({ disabled, theme }) =>
+    disabled ? theme.color.gray : theme.color.white};
 `;
 
 export default SInput;
