@@ -1,5 +1,3 @@
-import { parseIsolatedEntityName } from 'typescript';
-
 const parseDate = (date: Date, parseString: String) => {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const year = date.getFullYear();
