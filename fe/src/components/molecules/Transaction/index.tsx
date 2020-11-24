@@ -6,9 +6,8 @@ import {
   Client,
   Classification,
   Price,
-  Wrap,
-  Wrap1,
-  Wrap2,
+  Text,
+  PaymentInfo,
 } from './style';
 
 export type transaction = {
@@ -29,19 +28,14 @@ const Transaction = ({ trans, ...props }: Props) => {
 
   return (
     <TransactionStyle {...props}>
-      <TransactionIcon
-        icon={trans.icon ? trans.icon : doubleArrowIcon}
-        size="sm"
-      />
-      <Wrap>
-        <Wrap1>
+      <TransactionIcon icon={trans.icon || doubleArrowIcon} size="sm" />
+      <Text>
+        <PaymentInfo>
           <Client>{trans.client}</Client>
-          <Wrap2>
-            <Classification>{classificationString}</Classification>
-          </Wrap2>
-        </Wrap1>
+          <Classification>{classificationString}</Classification>
+        </PaymentInfo>
         <Price value={trans.price} />
-      </Wrap>
+      </Text>
     </TransactionStyle>
   );
 };

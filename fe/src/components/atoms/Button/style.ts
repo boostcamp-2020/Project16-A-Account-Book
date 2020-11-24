@@ -50,14 +50,16 @@ const setButtonFontsizeUsingSize = (size: string) => {
 };
 
 export const ButtonStyle = styled.button<ButtonStyleProps>`
-  background-color: 'black';
-  color: 'white';
+  background-color: black;
+  color: white;
   width: ${(props) =>
     props.size ? setButtonWidthUsingSize(props.size) : '100%'};
   height: ${(props) =>
     props.size ? setButtonHeightUsingSize(props.size) : '100%'};
-  border: 'none';
+  border: none;
   font-size: ${(props) =>
     props.size ? setButtonFontsizeUsingSize(props.size) : '100%'};
   text-align: center;
+  cursor: pointer;
+  outline: 0;
 `;
