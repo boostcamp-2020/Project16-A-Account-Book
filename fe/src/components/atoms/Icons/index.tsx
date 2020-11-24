@@ -15,8 +15,8 @@ export const iconTypes = {
   naver: naverSvg,
 };
 
-const Icon = ({ icon, size = 'md' }: Props): React.ReactElement => {
-  return <IconStyle src={icon} alt="icon" size={size} />;
+const Icon = ({ icon, size = 'md', ...props }: Props): React.ReactElement => {
+  return <IconStyle src={icon} alt="icon" size={size} {...props} />;
 };
 
 export default Icon;
