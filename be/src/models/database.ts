@@ -22,8 +22,8 @@ export const connect = async () => {
         for (let i = 0; i < collectionNames.length; i += 1) {
           await database.dropCollection(collectionNames[i].name);
         }
+        await totalSeed();
       });
-    await totalSeed();
   });
 };
 
