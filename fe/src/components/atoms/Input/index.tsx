@@ -1,28 +1,28 @@
 import React from 'react';
 import SInput from './style';
 
-interface Props {
-  disabled: boolean;
-  color: string;
-  placeholder: string;
-  defaultValue: string;
+export interface Props {
   onChangeHandler: any;
+  disabled?: boolean;
+  placeholder?: string;
+  value?: any;
+  type?: string;
 }
 
-const Input: React.FC<Props> = ({
-  color = 'white',
+const Input = ({
   placeholder,
   disabled,
-  defaultValue,
+  value,
   onChangeHandler,
-}): React.ReactElement => {
+  type,
+}: Props): React.ReactElement => {
   return (
     <SInput
-      color={color}
-      disabled={disabled}
       placeholder={placeholder}
-      defaultValue={defaultValue}
+      type={type}
       onChange={onChangeHandler}
+      value={value}
+      disabled={disabled}
     />
   );
 };
