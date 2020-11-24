@@ -17,11 +17,12 @@ const len = {
 };
 
 const color = {
-  black: '#000000',
-  white: '#ffffff',
+  black: '#171417',
+  white: '#FEFEFE',
   blud: '#0000ff',
   red: '#ff0000',
   gray: '#e1e1e1',
+  emerald: '#5CC6BA',
   darkgray: '#bababc',
   lightBorder: '#e6e6e6',
   grean: '#20C997',
