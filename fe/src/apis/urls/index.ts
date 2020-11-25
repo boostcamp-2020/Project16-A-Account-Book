@@ -1,3 +1,3 @@
 export default {
-  transaction: (accountObjId: string) => `api/transaction/${accountObjId}`,
+  transaction: (accountObjId: string) => `api/transactions/${accountObjId}`,
 };
