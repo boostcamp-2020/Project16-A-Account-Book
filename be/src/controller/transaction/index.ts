@@ -34,12 +34,12 @@ const post = async (ctx: Koa.Context) => {
   try {
     await newTransaction.save();
     ctx.status = 201;
-    ctx.body = { code: 201 };
+    ctx.res.end();
     return;
   } catch (err) {
     console.error(err);
     ctx.status = 500;
-    ctx.body = { code: 500 };
+    ctx.res.end();
   }
 };
 
