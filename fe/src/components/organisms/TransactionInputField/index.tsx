@@ -8,6 +8,7 @@ const MEMO = 'memo';
 const DATE = 'date';
 const CLIENT = 'client';
 const METHOD = 'method';
+const PRICE = 'price';
 
 export interface Props {
   classification: string;
@@ -18,6 +19,7 @@ export interface Props {
   classifications: string[];
   formHandler: any;
   methods: string[];
+  price: number;
 }
 
 const TransactionInputField = ({
@@ -29,9 +31,19 @@ const TransactionInputField = ({
   memo,
   formHandler,
   methods,
+  price,
 }: Props): React.ReactElement => {
   return (
-    <S.Form>
+    <>
+      <LabelWrap htmlFor={PRICE} title="금액">
+        <S.Input
+          value={price}
+          name={PRICE}
+          placeholder="금액을 입력하세요"
+          onChangeHandler={formHandler}
+          type="number"
+        />
+      </LabelWrap>
       <LabelWrap htmlFor={CLASSIFICATION} title="분류">
         <>
           {classifications.map((classItem) => (
@@ -89,7 +101,7 @@ const TransactionInputField = ({
           onChangeHandler={formHandler}
         />
       </LabelWrap>
-    </S.Form>
+    </>
   );
 };
 

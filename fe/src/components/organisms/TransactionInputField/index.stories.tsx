@@ -22,6 +22,7 @@ export const Transaction = () => {
     memo: '',
     classification: '',
     method: '',
+    price: 0,
   });
 
   const formHandler = ({ target }: any): void => {
@@ -32,6 +33,7 @@ export const Transaction = () => {
   return (
     <ThemeProvider theme={theme}>
       <TransactionInputField
+        price={formValue.price}
         date={formValue.date}
         categories={categories}
         classification={formValue.classification}
