@@ -8,14 +8,18 @@ export const TransactionStyle = styled.div`
   align-items: center;
 `;
 
-export const Text = styled.div`
+export const Wrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
-export const PaymentInfo = styled.div`
+export const Wrap1 = styled.div`
   margin-left: 0.5rem;
+`;
+
+export const Wrap2 = styled.div`
+  display: flex;
 `;
 
 export const TransactionIcon = styled(Icon)``;
