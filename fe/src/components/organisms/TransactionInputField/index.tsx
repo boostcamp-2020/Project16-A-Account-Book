@@ -45,19 +45,17 @@ const TransactionInputField = ({
         />
       </LabelWrap>
       <LabelWrap htmlFor={CLASSIFICATION} title="분류">
-        <>
-          {classifications.map((classItem) => (
-            <S.ButtonInput
-              name={CLASSIFICATION}
-              key={`${CLASSIFICATION}-${classItem}`}
-              id={CLASSIFICATION}
-              value={classItem}
-              active={classification === classItem}
-              onClick={formHandler}
-              type="button"
-            />
-          ))}
-        </>
+        {classifications.map((classItem) => (
+          <S.ButtonInput
+            name={CLASSIFICATION}
+            key={`${CLASSIFICATION}-${classItem}`}
+            id={CLASSIFICATION}
+            value={classItem}
+            active={classification === classItem}
+            onClick={formHandler}
+            type="button"
+          />
+        ))}
       </LabelWrap>
       <LabelWrap htmlFor={CATEGORY} title="카테고리">
         <select name={CATEGORY} id={CATEGORY} onChange={formHandler}>
