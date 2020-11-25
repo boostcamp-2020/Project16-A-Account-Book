@@ -28,6 +28,7 @@ module.exports = {
   rules: {
     'react/prop-types': 0,
     'no-undef': 0,
+    'react/require-default-props': 0,
     'import/no-extraneous-dependencies': 0,
     'react/jsx-filename-extension': [
       1,

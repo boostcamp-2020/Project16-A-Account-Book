@@ -1,7 +1,6 @@
 import Koa from 'koa';
-import authRouter from 'router/auth';
 import bodyParser from 'koa-bodyparser';
-import router from 'router/index';
+import routers from 'routers/index';
 import cors from '@koa/cors';
 import { connect as dbConnect } from './models';
 
@@ -10,8 +9,7 @@ dbConnect();
 
 app.use(bodyParser());
 app.use(cors());
-app.use(authRouter.routes());
-app.use(router.routes());
+app.use(routers.routes());
 app.use((ctx: Koa.Context) => {
   ctx.body = 'hello, Koa!';
 });

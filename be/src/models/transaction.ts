@@ -43,6 +43,7 @@ export interface Transaction extends Document {
   classification: String;
   category: String;
   date: String;
+  price: Number;
   memo?: String;
   excludeFromBudget?: Boolean;
 }
