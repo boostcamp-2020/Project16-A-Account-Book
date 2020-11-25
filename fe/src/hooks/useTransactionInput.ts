@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import dayjs from 'dayjs';
+import utils from 'utils/date';
 
 const initState = {
-  date: dayjs(new Date()).format('YYYY-MM-DD'),
+  date: utils.dateFormatter(new Date()),
   client: '',
   memo: '',
   price: 0,
