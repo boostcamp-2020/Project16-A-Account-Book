@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import utils from 'utils/date';
 
+interface State {
+  date: string;
+  client: string;
+  memo: string;
+  price: number;
+  classification: string;
+  category: string;
+  method: string;
+}
 const initState = {
   date: utils.dateFormatter(new Date()),
   client: '',
@@ -10,7 +19,7 @@ const initState = {
   category: '미분류',
   method: '',
 };
-const useTransactionInput = (transactionObjId?: string) => {
+const useTransactionInput = (transactionObjId?: string): [State, any] => {
   const [transactionState, setTransaction] = useState(initState);
   const setInputState = ({ target }: any): void => {
     const { name, value } = target;
