@@ -19,7 +19,8 @@
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
-    "mongoose": "^5.10.15"
+    "mongoose": "^5.10.15",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.0",
@@ -27,7 +28,6 @@
     "@types/mongoose": "^5.10.1",
     "@typescript-eslint/eslint-plugin": "^4.8.0",
     "@typescript-eslint/parser": "^4.8.0",
-    "dotenv": "^8.2.0",
     "eslint": "^7.13.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^6.15.0",
