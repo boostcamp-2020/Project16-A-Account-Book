@@ -1,4 +1,3 @@
-const asciiA = 97;
 export const getRandomNumber = ({
   start,
   end,
@@ -8,19 +7,21 @@ export const getRandomNumber = ({
 }): number => Math.floor(Math.random() * end + start);
 
 export const getRandomString = ({ length = 5 }: { length: number }): string => {
+  const ASCII_A = 97;
+  const MAX_ALPHABET_COUNT = 26;
   const reducer = (string: string): string => {
-    const randomValue = getRandomNumber({ start: 0, end: 26 });
-    return string + String.fromCharCode(asciiA + randomValue);
+    const randomValue = getRandomNumber({ start: 0, end: MAX_ALPHABET_COUNT });
+    return string + String.fromCharCode(ASCII_A + randomValue);
   };
   return Array(length).fill(0).reduce(reducer, '');
 };
 
 export const getRandomDate = (): Date => {
   const baseDate = new Date('2020-01-01 00:00:00').getTime();
-  const yearToMillisecond = 3.154e10;
+  const YEAR_TO_MILLISECOND = 3.154e10;
   const randomMilliscond = getRandomNumber({
     start: 0,
-    end: yearToMillisecond,
+    end: YEAR_TO_MILLISECOND,
   });
   return new Date(baseDate + randomMilliscond);
 };
