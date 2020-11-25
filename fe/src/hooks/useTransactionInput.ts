@@ -10,8 +10,7 @@ const initState = {
   category: '미분류',
   method: '',
 };
-
-const useTransactionInput = (modification: boolean) => {
+const useTransactionInput = (transactionObjId?: string) => {
   const [transactionState, setTransaction] = useState(initState);
   const setInputState = ({ target }: any): void => {
     const { name, value } = target;
@@ -21,8 +20,8 @@ const useTransactionInput = (modification: boolean) => {
     }));
   };
   useEffect(() => {
-    if (modification) {
-      //
+    if (transactionObjId) {
+      // TODO: transaction 하나의 data 가져와서, initState에 넣어주기
     }
   }, []);
   return [transactionState, setInputState];
