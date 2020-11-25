@@ -9,8 +9,8 @@ export const getRandomNumber = ({
 
 export const getRandomString = ({ length = 5 }: { length: number }): string => {
   const reducer = (string: string): string => {
-    const randomV = getRandomNumber({ start: 0, end: 26 });
-    return string + String.fromCharCode(asciiA + randomV);
+    const randomValue = getRandomNumber({ start: 0, end: 26 });
+    return string + String.fromCharCode(asciiA + randomValue);
   };
   return Array(length).fill(0).reduce(reducer, '');
 };
