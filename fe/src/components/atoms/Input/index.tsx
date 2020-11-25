@@ -5,6 +5,7 @@ export interface Props {
   id?: string;
   name?: string;
   onChangeHandler?: any;
+  onClick?: any;
   disabled?: boolean;
   placeholder?: string;
   value?: any;
@@ -16,6 +17,7 @@ const Input = ({
   disabled,
   value,
   onChangeHandler,
+  onClick,
   type,
   name,
   id,
@@ -28,6 +30,7 @@ const Input = ({
       placeholder={placeholder}
       type={type}
       onChange={onChangeHandler}
+      onClick={onClick}
       value={value}
       disabled={disabled}
       {...props}
