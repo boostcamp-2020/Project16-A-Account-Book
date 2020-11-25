@@ -1,5 +1,9 @@
 /* eslint-disable no-underscore-dangle */
-import { randomNumber, randomDate, randomLengthString } from '../libs/random';
+import {
+  getRandomNumber,
+  getRandomDate,
+  getRandomLengthString,
+} from '../libs/random';
 
 import { TransactionModel, Transaction } from '../models';
 
@@ -18,14 +22,14 @@ export const up = ({ methods, categories }: TransactionType) => {
       .fill(0)
       .reduce((transactionList, cur, index) => {
         const base = Math.floor(index / TRANSACTION_LENGTH) * METHOD_LENGTH;
-        const client = randomLengthString({ minLength: 1, maxLength: 20 });
-        const date = randomDate();
-        const memo = randomLengthString({});
+        const client = getRandomLengthString({ minLength: 1, maxLength: 20 });
+        const date = getRandomDate();
+        const memo = getRandomLengthString({});
         const methodPosition =
-          (randomNumber({ start: 0, end: 100 }) % METHOD_LENGTH) + base;
+          (getRandomNumber({ start: 0, end: 100 }) % METHOD_LENGTH) + base;
         const method = methods[methodPosition]._id;
         const categoryPosition =
-          (randomNumber({ start: 0, end: 100 }) % METHOD_LENGTH) + base;
+          (getRandomNumber({ start: 0, end: 100 }) % METHOD_LENGTH) + base;
         const category = categories[categoryPosition]._id;
         transactionList.push({
           client,
