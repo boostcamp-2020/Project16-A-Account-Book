@@ -1,23 +1,26 @@
 import React from 'react';
-import NavBar from 'components/organisms/NavBar';
 import * as S from './style';
 
 export interface Props {
   HeaderBar: any;
   SubHeaderBar: any;
   Contents: any;
+  NavBar: any;
 }
 
-const HeaderNav = ({ HeaderBar, SubHeaderBar, Contents, ...props }: Props) => {
+const HeaderNav = ({
+  HeaderBar,
+  SubHeaderBar,
+  Contents,
+  NavBar,
+  ...props
+}: Props) => {
   return (
     <S.HeaderNav {...props}>
       {HeaderBar}
       {SubHeaderBar}
-      <S.FilterBar />
       <S.ContentArea>{Contents}</S.ContentArea>
-      <S.Footer>
-        <NavBar />
-      </S.Footer>
+      <S.Footer>{NavBar}</S.Footer>
     </S.HeaderNav>
   );
 };

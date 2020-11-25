@@ -5,6 +5,8 @@ import { withKnobs } from '@storybook/addon-knobs';
 import MonthInfoHeader from 'components/organisms/MonthInfoHeader';
 import AccountDate from 'components/organisms/AccountDate';
 import HeaderBar from 'components/organisms/HeaderBar';
+import FilterBar from 'components/organisms/FilterBar';
+import NavBar from 'components/organisms/NavBar';
 import { transaction } from 'components/molecules/Transaction';
 import locksvg from 'assets/svg/lock.svg';
 import HeaderNav from '.';
@@ -45,14 +47,19 @@ export const HeaderNavSample = () => {
     <MonthInfoHeader month={11} total={{ income: 20000, expense: 40000 }} />
   );
   const AccountDateComponent = (
-    <AccountDate date={new Date()} transactionList={testTransactionList} />
+    <>
+      <FilterBar />
+      <AccountDate date={new Date()} transactionList={testTransactionList} />
+    </>
   );
+  const NavBarComponent = <NavBar />;
   return (
     <ThemeProvider theme={theme}>
       <HeaderNav
         HeaderBar={<HeaderBar />}
         SubHeaderBar={MonthInfoHeaderComponent}
         Contents={AccountDateComponent}
+        NavBar={NavBarComponent}
       />
     </ThemeProvider>
   );
