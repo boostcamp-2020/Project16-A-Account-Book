@@ -1,4 +1,4 @@
-import { randomNumber, randomLengthString } from '../libs/random';
+import { getRandomNumber, getRandomLengthString } from '../libs/random';
 import { CategoryModel, Category } from '../models';
 
 interface DummyArray {
@@ -11,8 +11,8 @@ const SEED_LENGTH = 15;
 export const up = () => {
   return new Promise<[Category]>((resolve: any) => {
     const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
-      const randomLength = randomNumber({ start: 2, end: 10 });
-      const title = randomLengthString({ minLength: 2, maxLength: 10 });
+      const randomLength = getRandomNumber({ start: 2, end: 10 });
+      const title = getRandomLengthString({ minLength: 2, maxLength: 10 });
       dummyArray.push({
         title,
         type: enums[randomLength % 3],

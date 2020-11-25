@@ -1,4 +1,4 @@
-import { randomLengthString } from '../libs/random';
+import { getRandomLengthString } from '../libs/random';
 import { UserModel, User } from '../models';
 
 interface DummyArray {
@@ -10,7 +10,7 @@ const SEED_LENGTH = 5;
 export const up = () => {
   return new Promise<[User]>((resolve: any) => {
     const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
-      const id = randomLengthString({ minLength: 5, maxLength: 16 });
+      const id = getRandomLengthString({ minLength: 5, maxLength: 16 });
       dummyArray.push({
         id,
       });
