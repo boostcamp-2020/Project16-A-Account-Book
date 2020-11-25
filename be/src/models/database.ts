@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { getDbUri } from '../config';
 
 let database: mongoose.Connection;
-export const connect = async () => {
+export const connect = () => {
   const DB_URI = getDbUri();
 
   if (database) {
