@@ -1,11 +1,13 @@
 import Koa from 'koa';
-import authRouter from 'router/auth';
-import { connect as dbConnect } from './models';
+import routers from 'routers';
+import bodyParser from 'koa-bodyparser';
+import { connect as dbConnect } from 'models';
 
 const app = new Koa();
 dbConnect();
 
-app.use(authRouter.routes());
+app.use(bodyParser());
+app.use(routers.routes());
 app.use((ctx: Koa.Context) => {
   ctx.body = 'hello, Koa!';
 });
