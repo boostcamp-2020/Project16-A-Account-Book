@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import routers from 'routers/index';
+import routers from 'routers';
 import cors from '@koa/cors';
 import { connect as dbConnect } from './models';
 
