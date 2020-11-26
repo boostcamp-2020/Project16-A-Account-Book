@@ -2,23 +2,21 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import locksvg from 'assets/svg/lock.svg';
-import { withKnobs, object } from '@storybook/addon-knobs';
 import Transaction, { transaction } from '.';
 
 export default {
-  title: 'molecules/Transaction',
+  title: 'molecules/AccountDate',
   component: Transaction,
-  decorators: [withKnobs],
 };
 
-export const TransactionSample = () => {
-  const testTransaction = object<transaction>('transaction', {
+export const TransactionSample1 = () => {
+  const testTransaction: transaction = {
     id: 'slakvken',
     client: '얼큰한 국밥',
     classification: '식사',
     method: '네이버 페이',
     price: 6000,
-  });
+  };
 
   return (
     <ThemeProvider theme={theme}>

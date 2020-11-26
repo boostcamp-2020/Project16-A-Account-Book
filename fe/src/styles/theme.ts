@@ -22,8 +22,8 @@ const color = {
   blue: '#0000ff',
   red: '#ff0000',
   gray: '#e1e1e1',
-  emerald: '#5CC6BA',
   darkgray: '#bababc',
+
   lightBorder: '#e6e6e6',
   green: '#20C997',
   gray2: '#e9ecef',
