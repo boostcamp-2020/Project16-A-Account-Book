@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import userRouter from './userRouter';
+import apiRouter from './api';
 
 const router = new Router();
 
@@ -7,7 +7,7 @@ const router = new Router();
 //   ctx.body = 'test';
 // };
 
-router.use('/user', userRouter.routes());
+router.use('/api', apiRouter.routes());
 
 // router.get('/', test);
 

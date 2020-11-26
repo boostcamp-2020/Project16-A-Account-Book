@@ -14,7 +14,11 @@ export const HeaderContainer = styled.div`
 `;
 
 export const BodyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0;
-  padding: 5%;
   width: 100%;
+  height: 350px;
 `;

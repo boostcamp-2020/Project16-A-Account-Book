@@ -17,4 +17,6 @@ export const getDbUri = () => {
   return dbConfig.port ? localUri : srvUri;
 };
 
+export const jwtString: string = process.env.JWT_SECRET || '모듈화수정?';
+
 export default {};
