@@ -65,19 +65,18 @@ class Transaction {
 
   get totalPrices() {
     return Object.entries(this.accountDateList).reduce(
-      (totalPrices: PricesType, el) => {
-        const oneAccountDate = el[1] as [];
-        const res = oneAccountDate.reduce(
+      (totalPrices: PricesType, [, oneAccountDate]) => {
+        const res = (oneAccountDate as []).reduce(
           (subPrices: PricesType, transaction: any) => {
             if (transaction.category.type === 'INCOME') {
               return {
+                ...subPrices,
                 income: subPrices.income + transaction.price,
-                expense: subPrices.expense,
               };
             }
             if (transaction.category.type === 'EXPENSE') {
               return {
-                income: subPrices.income,
+                ...subPrices,
                 expense: subPrices.expense + transaction.price,
               };
             }

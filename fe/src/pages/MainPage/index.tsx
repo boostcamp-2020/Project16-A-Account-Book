@@ -36,15 +36,14 @@ const MainPage = ({ ...props }: Props) => {
   useEffect(() => {
     const accountDateListComponent = Object.entries(
       toJS(transactionStore.accountDateList),
-    ).map((el) => {
-      const date = `${transactionStore.year}-${transactionStore.month}-${el[0]}`;
-      const oneAccountDate = el[1] as TransactionDBType[];
+    ).map(([date, oneAccountDate]) => {
+      const fullDate = `${transactionStore.year}-${transactionStore.month}-${date}`;
       return (
         <S.AccountDate
-          key={date}
-          date={new Date(date)}
+          key={fullDate}
+          date={new Date(fullDate)}
           transactionList={convertTransactionDBTypetoTransactionType(
-            oneAccountDate,
+            oneAccountDate as [],
           )}
         />
       );
