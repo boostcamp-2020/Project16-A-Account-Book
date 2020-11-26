@@ -1,10 +1,10 @@
 import React from 'react';
-import { transaction } from 'components/molecules/Transaction';
+import { TransactionType } from 'stores/Transaction';
 import { AccountDate, Header, AccountTransaction } from './style';
 
 export interface Props {
   date: Date;
-  transactionList: transaction[];
+  transactionList: TransactionType[];
 }
 
 interface accType {
@@ -12,7 +12,7 @@ interface accType {
   totalPrice: number;
 }
 
-const reduceTransactionList = (acc: accType, transEl: transaction) => {
+const reduceTransactionList = (acc: accType, transEl: TransactionType) => {
   acc.transList.push(<AccountTransaction key={transEl.id} trans={transEl} />);
   acc.totalPrice += transEl.price;
   return acc;
