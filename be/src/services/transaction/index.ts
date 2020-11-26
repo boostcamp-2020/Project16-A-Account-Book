@@ -1,26 +1,6 @@
 import { TransactionModel, Transaction } from 'models/transaction';
 import getOneMonthRange from 'libs/date';
 
-export interface TransactionDBType {
-  excludeFromBudget: boolean;
-  _id: string;
-  client: string;
-  date: Date;
-  memo?: string;
-  method: {
-    _id: string;
-    title: string;
-    __v?: number;
-  };
-  category: {
-    _id: string;
-    type: string;
-    title: string;
-    __v?: number;
-  };
-  price: number;
-}
-
 const oneMonthTransactionsReducer = (acc: any, transaction: Transaction) => {
   const year = transaction.date.getFullYear();
   const month = transaction.date.getMonth() + 1;
