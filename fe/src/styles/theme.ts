@@ -17,10 +17,13 @@ const len = {
 };
 
 const color = {
+  brandColor: '#5CC6BA',
+  subText: '#bababc',
   black: '#171417',
-  white: '#FEFEFE',
-  blue: '#0000ff',
-  red: '#ff0000',
+  white: '#fefefe',
+  selectedBlue: '#499ae9',
+  grayBackground: '#f5f5f5',
+
   gray: '#e1e1e1',
   darkgray: '#bababc',
 

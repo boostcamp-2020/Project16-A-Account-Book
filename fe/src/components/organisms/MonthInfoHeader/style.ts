@@ -16,7 +16,7 @@ export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
   ${({ border, theme }) =>
     border &&
     css`
-      border-right: 2px solid ${rgba(theme.color.gray2, 0.2)};
+      border-right: 2px solid ${rgba(theme.color.subText, 0.2)};
       font-weight: 900;
     `}
   background: transparent;
