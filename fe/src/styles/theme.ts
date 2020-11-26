@@ -24,12 +24,8 @@ const color = {
   selectedBlue: '#499ae9',
   grayBackground: '#f5f5f5',
 
-  gray: '#e1e1e1',
-  darkgray: '#bababc',
-
   lightBorder: '#e6e6e6',
   green: '#20C997',
-  gray2: '#e9ecef',
 };
 
 const theme = {
