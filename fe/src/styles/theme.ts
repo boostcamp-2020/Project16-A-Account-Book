@@ -17,9 +17,9 @@ const len = {
 };
 
 const color = {
-  black: '#000000',
-  white: '#ffffff',
-  blud: '#0000ff',
+  black: '#171417',
+  white: '#FEFEFE',
+  blue: '#0000ff',
   red: '#ff0000',
   gray: '#e1e1e1',
   darkgray: '#bababc',
