@@ -11,10 +11,17 @@ export const ContentArea = styled.div`
   margin: 0.6rem 0;
 `;
 
-export const Footer = styled.nav`
+export const Nav = styled.nav`
+  display: flex;
+  align-items: center;
   width: 100%;
+  height: 4rem;
+
+  background-color: ${({ theme }) => theme.color.white};
   position: fixed;
   bottom: 0;
   left: 0;
+
+  border-top: 2px solid ${({ theme }) => theme.color.lightBorder};
 `;
 export default {};
