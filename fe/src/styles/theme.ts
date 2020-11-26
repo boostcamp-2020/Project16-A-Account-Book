@@ -19,7 +19,7 @@ const len = {
 const color = {
   black: '#171417',
   white: '#FEFEFE',
-  blud: '#0000ff',
+  blue: '#0000ff',
   red: '#ff0000',
   gray: '#e1e1e1',
   emerald: '#5CC6BA',
