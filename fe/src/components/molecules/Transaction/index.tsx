@@ -1,42 +1,26 @@
 import React from 'react';
 import doubleArrowIcon from 'assets/svg/doubleArrow.svg';
-import {
-  TransactionStyle,
-  TransactionIcon,
-  Client,
-  Classification,
-  Price,
-  Text,
-  PaymentInfo,
-} from './style';
-
-export type transaction = {
-  id: string;
-  icon?: string;
-  client: string;
-  classification: string;
-  method: string;
-  price: number;
-};
+import { TransactionType } from 'stores/Transaction';
+import * as S from './style';
 
 export interface Props {
-  trans: transaction;
+  trans: TransactionType;
 }
 
 const Transaction = ({ trans, ...props }: Props) => {
-  const classificationString = `${trans.classification} | ${trans.method}`;
+  const classificationString = `${trans.category} | ${trans.method}`;
 
   return (
-    <TransactionStyle {...props}>
-      <TransactionIcon icon={trans.icon || doubleArrowIcon} size="sm" />
-      <Text>
-        <PaymentInfo>
-          <Client>{trans.client}</Client>
-          <Classification>{classificationString}</Classification>
-        </PaymentInfo>
-        <Price value={trans.price} />
-      </Text>
-    </TransactionStyle>
+    <S.TransactionStyle {...props}>
+      <S.TransactionIcon icon={trans.icon || doubleArrowIcon} size="sm" />
+      <S.Text>
+        <S.PaymentInfo>
+          <S.Client>{trans.client}</S.Client>
+          <S.Classification>{classificationString}</S.Classification>
+        </S.PaymentInfo>
+        <S.Price value={trans.price} />
+      </S.Text>
+    </S.TransactionStyle>
   );
 };
 
