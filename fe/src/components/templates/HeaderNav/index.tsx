@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import * as S from './style';
 
 export interface Props {
-  HeaderBar: any;
-  SubHeaderBar: any;
-  Contents: any;
-  NavBar: any;
+  HeaderBar: ReactElement;
+  SubHeaderBar: ReactElement;
+  Contents: ReactElement;
+  NavBar: ReactElement;
 }
 
 const HeaderNav = ({
