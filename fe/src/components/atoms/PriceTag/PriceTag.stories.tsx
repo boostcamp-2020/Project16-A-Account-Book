@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs, select, number } from '@storybook/addon-knobs';
-import { ThemeProvider } from 'styled-components';
-import theme from '../../../styles/theme';
+import GlobalThemeProvider from 'styles/GlobalThemeProvider';
+import theme from 'styles/theme';
 
 import PriceTag from '.';
 
@@ -16,8 +16,8 @@ export const priceTag = () => {
   const bold = select('bold', [true, false], true);
   const color = select('color', Object.keys(theme.color), 'black');
   return (
-    <ThemeProvider theme={theme}>
+    <GlobalThemeProvider>
       <PriceTag value={value} size={size} bold={bold} color={color} />
-    </ThemeProvider>
+    </GlobalThemeProvider>
   );
 };
