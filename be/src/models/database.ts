@@ -10,6 +10,7 @@ export const connect = () => {
   }
   mongoose.connect(DB_URI, {
     useNewUrlParser: true,
+    useFindAndModify: false,
   });
 
   database = mongoose.connection;
