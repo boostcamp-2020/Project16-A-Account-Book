@@ -1,4 +1,6 @@
-import { observable, makeObservable, computed } from 'mobx';
+import { toJS, observable, makeObservable, computed } from 'mobx';
+import axios from 'apis/axios';
+import urls from 'apis/urls';
 import { testAccountDateList } from './testData';
 
 interface PricesType {
@@ -43,28 +45,48 @@ export interface TransactionDBType {
 }
 
 class Transaction {
-  date = new Date('2020-11');
+  selectedDate = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+  };
+
+  accountObjId = 'test';
 
   accountDateList: any = testAccountDateList;
 
   constructor() {
     makeObservable(this, {
-      date: observable,
+      accountObjId: observable,
       accountDateList: observable,
       totalPrices: computed,
     });
+
+    this.loadTransactions();
+  }
+
+  async loadTransactions() {
+    const queryString = `?year=${this.selectedDate.year}&month=${this.selectedDate.month}`;
+    const result = await axios.get(
+      `${urls.transaction(this.accountObjId)}${queryString}`,
+    );
+    this.accountDateList = result;
   }
 
   get year() {
-    return this.date.getFullYear();
+    return this.selectedDate.year;
   }
 
   get month() {
-    return this.date.getMonth() + 1;
+    return this.selectedDate.month;
+  }
+
+  set date({ year, month }: { year: number; month: number }) {
+    this.selectedDate.year = year;
+    this.selectedDate.month = month;
   }
 
   get totalPrices() {
-    return Object.entries(this.accountDateList).reduce(
+    return Object.entries(toJS(this.accountDateList)).reduce(
       (totalPrices: PricesType, [, oneAccountDate]) => {
         const res = (oneAccountDate as []).reduce(
           (subPrices: PricesType, transaction: any) => {
