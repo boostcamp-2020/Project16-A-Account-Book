@@ -2,7 +2,8 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import locksvg from 'assets/svg/lock.svg';
-import Transaction, { transaction } from '.';
+import { TransactionType } from 'stores/Transaction';
+import Transaction from '.';
 
 export default {
   title: 'molecules/AccountDate',
@@ -10,10 +11,11 @@ export default {
 };
 
 export const TransactionSample1 = () => {
-  const testTransaction: transaction = {
+  const testTransaction: TransactionType = {
     id: 'slakvken',
+    date: new Date(),
     client: '얼큰한 국밥',
-    classification: '식사',
+    category: '식사',
     method: '네이버 페이',
     price: 6000,
   };
@@ -26,11 +28,12 @@ export const TransactionSample1 = () => {
 };
 
 export const TransactionSample2 = () => {
-  const testTransaction: transaction = {
+  const testTransaction: TransactionType = {
     id: 'dkkelakb',
+    date: new Date(),
     icon: locksvg,
     client: '시원한 육개장',
-    classification: '식사',
+    category: '식사',
     method: '네이버 페이',
     price: 10000,
   };
