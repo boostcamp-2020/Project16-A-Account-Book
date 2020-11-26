@@ -2,6 +2,7 @@ import React from 'react';
 import FormTransactionTemplate from 'components/templates/FormTransaction';
 import TransactionForm from 'components/organisms/TransactionForm';
 import useTransactionInput from 'hooks/useTransactionInput';
+import transactionAPI from 'apis/transaction';
 
 const categories = ['미분류', '급여', '용돈', '금융수입'];
 const methods = ['현금', '카드', '카카오뱅크', '네이버페이'];
@@ -21,12 +22,15 @@ const CreateTransacionPage = () => {
     classifications,
     formHandler: setInputState,
   };
+
+  const onSubmitHandler = (e: MouseEvent) => {
+    e.preventDefault();
+    transactionAPI.saveTransaction('123', transactionState);
+  };
   const Main = (
     <TransactionForm
       InputFieldProps={inputFieldProps}
-      onSubmit={(e: MouseEvent) => {
-        e.preventDefault();
-      }}
+      onSubmit={onSubmitHandler}
     />
   );
 

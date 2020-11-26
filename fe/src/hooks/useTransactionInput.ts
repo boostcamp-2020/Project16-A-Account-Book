@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import utils from 'utils/date';
 
-interface State {
+export interface State {
   date: string;
   client: string;
   memo: string;
