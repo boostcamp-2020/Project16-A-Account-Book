@@ -68,8 +68,6 @@
     "@storybook/node-logger": "^6.0.28",
     "@storybook/preset-create-react-app": "^3.1.5",
     "@storybook/react": "^6.0.28",
-    "@types/koa__cors": "^3.0.2",
-    "@types/randomstring": "^1.1.6",
     "@types/react-router-dom": "^5.1.6",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",

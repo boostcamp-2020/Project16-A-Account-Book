@@ -1,14 +1,10 @@
 import Router from 'koa-router';
-import authRouter from './authRouter';
+import transactionRouter from './transaction';
+import authRouter from './auth';
 
 const router = new Router();
 
-// const test = async (ctx: Koa.Context) => {
-//   ctx.body = 'test';
-// };
-
+router.use('/transactions', transactionRouter.routes());
 router.use('/auth', authRouter.routes());
-
-// router.get('/', test);
 
 export default router;

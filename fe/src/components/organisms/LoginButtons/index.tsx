@@ -1,8 +1,7 @@
 import React from 'react';
 
+import GithubButton from 'components/molecules/GithubButton';
 import * as S from './style';
-
-import GithubButton from '../../molcules/GithubButton';
 
 function LoginButtons(): React.ReactElement {
   return (
