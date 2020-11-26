@@ -11,7 +11,7 @@ export const ContentArea = styled.div`
   margin: 0.6rem 0;
 `;
 
-export const Footer = styled.footer`
+export const Footer = styled.nav`
   width: 100%;
   position: fixed;
   bottom: 0;
