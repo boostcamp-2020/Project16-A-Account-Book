@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     'import/no-unresolved': 0,
     'no-await-in-loop': 0,
+    ' no-unused-vars ': 0,
     'import/extensions': [
       'error',
       'ignorePackages',
