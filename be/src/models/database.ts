@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 import { getDbUri } from '../config';
 
 let database: mongoose.Connection;
