@@ -31,6 +31,6 @@ export const MonthInfoHeaderContainer = styled.section`
   min-height: 4rem;
   justify-content: center;
   align-items: center;
-  background: ${({ theme }) => theme.color.green};
+  background: ${({ theme }) => theme.color.brandColor};
 `;
 export default {};
