@@ -6,16 +6,9 @@ const oneMonthTransactionsReducer = (acc: any, transaction: Transaction) => {
   const month = transaction.date.getMonth() + 1;
   const date = transaction.date.getDate();
   const key = `${year}-${month}-${date}`;
-  if (acc[key]) {
-    acc[key].push(transaction);
-    return {
-      ...acc,
-    };
-  }
-  acc[key] = [transaction];
-  return {
-    ...acc,
-  };
+  return acc[key]
+    ? { ...acc, [key]: [...acc[key], transaction] }
+    : { ...acc, [key]: [transaction] };
 };
 export const getTransaction = async ({
   year,
