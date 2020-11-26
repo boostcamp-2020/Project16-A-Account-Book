@@ -1,6 +1,9 @@
 {
   "scripts": {
     "dev": "cd src && nodemon --exec ts-node -r tsconfig-paths/register app.ts",
+    "seed": "cd src && NODE_ENV=SEED ts-node -r tsconfig-paths/register seed.ts",
+    "unseed": "cd src && NODE_ENV=UNSEED ts-node -r tsconfig-paths/register seed.ts",
+    "seed-dev" :"npm run seed && npm run dev",
     "build": "npx webpack"
   },
   "husky": {
@@ -17,20 +20,12 @@
   "dependencies": {
     "@types/koa": "^2.11.6",
     "koa": "^2.13.0",
-    "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
     "mongoose": "^5.10.15"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.4.1",
-    "@types/mongoose": "^5.10.1",
-    "@typescript-eslint/eslint-plugin": "^4.8.0",
-    "@typescript-eslint/parser": "^4.8.0",
-    "dotenv": "^8.2.0",
-    "eslint": "^7.13.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",

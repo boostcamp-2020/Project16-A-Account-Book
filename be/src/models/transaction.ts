@@ -5,11 +5,6 @@ const TransactionSchema = new Schema({
     type: String,
     required: true,
   },
-  classification: {
-    type: String,
-    required: true,
-    enum: ['수입', '분류', '이체'],
-  },
   date: {
     type: Date,
     required: true,
