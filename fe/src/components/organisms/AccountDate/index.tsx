@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { transaction } from 'components/molecules/Transaction';
 import { AccountDate, Header, AccountTransaction } from './style';
 
@@ -19,18 +19,25 @@ const reduceTransactionList = (acc: accType, transEl: transaction) => {
 };
 
 const App = ({ date, transactionList, ...props }: Props) => {
-  const { transList, totalPrice } = transactionList.reduce(
-    reduceTransactionList,
-    {
-      transList: [],
-      totalPrice: 0,
-    },
-  );
+  const [totalPayment, setTotalPayment] = useState(10000);
+  const [transactionListComponent, setTransactionListComponent] = useState<
+    JSX.Element[]
+  >();
+
+  const res = transactionList.reduce(reduceTransactionList, {
+    transList: [],
+    totalPrice: 0,
+  });
+
+  useEffect(() => {
+    setTotalPayment(res.totalPrice);
+    setTransactionListComponent(res.transList);
+  }, []);
 
   return (
     <AccountDate {...props}>
-      <Header date={date} totalPayment={totalPrice} />
-      {transList}
+      <Header date={date} totalPayment={totalPayment} />
+      {transactionListComponent}
     </AccountDate>
   );
 };

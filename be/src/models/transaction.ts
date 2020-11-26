@@ -22,6 +22,10 @@ const TransactionSchema = new Schema({
     required: true,
     ref: 'categories',
   },
+  price: {
+    type: Number,
+    required: true,
+  },
   excludeFromBudget: {
     type: Boolean,
     default: 'false',
