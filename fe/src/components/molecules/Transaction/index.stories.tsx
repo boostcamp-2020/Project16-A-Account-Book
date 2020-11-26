@@ -3,7 +3,8 @@ import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import locksvg from 'assets/svg/lock.svg';
 import { withKnobs, object } from '@storybook/addon-knobs';
-import Transaction, { transaction } from '.';
+import { TransactionType } from 'stores/Transaction';
+import Transaction from '.';
 
 export default {
   title: 'molecules/Transaction',
@@ -12,10 +13,11 @@ export default {
 };
 
 export const TransactionSample = () => {
-  const testTransaction = object<transaction>('transaction', {
+  const testTransaction = object<TransactionType>('transaction', {
     id: 'slakvken',
+    date: new Date(),
     client: '얼큰한 국밥',
-    classification: '식사',
+    category: '식사',
     method: '네이버 페이',
     price: 6000,
   });
@@ -28,11 +30,12 @@ export const TransactionSample = () => {
 };
 
 export const TransactionSample2 = () => {
-  const testTransaction: transaction = {
+  const testTransaction: TransactionType = {
     id: 'dkkelakb',
+    date: new Date(),
     icon: locksvg,
     client: '시원한 육개장',
-    classification: '식사',
+    category: '식사',
     method: '네이버 페이',
     price: 10000,
   };
