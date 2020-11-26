@@ -9,5 +9,5 @@ export const NavBar = styled.div`
 export const PlusButton = styled(IconButton)`
   padding: 0.1rem;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.color.emerald};
+  background-color: ${({ theme }) => theme.color.brandColor};
 `;

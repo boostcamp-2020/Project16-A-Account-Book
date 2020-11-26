@@ -14,5 +14,3 @@ export const MonthInfoHeader = styled(MonthInfoHeaderComponent)``;
 export const FilterBar = styled(FilterBarComponent)``;
 export const AccountDate = styled(AccountDateComponent)``;
 export const NavBar = styled(NavBarComponent)``;
-
-export default {};

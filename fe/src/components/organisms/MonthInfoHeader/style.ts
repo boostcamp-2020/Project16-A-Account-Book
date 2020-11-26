@@ -16,7 +16,7 @@ export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
   ${({ border, theme }) =>
     border &&
     css`
-      border-right: 2px solid ${rgba(theme.color.gray2, 0.2)};
+      border-right: 2px solid ${rgba(theme.color.subText, 0.2)};
       font-weight: 900;
     `}
   background: transparent;
@@ -31,6 +31,6 @@ export const MonthInfoHeaderContainer = styled.section`
   min-height: 4rem;
   justify-content: center;
   align-items: center;
-  background: ${({ theme }) => theme.color.green};
+  background: ${({ theme }) => theme.color.brandColor};
 `;
 export default {};

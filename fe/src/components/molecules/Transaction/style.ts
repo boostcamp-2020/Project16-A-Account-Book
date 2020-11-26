@@ -23,7 +23,7 @@ export const TransactionIcon = styled(Icon)``;
 export const Client = styled.div``;
 
 export const Classification = styled.div`
-  color: ${({ theme }) => theme.color.darkgray};
+  color: ${({ theme }) => theme.color.subText};
 `;
 
 export const Price = styled(PriceTag)`
