@@ -20,7 +20,7 @@ const HeaderNav = ({
       {HeaderBar}
       {SubHeaderBar}
       <S.ContentArea>{Contents}</S.ContentArea>
-      <S.Footer>{NavBar}</S.Footer>
+      <S.Nav>{NavBar}</S.Nav>
     </S.HeaderNav>
   );
 };
