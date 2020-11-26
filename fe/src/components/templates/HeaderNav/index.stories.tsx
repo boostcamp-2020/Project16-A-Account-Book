@@ -7,7 +7,7 @@ import AccountDate from 'components/organisms/AccountDate';
 import HeaderBar from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import NavBar from 'components/organisms/NavBar';
-import { transaction } from 'components/molecules/Transaction';
+import { TransactionType } from 'stores/Transaction';
 import locksvg from 'assets/svg/lock.svg';
 import HeaderNav from '.';
 
@@ -18,26 +18,29 @@ export default {
 };
 
 export const HeaderNavSample = () => {
-  const testTransactionList: transaction[] = [
+  const testTransactionList: TransactionType[] = [
     {
       id: 'dekvmczld',
+      date: new Date(),
       icon: locksvg,
       client: '시원한 육개장',
-      classification: '식사',
+      category: '식사',
       method: '네이버 페이',
       price: 10000,
     },
     {
       id: 'akjlwkndlkx',
+      date: new Date(),
       client: '얼큰한 국밥',
-      classification: '식사',
+      category: '식사',
       method: '네이버 페이',
       price: 6000,
     },
     {
       id: 'ajabjfdlkx',
+      date: new Date(),
       client: '달달한 하리보',
-      classification: '간식',
+      category: '간식',
       method: '현금',
       price: 30000,
     },
