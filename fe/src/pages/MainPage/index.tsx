@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import { transactionStore, TransactionDBType } from 'stores/Transaction';
+import { TransactionStoreContext, TransactionDBType } from 'stores/Transaction';
 import * as S from './style';
 
 export interface Props {}
@@ -20,34 +20,75 @@ const convertTransactionDBTypetoTransactionType = (
   });
 };
 
+interface PricesType {
+  income: number;
+  expense: number;
+}
+
 const MainPage = ({ ...props }: Props) => {
+  const transactionStore = React.useContext(TransactionStoreContext);
+
   const [accountDateList, setAccountDateList] = useState<JSX.Element[]>([]);
+  const [SubHeaderBar, setSubHeaderBar] = useState<JSX.Element>(<></>);
   const HeaderBar = <S.HeaderBar />;
-  const SubHeaderBar = (
-    <S.MonthInfoHeader
-      month={transactionStore.month}
-      total={{
-        income: transactionStore.totalPrices.income,
-        expense: transactionStore.totalPrices.expense,
-      }}
-    />
-  );
 
   useEffect(() => {
-    const accountDateListComponent = Object.entries(
-      toJS(transactionStore.accountDateList),
-    ).map(([date, oneAccountDate]) => {
-      return (
-        <S.AccountDate
-          key={date}
-          date={new Date(date)}
-          transactionList={convertTransactionDBTypetoTransactionType(
-            oneAccountDate as [],
-          )}
-        />
+    if ('accountDateList' in transactionStore) {
+      const calculateTotalPrice = Object.entries(
+        toJS(transactionStore.accountDateList),
+      ).reduce(
+        (totalPrices: PricesType, [, oneAccountDate]) => {
+          const res = (oneAccountDate as []).reduce(
+            (subPrices: PricesType, transaction: any) => {
+              if (transaction.category.type === 'INCOME') {
+                return {
+                  ...subPrices,
+                  income: subPrices.income + transaction.price,
+                };
+              }
+              if (transaction.category.type === 'EXPENSE') {
+                return {
+                  ...subPrices,
+                  expense: subPrices.expense + transaction.price,
+                };
+              }
+              return subPrices;
+            },
+            { income: 0, expense: 0 },
+          );
+
+          return {
+            income: totalPrices.income + res.income,
+            expense: totalPrices.expense + res.expense,
+          };
+        },
+        { income: 0, expense: 0 },
       );
-    });
-    setAccountDateList([...accountDateListComponent]);
+
+      const accountDateListComponent = Object.entries(
+        toJS(transactionStore.accountDateList),
+      ).map(([date, oneAccountDate]) => {
+        return (
+          <S.AccountDate
+            key={date}
+            date={new Date(date)}
+            transactionList={convertTransactionDBTypetoTransactionType(
+              oneAccountDate as [],
+            )}
+          />
+        );
+      });
+      setAccountDateList([...accountDateListComponent]);
+      setSubHeaderBar(
+        <S.MonthInfoHeader
+          month={transactionStore.selectedDate.month}
+          total={{
+            income: calculateTotalPrice.income,
+            expense: calculateTotalPrice.expense,
+          }}
+        />,
+      );
+    }
   }, [transactionStore.accountDateList]);
 
   const Contents = (
