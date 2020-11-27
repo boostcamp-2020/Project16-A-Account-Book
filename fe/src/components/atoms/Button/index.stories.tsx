@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Story } from '@storybook/react/types-6-0';
-import naverSVG from 'assets/svg/naver.svg';
 import Button, { Props } from '.';
+
+const naverSVG = require('assets/svg/naver.svg');
 
 export default {
   title: 'atoms/Button',
