@@ -12,9 +12,7 @@ const ChattingArea = () => {
       <S.ChattingBottom>
         <S.ChattingInput
           disabled={false}
-          color="black"
           placeholder="chat your message"
-          defaultValue="chat your message"
           onChangeHandler={onChangeHandler}
         />
         <S.ChattingBtn>전송</S.ChattingBtn>
