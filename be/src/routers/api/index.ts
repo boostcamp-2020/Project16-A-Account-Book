@@ -1,6 +1,6 @@
 import Router from 'koa-router';
-import transactionRouter from 'routers/api/transaction';
-import authRouter from 'routers/api/auth';
+import transactionRouter from './transaction';
+import authRouter from './auth';
 
 const router = new Router();
 

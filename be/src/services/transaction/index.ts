@@ -1,5 +1,5 @@
 import { TransactionModel, Transaction } from 'models/transaction';
-import getOneMonthRange from 'libs/date';
+import getOneMonthRange from '../../libs/date';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: Transaction) => {
   const year = transaction.date.getFullYear();

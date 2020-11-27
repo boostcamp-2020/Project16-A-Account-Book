@@ -11,10 +11,26 @@ const dbConfig = {
   port: process.env.DB_PORT,
 };
 
+const hostConfig = {
+  url: process.env.REACT_APP_API_URL,
+  rport: process.env.REACT_APP_API_PORT,
+  port: process.env.PORT,
+};
+
 export const getDbUri = () => {
   const localUri = `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
   const srvUri = `mongodb+srv://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}/${dbConfig.database}`;
   return dbConfig.port ? localUri : srvUri;
+};
+
+export const jwtString: string = process.env.JWT_SECRET || '모듈화수정?';
+
+export const getHostUrl = () => {
+  return `http://${hostConfig.url}:${hostConfig.port}`;
+};
+
+export const getFrontUrl = () => {
+  return `http://${hostConfig.url}:${hostConfig.rport}`;
 };
 
 export default {};

@@ -1,6 +1,6 @@
 import React from 'react';
-import checkIcon from 'assets/svg/check.svg';
 import Icon from 'components/atoms/Icons';
+import checkIcon from 'assets/svg/check.svg';
 import CheckboxContainer from './style';
 
 interface Prop {

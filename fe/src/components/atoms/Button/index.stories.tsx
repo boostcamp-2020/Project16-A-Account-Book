@@ -24,7 +24,8 @@ export const defaultButton = () => {
   return (
     <Button
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -38,7 +39,8 @@ export const smButton = () => {
     <Button
       size="sm"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -52,7 +54,8 @@ export const mdButton = () => {
     <Button
       size="md"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -66,7 +69,8 @@ export const lgButton = () => {
     <Button
       size="lg"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -80,7 +84,8 @@ export const xlButton = () => {
     <Button
       size="xl"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}

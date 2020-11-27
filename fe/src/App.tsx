@@ -1,12 +1,18 @@
 import React from 'react';
-import MainPage from 'pages/MainPage';
-import GlobalThemeProvider from 'styles/GlobalThemeProvider';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import TempPage from './pages/TempPage';
+import MainPage from './pages/MainPage';
 
-function App() {
+function App(): React.ReactElement {
   return (
-    <GlobalThemeProvider>
-      <MainPage />
-    </GlobalThemeProvider>
+    <Router>
+      <Switch>
+        <Route path="/" component={MainPage} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/temppage/:code" component={TempPage} />
+      </Switch>
+    </Router>
   );
 }
 
