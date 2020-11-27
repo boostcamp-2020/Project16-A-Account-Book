@@ -31,12 +31,17 @@ export const up = ({ methods, categories }: TransactionType) => {
         const categoryPosition =
           (getRandomNumber({ start: 0, end: 100 }) % METHOD_LENGTH) + base;
         const category = categories[categoryPosition]._id;
+        const price = getRandomNumber({
+          start: 1000,
+          end: 300000,
+        });
         transactionList.push({
           client,
           date,
           memo,
           method,
           category,
+          price,
         });
         return transactionList;
       }, []);

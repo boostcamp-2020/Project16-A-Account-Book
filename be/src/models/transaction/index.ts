@@ -35,9 +35,8 @@ const TransactionSchema = new Schema({
 export interface Transaction extends Document {
   client: String;
   method: String;
-  classification: String;
   category: String;
-  date: String;
+  date: Date;
   price: Number;
   memo?: String;
   excludeFromBudget?: Boolean;

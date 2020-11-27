@@ -9,7 +9,7 @@ export interface ReducedDateProps {
 
 export const ReducedDate = styled(DateAtom)`
   color: ${({ theme }) => {
-    return theme.color.darkgray;
+    return theme.color.subText;
   }};
 `;
 
