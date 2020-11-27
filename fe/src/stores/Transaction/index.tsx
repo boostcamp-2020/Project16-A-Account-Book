@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { ReactElement } from 'react';
 import { useLocalStore } from 'mobx-react';
 import axios from 'apis/axios';
 import urls from 'apis/urls';
+import { testAccountDateList } from './testData';
 
 export type AccountDateType = {
   date: number;
@@ -44,38 +45,44 @@ interface SelectedDateType {
   month: number;
 }
 
-const StoreContext = React.createContext<any>({});
+interface ChildrenTypes {
+  children: ReactElement | ReactElement[];
+}
 
-export const TransactionStoreProvider = ({ children }: any) => {
+export const TransactionStoreContext = React.createContext<any>({});
+
+export const TransactionStoreProvider = ({ children }: ChildrenTypes) => {
   const initSelectedDate = {
     year: 2020,
     month: 11,
   };
-  const [selectedDate, setSelectedDate] = useState<SelectedDateType>(
-    initSelectedDate,
-  );
-  const [accountObjId, setAccountObjId] = useState<string>('test');
 
   const store = useLocalStore(() => ({
-    accountDateList: {},
+    selectedDate: initSelectedDate,
+    accountObjId: 'test',
+    accountDateList: testAccountDateList as {},
     loadTransactions: async () => {
-      const queryString = `?year=${selectedDate.year}&month=${selectedDate.month}`;
+      const queryString = `?year=${store.selectedDate.year}&month=${store.selectedDate.month}`;
       const result = await axios.get(
-        `${urls.transaction(accountObjId)}${queryString}`,
+        `${urls.transaction(store.accountObjId)}${queryString}`,
       );
-      store.accountDateList = result;
+      store.accountDateList = result as {};
     },
     changeSelectedDate: (selectedDateInput: SelectedDateType) => {
-      setSelectedDate(selectedDateInput);
+      store.selectedDate = selectedDateInput;
       store.loadTransactions();
     },
-    changeAccountObj: (accountObjInput: string) => {
-      setAccountObjId(accountObjInput);
+    changeAccountObj: (accountObjIdInput: string) => {
+      store.accountObjId = accountObjIdInput;
       store.loadTransactions();
     },
   }));
 
+  store.loadTransactions();
+
   return (
-    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
+    <TransactionStoreContext.Provider value={store}>
+      {children}
+    </TransactionStoreContext.Provider>
   );
 };
