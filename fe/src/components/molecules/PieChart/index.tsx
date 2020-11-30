@@ -1,6 +1,6 @@
 import React from 'react';
 import CircleSvg from 'components/atoms/CircleSvg';
-import sort from 'utils/sort';
+import math from 'utils/math';
 
 export interface Piece {
   color: string;
@@ -16,47 +16,27 @@ const circle = {
   strokeWidth() {
     return circle.r * 2;
   },
-  circumference() {
-    return 2 * Math.PI * circle.r;
-  },
   transform() {
     const moveX = circle.r * 4 * -1;
     return `rotate(-90) translate(${moveX})`;
   },
 };
-const circumference = circle.circumference();
+const circumference = 2 * Math.PI * circle.r;
 
-const accumulatePercent = (plainPieces: Piece[]) => {
-  interface IAcc {
-    sumPercent: number;
-    accumulatedPieces: Piece[];
-  }
-  const { accumulatedPieces } = plainPieces.reduce(
-    (acc: IAcc, piece: Piece): IAcc => {
-      const sumPercent = acc.sumPercent + piece.percent;
-      const summedPiece = { ...piece, percent: sumPercent };
-      return {
-        sumPercent,
-        accumulatedPieces: [...acc.accumulatedPieces, summedPiece],
-      };
-    },
-    {
-      sumPercent: 0,
-      accumulatedPieces: [],
-    },
-  );
-  return accumulatedPieces;
+const getBasePiece = (allPieces: Piece[]) => {
+  const sumPercent = math.sumByKey(allPieces, 'percent');
+  return { color: 'lightgrey', percent: 100 - sumPercent };
 };
-
 const getDrawingOrderedPieces = (pieces: Piece[]) => {
-  const basePiece = { color: 'lightgrey', percent: 100 };
-  const descOrderPieces = pieces.sort(sort.compByKey('percent', false));
-  const accumulatedPieces = accumulatePercent(descOrderPieces);
-  return [basePiece, ...accumulatedPieces.reverse()];
+  const ascOrderPieces = pieces.sort(math.compByKey('percent'));
+  const basePiece = getBasePiece(ascOrderPieces);
+  return [basePiece, ...ascOrderPieces];
 };
 
 const PieChart = ({ pieces }: Props): React.ReactElement => {
   const drawingOrderedPieces = getDrawingOrderedPieces(pieces.slice(0, 5));
+  let totalPercent = 100;
+
   return (
     <svg width="40" height="40">
       <g
@@ -66,8 +46,10 @@ const PieChart = ({ pieces }: Props): React.ReactElement => {
       >
         {drawingOrderedPieces.map(({ color, percent }: Piece) => {
           const strokeDasharray = `${
-            (percent * circumference) / 100
+            (totalPercent * circumference) / 100
           } ${circumference}`;
+          totalPercent -= percent;
+
           return (
             <CircleSvg
               r={circle.r}
