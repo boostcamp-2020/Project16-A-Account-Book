@@ -9,8 +9,8 @@ const GlobalStyle = createGlobalStyle`
       font-style: normal;
     }
     
-  body{
     ${reset} ;
+  body{
     font-family: Bmeuljiro,sans-serif !important;
     button{
       font-family :  Bmeuljiro,sans-serif !important;
