@@ -6,9 +6,10 @@ import CategoryFilterList from './CategoryFilterList';
 const list = [1, 2, 3, 4, 5];
 const MainFilterForm = () => {
   const handler = () => {};
+  console.log('render');
+
   return (
     <S.Container>
-      <S.H2>필터</S.H2>
       <TopFilter filterTitle="기간" title="기간입력" />
       <TopFilter filterTitle="기간" title="기간입력" />
 
@@ -40,4 +41,4 @@ const MainFilterForm = () => {
   );
 };
 
-export default MainFilterForm;
+export default React.memo(MainFilterForm);

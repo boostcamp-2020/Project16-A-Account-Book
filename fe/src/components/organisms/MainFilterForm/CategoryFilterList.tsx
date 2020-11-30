@@ -16,7 +16,7 @@ const TopFilter = ({ filterTitle, title, dataList, onClick }: ITopFilter) => {
         <CheckBox />
         <p>{filterTitle}</p>
       </div>
-      <DropdownHeader title={title}>
+      <DropdownHeader title={title} border>
         <DropdownBody dataList={dataList} onClick={onClick} />
       </DropdownHeader>
     </S.FlexBox>
