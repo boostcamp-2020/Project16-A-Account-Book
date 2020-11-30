@@ -6,7 +6,6 @@ import CategoryFilterList from './CategoryFilterList';
 const list = [1, 2, 3, 4, 5];
 const MainFilterForm = () => {
   const handler = () => {};
-  console.log('render');
 
   return (
     <S.Container>
