@@ -20,7 +20,7 @@ export const Transaction = () => {
     client: '',
     memo: '',
     price: 0,
-    classification: '', // ------
+    classification: '',
     category: '미분류',
     method: '',
   });
