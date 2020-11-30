@@ -1,16 +1,13 @@
 import React from 'react';
 import MainPage from 'pages/MainPage';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
-import { TransactionStoreProvider } from 'stores/Transaction';
 
-function App() {
+const App = () => {
   return (
     <GlobalThemeProvider>
-      <TransactionStoreProvider>
-        <MainPage />
-      </TransactionStoreProvider>
+      <MainPage />
     </GlobalThemeProvider>
   );
-}
+};
 
 export default App;
