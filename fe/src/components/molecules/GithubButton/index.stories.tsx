@@ -2,7 +2,7 @@ import React from 'react';
 import GithubBtn from '.';
 
 export default {
-  title: 'Molecule / GithubBtn',
+  title: 'Molecules / GithubBtn',
 };
 
 export const defaultButton = () => {

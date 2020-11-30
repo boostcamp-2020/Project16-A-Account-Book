@@ -1,7 +1,7 @@
 import React from 'react';
 import gitHubSVG from 'assets/svg/github.svg';
+import { getGithubUrl } from 'apis/urls/OAuth';
 import { GithubButton, Wrap } from './style';
-import { getGithubUrl } from '../../../apis/urls/OAuth';
 
 export interface Props {}
 
