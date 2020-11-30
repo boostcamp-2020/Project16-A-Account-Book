@@ -20,5 +20,5 @@ export const BodyContainer = styled.div`
   align-items: center;
   margin: 0;
   width: 100%;
-  height: 350px;
+  height: 20rem;
 `;

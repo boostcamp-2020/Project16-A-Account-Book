@@ -13,8 +13,8 @@ const dbConfig = {
 
 const hostConfig = {
   url: process.env.REACT_APP_API_URL,
-  rport: process.env.REACT_APP_API_PORT,
-  port: process.env.PORT,
+  port: process.env.REACT_APP_API_PORT,
+  frontPort: process.env.PORT,
 };
 
 export const getDbUri = () => {
@@ -30,7 +30,7 @@ export const getHostUrl = () => {
 };
 
 export const getFrontUrl = () => {
-  return `http://${hostConfig.url}:${hostConfig.rport}`;
+  return `http://${hostConfig.url}:${hostConfig.frontPort}`;
 };
 
 export default {};

@@ -39,14 +39,14 @@
     // "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
     // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
 
-    "baseUrl": ".",                      
+    "baseUrl": "./src",                      
     "paths": {
-      "routers/*": ["src/routers/*"],
-      "services/*": ["src/services/*"],
-      "controllers/*":["src/controllers/*"],
-      "models/*":["src/models/*"],
-      "config/*":["src/config/*"],
-      "libs/*":["src/libs/*"]
+      "routers/*": ["./routers/*"],
+      "services/*": ["./services/*"],
+      "controllers/*":["./controllers/*"],
+      "models/*":["./models/*"],
+      "config/*":["./config/*"],
+      "libs/*":["./libs/*"]
     },
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */

@@ -7,7 +7,7 @@ export const ChattingBox = styled.div`
 
 export const ChattingArea = styled.ul`
   width: 100%;
-  height: 500px;
+  height: 30rem;
   list-style: none;
 `;
 

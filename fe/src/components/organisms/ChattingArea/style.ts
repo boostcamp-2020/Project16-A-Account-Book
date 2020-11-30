@@ -20,13 +20,13 @@ export const ChattingBottom = styled.div`
 `;
 
 export const ChatBox = styled(ChattingBox)`
-  height: 500px;
+  height: 30rem;
 `;
 
 export const ChattingInput = styled(Input)`
   width: 70%;
   font-size: ${fontsize};
-  padding: 1px;
+  padding: 1%;
   border: 0;
 `;
 

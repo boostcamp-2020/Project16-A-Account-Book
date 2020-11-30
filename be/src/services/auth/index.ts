@@ -10,7 +10,7 @@ import * as Config from '../../config';
 export const getGithubURL = async () => {
   const state = randomstring.generate();
   const url = 'https://github.com/login/oauth/authorize?';
-  const query = await querystring.stringify({
+  const query = querystring.stringify({
     client_id: process.env.GITHUB_ID,
     redirect_uri: `${Config.getHostUrl()}/api/auth/github/callback`,
     state,
