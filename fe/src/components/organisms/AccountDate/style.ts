@@ -11,4 +11,4 @@ export const AccountTransaction = styled(Transaction)`
   margin-top: 0.5rem;
 `;
 
-export const AccountDate = styled.div``;
+export const Container = styled.div``;

@@ -1,28 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import { transactionStore, TransactionDBType } from 'stores/Transaction';
+import { transactionStore } from 'stores/Transaction';
 import * as S from './style';
+import TransactionDateList from './TransactionDateList';
 
 export interface Props {}
 
-const convertTransactionDBTypetoTransactionType = (
-  input: TransactionDBType[],
-) => {
-  return input.map((el) => {
-    const { _id, category, method, ...other } = el;
-    return {
-      ...other,
-      id: _id,
-      category: category.title,
-      method: method.title,
-    };
-  });
-};
-
 const MainPage = ({ ...props }: Props) => {
-  const [accountDateList, setAccountDateList] = useState<JSX.Element[]>([]);
-  const HeaderBar = <S.HeaderBar />;
   const SubHeaderBar = (
     <S.MonthInfoHeader
       month={transactionStore.month}
@@ -33,38 +18,20 @@ const MainPage = ({ ...props }: Props) => {
     />
   );
 
-  useEffect(() => {
-    const accountDateListComponent = Object.entries(
-      toJS(transactionStore.accountDateList),
-    ).map(([date, oneAccountDate]) => {
-      return (
-        <S.AccountDate
-          key={date}
-          date={new Date(date)}
-          transactionList={convertTransactionDBTypetoTransactionType(
-            oneAccountDate as [],
-          )}
-        />
-      );
-    });
-    setAccountDateList([...accountDateListComponent]);
-  }, [transactionStore.accountDateList]);
-
   const Contents = (
-    <>
+    <div>
       <S.FilterBar />
-      {accountDateList}
-    </>
+      <TransactionDateList list={toJS(transactionStore.accountDateList)} />
+    </div>
   );
-  const NavBar = <S.NavBar />;
 
   return (
     <S.MainPage {...props}>
       <S.HeaderNav
-        HeaderBar={HeaderBar}
+        HeaderBar={<S.HeaderBar />}
         SubHeaderBar={SubHeaderBar}
         Contents={Contents}
-        NavBar={NavBar}
+        NavBar={<S.NavBar />}
       />
     </S.MainPage>
   );
