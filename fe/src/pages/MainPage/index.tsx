@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toJS } from 'mobx';
-import { observer } from 'mobx-react';
-import { TransactionStoreContext, TransactionDBType } from 'stores/Transaction';
+import { observer } from 'mobx-react-lite';
+import { TransactionStore, TransactionDBType } from 'stores/Transaction';
 import * as S from './style';
 
 export interface Props {}
@@ -26,16 +26,14 @@ interface PricesType {
 }
 
 const MainPage = ({ ...props }: Props) => {
-  const transactionStore = React.useContext(TransactionStoreContext);
-
   const [accountDateList, setAccountDateList] = useState<JSX.Element[]>([]);
   const [SubHeaderBar, setSubHeaderBar] = useState<JSX.Element>(<></>);
   const HeaderBar = <S.HeaderBar />;
 
   useEffect(() => {
-    if ('accountDateList' in transactionStore) {
+    if ('accountDateList' in TransactionStore) {
       const calculateTotalPrice = Object.entries(
-        toJS(transactionStore.accountDateList),
+        toJS(TransactionStore.accountDateList),
       ).reduce(
         (totalPrices: PricesType, [, oneAccountDate]) => {
           const res = (oneAccountDate as []).reduce(
@@ -66,7 +64,7 @@ const MainPage = ({ ...props }: Props) => {
       );
 
       const accountDateListComponent = Object.entries(
-        toJS(transactionStore.accountDateList),
+        toJS(TransactionStore.accountDateList),
       ).map(([date, oneAccountDate]) => {
         return (
           <S.AccountDate
@@ -81,7 +79,7 @@ const MainPage = ({ ...props }: Props) => {
       setAccountDateList([...accountDateListComponent]);
       setSubHeaderBar(
         <S.MonthInfoHeader
-          month={transactionStore.selectedDate.month}
+          month={TransactionStore.selectedDate.month}
           total={{
             income: calculateTotalPrice.income,
             expense: calculateTotalPrice.expense,
@@ -89,7 +87,7 @@ const MainPage = ({ ...props }: Props) => {
         />,
       );
     }
-  }, [transactionStore.accountDateList]);
+  }, [TransactionStore.accountDateList]);
 
   const Contents = (
     <>
