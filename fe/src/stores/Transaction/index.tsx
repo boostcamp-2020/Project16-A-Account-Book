@@ -1,6 +1,5 @@
-import axios from 'apis/axios';
-import urls from 'apis/urls';
 import { makeAutoObservable, runInAction } from 'mobx';
+import transactionAPI from 'apis/transaction';
 import { testAccountDateList } from './testData';
 
 export type AccountDateType = {
@@ -56,12 +55,11 @@ const makeTransactionStore = () => {
     accountObjId: 'empty',
     state: 'pending',
     async loadTransactions() {
-      const queryString = `?year=${this.selectedDate.year}&month=${this.selectedDate.month}`;
       this.state = 'pending';
       try {
-        const result = await axios.get(
-          `${urls.transaction(this.accountObjId)}${queryString}`,
-        );
+        const result = await transactionAPI.getTransaction(this.accountObjId, {
+          ...this.selectedDate,
+        });
         runInAction(() => {
           this.accountDateList = { ...result } as any;
           this.state = 'done';
