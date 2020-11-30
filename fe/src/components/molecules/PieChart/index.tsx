@@ -1,5 +1,6 @@
 import React from 'react';
 import CircleSvg from 'components/atoms/CircleSvg';
+import sort from 'utils/sort';
 
 export interface Piece {
   color: string;
@@ -47,15 +48,9 @@ const accumulatePercent = (plainPieces: Piece[]) => {
   return accumulatedPieces;
 };
 
-const comparePercent = (a: Piece, b: Piece): number => {
-  if (a.percent > b.percent) return -1;
-  if (a.percent < b.percent) return 1;
-  return 0;
-};
-
 const getDrawingOrderedPieces = (pieces: Piece[]) => {
   const basePiece = { color: 'lightgrey', percent: 100 };
-  const descOrderPieces = pieces.sort(comparePercent);
+  const descOrderPieces = pieces.sort(sort.compByKey('percent', false));
   const accumulatedPieces = accumulatePercent(descOrderPieces);
   return [basePiece, ...accumulatedPieces.reverse()];
 };
