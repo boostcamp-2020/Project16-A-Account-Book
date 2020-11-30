@@ -2,14 +2,18 @@ import React from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import { transactionStore } from 'stores/Transaction';
-import * as S from './style';
+import Template from 'components/templates/HeaderNav';
+import Header from 'components/organisms/HeaderBar';
+import FilterBar from 'components/organisms/FilterBar';
+import MonthInfo from 'components/organisms/MonthInfoHeader';
+import NavBarComponent from 'components/organisms/NavBar';
 import TransactionDateList from './TransactionDateList';
 
 export interface Props {}
 
-const MainPage = ({ ...props }: Props) => {
+const MainPage = () => {
   const SubHeaderBar = (
-    <S.MonthInfoHeader
+    <MonthInfo
       month={transactionStore.month}
       total={{
         income: transactionStore.totalPrices.income,
@@ -20,20 +24,18 @@ const MainPage = ({ ...props }: Props) => {
 
   const Contents = (
     <div>
-      <S.FilterBar />
+      <FilterBar />
       <TransactionDateList list={toJS(transactionStore.accountDateList)} />
     </div>
   );
 
   return (
-    <S.MainPage {...props}>
-      <S.HeaderNav
-        HeaderBar={<S.HeaderBar />}
-        SubHeaderBar={SubHeaderBar}
-        Contents={Contents}
-        NavBar={<S.NavBar />}
-      />
-    </S.MainPage>
+    <Template
+      HeaderBar={<Header />}
+      SubHeaderBar={SubHeaderBar}
+      Contents={Contents}
+      NavBar={<NavBarComponent />}
+    />
   );
 };
 
