@@ -14,7 +14,7 @@ export const IconButton = styled(Button)`
   align-items: center;
   width: fit-content;
   height: fit-content;
-
+  border: none;
   background-color: ${({ theme }) => theme.color.white};
 `;
 
