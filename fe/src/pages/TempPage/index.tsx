@@ -13,7 +13,7 @@ function TempPage(props: RouteComponentProps<matchParams>): React.ReactElement {
   useEffect(() => {
     const getToken = async () => {
       await axios.get(
-        `http://localhost:4000/api/auth/github/access_token?code=${code}`,
+        `http://${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/auth/github/access_token?code=${code}`,
         { withCredentials: true },
       );
       setIsLoading(false);
