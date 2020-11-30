@@ -8,4 +8,5 @@ export const FilterBar = styled.div`
   align-items: center;
   width: 100%;
   height: 1.5rem;
+  position: relative;
 `;

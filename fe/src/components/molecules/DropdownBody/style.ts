@@ -25,6 +25,6 @@ export const DropdownBodyWrap = styled.div`
   z-index: 10;
   border: 1px solid ${({ theme }) => theme.color.subText};
   padding: 0.3em;
-  top: 1.3rem;
+  top: 1.5rem;
   left: 0;
 `;

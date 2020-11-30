@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
-export const Container = styled.section``;
-export const H2 = styled.h2`
-  font-size: 1.5rem;
+export const Container = styled.section`
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  z-index: 10;
+  min-width: 80vw;
+  border: 1px solid ${({ theme }) => theme.color.subText};
+  background: ${({ theme }) => theme.color.white};
+  padding: 1rem;
 `;
-
 export const Label = styled.div`
   margin: 0.3em 0;
   > small {
@@ -15,7 +20,7 @@ export const Label = styled.div`
 
 export const FlexBox = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   .head-container {
     display: flex;
     align-items: center;
