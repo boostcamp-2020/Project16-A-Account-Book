@@ -1,6 +1,7 @@
 import React from 'react';
 import { Props as ButtonProps } from 'components/atoms/Button';
 import * as S from './style';
+import CheckBox from '../Checkbox';
 
 export interface Props extends ButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -20,6 +21,9 @@ const DropdownBody = ({
         (data: string | number): React.ReactElement => (
           <S.DropdownItem value={data} key={data} onClick={onClick} {...props}>
             <span>{data}</span>
+            <S.CheckBoxContainer>
+              <CheckBox />
+            </S.CheckBoxContainer>
           </S.DropdownItem>
         ),
       )}

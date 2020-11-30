@@ -1,13 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import DropdownButton from './style';
+import * as S from './style';
 
 interface Props {
   title?: String;
-  children: React.ReactElement;
+  disabled?: boolean;
+  children: React.ReactElement | React.ReactElement[] | string;
 }
 const arrowCharacter = '▾';
 
-const DropdownButtonHeader = ({ title = '', children }: Props) => {
+const DropdownButtonHeader = ({
+  title = '',
+  children,
+  disabled = false,
+}: Props) => {
   const [visible, setVisible] = useState(false);
   const dropdownContainer = useRef<HTMLDivElement>(null);
   const outsideClickHandler = (event: any) => {
@@ -30,12 +35,12 @@ const DropdownButtonHeader = ({ title = '', children }: Props) => {
     setVisible(!visible);
   };
   return (
-    <div ref={dropdownContainer}>
-      <DropdownButton onClick={toggleVisible}>
+    <S.Container ref={dropdownContainer}>
+      <S.DropdownButton onClick={toggleVisible} disabled={disabled}>
         <div>{`${title} ${arrowCharacter}`}</div>
-      </DropdownButton>
+      </S.DropdownButton>
       {visible && children}
-    </div>
+    </S.Container>
   );
 };
 

@@ -6,13 +6,27 @@ export interface Props {
   value?: string | number;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children?: React.ReactElement | React.ReactElement[] | string;
+  disabled?: boolean;
 }
 
-const Button = ({ size, value, onClick, children, ...props }: Props) => {
+const Button = ({
+  size,
+  disabled = false,
+  value,
+  onClick,
+  children,
+  ...props
+}: Props) => {
   const onClickHandler = onClick ? useCallback(onClick!, []) : undefined;
 
   return (
-    <ButtonStyle size={size} value={value} onClick={onClickHandler} {...props}>
+    <ButtonStyle
+      size={size}
+      value={value}
+      onClick={onClickHandler}
+      {...props}
+      disabled={disabled}
+    >
       {children}
     </ButtonStyle>
   );
