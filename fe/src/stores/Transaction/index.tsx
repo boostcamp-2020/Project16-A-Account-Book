@@ -1,7 +1,6 @@
-import React, { ReactElement } from 'react';
-import { useLocalStore } from 'mobx-react';
 import axios from 'apis/axios';
 import urls from 'apis/urls';
+import { makeAutoObservable } from 'mobx';
 import { testAccountDateList } from './testData';
 
 export type AccountDateType = {
@@ -45,44 +44,34 @@ interface SelectedDateType {
   month: number;
 }
 
-interface ChildrenTypes {
-  children: ReactElement | ReactElement[];
-}
+const initSelectedDate = {
+  year: 2020,
+  month: 11,
+};
 
-export const TransactionStoreContext = React.createContext<any>({});
-
-export const TransactionStoreProvider = ({ children }: ChildrenTypes) => {
-  const initSelectedDate = {
-    year: 2020,
-    month: 11,
-  };
-
-  const store = useLocalStore(() => ({
+const makeTransactionStore = () => {
+  const store = {
     selectedDate: initSelectedDate,
     accountObjId: 'test',
-    accountDateList: testAccountDateList as {},
-    loadTransactions: async () => {
-      const queryString = `?year=${store.selectedDate.year}&month=${store.selectedDate.month}`;
+    accountDateList: testAccountDateList,
+    async loadTransactions() {
+      const queryString = `?year=${this.selectedDate.year}&month=${this.selectedDate.month}`;
       const result = await axios.get(
-        `${urls.transaction(store.accountObjId)}${queryString}`,
+        `${urls.transaction(this.accountObjId)}${queryString}`,
       );
-      store.accountDateList = result as {};
+      this.accountDateList = { ...result } as any;
     },
-    changeSelectedDate: (selectedDateInput: SelectedDateType) => {
-      store.selectedDate = selectedDateInput;
-      store.loadTransactions();
+    changeSelectedDate(selectedDateInput: SelectedDateType) {
+      this.selectedDate = selectedDateInput;
+      this.loadTransactions();
     },
-    changeAccountObj: (accountObjIdInput: string) => {
-      store.accountObjId = accountObjIdInput;
-      store.loadTransactions();
+    changeAccountObj(accountObjIdInput: string) {
+      this.accountObjId = accountObjIdInput;
+      this.loadTransactions();
     },
-  }));
-
+  };
   store.loadTransactions();
-
-  return (
-    <TransactionStoreContext.Provider value={store}>
-      {children}
-    </TransactionStoreContext.Provider>
-  );
+  return makeAutoObservable(store);
 };
+
+export const TransactionStore = makeTransactionStore();
