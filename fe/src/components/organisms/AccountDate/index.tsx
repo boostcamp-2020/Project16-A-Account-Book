@@ -18,17 +18,20 @@ const reduceTransactionList = (acc: accType, transEl: TransactionType) => {
   return acc;
 };
 
-const AccountDate = ({ date, transactionList, ...props }: Props) => {
-  const result = transactionList.reduce(reduceTransactionList, {
-    transList: [],
-    totalPrice: 0,
-  });
+const AccountDate = ({ date, transactionList }: Props) => {
+  const { transList, totalPrice } = transactionList.reduce(
+    reduceTransactionList,
+    {
+      transList: [],
+      totalPrice: 0,
+    },
+  );
 
   return (
-    <S.Container {...props}>
-      <S.Header date={date} totalPayment={result.totalPrice} />
-      {result.transList}
-    </S.Container>
+    <>
+      <S.Header date={date} totalPayment={totalPrice} />
+      {transList}
+    </>
   );
 };
 

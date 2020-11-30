@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './style';
+import AccountDate from 'components/organisms/AccountDate';
 import { TransactionDBType } from '../../stores/Transaction';
 
 const convertTransactionDBTypetoTransactionType = (
@@ -22,7 +22,7 @@ const TransactionDateList = ({ list }: { list: any[] }) => {
   const mapFunc = (item: test) => {
     const [date, transactions] = item;
     return (
-      <S.AccountDate
+      <AccountDate
         key={date}
         date={new Date(date)}
         transactionList={convertTransactionDBTypetoTransactionType(

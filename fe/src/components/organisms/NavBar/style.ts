@@ -3,6 +3,7 @@ import IconButton from 'components/molecules/IconButton';
 
 export const NavBar = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-evenly;
 `;
 
