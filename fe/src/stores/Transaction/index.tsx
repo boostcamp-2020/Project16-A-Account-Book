@@ -52,7 +52,7 @@ const makeTransactionStore = () => {
   const store = {
     accountDateList: testAccountDateList,
     selectedDate: initDate,
-    accountObjId: 'empty',
+    accountObjId: '',
     state: 'pending',
     async loadTransactions() {
       this.state = 'pending';
