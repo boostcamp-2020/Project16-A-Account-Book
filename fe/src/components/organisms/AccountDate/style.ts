@@ -10,5 +10,3 @@ export const Header = styled(DateMoneyHeader)`
 export const AccountTransaction = styled(Transaction)`
   margin-top: 0.5rem;
 `;
-
-export const AccountDate = styled.div``;
