@@ -22,13 +22,13 @@ const TransactionsReduce = (
   oneDayPrice: { income: number; expense: number },
   transaction: TransactionDBType,
 ) => {
-  if (transaction.category.type === 'income') {
+  if (transaction.category.type === 'INCOME') {
     return {
       ...oneDayPrice,
       income: oneDayPrice.income + transaction.price,
     };
   }
-  if (transaction.category.type === 'expense') {
+  if (transaction.category.type === 'EXPENSE') {
     return {
       ...oneDayPrice,
       expense: oneDayPrice.expense + transaction.price,
