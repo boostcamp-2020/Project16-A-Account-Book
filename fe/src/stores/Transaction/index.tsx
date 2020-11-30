@@ -48,37 +48,32 @@ const initDate = {
   month: new Date().getMonth() + 1,
 };
 
-const makeTransactionStore = () => {
-  const store = {
-    accountDateList: testAccountDateList,
-    selectedDate: initDate,
-    accountObjId: '',
-    state: 'pending',
-    async loadTransactions() {
-      this.state = 'pending';
-      try {
-        const result = await transactionAPI.getTransaction(this.accountObjId, {
-          ...this.selectedDate,
-        });
-        runInAction(() => {
-          this.accountDateList = { ...result } as any;
-          this.state = 'done';
-        });
-      } catch (err) {
-        runInAction(() => {
-          this.state = 'error';
-        });
-      }
-    },
-    setSelectedDate(selectedDateInput: SelectedDateType) {
-      this.selectedDate = selectedDateInput;
-    },
+export const TransactionStore = makeAutoObservable({
+  accountDateList: testAccountDateList,
+  selectedDate: initDate,
+  accountObjId: 'empty',
+  state: 'pending',
+  async loadTransactions() {
+    this.state = 'pending';
+    try {
+      const result = await transactionAPI.getTransaction(this.accountObjId, {
+        ...this.selectedDate,
+      });
+      runInAction(() => {
+        this.accountDateList = { ...result } as any;
+        this.state = 'done';
+      });
+    } catch (err) {
+      runInAction(() => {
+        this.state = 'error';
+      });
+    }
+  },
+  setSelectedDate(selectedDateInput: SelectedDateType) {
+    this.selectedDate = selectedDateInput;
+  },
 
-    setAccountObjId(accountObjIdInput: string) {
-      this.accountObjId = accountObjIdInput;
-    },
-  };
-  return makeAutoObservable(store);
-};
-
-export const TransactionStore = makeTransactionStore();
+  setAccountObjId(accountObjIdInput: string) {
+    this.accountObjId = accountObjIdInput;
+  },
+});
