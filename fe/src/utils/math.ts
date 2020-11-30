@@ -6,4 +6,7 @@ export default {
       return 0;
     };
   },
+  sumByKey(array: Array<object>, key: string, base = 0): number {
+    return array.reduce((sum: number, value: any) => sum + value[key], base);
+  },
 };
