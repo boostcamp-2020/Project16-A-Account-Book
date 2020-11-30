@@ -12,14 +12,18 @@ function TempPage(props: RouteComponentProps<matchParams>): React.ReactElement {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getToken = async () => {
-      await axios.get(
+      const result = await axios.get(
         `http://${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/auth/github/access_token?code=${code}`,
         { withCredentials: true },
       );
       setIsLoading(false);
-      await axios.get('http://localhost:4000/api/auth', {
-        withCredentials: true,
-      });
+      const { accounts } = result.data;
+      if (accounts.length === 0) {
+        props.history.push('/');
+      } else {
+        localStorage.setItem('accountId', accounts[0].accountObjId);
+        props.history.push(`/${accounts[0].accountObjId}`);
+      }
     };
     getToken();
   }, []);

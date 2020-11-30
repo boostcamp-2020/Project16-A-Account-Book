@@ -3,11 +3,11 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import dayjs from 'dayjs';
-import TransactionInputField from '.';
+import TransactionForm from '.';
 
 export default {
   title: 'organisms/TransactionForm',
-  component: TransactionInputField,
+  component: TransactionForm,
   decorators: [withKnobs],
 };
 export const Transaction = () => {
@@ -16,13 +16,13 @@ export const Transaction = () => {
   const classifications = ['지출', '수입', '이체'];
 
   const [formValue, setFormValue] = useState({
-    category: '미분류',
     date: dayjs(new Date()).format('YYYY-MM-DD'),
     client: '',
     memo: '',
-    classification: '',
-    method: '',
     price: 0,
+    classification: '',
+    category: '미분류',
+    method: '',
   });
 
   const formHandler = ({ target }: any): void => {
@@ -30,18 +30,26 @@ export const Transaction = () => {
     setFormValue((prevformValue) => ({ ...prevformValue, [name]: value }));
   };
 
+  const buttonClick = (event: MouseEvent): void => {
+    event.preventDefault();
+    alert('save');
+  };
+  const inputFieldProps = {
+    date: formValue.date,
+    client: formValue.client,
+    memo: formValue.memo,
+    price: formValue.price,
+    classification: formValue.classification,
+    categories,
+    methods,
+    classifications,
+    formHandler,
+  };
   return (
     <ThemeProvider theme={theme}>
-      <TransactionInputField
-        price={formValue.price}
-        date={formValue.date}
-        categories={categories}
-        classification={formValue.classification}
-        classifications={classifications}
-        client={formValue.client}
-        memo={formValue.memo}
-        formHandler={formHandler}
-        methods={methods}
+      <TransactionForm
+        InputFieldProps={inputFieldProps}
+        onSubmit={buttonClick}
       />
     </ThemeProvider>
   );

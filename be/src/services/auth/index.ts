@@ -45,8 +45,9 @@ export const getGithubAccessToken = async (code: string) => {
       id: profile.id,
     });
     await newUser.save();
-    console.log(newUser);
+    const token = jwt.sign(profile.id, Config.jwtString);
+    return { token, user: newUser };
   }
   const token = jwt.sign(profile.id, Config.jwtString);
-  return token;
+  return { token, user };
 };

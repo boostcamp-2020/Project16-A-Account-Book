@@ -15,10 +15,10 @@ export const githubCallBack = async (ctx: Koa.Context) => {
 
 export const getGithubAccessToken = async (ctx: Koa.Context) => {
   const { code } = ctx.query;
-  const token = await authService.getGithubAccessToken(code);
+  const { token, user } = await authService.getGithubAccessToken(code);
   ctx.cookies.set('access_token', token, {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24,
   });
-  ctx.body = 'done';
+  ctx.body = user;
 };

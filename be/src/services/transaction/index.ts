@@ -1,5 +1,5 @@
-import { TransactionModel, Transaction } from 'models/transaction';
-import getOneMonthRange from '../../libs/date';
+import { TransactionModel, Transaction, AccountModel } from 'models/index';
+import getOneMonthRange from 'libs/date';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: Transaction) => {
   const year = transaction.date.getFullYear();
@@ -29,25 +29,13 @@ export const getTransaction = async ({
   return result;
 };
 
-export const createTransaction = async ({
-  client,
-  date,
-  memo,
-  method,
-  price,
-  category,
-  excludeFromBudget,
-}: Transaction) => {
-  const newTransaction = new TransactionModel({
-    client,
-    date,
-    memo,
-    method,
-    category,
-    price,
-    excludeFromBudget,
-  });
-  return newTransaction.save();
+export const saveAndAddToAccount = async (
+  transaction: Transaction,
+  accountObjId: string,
+) => {
+  const { _id: transcationObjId } = await TransactionModel.create(transaction);
+  return AccountModel.findByPkAndPushTransaction(
+    accountObjId,
+    transcationObjId,
+  );
 };
-
-export default {};
