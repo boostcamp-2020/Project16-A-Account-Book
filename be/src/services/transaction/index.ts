@@ -39,3 +39,23 @@ export const saveAndAddToAccount = async (
     transcationObjId,
   );
 };
+
+export const getTotalPriceByClassification = async (
+  accountObjId: string,
+  startDate: string,
+  endDate: string,
+) => {
+  const transactionsInDateRange = await AccountModel.findById(
+    accountObjId,
+    'transactions',
+  )
+    .populate({
+      path: 'transactions',
+      match: { date: { $gte: startDate, $lt: endDate } },
+      select: 'price category date',
+      populate: { path: 'category', select: 'type' },
+    })
+    .exec();
+
+  return transactionsInDateRange;
+};
