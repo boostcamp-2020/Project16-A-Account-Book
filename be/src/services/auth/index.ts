@@ -5,14 +5,15 @@ import querystring from 'querystring';
 import { UserModel } from 'models/user';
 import { AccountModel } from 'models/account';
 import { Types } from 'mongoose';
-import * as Config from '../../config';
+import * as Config from 'config';
+import URL from 'apis/urls';
 
 export const getGithubURL = async () => {
   const state = randomstring.generate();
-  const url = 'https://github.com/login/oauth/authorize?';
+  const url = URL.github;
   const query = querystring.stringify({
     client_id: process.env.GITHUB_ID,
-    redirect_uri: `${Config.getHostUrl()}/api/auth/github/callback`,
+    redirect_uri: `${Config.getHostUrl()}${URL.gitCallback}`,
     state,
     scope: 'user:email',
   });
@@ -21,7 +22,7 @@ export const getGithubURL = async () => {
 
 export const getGithubAccessToken = async (code: string) => {
   const gitResponse = await axios.post(
-    'https://github.com/login/oauth/access_token',
+    URL.gitAccessToken,
     {
       code,
       client_id: process.env.GITHUB_ID,
@@ -34,7 +35,7 @@ export const getGithubAccessToken = async (code: string) => {
     },
   );
   const accessToken = gitResponse.data.access_token;
-  const USER_PROFILE_URL = 'https://api.github.com/user';
+  const USER_PROFILE_URL = URL.gitUser;
   const data = await axios.get(USER_PROFILE_URL, {
     headers: {
       Authorization: `token ${accessToken}`,
