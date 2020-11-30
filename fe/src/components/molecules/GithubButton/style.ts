@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import theme from 'styles/theme';
 import Button from '../../atoms/Button';
 
 export const GithubButton = styled(Button)`
-  background-color: gray;
-  color: white;
+  background-color: ${theme.color.grayBackground};
+  color: ${theme.color.white};
   border-radius: 2.5px;
 `;
 
