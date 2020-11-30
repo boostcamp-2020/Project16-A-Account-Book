@@ -1,12 +1,7 @@
 import Router from 'koa-router';
-import * as authController from '../../../controllers/auth';
+import * as authController from 'controllers/auth';
 
 const router = new Router();
-
-router.get('/', (ctx) => {
-  console.log(ctx.cookies.get('access_token'));
-  ctx.body = 'this is user...';
-});
 
 router.get('/github', authController.githubAuthRequest);
 

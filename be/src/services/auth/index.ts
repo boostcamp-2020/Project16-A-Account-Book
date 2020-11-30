@@ -2,7 +2,9 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import randomstring from 'randomstring';
 import querystring from 'querystring';
-import { UserModel } from '../../models/user';
+import { UserModel } from 'models/user';
+import { AccountModel } from 'models/account';
+import { Types } from 'mongoose';
 import * as Config from '../../config';
 
 export const getGithubURL = async () => {
@@ -39,10 +41,16 @@ export const getGithubAccessToken = async (code: string) => {
     },
   });
   const profile = data.data;
-  const user = await UserModel.findOne({ where: { id: profile.id } });
+  const user = await UserModel.findOne({ id: `${profile.id}` }).exec();
   if (user == null) {
+    const newAccount = new AccountModel({
+      title: 'firstAccount',
+    });
+    await newAccount.save();
+    const accountObjId = Types.ObjectId(newAccount.id);
     const newUser = new UserModel({
       id: profile.id,
+      accounts: [accountObjId],
     });
     await newUser.save();
     const token = jwt.sign(profile.id, Config.jwtString);
