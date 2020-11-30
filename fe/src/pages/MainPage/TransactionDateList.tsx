@@ -18,6 +18,11 @@ const convertTransactionDBTypetoTransactionType = (
 
 type TransactionDBKeyValue = [date: string, transactions: any];
 
+const initTotalPrice = {
+  income: 0,
+  expense: 0,
+};
+
 const TransactionsReduce = (
   oneDayPrice: { income: number; expense: number },
   transaction: TransactionDBType,
@@ -35,27 +40,21 @@ const TransactionsReduce = (
     };
   }
   // TODO 이체 처리
-  return {
-    ...oneDayPrice,
-  };
+  return oneDayPrice;
 };
 
 export const calTotalPrices = (list: any) => {
   return Object.values<TransactionDBType[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
       const res = transactions.reduce(TransactionsReduce, {
-        income: 0,
-        expense: 0,
+        ...initTotalPrice,
       });
       return {
         income: acc.income + res.income,
         expense: acc.expense + res.expense,
       };
     },
-    {
-      income: 0,
-      expense: 0,
-    },
+    { ...initTotalPrice },
   );
 };
 
