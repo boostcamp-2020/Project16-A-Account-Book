@@ -5,6 +5,12 @@ export const CalenderDayBar = styled.div`
   display: flex;
 `;
 
+export const Text = styled.div`
+  width: 80%;
+`;
+
 export const OneDayBlock = styled.div`
-  width: 10%;
+  display: flex;
+  justify-content: center;
+  width: 14.5%;
 `;
