@@ -12,7 +12,7 @@ registerLocale('ko', ko);
 setDefaultLocale('ko');
 export interface IDatePicker {
   dates: {
-    startDate: Date;
+    startDate: Date | null;
     endDate: Date | null;
   };
   onChange: any;

@@ -62,3 +62,12 @@ export const DateFilterButton = styled(Button)`
     border-top: 1px solid ${({ theme }) => theme.color.subText};
   }
 `;
+
+export const Model = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+`;
