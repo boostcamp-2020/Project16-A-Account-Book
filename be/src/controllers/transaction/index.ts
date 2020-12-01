@@ -2,8 +2,8 @@ import Koa from 'koa';
 import { getTransaction, saveAndAddToAccount } from 'services/transaction';
 
 const get = async (ctx: Koa.Context) => {
-  const { year, month } = ctx.query;
-  const res = await getTransaction({ year, month });
+  const { startDate, endDate } = ctx.query;
+  const res = await getTransaction({ startDate, endDate });
   ctx.status = 200;
   ctx.body = res;
 };
