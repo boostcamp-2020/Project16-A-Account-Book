@@ -4,7 +4,8 @@
     "seed": "cd src && NODE_ENV=SEED ts-node -r tsconfig-paths/register seed.ts",
     "unseed": "cd src && NODE_ENV=UNSEED ts-node -r tsconfig-paths/register seed.ts",
     "seed-dev": "npm run seed && npm run dev",
-    "build": "npx webpack"
+    "build": "npx webpack",
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -26,6 +27,10 @@
     "mongoose": "^5.10.15"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
+    "@types/jest": "^26.0.15",
     "@types/koa": "^2.11.6",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.4.1",
@@ -33,14 +38,17 @@
     "@types/mongoose": "^5.10.1",
     "@typescript-eslint/eslint-plugin": "^4.8.0",
     "@typescript-eslint/parser": "^4.8.0",
+    "babel-jest": "^26.6.3",
     "eslint": "^7.13.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
     "husky": "^4.3.0",
+    "jest": "^26.6.3",
     "lint-staged": "^10.5.1",
     "nodemon": "^2.0.6",
     "prettier": "^2.1.2",
+    "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.11",
     "ts-node": "^9.0.0",
     "tsconfig-paths": "^3.9.0",
