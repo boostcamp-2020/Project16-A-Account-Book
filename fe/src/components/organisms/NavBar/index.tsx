@@ -12,7 +12,7 @@ const NavBar = ({ ...props }): React.ReactElement => {
     <S.NavBar {...props}>
       <IconButton icon={homeSvg}>홈</IconButton>
       <IconButton icon={graphSvg}>통계</IconButton>
-      <S.PlusButton icon={plusSvg} />
+      <S.PlusButton icon={plusSvg}>+</S.PlusButton>
       <IconButton icon={calendarSvg}>달력</IconButton>
       <IconButton icon={tagSvg}>태그</IconButton>
     </S.NavBar>

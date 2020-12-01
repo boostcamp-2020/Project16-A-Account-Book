@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Story } from '@storybook/react/types-6-0';
-import naverSVG from 'assets/svg/naver.svg';
 import Button, { Props } from '.';
+
+const naverSVG = require('assets/svg/naver.svg');
 
 export default {
   title: 'atoms/Button',
@@ -24,7 +25,8 @@ export const defaultButton = () => {
   return (
     <Button
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -38,7 +40,8 @@ export const smButton = () => {
     <Button
       size="sm"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -52,7 +55,8 @@ export const mdButton = () => {
     <Button
       size="md"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -66,7 +70,8 @@ export const lgButton = () => {
     <Button
       size="lg"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
@@ -80,7 +85,8 @@ export const xlButton = () => {
     <Button
       size="xl"
       onClick={() => {
-        alert(title);
+        const a: Array<Number> = [];
+        a.push(1);
       }}
     >
       {title}
