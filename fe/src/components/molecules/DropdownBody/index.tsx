@@ -6,7 +6,7 @@ import CheckBox from '../Checkbox';
 export interface Props extends ButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   dataList: (string | number)[];
-  children?: React.ReactElement | string;
+  children?: React.ReactElement | React.ReactElement[] | string;
 }
 
 const DropdownBody = ({

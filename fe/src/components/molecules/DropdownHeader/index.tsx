@@ -3,11 +3,11 @@ import useVisible from 'hooks/useVisible';
 
 import * as S from './style';
 
-interface Props {
+export interface Props {
   title?: String;
   disabled?: boolean;
   border?: boolean;
-  children: React.ReactElement | React.ReactElement[] | string;
+  children?: React.ReactElement | React.ReactElement[] | string;
 }
 const arrowCharacter = '▾';
 
