@@ -8,5 +8,6 @@ const router = new Router();
 router.use('/categories', categoryRouter.routes());
 router.use('/transactions', transactionRouter.routes());
 router.use('/auth', authRouter.routes());
+router.use('/category', categoryRouter.routes());
 
 export default router;
