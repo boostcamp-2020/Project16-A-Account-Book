@@ -14,12 +14,13 @@ export async function findByPkAndGetTransCategory(
   startDate: string,
   endDate: string,
 ) {
-  return this.findById(accountObjId, 'transactions')
+  const accountInfo = await this.findById(accountObjId, 'transactions')
     .populate({
       path: 'transactions',
       match: { date: { $gte: startDate, $lt: endDate } },
       select: 'price category date',
-      populate: { path: 'category', select: 'type color' },
+      populate: { path: 'category', select: 'type color title' },
     })
     .exec();
+  return accountInfo.transactions;
 }
