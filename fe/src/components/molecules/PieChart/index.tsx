@@ -28,7 +28,7 @@ const getBasePiece = (allPieces: Piece[]) => {
   return { color: 'lightgrey', percent: 100 - sumPercent };
 };
 const getDrawingOrderedPieces = (pieces: Piece[]) => {
-  const ascOrderPieces = pieces.sort(math.compByKey('percent'));
+  const ascOrderPieces = pieces.sort(math.getCompFuncByKey('percent'));
   const basePiece = getBasePiece(ascOrderPieces);
   return [basePiece, ...ascOrderPieces];
 };
