@@ -28,10 +28,10 @@ const AccountDate = ({ date, transactionList }: Props) => {
   );
 
   return (
-    <>
+    <S.AccountDate>
       <S.Header date={date} totalPayment={totalPrice} />
       {transList}
-    </>
+    </S.AccountDate>
   );
 };
 
