@@ -7,7 +7,8 @@ import Header from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
-import TransactionDateList, { calTotalPrices } from './TransactionDateList';
+import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
+import TransactionDateList from './TransactionDateList';
 
 const MainPage = () => {
   useEffect(() => {
