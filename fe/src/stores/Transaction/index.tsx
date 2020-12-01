@@ -1,6 +1,5 @@
-import axios from 'apis/axios';
-import urls from 'apis/urls';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
+import transactionAPI from 'apis/transaction';
 import { testAccountDateList } from './testData';
 
 export type AccountDateType = {
@@ -44,34 +43,37 @@ interface SelectedDateType {
   month: number;
 }
 
-const initSelectedDate = {
-  year: 2020,
-  month: 11,
+const initDate = {
+  year: new Date().getFullYear(),
+  month: new Date().getMonth() + 1,
 };
 
-const makeTransactionStore = () => {
-  const store = {
-    selectedDate: initSelectedDate,
-    accountObjId: 'test',
-    accountDateList: testAccountDateList,
-    async loadTransactions() {
-      const queryString = `?year=${this.selectedDate.year}&month=${this.selectedDate.month}`;
-      const result = await axios.get(
-        `${urls.transaction(this.accountObjId)}${queryString}`,
-      );
-      this.accountDateList = { ...result } as any;
-    },
-    changeSelectedDate(selectedDateInput: SelectedDateType) {
-      this.selectedDate = selectedDateInput;
-      this.loadTransactions();
-    },
-    changeAccountObj(accountObjIdInput: string) {
-      this.accountObjId = accountObjIdInput;
-      this.loadTransactions();
-    },
-  };
-  store.loadTransactions();
-  return makeAutoObservable(store);
-};
+export const TransactionStore = makeAutoObservable({
+  accountDateList: testAccountDateList,
+  selectedDate: initDate,
+  accountObjId: 'empty',
+  state: 'pending',
+  async loadTransactions() {
+    this.state = 'pending';
+    try {
+      const result = await transactionAPI.getTransaction(this.accountObjId, {
+        ...this.selectedDate,
+      });
+      runInAction(() => {
+        this.accountDateList = { ...result } as any;
+        this.state = 'done';
+      });
+    } catch (err) {
+      runInAction(() => {
+        this.state = 'error';
+      });
+    }
+  },
+  setSelectedDate(selectedDateInput: SelectedDateType) {
+    this.selectedDate = selectedDateInput;
+  },
 
-export const TransactionStore = makeTransactionStore();
+  setAccountObjId(accountObjIdInput: string) {
+    this.accountObjId = accountObjIdInput;
+  },
+});

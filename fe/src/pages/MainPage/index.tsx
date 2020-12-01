@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import { TransactionStore } from 'stores/Transaction';
@@ -9,17 +9,19 @@ import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
 import TransactionDateList, { calTotalPrices } from './TransactionDateList';
 
-export interface Props {}
-
 const MainPage = () => {
-  const totalPrices = calTotalPrices(toJS(TransactionStore.accountDateList));
+  useEffect(() => {
+    TransactionStore.setSelectedDate({
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+    });
+    TransactionStore.loadTransactions();
+  }, []);
+
   const SubHeaderBar = (
     <MonthInfo
-      month={TransactionStore.selectedDate.month}
-      total={{
-        income: totalPrices.income,
-        expense: totalPrices.expense,
-      }}
+      month={toJS(TransactionStore.selectedDate.month)}
+      total={calTotalPrices(toJS(TransactionStore.accountDateList))}
     />
   );
 
