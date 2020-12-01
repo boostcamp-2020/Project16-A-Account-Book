@@ -9,7 +9,7 @@ const CategorySchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ['INCOME', 'EXPENSE', 'TRANSFER'],
+    enum: ['INCOME', 'EXPENSE'],
   },
   title: {
     type: String,
