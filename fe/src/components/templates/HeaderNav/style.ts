@@ -9,7 +9,7 @@ export const FilterBar = styled(FilterBarComponent)`
 
 export const ContentArea = styled.div`
   overflow-y: scroll;
-  max-height: calc(100vh - 12rem);
+  height: calc(100vh - 12rem);
 `;
 
 export const Nav = styled.nav`

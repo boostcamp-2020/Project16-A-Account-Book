@@ -3,9 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   padding: 0.4em;
   width: fit-content;
-  position: absolute;
-  top: 0;
-  left: 0;
   .react-datepicker__navigation--previous {
     border-right-color: #fff;
   }

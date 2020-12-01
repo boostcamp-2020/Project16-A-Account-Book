@@ -10,6 +10,13 @@ export const Container = styled.section`
   border: 1px solid ${({ theme }) => theme.color.subText};
   background: ${({ theme }) => theme.color.white};
   padding: 1rem;
+  .range-container {
+    background: white;
+    border: 0;
+    outline: none;
+    padding: 0;
+    margin: 0;
+  }
 `;
 export const Label = styled.div`
   margin: 0.3em 0;
@@ -43,7 +50,7 @@ export const Box = styled.div`
 
 export const DateContainer = styled.div`
   display: grid;
-  grid-template-columns: 2fr 7fr;
+  grid-template-columns: 3fr 7fr;
 `;
 
 export const DateFilterContainer = styled.div`
@@ -64,6 +71,10 @@ export const DateFilterButton = styled(Button)`
 `;
 
 export const Model = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
   width: 100vw;
   height: 100vh;
   display: flex;
