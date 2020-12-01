@@ -90,10 +90,18 @@ const testAccountDateList = {
   ],
 };
 
-export const Default = () => {
+export const SundayStart = () => {
   return (
     <GlobalThemeProvider>
       <Calender isSundayStart transactions={testAccountDateList} />
+    </GlobalThemeProvider>
+  );
+};
+
+export const MondayStart = () => {
+  return (
+    <GlobalThemeProvider>
+      <Calender isSundayStart={false} transactions={testAccountDateList} />
     </GlobalThemeProvider>
   );
 };
