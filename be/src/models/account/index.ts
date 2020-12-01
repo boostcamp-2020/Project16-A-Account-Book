@@ -8,7 +8,7 @@ export interface AccountDocument extends Document {
 }
 
 export interface IAccount extends AccountDocument {}
-export interface IAccountDocument extends Model<IAccount> {
+export interface IAccountModel extends Model<IAccount> {
   findByPkAndPushTransaction(
     accountObjId: string,
     transactionObjId: string,
@@ -38,7 +38,7 @@ export const AccountSchema = new Schema({
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 
-export const AccountModel = model<IAccount, IAccountDocument>(
+export const AccountModel = model<IAccount, IAccountModel>(
   'accounts',
   AccountSchema,
 );
