@@ -5,7 +5,7 @@ import * as S from './style';
 
 export interface IDateRange {
   dates: {
-    startDate: Date;
+    startDate: Date | null;
     endDate: Date | null;
   };
 }
@@ -15,7 +15,7 @@ const DateRange = ({ dates }: IDateRange) => {
     <S.DecsContainer>
       <div>
         <S.Small>시작일</S.Small>
-        <p>{dayjs(dates.startDate).format('YY-MM-DD')}</p>
+        <p>{dates.startDate && dayjs(dates.startDate).format('YY-MM-DD')}</p>
       </div>
       <div>
         <S.Small>마지막일</S.Small>

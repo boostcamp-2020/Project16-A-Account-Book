@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from 'components/atoms/Button';
 
 export const Container = styled.section`
   position: absolute;
@@ -37,5 +38,27 @@ export const FlexBox = styled.div`
 export const Box = styled.div`
   & + & {
     margin-top: 2rem;
+  }
+`;
+
+export const DateContainer = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 7fr;
+`;
+
+export const DateFilterContainer = styled.div`
+  position: absolute;
+  width: calc(100% - 0.6em);
+  border: 1px solid ${({ theme }) => theme.color.subText};
+  padding: 0.3em;
+  background: white;
+  z-index: 10;
+`;
+
+export const DateFilterButton = styled(Button)`
+  border: none;
+  background: white;
+  & + & {
+    border-top: 1px solid ${({ theme }) => theme.color.subText};
   }
 `;
