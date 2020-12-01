@@ -76,10 +76,9 @@ const Calender = ({
       oneDateComponent = [];
     }
   }
-  if (oneWeekListData.length !== 0) {
+  if (oneDateComponent.length !== 0) {
     oneWeekListData.push(oneDateComponent);
   }
-
   const oneWeekComponentList = oneWeekListData.map((el) => {
     return <S.OneWeek key={el[0].date} oneDateList={el} />;
   });
