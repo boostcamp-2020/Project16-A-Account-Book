@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
     }
     box-sizing: border-box;
   }
+
+  menu, ol, ul {
+    list-style: none;
+  }
 `;
 
 export default GlobalStyle;

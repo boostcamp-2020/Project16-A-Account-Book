@@ -1,6 +1,6 @@
 import React from 'react';
 import AccountDate from 'components/organisms/AccountDate';
-import { TransactionDBType } from '../../stores/Transaction';
+import { TransactionDBType } from 'stores/Transaction';
 
 const convertTransactionDBTypetoTransactionType = (
   input: TransactionDBType[],
@@ -16,10 +16,50 @@ const convertTransactionDBTypetoTransactionType = (
   });
 };
 
-type test = [date: string, transactions: any];
+type TransactionDBKeyValue = [date: string, transactions: any];
 
-const TransactionDateList = ({ list }: { list: any[] }) => {
-  const mapFunc = (item: test) => {
+const initTotalPrice = {
+  income: 0,
+  expense: 0,
+};
+
+const TransactionsReduce = (
+  oneDayPrice: { income: number; expense: number },
+  transaction: TransactionDBType,
+) => {
+  if (transaction.category.type === 'INCOME') {
+    return {
+      ...oneDayPrice,
+      income: oneDayPrice.income + transaction.price,
+    };
+  }
+  if (transaction.category.type === 'EXPENSE') {
+    return {
+      ...oneDayPrice,
+      expense: oneDayPrice.expense + transaction.price,
+    };
+  }
+  // TODO 이체 처리
+  return oneDayPrice;
+};
+
+export const calTotalPrices = (list: any) => {
+  return Object.values<TransactionDBType[]>(list).reduce(
+    (acc: { income: number; expense: number }, transactions) => {
+      const res = transactions.reduce(TransactionsReduce, {
+        ...initTotalPrice,
+      });
+      return {
+        income: acc.income + res.income,
+        expense: acc.expense + res.expense,
+      };
+    },
+    { ...initTotalPrice },
+  );
+};
+
+const TransactionDateList = ({ list }: { list: any }) => {
+  const mapFunc = (item: TransactionDBKeyValue) => {
     const [date, transactions] = item;
     return (
       <AccountDate

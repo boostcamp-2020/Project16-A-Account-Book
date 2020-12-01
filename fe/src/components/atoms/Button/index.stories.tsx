@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import { withKnobs, select } from '@storybook/addon-knobs';
-
 import naverSVG from 'assets/svg/naver.svg';
 import Button from '.';
+
 
 export default {
   title: 'atoms/Button',

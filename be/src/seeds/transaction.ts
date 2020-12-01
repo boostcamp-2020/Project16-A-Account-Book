@@ -1,11 +1,10 @@
 /* eslint-disable no-underscore-dangle */
+import { TransactionModel, ITransactionDocument } from 'models/transaction';
 import {
   getRandomNumber,
   getRandomDate,
   getRandomLengthString,
 } from '../libs/random';
-
-import { TransactionModel, Transaction } from '../models';
 
 const REPEAT_LENGTH = 5;
 const TRANSACTION_LENGTH = 30;
@@ -17,7 +16,7 @@ interface TransactionType {
 }
 
 export const up = ({ methods, categories }: TransactionType) => {
-  return new Promise<[Transaction]>((resolve: any) => {
+  return new Promise<ITransactionDocument[]>((resolve: any) => {
     const transactions = Array(REPEAT_LENGTH * TRANSACTION_LENGTH)
       .fill(0)
       .reduce((transactionList, cur, index) => {
@@ -45,7 +44,7 @@ export const up = ({ methods, categories }: TransactionType) => {
         });
         return transactionList;
       }, []);
-    TransactionModel.create(transactions).then((ts: Transaction) =>
+    TransactionModel.create(transactions).then((ts: ITransactionDocument) =>
       resolve(ts),
     );
   });

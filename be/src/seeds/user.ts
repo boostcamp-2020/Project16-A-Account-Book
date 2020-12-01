@@ -1,5 +1,5 @@
+import { UserModel, IUserDocument } from 'models/user';
 import { getRandomLengthString } from '../libs/random';
-import { UserModel, User } from '../models';
 
 interface DummyArray {
   id: string;
@@ -8,7 +8,7 @@ interface DummyArray {
 const SEED_LENGTH = 5;
 
 export const up = () => {
-  return new Promise<[User]>((resolve: any) => {
+  return new Promise<IUserDocument[]>((resolve: any) => {
     const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
       const id = getRandomLengthString({ minLength: 5, maxLength: 16 });
       dummyArray.push({
@@ -18,7 +18,7 @@ export const up = () => {
     };
     const dummies = Array(SEED_LENGTH).fill(0).reduceRight(reducer, []);
 
-    UserModel.create(dummies).then((users: User) => {
+    UserModel.create(dummies).then((users: IUserDocument) => {
       resolve(users);
     });
   });
