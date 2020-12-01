@@ -1,10 +1,7 @@
 import styled from 'styled-components';
-import theme from 'styles/theme';
-import ChattingBox from '../../molecules/ChattingBox';
-import Input from '../../atoms/Input';
-import Button from '../../atoms/Button';
-
-const fontsize = theme.fontSize.sm;
+import ChattingBox from 'components/molecules/ChattingBox';
+import Input from 'components/atoms/Input';
+import Button from 'components/atoms/Button';
 
 export const ChattingArea = styled.div`
   width: 100%;
@@ -25,7 +22,7 @@ export const ChatBox = styled(ChattingBox)`
 
 export const ChattingInput = styled(Input)`
   width: 70%;
-  font-size: ${fontsize};
+  font-size: ${({ theme }) => theme.fontSize.sm};
   padding: 1%;
   border: 0;
 `;
