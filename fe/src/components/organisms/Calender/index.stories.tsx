@@ -7,7 +7,7 @@ export default {
   component: Calender,
 };
 
-export const testAccountDateList = {
+const testAccountDateList = {
   '2020-11-1': [
     {
       excludeFromBudget: false,
