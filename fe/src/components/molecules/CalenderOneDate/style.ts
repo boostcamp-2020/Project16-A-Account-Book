@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Button from 'components/atoms/Button';
 
 export const CalenderOneDate = styled(Button)`
+  width: 10%;
   height: 5rem;
 `;
 
