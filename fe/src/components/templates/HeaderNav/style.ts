@@ -8,7 +8,8 @@ export const FilterBar = styled(FilterBarComponent)`
 `;
 
 export const ContentArea = styled.div`
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
   height: calc(100vh - 12rem);
 `;
 
