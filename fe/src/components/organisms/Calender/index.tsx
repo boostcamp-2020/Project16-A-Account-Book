@@ -67,6 +67,8 @@ const Calender = ({
       if (nowElementDate === String(dateLoopIdx)) {
         oneDateComponent.push({ ...nowElement, date: dateLoopIdx });
         oneDateListIdx += 1;
+      } else {
+        oneDateComponent.push({ date: dateLoopIdx });
       }
     } else {
       oneDateComponent.push({ date: dateLoopIdx });
