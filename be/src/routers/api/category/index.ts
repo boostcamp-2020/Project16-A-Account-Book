@@ -1,18 +1,9 @@
 import Router from 'koa-router';
-import {AccountModel} from '../../../models/account';
-import {TransactionModel} from '../../../models/transaction';
+import categoryController from 'controllers/category';
+
 
 const router = new Router(); 
 
-router.get('/:accountObjId', async (ctx)=>{
-  // 
-  const {accountObjId} = ctx.params;
-  const res = await  AccountModel.find().populate({path:'categories'}).exec();
-  console.log(res);
-  // const t = await TransactionModel.find().populate('categories').exec();
-  // console.log(t);
-  
-  ctx.body =res
-})
+router.get('/:accountObjId',categoryController.get)
 
 export default router;
