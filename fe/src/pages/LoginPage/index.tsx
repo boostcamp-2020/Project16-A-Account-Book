@@ -5,7 +5,6 @@ import LoginButtons from '../../components/organisms/LoginButtons';
 import Header from '../../components/organisms/Header';
 
 function LoginPage(): React.ReactElement {
-  // const history = useHistory()
   return (
     <LoginTemplate headerContent={<Header />} oauthContent={<LoginButtons />} />
   );
