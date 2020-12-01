@@ -1,4 +1,6 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import theme from 'styles/theme';
 import GithubBtn from '.';
 
 export default {
@@ -6,5 +8,9 @@ export default {
 };
 
 export const defaultButton = () => {
-  return <GithubBtn />;
+  return (
+    <ThemeProvider theme={theme}>
+      <GithubBtn />
+    </ThemeProvider>
+  );
 };
