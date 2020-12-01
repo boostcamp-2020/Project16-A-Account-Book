@@ -2,7 +2,7 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import routers from 'routers';
 import cors from '@koa/cors';
-import { connect as dbConnect } from './models';
+import { connect as dbConnect } from './models/database';
 
 const app = new Koa();
 dbConnect();

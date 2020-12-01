@@ -19,8 +19,8 @@ export const getTransaction = async ({
   endDate: string;
 }) => {
   const oneMonthTransactions: ITransaction[] = await TransactionModel.find()
-    .populate('category')
-    .populate('method')
+    .populate('categories')
+    .populate('methods')
     .where('date')
     .gte(new Date(startDate))
     .lt(new Date(endDate))
