@@ -15,11 +15,13 @@ const DateRange = ({ dates }: IDateRange) => {
     <S.DecsContainer>
       <div>
         <S.Small>시작일</S.Small>
-        <p>{dates.startDate && dayjs(dates.startDate).format('YY-MM-DD')}</p>
+        <div>
+          {dates.startDate && dayjs(dates.startDate).format('YY-MM-DD')}
+        </div>
       </div>
       <div>
         <S.Small>마지막일</S.Small>
-        <p>{dates.endDate && dayjs(dates.endDate).format('YY-MM-DD')}</p>
+        <div>{dates.endDate && dayjs(dates.endDate).format('YY-MM-DD')}</div>
       </div>
     </S.DecsContainer>
   );

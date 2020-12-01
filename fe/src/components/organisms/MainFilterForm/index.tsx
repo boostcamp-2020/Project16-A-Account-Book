@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-// import useVisible from 'hooks/useVisible';
+import useVisible from 'hooks/useVisible';
 import * as S from './style';
 import TopFilter from './TopFilter';
 import CategoryFilterList from './CategoryFilterList';
@@ -10,14 +10,14 @@ import DataPicker, { IDatePicker } from '../../molecules/DatePicker';
 
 const list = [1, 2, 3, 4, 5];
 
-const Buttons = () => {
+const Buttons = ({ onClick }: { onClick: any }) => {
   return (
     <S.DateFilterContainer>
       <S.DateFilterButton onClick={() => {}}>1</S.DateFilterButton>
       <S.DateFilterButton onClick={() => {}}>1</S.DateFilterButton>
       <S.DateFilterButton onClick={() => {}}>1</S.DateFilterButton>
       <S.DateFilterButton onClick={() => {}}>1</S.DateFilterButton>
-      <S.DateFilterButton onClick={() => {}}>1</S.DateFilterButton>
+      <S.DateFilterButton onClick={onClick}>1</S.DateFilterButton>
     </S.DateFilterContainer>
   );
 };
@@ -34,28 +34,49 @@ const Modal = ({ dates, onChange, ref }: IModal) => {
   );
 };
 const MainFilterForm = () => {
-  const [dates] = useState({
+  const [dates, setDates] = useState<{
+    startDate: Date | null;
+    endDate: Date | null;
+  }>({
     startDate: null,
     endDate: null,
   });
-  const handler = () => {};
+
   const container = useRef<HTMLDivElement>(null);
 
-  // const [visible] = useVisible(container);
+  const [visible, toggleVisible] = useVisible(container);
+  const onChangeDate = (d: [Date | null, Date | null]) => {
+    const [startDate, endDate] = d;
+    setDates({
+      startDate,
+      endDate,
+    });
+    if (endDate) {
+      toggleVisible();
+    }
+  };
+  const handler = () => {};
+  const tog = () => toggleVisible();
+
   return (
     <S.Container>
       <TopFilter filterTitle="기간">
         <S.DateContainer>
           <DropdownHeader title="기간">
-            <Buttons />
+            <Buttons onClick={toggleVisible} />
           </DropdownHeader>
-          <DateRange dates={dates} />
+          <button type="button" onClick={tog} className="range-container">
+            <DateRange dates={dates} />
+          </button>
         </S.DateContainer>
       </TopFilter>
+
       <TopFilter filterTitle="결제수단">
         <Dropdown dataList={list} onClick={handler} title="수입 카테고리" />
       </TopFilter>
-      <Modal dates={dates} onChange={() => {}} ref={container} />
+      {visible && (
+        <Modal dates={dates} onChange={onChangeDate} ref={container} />
+      )}
       <S.Box>
         <S.Label>
           <small>카테고리</small>

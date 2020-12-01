@@ -23,7 +23,7 @@ export interface IButton {
 
 const DatePicker = ({ dates, onChange }: IDatePicker) => {
   return (
-    <S.Container>
+    <S.Container id="date-picker">
       <DateRange dates={dates} />
       <ReactDatePicker
         selected={dates.startDate}
