@@ -17,9 +17,6 @@ const CalenderOneDate = ({
   onClick,
   ...props
 }: Props): React.ReactElement => {
-  if (!date && !income && !expense) {
-    return <S.CalenderOneDate onClick={onClick} {...props} />;
-  }
   return (
     <S.CalenderOneDate onClick={onClick} {...props}>
       <S.DateText>{date}</S.DateText>
