@@ -3,8 +3,8 @@ import { Schema, model, Document } from 'mongoose';
 export const CategoryType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
-  TRANSFER: 'TRANSFER',
 };
+
 const CategorySchema = new Schema({
   type: {
     type: String,
@@ -14,6 +14,16 @@ const CategorySchema = new Schema({
   title: {
     type: String,
     required: true,
+    unique: true,
+  },
+  color: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: [
+      (color: string) => color.length === 7,
+      '{PATH} must have length 7',
+    ],
   },
 });
 
