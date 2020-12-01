@@ -1,4 +1,3 @@
-import { toEditorSettings } from 'typescript';
 import makeQueryString from './query';
 
 describe('makeQueryString test', () => {
