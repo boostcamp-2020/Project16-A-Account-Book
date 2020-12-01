@@ -1,6 +1,6 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import theme from 'styles/theme';
+
+import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import CalenderOneDate from '.';
 
 export default {
@@ -11,13 +11,22 @@ export default {
 export const Default = () => {
   const onClick = () => alert('calender button clicked');
   return (
-    <ThemeProvider theme={theme}>
+    <GlobalThemeProvider>
       <CalenderOneDate
         date={7}
         income={20000}
         expense={30000}
         onClick={onClick}
       />
-    </ThemeProvider>
+    </GlobalThemeProvider>
+  );
+};
+
+export const Empty = () => {
+  const onClick = () => alert('calender button clicked');
+  return (
+    <GlobalThemeProvider>
+      <CalenderOneDate onClick={onClick} />
+    </GlobalThemeProvider>
   );
 };
