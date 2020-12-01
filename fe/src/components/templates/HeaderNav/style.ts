@@ -11,7 +11,7 @@ export const ContentArea = styled.div`
   box-sizing: border-box;
   position: fixed;
   width: 100%;
-  overflow: scroll;
+  overflow-y: auto;
   top: 3rem;
   height: 80%;
   left: 0;
