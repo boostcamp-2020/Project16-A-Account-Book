@@ -1,7 +1,6 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import theme from 'styles/theme';
 import { withKnobs } from '@storybook/addon-knobs';
+import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import MainPage from '.';
 
 export default {
@@ -12,8 +11,8 @@ export default {
 
 export const MainPageDefault = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <GlobalThemeProvider>
       <MainPage />
-    </ThemeProvider>
+    </GlobalThemeProvider>
   );
 };
