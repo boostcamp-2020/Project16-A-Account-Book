@@ -7,7 +7,7 @@ export interface Props {
 }
 
 interface accProps {
-  DateComponentList: JSX.Element[];
+  dateComponentList: JSX.Element[];
   income: number;
   expense: number;
 }
@@ -20,6 +20,7 @@ const CalenderOneDate = ({
     (acc: accProps, el) => {
       const newComponent = (
         <S.OneDate
+          key={el.date}
           date={el.date}
           income={el.income}
           expense={el.expense}
@@ -29,13 +30,13 @@ const CalenderOneDate = ({
         />
       );
       return {
-        DateComponentList: [...acc.DateComponentList, newComponent],
-        income: acc.income + el.income!,
-        expense: acc.expense + el.expense!,
+        dateComponentList: [...acc.dateComponentList, newComponent],
+        income: acc.income + (el.income! || 0),
+        expense: acc.expense + (el.expense! || 0),
       };
     },
     {
-      DateComponentList: [],
+      dateComponentList: [],
       income: 0,
       expense: 0,
     },
@@ -44,16 +45,20 @@ const CalenderOneDate = ({
   if (oneDateList[0].date === 1) {
     new Array(7 - oneDateList.length)
       .fill(0)
-      .forEach(() => res.DateComponentList.unshift(<S.OneDate />));
+      .forEach(() =>
+        res.dateComponentList.unshift(<S.OneDate key={Math.random()} />),
+      );
   } else {
     new Array(7 - oneDateList.length)
       .fill(0)
-      .forEach(() => res.DateComponentList.push(<S.OneDate />));
+      .forEach(() =>
+        res.dateComponentList.push(<S.OneDate key={Math.random()} />),
+      );
   }
 
   return (
     <S.CalenderOneWeek {...props}>
-      <S.DateWrap>{res.DateComponentList}</S.DateWrap>
+      <S.DateWrap>{res.dateComponentList}</S.DateWrap>
       <S.PriceWrap>
         <S.PriceTag value={res.income} />
         <S.PriceTag value={res.expense} />
