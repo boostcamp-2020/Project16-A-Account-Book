@@ -10,4 +10,6 @@ export const Calender = styled.div`
 
 export const DayBar = styled(CalenderDayBar)``;
 
-export const OneWeek = styled(CalenderOneWeek)``;
+export const OneWeek = styled(CalenderOneWeek)`
+  width: 100%;
+`;
