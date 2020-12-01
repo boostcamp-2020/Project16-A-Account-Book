@@ -1,11 +1,10 @@
 /* eslint-disable no-underscore-dangle */
+import { IAccount } from 'models';
 import * as categorySeed from './category';
 import * as methodSeed from './method';
 import * as UserSeed from './user';
 import * as transactionSeed from './transaction';
 import * as accountSeed from './account';
-
-import { Account } from '../models';
 
 const REPEAT_LENGTH = 5;
 const TRANSACTION_LENGTH = 30;
@@ -33,7 +32,7 @@ export const totalSeed = async () => {
       });
       return acc;
     }, []);
-  await accountSeed.up(accountsList).then(async (docs: [Account]) => {
+  await accountSeed.up(accountsList).then(async (docs: [IAccount]) => {
     for (let i = 0; i < users.length; i += 1) {
       users[i].accounts = docs[i]._id;
       await users[i].save();
