@@ -17,7 +17,9 @@ const circle = {
     return circle.r * 2;
   },
   transform() {
-    const moveX = circle.r * 4 * -1;
+    const doubleDiameter = circle.r * 4;
+    const down = -1;
+    const moveX = doubleDiameter * down;
     return `rotate(-90) translate(${moveX})`;
   },
 };
