@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-import { IAccount } from 'models';
 import * as categorySeed from './category';
 import * as methodSeed from './method';
 import * as UserSeed from './user';
@@ -32,7 +31,7 @@ export const totalSeed = async () => {
       });
       return acc;
     }, []);
-  await accountSeed.up(accountsList).then(async (docs: [IAccount]) => {
+  await accountSeed.up(accountsList).then(async (docs: any) => {
     for (let i = 0; i < users.length; i += 1) {
       users[i].accounts = docs[i]._id;
       await users[i].save();

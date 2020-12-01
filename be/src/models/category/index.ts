@@ -1,6 +1,6 @@
 import { Schema, model, Document } from 'mongoose';
 
-export const CategoryType = {
+export const categoryType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
 };
@@ -9,7 +9,7 @@ const CategorySchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ['INCOME', 'EXPENSE'],
+    enum: Object.values(categoryType),
   },
   title: {
     type: String,
@@ -27,9 +27,15 @@ const CategorySchema = new Schema({
   },
 });
 
-export interface Category extends Document {
-  type: String;
-  title: String;
+export interface ICategory {
+  type: string;
+  title: string;
+  color: string;
 }
 
-export const CategoryModel = model<Category>('categories', CategorySchema);
+export interface ICategoryDocument extends ICategory, Document {}
+
+export const CategoryModel = model<ICategoryDocument>(
+  'categories',
+  CategorySchema,
+);

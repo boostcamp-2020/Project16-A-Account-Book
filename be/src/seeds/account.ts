@@ -1,13 +1,14 @@
-import { AccountModel, IAccount } from '../models';
+import { AccountModel, IAccountDocument } from 'models/account';
 
 interface Prop {
-  transactions: [String];
-  methods: [String];
-  categories: [String];
+  transactions: string[];
+  methods: string[];
+  categories: string[];
 }
+
 export const up = (accountList: Prop) => {
-  return new Promise<[IAccount]>((resolve: any) => {
-    AccountModel.create(accountList).then((accounts: IAccount) => {
+  return new Promise<IAccountDocument[]>((resolve: any) => {
+    AccountModel.create(accountList).then((accounts: IAccountDocument) => {
       resolve(accounts);
     });
   });
