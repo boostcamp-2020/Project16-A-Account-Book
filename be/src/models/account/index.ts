@@ -2,6 +2,7 @@ import { Schema, Types, model, Document, Model } from 'mongoose';
 import { findByPkAndPushTransaction } from './static';
 
 export interface AccountDocument extends Document {
+  title: string;
   transactions?: [String];
   categories?: [String];
   methods?: [String];
@@ -16,6 +17,9 @@ export interface IAccountDocument extends Model<IAccount> {
 }
 
 export const AccountSchema = new Schema({
+  title: {
+    type: String,
+  },
   transactions: [
     {
       type: Types.ObjectId,
