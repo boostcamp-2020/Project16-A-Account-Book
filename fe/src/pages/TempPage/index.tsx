@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { RouteComponentProps } from 'react-router-dom';
 import loadingImg from 'img/loading.gif';
+import { TransactionStore } from 'stores/Transaction';
 
 export interface matchParams {
   code: string;
@@ -27,6 +28,7 @@ function TempPage(props: RouteComponentProps<matchParams>): React.ReactElement {
       const { title } = titleResult.data;
       localStorage.setItem('accountId', accountObjId);
       localStorage.setItem('title', title);
+      TransactionStore.setAccountObjId(accountObjId);
       props.history.push(`/${title}`);
     };
     getToken();
