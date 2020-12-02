@@ -20,10 +20,7 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    validate: [
-      (color: string) => color.length === 7,
-      '{PATH} must have length 7',
-    ],
+    validate: (color: string) => color.length === 7,
   },
 });
 

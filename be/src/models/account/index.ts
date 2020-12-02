@@ -5,6 +5,7 @@ import {
 } from './static';
 
 export interface IAccount {
+  title: string;
   transactions?: string[];
   categories?: string[];
   methods?: string[];
@@ -25,6 +26,9 @@ export interface IAccountModel extends Model<IAccountDocument> {
 }
 
 export const AccountSchema = new Schema({
+  title: {
+    type: String,
+  },
   transactions: [
     {
       type: Types.ObjectId,

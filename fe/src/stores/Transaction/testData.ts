@@ -1,5 +1,5 @@
 export const testAccountDateList = {
-  '1': [
+  '2020-11-1': [
     {
       excludeFromBudget: false,
       _id: 'aaa',
@@ -20,7 +20,7 @@ export const testAccountDateList = {
       price: 10000,
     },
   ],
-  '2': [
+  '2020-11-2': [
     {
       excludeFromBudget: false,
       _id: 'bbb',
