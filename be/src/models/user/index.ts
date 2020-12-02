@@ -27,8 +27,8 @@ const UserSchema = new Schema({
   ],
 });
 
-export interface User extends Document {
-  accounts: [Types.ObjectId];
+export interface IUserDocument extends Document {
+  accounts: Types.ObjectId[];
   timezone?: String;
   startOfWeek?: String;
   id?: String;
@@ -36,4 +36,4 @@ export interface User extends Document {
   salt?: String;
 }
 
-export const UserModel = model<User>('users', UserSchema);
+export const UserModel = model<IUserDocument>('users', UserSchema);

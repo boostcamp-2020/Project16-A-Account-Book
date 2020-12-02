@@ -1,5 +1,5 @@
+import { MethodModel, IMethodDocument } from 'models/method';
 import { getRandomLengthString } from '../libs/random';
-import { MethodModel, Method } from '../models';
 
 interface DummyArray {
   title: string;
@@ -7,7 +7,7 @@ interface DummyArray {
 const SEED_LENGTH = 15;
 
 export const up = () => {
-  return new Promise<[Method]>((resolve: any) => {
+  return new Promise<[IMethodDocument]>((resolve: any) => {
     const reducer = (dummyArray: [DummyArray]): [DummyArray] => {
       const title = getRandomLengthString({ minLength: 2, maxLength: 15 });
       dummyArray.push({
@@ -17,7 +17,9 @@ export const up = () => {
     };
 
     const dummies = Array(SEED_LENGTH).fill(0).reduce(reducer, []);
-    MethodModel.create(dummies).then((methods: Method) => resolve(methods));
+    MethodModel.create(dummies).then((methods: IMethodDocument) =>
+      resolve(methods),
+    );
   });
 };
 

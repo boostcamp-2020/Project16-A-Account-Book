@@ -32,17 +32,19 @@ const TransactionSchema = new Schema({
   },
 });
 
-export interface Transaction extends Document {
-  client: String;
-  method: String;
-  category: String;
+export interface ITransaction {
+  client: string;
+  method: string;
+  category: string;
   date: Date;
-  price: Number;
-  memo?: String;
-  excludeFromBudget?: Boolean;
+  price: number;
+  memo?: string;
+  excludeFromBudget?: boolean;
 }
 
-export const TransactionModel = model<Transaction>(
+export interface ITransactionDocument extends ITransaction, Document {}
+
+export const TransactionModel = model<ITransactionDocument>(
   'transactions',
   TransactionSchema,
 );

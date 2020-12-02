@@ -1,25 +1,41 @@
 import { Schema, model, Document } from 'mongoose';
 
-export const CategoryType = {
+export const categoryType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
-  TRANSFER: 'TRANSFER',
 };
+
 const CategorySchema = new Schema({
   type: {
     type: String,
     required: true,
-    enum: ['INCOME', 'EXPENSE', 'TRANSFER'],
+    enum: Object.values(categoryType),
   },
   title: {
     type: String,
     required: true,
+    unique: true,
+  },
+  color: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: [
+      (color: string) => color.length === 7,
+      '{PATH} must have length 7',
+    ],
   },
 });
 
-export interface Category extends Document {
-  type: String;
-  title: String;
+export interface ICategory {
+  type: string;
+  title: string;
+  color: string;
 }
 
-export const CategoryModel = model<Category>('categories', CategorySchema);
+export interface ICategoryDocument extends ICategory, Document {}
+
+export const CategoryModel = model<ICategoryDocument>(
+  'categories',
+  CategorySchema,
+);

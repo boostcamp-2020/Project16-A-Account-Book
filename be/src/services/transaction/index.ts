@@ -1,6 +1,7 @@
-import { TransactionModel, Transaction, AccountModel } from 'models';
+import { TransactionModel, ITransaction } from 'models/transaction';
+import { AccountModel } from 'models/account';
 
-const oneMonthTransactionsReducer = (acc: any, transaction: Transaction) => {
+const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
   const year = transaction.date.getFullYear();
   const month = transaction.date.getMonth() + 1;
   const date = transaction.date.getDate();
@@ -17,7 +18,7 @@ export const getTransaction = async ({
   startDate: string;
   endDate: string;
 }) => {
-  const oneMonthTransactions: Transaction[] = await TransactionModel.find()
+  const oneMonthTransactions: ITransaction[] = await TransactionModel.find()
     .populate('category')
     .populate('method')
     .where('date')
@@ -30,7 +31,7 @@ export const getTransaction = async ({
 };
 
 export const saveAndAddToAccount = async (
-  transaction: Transaction,
+  transaction: ITransaction,
   accountObjId: string,
 ) => {
   const { _id: transcationObjId } = await TransactionModel.create(transaction);
@@ -38,4 +39,24 @@ export const saveAndAddToAccount = async (
     accountObjId,
     transcationObjId,
   );
+};
+
+export const getTotalPriceByClassification = async (
+  accountObjId: string,
+  startDate: string,
+  endDate: string,
+) => {
+  const transactionsInDateRange = await AccountModel.findById(
+    accountObjId,
+    'transactions',
+  )
+    .populate({
+      path: 'transactions',
+      match: { date: { $gte: startDate, $lt: endDate } },
+      select: 'price category date',
+      populate: { path: 'category', select: 'type' },
+    })
+    .exec();
+
+  return transactionsInDateRange;
 };
