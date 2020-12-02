@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CategoryTemplate from 'components/templates/CategoryTemplate';
 import Header from 'components/organisms/Header';
 import backArrow from 'assets/svg/backArrow.svg';
 import IconButton from 'components/molecules/IconButton';
 import CategoryArea from 'components/organisms/CategoryArea';
+import { observer } from 'mobx-react';
+import { CategoryStore } from 'stores/Category';
 
 function CategoryPage(): React.ReactElement {
+  useEffect(() => {
+    CategoryStore.loadCategories();
+  }, []);
+
   return (
     <CategoryTemplate
       headerContent={<Header />}
       homeButton={<IconButton icon={backArrow} />}
       title="카테고리 설정"
-      bodyContent={<CategoryArea />}
+      bodyContent={<CategoryArea dataList={CategoryStore.dataList} />}
     />
   );
 }
 
-export default CategoryPage;
+export default observer(CategoryPage);

@@ -27,8 +27,6 @@ const editButtonHandler = () => {
   console.log('edit clicked');
 };
 
-const tempDataList: string[] = ['하나', '둘', '셋'];
-
 const dropDownItemClicked = () => {
   console.log('dropdown item clicked');
 };
@@ -37,7 +35,11 @@ const onPlusButtonClick = () => {
   console.log('plus button clicked');
 };
 
-const CategoryArea = () => {
+export interface Props {
+  dataList: any;
+}
+
+const CategoryArea = ({ dataList }: Props) => {
   return (
     <S.CategoryAreaContainer>
       <S.TabUIContainer>
@@ -49,7 +51,7 @@ const CategoryArea = () => {
         </S.EditButton>
       </S.EditButtonArea>
       <S.DropDownContainer>
-        <DropdownBody dataList={tempDataList} onClick={dropDownItemClicked} />
+        <DropdownBody dataList={dataList} onClick={dropDownItemClicked} />
       </S.DropDownContainer>
       <S.TabBottomArea>
         <S.StyledButton icon={PlusIcon} onClick={onPlusButtonClick} />

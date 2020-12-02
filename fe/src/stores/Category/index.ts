@@ -1,8 +1,10 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
+import CategoryAPI from 'apis/category';
 
 export const CategoryStore = makeAutoObservable({
-  type: 'expense',
+  type: 'EXPENSE',
   dataList: [],
+  accountObjId: 'init',
 
   setDataList(dataSet: any) {
     this.dataList = dataSet[this.type];
@@ -12,7 +14,10 @@ export const CategoryStore = makeAutoObservable({
   },
 
   async loadCategories() {
-    console.log('get DB Data');
+    const categories: any = await CategoryAPI.getCategories(this.accountObjId);
+    runInAction(() => {
+      this.dataList = categories[this.type];
+    });
   },
 });
 
