@@ -5,7 +5,7 @@ import LoginPage from './pages/LoginPage';
 import TempPage from './pages/TempPage';
 import MainPage from './pages/MainPage';
 
-function App(): React.ReactElement {
+const App = () => {
   return (
     <GlobalThemeProvider>
       <Router>
@@ -17,6 +17,6 @@ function App(): React.ReactElement {
       </Router>
     </GlobalThemeProvider>
   );
-}
+};
 
 export default App;

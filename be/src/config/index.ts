@@ -1,3 +1,4 @@
+import { Context } from 'koa';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -31,6 +32,11 @@ export const getHostUrl = () => {
 
 export const getFrontUrl = () => {
   return `http://${hostConfig.url}:${hostConfig.frontPort}`;
+};
+
+export const corsOptions = {
+  origin: (ctx: Context) => ctx.request.header.origin,
+  credentials: true,
 };
 
 export default {};

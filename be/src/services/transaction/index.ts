@@ -1,5 +1,4 @@
-import { TransactionModel, Transaction, AccountModel } from 'models/index';
-import getOneMonthRange from 'libs/date';
+import { TransactionModel, Transaction, AccountModel } from 'models';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: Transaction) => {
   const year = transaction.date.getFullYear();
@@ -10,19 +9,20 @@ const oneMonthTransactionsReducer = (acc: any, transaction: Transaction) => {
     ? { ...acc, [key]: [...acc[key], transaction] }
     : { ...acc, [key]: [transaction] };
 };
+
 export const getTransaction = async ({
-  year,
-  month,
+  startDate,
+  endDate,
 }: {
-  year: string;
-  month: string;
+  startDate: string;
+  endDate: string;
 }) => {
   const oneMonthTransactions: Transaction[] = await TransactionModel.find()
     .populate('category')
     .populate('method')
     .where('date')
-    .gte(new Date(getOneMonthRange(year, month).start))
-    .lt(new Date(getOneMonthRange(year, month).end))
+    .gte(new Date(startDate))
+    .lt(new Date(endDate))
     .sort('date');
 
   const result = oneMonthTransactions.reduce(oneMonthTransactionsReducer, {});

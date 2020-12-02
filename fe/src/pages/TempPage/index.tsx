@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { RouteComponentProps } from 'react-router-dom';
 import loadingImg from 'img/loading.gif';
+import { TransactionStore } from 'stores/Transaction';
+import auth from 'apis/auth';
+import user from 'apis/user';
 
 export interface matchParams {
   code: string;
@@ -13,20 +15,15 @@ function TempPage(props: RouteComponentProps<matchParams>): React.ReactElement {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const getToken = async () => {
-      const result = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/auth/github/access_token?code=${code}`,
-        { withCredentials: true },
-      );
+      const result = await auth.getAccessToken(code);
       setIsLoading(false);
       const { accounts } = result.data;
       const accountObjId = accounts[0];
-      const titleResult = await axios.get(
-        `http://${process.env.REACT_APP_API_URL}:${process.env.REACT_APP_API_PORT}/api/user/titleByAccountId?accountId=${accountObjId}`,
-        { withCredentials: true },
-      );
+      const titleResult = await user.getTitleById(accountObjId);
       const { title } = titleResult.data;
       localStorage.setItem('accountId', accountObjId);
       localStorage.setItem('title', title);
+      TransactionStore.setAccountObjId(accountObjId);
       props.history.push(`/${title}`);
     };
     getToken();
