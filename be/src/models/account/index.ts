@@ -1,15 +1,16 @@
 import { Schema, Types, model, Document, Model } from 'mongoose';
 import { findByPkAndPushTransaction } from './static';
 
-export interface AccountDocument extends Document {
+export interface IAccount {
   title: string;
-  transactions?: [String];
-  categories?: [String];
-  methods?: [String];
+  transactions?: string[];
+  categories?: string[];
+  methods?: string[];
 }
 
-export interface IAccount extends AccountDocument {}
-export interface IAccountDocument extends Model<IAccount> {
+export interface IAccountDocument extends IAccount, Document {}
+
+export interface IAccountModel extends Model<IAccountDocument> {
   findByPkAndPushTransaction(
     accountObjId: string,
     transactionObjId: string,
@@ -42,7 +43,7 @@ export const AccountSchema = new Schema({
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 
-export const AccountModel = model<IAccount, IAccountDocument>(
+export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
   AccountSchema,
 );
