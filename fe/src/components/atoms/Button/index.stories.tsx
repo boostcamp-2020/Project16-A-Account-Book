@@ -5,7 +5,6 @@ import { withKnobs, select } from '@storybook/addon-knobs';
 import naverSVG from 'assets/svg/naver.svg';
 import Button from '.';
 
-
 export default {
   title: 'atoms/Button',
   component: Button,
