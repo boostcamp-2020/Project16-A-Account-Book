@@ -7,8 +7,8 @@ const MethodSchema = new Schema({
   },
 });
 
-export interface Method extends Document {
-  title: String;
+export interface IMethod {
+  title: string;
 }
-
-export const MethodModel = model<Method>('methods', MethodSchema);
+export interface IMethodDocument extends IMethod, Document {}
+export const MethodModel = model<IMethodDocument>('methods', MethodSchema);
