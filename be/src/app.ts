@@ -1,18 +1,17 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import routers from 'routers';
 import cors from '@koa/cors';
+import Router from './routers';
 import { connect as dbConnect } from './models';
+import { corsOptions } from './config';
 
 const app = new Koa();
 dbConnect();
+app.use(cors(corsOptions));
 
 app.use(bodyParser());
-app.use(cors());
-app.use(routers.routes());
-app.use((ctx: Koa.Context) => {
-  ctx.body = 'hello, Koa!';
-});
+app.use(Router.routes());
+app.use(Router.allowedMethods());
 
 app.listen(4000, () => {
   console.log('Listening to port 4000');
