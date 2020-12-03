@@ -4,19 +4,18 @@ import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import Template from 'components/templates/HeaderNav';
 import Header from 'components/organisms/HeaderBar';
-import FilterBar from 'components/organisms/FilterBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
+import Calender from 'components/organisms/Calender';
 import NavBarComponent from 'components/organisms/NavBar';
 import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
 import date from 'utils/date';
-import TransactionDateList from './TransactionDateList';
 
 const { start, end } = date.getOneMonthRange(
   String(new Date().getFullYear()),
   String(new Date().getMonth() + 1),
 );
 
-const MainPage = () => {
+const CalenderPage = () => {
   useEffect(() => {
     TransactionStore.setFilter(new Date(start), new Date(end), null);
     TransactionStore.loadTransactions();
@@ -30,10 +29,12 @@ const MainPage = () => {
   );
 
   const Contents = (
-    <div>
-      <FilterBar />
-      <TransactionDateList list={toJS(TransactionStore.transactions)} />
-    </div>
+    <>
+      <Calender
+        isSundayStart
+        transactions={toJS(TransactionStore.transactions)}
+      />
+    </>
   );
 
   return (
@@ -46,4 +47,4 @@ const MainPage = () => {
   );
 };
 
-export default observer(MainPage);
+export default observer(CalenderPage);

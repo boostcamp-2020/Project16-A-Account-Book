@@ -1,7 +1,9 @@
 import Router from 'koa-router';
-import controller from 'controllers/category';
+import categoryController from 'controllers/category';
 
 const router = new Router();
 
-router.get('/statistics/:accountObjId', controller.getStatisticsInfo);
+router.get('/:accountObjId', categoryController.get);
+
+router.get('/statistics/:accountObjId', categoryController.getStatisticsInfo);
 export default router;

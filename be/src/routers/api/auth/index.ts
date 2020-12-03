@@ -5,8 +5,6 @@ const router = new Router();
 
 router.get('/github', authController.githubAuthRequest);
 
-router.get('/github/callback', authController.githubCallBack);
-
 router.get('/github/access_token', authController.getGithubAccessToken);
 
 export default router;

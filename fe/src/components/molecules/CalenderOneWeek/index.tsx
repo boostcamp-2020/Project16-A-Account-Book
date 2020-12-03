@@ -58,11 +58,11 @@ const CalenderOneDate = ({
 
   return (
     <S.CalenderOneWeek {...props}>
-      <S.DateWrap>{res.dateComponentList}</S.DateWrap>
       <S.PriceWrap>
-        <S.PriceTag value={res.income} />
-        <S.PriceTag value={res.expense} />
+        <S.IncomePriceTag value={res.income} />
+        <S.ExpensePriceTag value={res.expense} />
       </S.PriceWrap>
+      <S.DateWrap>{res.dateComponentList}</S.DateWrap>
     </S.CalenderOneWeek>
   );
 };

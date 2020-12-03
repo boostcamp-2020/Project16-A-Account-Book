@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import DateMoneyHeader from 'components/molecules/DateMoneyHeader';
 import Transaction from 'components/molecules/Transaction';
 
+export const AccountDate = styled.div`
+  margin-top: 1.4em;
+`;
+
 export const Header = styled(DateMoneyHeader)`
   border-bottom: ${({ theme }) => `1px solid ${theme.color.lightBorder}`};
   padding-bottom: 0.3rem;
