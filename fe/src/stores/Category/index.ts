@@ -8,7 +8,17 @@ export const categoryType = {
 };
 
 export const CategoryStore = makeAutoObservable({
-  categoryList: [],
+  accountObjId: '',
+  categoryList: {
+    INCOME: [],
+    EXPENSE: [],
+  },
+
+  getCategories(type: string) {
+    if (type === categoryType.INCOME) return this.categoryList.INCOME;
+    if (type === categoryType.EXPENSE) return this.categoryList.EXPENSE;
+    return [];
+  },
 
   async loadCategories() {
     const categories: any = await CategoryAPI.getCategories(

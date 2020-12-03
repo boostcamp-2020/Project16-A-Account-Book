@@ -8,10 +8,10 @@ export interface Props {
 const TabHeader = ({ onClickHandler }: Props) => {
   return (
     <S.TabUI>
-      <S.TabButton value="지출" onClick={onClickHandler}>
+      <S.TabButton value="EXPENSE" onClick={onClickHandler}>
         지출
       </S.TabButton>
-      <S.TabButton value="수입" onClick={onClickHandler}>
+      <S.TabButton value="INCOME" onClick={onClickHandler}>
         수입
       </S.TabButton>
       <S.TabButton value="이체" onClick={onClickHandler}>

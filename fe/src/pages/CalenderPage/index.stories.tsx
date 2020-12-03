@@ -1,18 +1,18 @@
 import React from 'react';
 import { withKnobs } from '@storybook/addon-knobs';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
-import MainPage from '.';
+import CalenderPage from '.';
 
 export default {
-  title: 'pages/MainPage',
-  component: MainPage,
+  title: 'pages/CalenderPage',
+  component: CalenderPage,
   decorators: [withKnobs],
 };
 
-export const MainPageDefault = () => {
+export const CalenderPageDefault = () => {
   return (
     <GlobalThemeProvider>
-      <MainPage />
+      <CalenderPage />
     </GlobalThemeProvider>
   );
 };

@@ -1,10 +1,9 @@
 import React from 'react';
-import { TransactionType } from 'stores/Transaction';
 import * as S from './style';
 
 export interface Props {
   date: Date;
-  transactionList: TransactionType[];
+  transactionList: any[];
 }
 
 interface accType {
@@ -12,7 +11,7 @@ interface accType {
   totalPrice: number;
 }
 
-const reduceTransactionList = (acc: accType, transEl: TransactionType) => {
+const reduceTransactionList = (acc: accType, transEl: any) => {
   acc.transList.push(<S.AccountTransaction key={transEl.id} trans={transEl} />);
   acc.totalPrice += transEl.price;
   return acc;
@@ -28,10 +27,10 @@ const AccountDate = ({ date, transactionList }: Props) => {
   );
 
   return (
-    <>
+    <S.AccountDate>
       <S.Header date={date} totalPayment={totalPrice} />
       {transList}
-    </>
+    </S.AccountDate>
   );
 };
 

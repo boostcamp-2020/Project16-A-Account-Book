@@ -1,9 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import PriceTagComponent from 'components/atoms/PriceTag';
 import CalenderOneDate from 'components/molecules/CalenderOneDate';
 
 export const CalenderOneWeek = styled.div`
+  margin-top: 0.5em;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -13,10 +14,25 @@ export const OneDate = styled(CalenderOneDate)`
 `;
 export const DateWrap = styled.div`
   display: flex;
+  border-top: 2px solid ${({ theme }) => theme.color.subText};
 `;
 
 export const PriceWrap = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-export const PriceTag = styled(PriceTagComponent)``;
+
+const PriceTag = css`
+  margin-left: 1rem;
+  font-size: 0.75rem;
+`;
+
+export const IncomePriceTag = styled(PriceTagComponent)`
+  ${PriceTag}
+  color: ${({ theme }) => theme.color.brandColor};
+`;
+
+export const ExpensePriceTag = styled(PriceTagComponent)`
+  ${PriceTag}
+  color: ${({ theme }) => theme.color.subText};
+`;

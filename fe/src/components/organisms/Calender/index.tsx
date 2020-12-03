@@ -1,6 +1,5 @@
 import React from 'react';
 import date from 'utils/date';
-import { TransactionDBType } from 'stores/Transaction';
 import * as S from './style';
 
 export interface Props {
@@ -24,9 +23,9 @@ const Calender = ({
   const defaultStartDay = isSundayStart ? 0 : 1;
   const { oneDateList } = Object.entries(transactions).reduce(
     (acc: accType, el: any) => {
-      const [key, value]: [string, TransactionDBType[]] = el;
+      const [key, value]: [string, any[]] = el;
       const res = value.reduce(
-        (acc2, els: TransactionDBType) => {
+        (acc2, els: any) => {
           if (els.category.type === 'INCOME') {
             return {
               ...acc2,

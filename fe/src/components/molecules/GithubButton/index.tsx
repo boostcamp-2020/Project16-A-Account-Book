@@ -1,13 +1,13 @@
 import React from 'react';
 import gitHubSVG from 'assets/svg/github.svg';
-import { getGithubUrl } from 'apis/OAuth';
+import api from 'apis/oauth';
 import { GithubButton, Wrap } from './style';
 
 export interface Props {}
 
 const onGithubLogin = async () => {
-  const data = await getGithubUrl();
-  const url = data.data.githubAuthUrl;
+  const result = await api.getGitHubOAuth();
+  const url = result.githubAuthUrl;
   window.location.href = url;
 };
 

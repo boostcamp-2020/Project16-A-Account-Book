@@ -3,5 +3,7 @@ export default {
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
   userTitle: '/api/user/titleByAccountId?accountId=',
-  category: (accountObjId: string) => `/api/category/${accountObjId}`,
+  category: (accountObjId: string) => {
+    return `/api/categories/${accountObjId}`;
+  },
 };
