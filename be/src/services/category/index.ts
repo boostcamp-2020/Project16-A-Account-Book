@@ -1,5 +1,6 @@
 import { AccountModel } from 'models/account';
 import { categoryType, ICategory } from 'models/category';
+import { getCompFuncByKey } from 'libs/utils';
 import { ITotalPrice, ICategoryStatistics, IStatistics } from './index.type';
 
 const getSumByCategories = (
@@ -62,13 +63,19 @@ export const getCategoryStatistics = async (
   const { totalPrice, incomeObject, expenseObject } = getSumByCategories(
     transactions,
   );
-  const incomeCategories = calculatePercentAndGetArray(
+  const incomePercentArray = calculatePercentAndGetArray(
     incomeObject,
     totalPrice.income,
   );
-  const expenseCategories = calculatePercentAndGetArray(
+  const expensePercentArray = calculatePercentAndGetArray(
     expenseObject,
     totalPrice.expense,
+  );
+  const incomeCategories = incomePercentArray.sort(
+    getCompFuncByKey('percent', false),
+  );
+  const expenseCategories = expensePercentArray.sort(
+    getCompFuncByKey('percent', false),
   );
   return {
     totalPrice,
