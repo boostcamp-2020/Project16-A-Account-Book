@@ -39,24 +39,7 @@ export const getRandomLengthString = ({
 };
 
 export const getRandomColor = (): string => {
-  const hexCode = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-  ];
+  const hexCode = new Array(16).fill(0).map((x, idx) => idx.toString(16));
   const colorStringLength = 6;
   const color = new Array(colorStringLength).fill(0).reduce((colorString) => {
     const hexIndex = Math.floor((Math.random() * 100) % hexCode.length);

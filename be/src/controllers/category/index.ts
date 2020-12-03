@@ -1,3 +1,4 @@
+import { getTotalPriceByClassification } from 'services/transaction';
 import { Context } from 'koa';
 import { getCategories } from 'services/category';
 
@@ -7,4 +8,17 @@ const get = async (ctx: Context) => {
   ctx.status = 200;
   ctx.body = categorisedType;
 };
-export default { get };
+
+const getStatisticsInfo = async (ctx: Context) => {
+  const { startDate, endDate } = ctx.query;
+  const { accountObjId } = ctx.params;
+  const totalPayments = await getTotalPriceByClassification(
+    accountObjId,
+    startDate,
+    endDate,
+  );
+  ctx.status = 200;
+  ctx.body = { totalPayments };
+};
+
+export default { get, getStatisticsInfo };
