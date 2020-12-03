@@ -1,5 +1,8 @@
 import React from 'react';
 import LabelWrap from 'components/molecules/LabelWrap';
+import { MethodStore } from 'stores/Method';
+import { CategoryStore } from 'stores/Category';
+import { observer } from 'mobx-react-lite';
 import * as S from './style';
 
 const CLASSIFICATION = 'classification';
@@ -12,27 +15,26 @@ const PRICE = 'price';
 
 export interface Props {
   classification: string;
-  categories: string[];
   date: string | Date;
   client: string;
   memo: string;
   classifications: string[];
   formHandler: any;
-  methods: string[];
   price: number;
 }
 
 const TransactionInputField = ({
   classification,
-  categories,
   date,
   classifications,
   client,
   memo,
   formHandler,
-  methods,
   price,
 }: Props): React.ReactElement => {
+  const methods = MethodStore.getMethods();
+  const categories = CategoryStore.getCategories(classification);
+
   return (
     <>
       <LabelWrap htmlFor={PRICE} title="금액">
@@ -60,8 +62,8 @@ const TransactionInputField = ({
       <LabelWrap htmlFor={CATEGORY} title="카테고리">
         <select name={CATEGORY} id={CATEGORY} onChange={formHandler}>
           {categories.map((category) => (
-            <option key={`${CATEGORY}-${category}`} value={category}>
-              {category}
+            <option key={category._id} value={category._id}>
+              {category.title}
             </option>
           ))}
         </select>
@@ -77,8 +79,8 @@ const TransactionInputField = ({
       <LabelWrap htmlFor={METHOD} title="결제수단">
         <select name={METHOD} id={METHOD} onChange={formHandler}>
           {methods.map((method) => (
-            <option key={`${METHOD}-${method}`} value={method}>
-              {method}
+            <option key={method._id} value={method._id}>
+              {method.title}
             </option>
           ))}
         </select>
@@ -103,4 +105,4 @@ const TransactionInputField = ({
   );
 };
 
-export default TransactionInputField;
+export default observer(TransactionInputField);

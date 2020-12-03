@@ -19,8 +19,8 @@ export const getTransaction = async ({
   endDate: string;
 }) => {
   const oneMonthTransactions: ITransaction[] = await TransactionModel.find()
-    .populate('categories')
-    .populate('methods')
+    .populate('category')
+    .populate('method')
     .where('date')
     .gte(new Date(startDate))
     .lt(new Date(endDate))
@@ -39,4 +39,24 @@ export const saveAndAddToAccount = async (
     accountObjId,
     transcationObjId,
   );
+};
+
+export const getTotalPriceByClassification = async (
+  accountObjId: string,
+  startDate: string,
+  endDate: string,
+) => {
+  const transactionsInDateRange = await AccountModel.findById(
+    accountObjId,
+    'transactions',
+  )
+    .populate({
+      path: 'transactions',
+      match: { date: { $gte: startDate, $lt: endDate } },
+      select: 'price category date',
+      populate: { path: 'category', select: 'type' },
+    })
+    .exec();
+
+  return transactionsInDateRange;
 };

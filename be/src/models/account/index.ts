@@ -2,10 +2,12 @@ import { Schema, Types, model, Document, Model } from 'mongoose';
 import { findByPkAndPushTransaction } from './static';
 
 export interface IAccount {
+  title: string;
   transactions?: string[];
   categories?: string[];
   methods?: string[];
 }
+
 export interface AccountDocument extends Document {
   title: string;
   transactions?: [String];

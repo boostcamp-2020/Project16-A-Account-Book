@@ -8,11 +8,6 @@ export const githubAuthRequest = async (ctx: Koa.Context) => {
   ctx.response.body = { githubAuthUrl };
 };
 
-export const githubCallBack = async (ctx: Koa.Context) => {
-  const { code } = ctx.query;
-  ctx.redirect(`${getFrontUrl()}/temppage/${code}`);
-};
-
 export const getGithubAccessToken = async (ctx: Koa.Context) => {
   const { code } = ctx.query;
   const { token, user } = await authService.getGithubAccessToken(code);

@@ -4,7 +4,7 @@ import theme from 'styles/theme';
 import GithubBtn from '.';
 
 export default {
-  title: 'Molecule / GithubBtn',
+  title: 'Molecules / GithubBtn',
 };
 
 export const defaultButton = () => {

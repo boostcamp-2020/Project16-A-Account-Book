@@ -2,7 +2,6 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import locksvg from 'assets/svg/lock.svg';
-import { TransactionType } from 'stores/Transaction';
 import AccountDate from '.';
 
 export default {
@@ -13,7 +12,7 @@ export default {
 export const AccountDateSample = () => {
   const date = new Date();
 
-  const testTransactionList: TransactionType[] = [
+  const testTransactionList: any[] = [
     {
       id: 'dekvmczld',
       icon: locksvg,

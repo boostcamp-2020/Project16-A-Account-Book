@@ -1,10 +1,9 @@
 import React from 'react';
 import doubleArrowIcon from 'assets/svg/doubleArrow.svg';
-import { TransactionType } from 'stores/Transaction';
 import * as S from './style';
 
 export interface Props {
-  trans: TransactionType;
+  trans: any;
 }
 
 const Transaction = ({ trans, ...props }: Props) => {

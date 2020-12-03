@@ -11,7 +11,12 @@ const get = async (ctx: Koa.Context) => {
 const post = async (ctx: Koa.Context) => {
   const { transaction } = ctx.request.body;
   const { accountObjId } = ctx.params;
-  await saveAndAddToAccount(transaction, accountObjId);
+  try {
+    await saveAndAddToAccount(transaction, accountObjId);
+  } catch (e) {
+    e.status = 400;
+    throw e;
+  }
   ctx.status = 201;
   ctx.res.end();
 };
