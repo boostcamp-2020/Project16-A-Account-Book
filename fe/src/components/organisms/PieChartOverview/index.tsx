@@ -12,7 +12,9 @@ const PieChartOverview = ({ categories }: Props): React.ReactElement => {
   return (
     <>
       <S.StatisticsTitle>통계</S.StatisticsTitle>
-      <PieChart pieces={topFiveCategories} />
+      <S.PieChartWrap>
+        <PieChart pieces={topFiveCategories} />
+      </S.PieChartWrap>
       <StatisticsList categories={topFiveCategories} />
       <S.TotalViewButton>전체보기</S.TotalViewButton>
     </>
