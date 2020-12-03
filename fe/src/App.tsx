@@ -13,11 +13,11 @@ const App = () => {
         <Switch>
           <Route path="/login" component={LoginPage} />
           <Route path="/oauth-callback" component={OauthCallbackPage} />
-          <Route path="/:account" component={MainPage} />
           <Route
-            path="/transactions/create"
+            path="/:account/transactions/create"
             component={CreateTransactionPage}
           />
+          <Route path="/:account" component={MainPage} />
         </Switch>
       </Router>
     </GlobalThemeProvider>
