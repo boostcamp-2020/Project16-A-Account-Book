@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import loadingImg from 'img/loading.gif';
+import loadingImg from 'assets/svg/loading.svg';
 import { TransactionStore } from 'stores/Transaction';
 import auth from 'apis/auth';
 import user from 'apis/user';
 import qs from 'query-string';
+import Container from './style';
 
 function OauthCallbackPage({
   location,
@@ -38,7 +39,9 @@ function OauthCallbackPage({
     </div>
   );
 
-  return <div>{isLoading ? renderLoading : <div>로딩완료</div>}</div>;
+  return (
+    <Container>{isLoading ? renderLoading : <div>로딩완료</div>}</Container>
+  );
 }
 
 export default OauthCallbackPage;
