@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
 import * as types from 'types';
+import { testAccountDateList } from './testData';
 
 export interface ITransactionStore {
   transactions: any;
@@ -24,7 +25,7 @@ const { start, end } = date.getOneMonthRange(
 );
 
 const initialState: ITransactionStore = {
-  transactions: {},
+  transactions: testAccountDateList,
   dates: {
     startDate: new Date(start),
     endDate: new Date(end),
@@ -51,7 +52,7 @@ const state = {
 };
 
 export const TransactionStore = makeAutoObservable({
-  transctions: initialState.transactions,
+  transactions: initialState.transactions,
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
@@ -74,11 +75,11 @@ export const TransactionStore = makeAutoObservable({
     this.state = state.PENDING;
     try {
       const result = await transactionAPI.getTransaction(this.accountObjId, {
-        startDate: this.dates.startDate,
-        endDate: date.getNextDate(this.dates.endDate),
+        startDate: date.dateFormatter(this.dates.startDate),
+        endDate: date.dateFormatter(this.dates.endDate),
       });
       runInAction(() => {
-        this.transctions = result;
+        this.transactions = result;
         this.state = state.DONE;
       });
     } catch (err) {
