@@ -1,12 +1,38 @@
+/* eslint-disable no-underscore-dangle */
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import randomstring from 'randomstring';
 import querystring from 'querystring';
 import { UserModel } from 'models/user';
 import { AccountModel } from 'models/account';
-import { Types } from 'mongoose';
+import { CategoryModel } from 'models/category';
+import { MethodModel } from 'models/method';
 import { getFrontUrl, jwtConfig, githubConfig } from 'config';
 import URL from 'apis/urls';
+
+function getAccessTokenFromGitHub(code: string) {
+  return axios.post(
+    URL.gitAccessToken,
+    {
+      code,
+      client_id: githubConfig.githubId,
+      client_secret: githubConfig.githubSecret,
+    },
+    {
+      headers: {
+        accept: 'application/json',
+      },
+    },
+  );
+}
+
+function getUserProfile(accessToken: string) {
+  return axios.get(URL.gitUser, {
+    headers: {
+      Authorization: `token ${accessToken}`,
+    },
+  });
+}
 
 export const getGithubURL = async () => {
   const state = randomstring.generate();
@@ -21,42 +47,28 @@ export const getGithubURL = async () => {
 };
 
 export const getGithubAccessToken = async (code: string) => {
-  const gitResponse = await axios.post(
-    URL.gitAccessToken,
-    {
-      code,
-      client_id: githubConfig.githubId,
-      client_secret: githubConfig.githubSecret,
-    },
-    {
-      headers: {
-        accept: 'application/json',
-      },
-    },
-  );
-  const accessToken = gitResponse.data.access_token;
-  const USER_PROFILE_URL = URL.gitUser;
-  const data = await axios.get(USER_PROFILE_URL, {
-    headers: {
-      Authorization: `token ${accessToken}`,
-    },
-  });
-  const profile = data.data;
-  const user = await UserModel.findOne({ id: `${profile.id}` }).exec();
-  if (user == null) {
+  const {
+    data: { access_token: accessToken },
+  } = await getAccessTokenFromGitHub(code);
+  const { data: profile } = await getUserProfile(accessToken);
+  const { id, login } = profile;
+
+  let user = await UserModel.findOne({ id }).exec();
+  if (!user) {
+    const categories = await CategoryModel.createDefaultCategory();
+    const methods = await MethodModel.createDefaultMethod();
     const newAccount = new AccountModel({
-      title: 'firstAccount',
+      title: login,
+      categories,
+      methods,
     });
-    await newAccount.save();
-    const accountObjId = Types.ObjectId(newAccount.id);
-    const newUser = new UserModel({
-      id: profile.id,
-      accounts: [accountObjId],
+    user = new UserModel({
+      id,
+      nickname: login,
+      accounts: [newAccount._id],
     });
-    await newUser.save();
-    const token = jwt.sign(profile.id, jwtConfig.jwtSecret);
-    return { token, user: newUser };
+    await Promise.all([newAccount.save(), user.save()]);
   }
-  const token = jwt.sign(profile.id, jwtConfig.jwtSecret);
+  const token = jwt.sign(id, jwtConfig.jwtSecret);
   return { token, user };
 };
