@@ -16,6 +16,7 @@
     "mobx": "^6.0.4",
     "mobx-react-lite": "^3.1.6",
     "polished": "^4.0.4",
+    "query-string": "^6.13.7",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",

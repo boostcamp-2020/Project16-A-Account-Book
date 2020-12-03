@@ -8,7 +8,6 @@ export interface Props {}
 const onGithubLogin = async () => {
   const result = await api.getGitHubOAuth();
   const url = result.githubAuthUrl;
-
   window.location.href = url;
 };
 

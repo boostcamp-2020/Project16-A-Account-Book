@@ -13,7 +13,7 @@ export const getGithubURL = async () => {
   const url = URL.github;
   const query = querystring.stringify({
     client_id: process.env.GITHUB_ID,
-    redirect_uri: `${Config.getHostUrl()}${URL.gitCallback}`,
+    redirect_uri: `${Config.getFrontUrl()}${URL.gitCallback}`,
     state,
     scope: 'user:email',
   });
