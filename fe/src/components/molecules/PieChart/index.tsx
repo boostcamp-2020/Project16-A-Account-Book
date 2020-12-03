@@ -2,6 +2,7 @@ import React from 'react';
 import CircleSvg from 'components/atoms/CircleSvg';
 import math from 'utils/math';
 import { ICategoryStatistics } from 'types';
+import PieChartPercent from 'components/molecules/PieChartPercent';
 
 export interface Props {
   pieces: ICategoryStatistics[];
@@ -22,6 +23,7 @@ const circle = {
     return `rotate(-90) translate(${moveX})`;
   },
 };
+
 const circumference = 2 * Math.PI * circle.r;
 
 const getBasePiece = (allPieces: ICategoryStatistics[]) => {
@@ -36,6 +38,7 @@ const getDrawingOrderedPieces = (pieces: ICategoryStatistics[]) => {
 
 const PieChart = ({ pieces }: Props): React.ReactElement => {
   const drawingOrderedPieces = getDrawingOrderedPieces(pieces.slice(0, 5));
+  const largestPiece = drawingOrderedPieces[drawingOrderedPieces.length - 1];
   let totalPercent = 100;
 
   return (
@@ -63,6 +66,11 @@ const PieChart = ({ pieces }: Props): React.ReactElement => {
           );
         })}
       </g>
+      <PieChartPercent
+        size={SIZE}
+        largestPiece={largestPiece}
+        circleInfo={circle}
+      />
     </svg>
   );
 };
