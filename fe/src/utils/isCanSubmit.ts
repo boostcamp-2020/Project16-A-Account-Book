@@ -1,4 +1,4 @@
-const isCanSumit = (target: Object) => {
+const isCanSubmit = (target: Object) => {
   const isblank = (value: any) =>
     value === null || value === undefined || value === '';
   return (
@@ -6,4 +6,4 @@ const isCanSumit = (target: Object) => {
   );
 };
 
-export default isCanSumit;
+export default isCanSubmit;
