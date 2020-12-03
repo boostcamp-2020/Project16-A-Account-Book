@@ -3,4 +3,5 @@ export default {
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
   userTitle: '/api/user/titleByAccountId?accountId=',
+  account: '/api/accounts',
 };
