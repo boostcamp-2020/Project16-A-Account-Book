@@ -60,7 +60,7 @@ export const getTransaction = async ({
   }
 
   const trans = await res.transactions;
-  if (trans.length === 0) {
+  if (!trans || trans.length === 0) {
     return { message: 'nodata' };
   }
 
@@ -68,7 +68,10 @@ export const getTransaction = async ({
     return firstEl.date - secondEl.date;
   });
 
-  const result = trans.reduce(oneMonthTransactionsReducer, {});
+  const result = (trans as ITransaction[]).reduce(
+    oneMonthTransactionsReducer,
+    {},
+  );
   return result;
 };
 
