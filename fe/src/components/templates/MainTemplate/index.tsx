@@ -8,7 +8,7 @@ export interface Props {
   NavBar: ReactElement;
 }
 
-const HeaderNav = ({
+const MainTemplate = ({
   HeaderBar,
   SubHeaderBar,
   Contents,
@@ -16,15 +16,15 @@ const HeaderNav = ({
   ...props
 }: Props) => {
   return (
-    <S.HeaderNav {...props}>
+    <S.Container {...props}>
       <S.Header>{HeaderBar}</S.Header>
       <S.ContentArea>
         {SubHeaderBar}
         <S.Content>{Contents}</S.Content>
       </S.ContentArea>
       <S.Nav>{NavBar}</S.Nav>
-    </S.HeaderNav>
+    </S.Container>
   );
 };
 
-export default HeaderNav;
+export default MainTemplate;
