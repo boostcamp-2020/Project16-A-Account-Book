@@ -8,7 +8,13 @@ import { observer } from 'mobx-react-lite';
 import { useHistory, useParams } from 'react-router-dom';
 
 const classifications = ['지출', '수입'];
-
+export const isCanSumit = (target: Object) => {
+  const isblank = (value: any) =>
+    value === null || value === undefined || value === '';
+  return (
+    Object.entries(target).filter(([, value]) => isblank(value)).length === 0
+  );
+};
 const CreateTransacionPage = () => {
   const [transactionState, setInputState] = useTransactionInput();
   const history = useHistory();
@@ -26,6 +32,12 @@ const CreateTransacionPage = () => {
   };
 
   const onSubmitHandler = async () => {
+    const flag = isCanSumit(transactionState);
+
+    if (!flag) {
+      alert('🙀입력을 확인하세요!🙀');
+      return;
+    }
     await transactionAPI.saveTransaction(
       TransactionStore.accountObjId,
       transactionState,

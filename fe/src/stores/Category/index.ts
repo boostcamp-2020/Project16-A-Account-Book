@@ -47,7 +47,7 @@ const categoryConverter = (input: string): string => {
       return categoryType.INCOME;
 
     default:
-      return categoryType.EXPENSE;
+      return 'NOP';
   }
 };
 export default {};
