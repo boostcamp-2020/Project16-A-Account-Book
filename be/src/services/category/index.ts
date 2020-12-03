@@ -45,6 +45,7 @@ const calculatePercentAndGetArray = (
       title,
       color,
       _id,
+      totalPrice,
       percent: Math.round((totalPrice / totalTypePrice) * 100),
     };
   });

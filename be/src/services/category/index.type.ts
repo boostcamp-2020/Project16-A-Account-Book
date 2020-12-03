@@ -8,6 +8,7 @@ export interface ICategoryStatistics {
   color: string;
   title: string;
   percent: number;
+  totalPrice: number;
 }
 
 export interface IStatistics {
