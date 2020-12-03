@@ -28,6 +28,7 @@ export const totalSeed = async () => {
         ),
         methods: methods.slice(methodBase, methodBase + METHOD_LENGTH),
         categories: categories.slice(methodBase, methodBase + METHOD_LENGTH),
+        title: `가계부${idx}`,
       });
       return acc;
     }, []);
