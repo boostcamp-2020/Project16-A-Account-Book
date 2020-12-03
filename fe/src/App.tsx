@@ -4,6 +4,7 @@ import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
+import CreateTransactionPage from './pages/CreateTransactionPage';
 
 const App = () => {
   return (
@@ -13,6 +14,10 @@ const App = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/oauth-callback" component={OauthCallbackPage} />
           <Route path="/:account" component={MainPage} />
+          <Route
+            path="/transactions/create"
+            component={CreateTransactionPage}
+          />
         </Switch>
       </Router>
     </GlobalThemeProvider>
