@@ -5,7 +5,7 @@ import querystring from 'querystring';
 import { UserModel } from 'models/user';
 import { AccountModel } from 'models/account';
 import { Types } from 'mongoose';
-import * as Config from 'config';
+import { getFrontUrl, jwtConfig } from 'config';
 import URL from 'apis/urls';
 
 export const getGithubURL = async () => {
@@ -13,7 +13,7 @@ export const getGithubURL = async () => {
   const url = URL.github;
   const query = querystring.stringify({
     client_id: process.env.GITHUB_ID,
-    redirect_uri: `${Config.getFrontUrl()}${URL.gitCallback}`,
+    redirect_uri: `${getFrontUrl()}${URL.gitCallback}`,
     state,
     scope: 'user:email',
   });
@@ -54,9 +54,9 @@ export const getGithubAccessToken = async (code: string) => {
       accounts: [accountObjId],
     });
     await newUser.save();
-    const token = jwt.sign(profile.id, Config.jwtString);
+    const token = jwt.sign(profile.id, jwtConfig.jwtSecret);
     return { token, user: newUser };
   }
-  const token = jwt.sign(profile.id, Config.jwtString);
+  const token = jwt.sign(profile.id, jwtConfig.jwtSecret);
   return { token, user };
 };
