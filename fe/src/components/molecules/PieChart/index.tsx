@@ -1,13 +1,10 @@
 import React from 'react';
 import CircleSvg from 'components/atoms/CircleSvg';
 import math from 'utils/math';
+import { ICategoryStatistics } from 'types';
 
-export interface Piece {
-  color: string;
-  percent: number;
-}
 export interface Props {
-  pieces: Piece[];
+  pieces: ICategoryStatistics[];
 }
 const circle = {
   r: 10,
@@ -25,11 +22,11 @@ const circle = {
 };
 const circumference = 2 * Math.PI * circle.r;
 
-const getBasePiece = (allPieces: Piece[]) => {
+const getBasePiece = (allPieces: ICategoryStatistics[]) => {
   const sumPercent = math.sumByKey(allPieces, 'percent');
   return { color: 'lightgrey', percent: 100 - sumPercent };
 };
-const getDrawingOrderedPieces = (pieces: Piece[]) => {
+const getDrawingOrderedPieces = (pieces: ICategoryStatistics[]) => {
   const ascOrderPieces = pieces.sort(math.getCompFuncByKey('percent'));
   const basePiece = getBasePiece(ascOrderPieces);
   return [basePiece, ...ascOrderPieces];
@@ -46,7 +43,7 @@ const PieChart = ({ pieces }: Props): React.ReactElement => {
         strokeWidth={circle.strokeWidth()}
         transform={circle.transform()}
       >
-        {drawingOrderedPieces.map(({ color, percent }: Piece) => {
+        {drawingOrderedPieces.map(({ color, percent }) => {
           const strokeDasharray = `${
             (totalPercent * circumference) / 100
           } ${circumference}`;
