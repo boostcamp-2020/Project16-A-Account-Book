@@ -1,6 +1,6 @@
+import { getTotalPriceByClassification } from 'services/transaction';
 import { Context } from 'koa';
 import { getCategories } from 'services/category';
-import { getTotalPriceByClassification } from 'services/transaction';
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
