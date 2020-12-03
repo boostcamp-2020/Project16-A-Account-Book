@@ -20,8 +20,11 @@ const CalenderOneDate = ({
   return (
     <S.CalenderOneDate onClick={onClick} {...props}>
       <S.DateText>{date}</S.DateText>
-      <S.IncomeText>{income}</S.IncomeText>
-      <S.ExpenseText>{expense}</S.ExpenseText>
+      <S.PriceTextWrap>
+        <S.IncomeText>{income}</S.IncomeText>
+        <S.ExpenseText>{expense}</S.ExpenseText>
+      </S.PriceTextWrap>
+      <S.EmptyArea />
     </S.CalenderOneDate>
   );
 };

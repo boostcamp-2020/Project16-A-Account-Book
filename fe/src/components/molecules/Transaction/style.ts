@@ -15,7 +15,7 @@ export const Text = styled.div`
 `;
 
 export const PaymentInfo = styled.div`
-  margin-left: 0.5rem;
+  margin-left: 0.5em;
 `;
 
 export const TransactionIcon = styled(Icon)``;
@@ -23,11 +23,11 @@ export const TransactionIcon = styled(Icon)``;
 export const Client = styled.div``;
 
 export const Classification = styled.div`
+  font-size: 0.7rem;
+  margin-top: 0.5em;
   color: ${({ theme }) => theme.color.subText};
 `;
 
 export const Price = styled(PriceTag)`
   margin-left: 0.5rem;
 `;
-
-export default {};

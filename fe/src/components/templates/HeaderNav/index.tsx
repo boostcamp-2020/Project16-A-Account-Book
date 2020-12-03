@@ -17,9 +17,11 @@ const HeaderNav = ({
 }: Props) => {
   return (
     <S.HeaderNav {...props}>
-      {HeaderBar}
-      {SubHeaderBar}
-      <S.ContentArea>{Contents}</S.ContentArea>
+      <S.Header>{HeaderBar}</S.Header>
+      <S.ContentArea>
+        {SubHeaderBar}
+        <S.Content>{Contents}</S.Content>
+      </S.ContentArea>
       <S.Nav>{NavBar}</S.Nav>
     </S.HeaderNav>
   );

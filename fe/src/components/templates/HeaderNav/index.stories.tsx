@@ -7,7 +7,6 @@ import AccountDate from 'components/organisms/AccountDate';
 import HeaderBar from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import NavBar from 'components/organisms/NavBar';
-import { TransactionType } from 'stores/Transaction';
 import locksvg from 'assets/svg/lock.svg';
 import HeaderNav from '.';
 
@@ -18,7 +17,7 @@ export default {
 };
 
 export const HeaderNavSample = () => {
-  const testTransactionList: TransactionType[] = [
+  const testTransactionList: any[] = [
     {
       id: 'dekvmczld',
       date: new Date(),
