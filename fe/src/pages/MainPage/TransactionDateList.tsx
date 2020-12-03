@@ -1,10 +1,7 @@
 import React from 'react';
 import AccountDate from 'components/organisms/AccountDate';
-import { TransactionDBType } from 'stores/Transaction';
 
-const convertTransactionDBTypetoTransactionType = (
-  input: TransactionDBType[],
-) => {
+const convertTransactionDBTypetoTransactionType = (input: any[]) => {
   return input.map((el) => {
     const { _id, category, method, ...other } = el;
     return {

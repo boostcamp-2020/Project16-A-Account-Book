@@ -1,5 +1,3 @@
-import { TransactionDBType } from 'stores/Transaction';
-
 export const initTotalPrice = {
   income: 0,
   expense: 0,
@@ -7,7 +5,7 @@ export const initTotalPrice = {
 
 const TransactionsReduce = (
   oneDayPrice: { income: number; expense: number },
-  transaction: TransactionDBType,
+  transaction: any,
 ) => {
   if (transaction.category.type === 'INCOME') {
     return {
@@ -26,7 +24,7 @@ const TransactionsReduce = (
 };
 
 export const calTotalPrices = (list: any) => {
-  return Object.values<TransactionDBType[]>(list).reduce(
+  return Object.values<any[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
       const res = transactions.reduce(TransactionsReduce, {
         ...initTotalPrice,

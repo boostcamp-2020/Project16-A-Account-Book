@@ -2,7 +2,6 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import locksvg from 'assets/svg/lock.svg';
-import { TransactionType } from 'stores/Transaction';
 import Transaction from '.';
 
 export default {
@@ -11,7 +10,7 @@ export default {
 };
 
 export const TransactionSample1 = () => {
-  const testTransaction: TransactionType = {
+  const testTransaction = {
     id: 'slakvken',
     date: new Date(),
     client: '얼큰한 국밥',
@@ -28,7 +27,7 @@ export const TransactionSample1 = () => {
 };
 
 export const TransactionSample2 = () => {
-  const testTransaction: TransactionType = {
+  const testTransaction = {
     id: 'dkkelakb',
     date: new Date(),
     icon: locksvg,
