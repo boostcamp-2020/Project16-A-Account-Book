@@ -10,11 +10,16 @@ import * as S from './style';
 
 const NavBar = ({ ...props }): React.ReactElement => {
   const { title } = JSON.parse(sessionStorage.getItem('account') || '');
+  const baseUrl = `/transactions/${title}`;
   return (
     <S.NavBar {...props}>
-      <IconButton icon={homeSvg}>홈</IconButton>
-      <IconButton icon={graphSvg}>통계</IconButton>
-      <Link to={`/transactions/${title}/create`}>
+      <Link to={`${baseUrl}`}>
+        <IconButton icon={homeSvg}>홈</IconButton>
+      </Link>
+      <Link to={`${baseUrl}/statistics`}>
+        <IconButton icon={graphSvg}>통계</IconButton>
+      </Link>
+      <Link to={`${baseUrl}/create`}>
         <S.PlusButton icon={plusSvg} />
       </Link>
       <IconButton icon={calendarSvg}>달력</IconButton>
