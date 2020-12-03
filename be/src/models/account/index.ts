@@ -7,6 +7,12 @@ export interface IAccount {
   categories?: string[];
   methods?: string[];
 }
+export interface AccountDocument extends Document {
+  title: string;
+  transactions?: [String];
+  categories?: [String];
+  methods?: [String];
+}
 
 export interface IAccountDocument extends IAccount, Document {}
 
