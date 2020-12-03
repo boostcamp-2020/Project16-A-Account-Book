@@ -6,12 +6,14 @@ import { ICategoryStatistics } from 'types';
 export interface Props {
   pieces: ICategoryStatistics[];
 }
+
+const SIZE = 160;
 const circle = {
-  r: 10,
-  cx: 20,
-  cy: 20,
+  r: SIZE / 4,
+  cx: SIZE / 2,
+  cy: SIZE / 2,
   strokeWidth() {
-    return circle.r * 2;
+    return circle.r;
   },
   transform() {
     const doubleDiameter = circle.r * 4;
@@ -37,7 +39,7 @@ const PieChart = ({ pieces }: Props): React.ReactElement => {
   let totalPercent = 100;
 
   return (
-    <svg width="40" height="40">
+    <svg width={SIZE} height={SIZE}>
       <g
         fill="transparent"
         strokeWidth={circle.strokeWidth()}
