@@ -1,10 +1,11 @@
 import React from 'react';
-import date from 'utils/date';
+import { TransactionStore } from 'stores/Transaction';
+import { toJS } from 'mobx';
 import * as S from './style';
 
 export interface Props {
   isSundayStart: boolean;
-  transactions: any;
+  transactions?: any;
 }
 
 interface accType {
@@ -17,10 +18,11 @@ interface accType {
 
 const Calender = ({
   isSundayStart,
-  transactions,
+  transactions = {},
   ...props
 }: Props): React.ReactElement => {
   const defaultStartDay = isSundayStart ? 0 : 1;
+
   const { oneDateList } = Object.entries(transactions).reduce(
     (acc: accType, el: any) => {
       const [key, value]: [string, any[]] = el;
@@ -51,9 +53,11 @@ const Calender = ({
       oneDateList: [],
     },
   );
-
-  const nowDate = new Date(oneDateList[0].date);
-  const maxDate = date.monthMaxDate(nowDate);
+  const oneDateSecond = 24 * 60 * 60 * 1000;
+  const nowDate = toJS(TransactionStore.dates.startDate);
+  const maxDate =
+    (toJS(TransactionStore.dates.endDate).getTime() - nowDate.getTime()) /
+    oneDateSecond;
   const nowYear = nowDate.getFullYear();
   const nowMonth = nowDate.getMonth();
   const oneWeekListData = [];
