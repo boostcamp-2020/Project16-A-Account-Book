@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import AuthCheck from 'pages/AuthCheck';
+import StatisticsPage from 'pages/StatisticsPage';
 import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
@@ -22,6 +23,7 @@ const TransactionRouter = () => {
           path={`${url}/:title/create`}
           component={CreateTransactionPage}
         />
+        <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
         <Route path={`${url}/:title`} component={MainPage} />
       </Switch>
     </>
