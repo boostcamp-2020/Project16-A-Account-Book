@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import MethodAPI from 'apis/method';
 import { IMethod } from 'types';
 import { TransactionStore } from '../Transaction';
@@ -9,6 +9,9 @@ const initiState: { methodList: IMethod[] } = {
 export const MethodStore = makeAutoObservable({
   methodList: initiState.methodList,
 
+  getMethods(): IMethod[] {
+    return toJS(this.methodList);
+  },
   async loadMethods() {
     const methods = await MethodAPI.getMethods(TransactionStore.accountObjId);
     runInAction(() => {

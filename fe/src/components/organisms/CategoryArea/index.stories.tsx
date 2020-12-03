@@ -10,7 +10,7 @@ export default {
 export const defaultTabHeader = () => {
   return (
     <ThemeProvider theme={theme}>
-      <CategoryArea />
+      <CategoryArea dataList={[]} />
     </ThemeProvider>
   );
 };
