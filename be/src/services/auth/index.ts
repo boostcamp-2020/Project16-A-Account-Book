@@ -5,14 +5,14 @@ import querystring from 'querystring';
 import { UserModel } from 'models/user';
 import { AccountModel } from 'models/account';
 import { Types } from 'mongoose';
-import { getFrontUrl, jwtConfig } from 'config';
+import { getFrontUrl, jwtConfig, githubConfig } from 'config';
 import URL from 'apis/urls';
 
 export const getGithubURL = async () => {
   const state = randomstring.generate();
   const url = URL.github;
   const query = querystring.stringify({
-    client_id: process.env.GITHUB_ID,
+    client_id: githubConfig.githubId,
     redirect_uri: `${getFrontUrl()}${URL.gitCallback}`,
     state,
     scope: 'user:email',
@@ -25,8 +25,8 @@ export const getGithubAccessToken = async (code: string) => {
     URL.gitAccessToken,
     {
       code,
-      client_id: process.env.GITHUB_ID,
-      client_secret: process.env.GITHUB_SECRET,
+      client_id: githubConfig.githubId,
+      client_secret: githubConfig.githubSecret,
     },
     {
       headers: {

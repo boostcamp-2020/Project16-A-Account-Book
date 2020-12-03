@@ -22,6 +22,11 @@ export const jwtConfig = {
   jwtSecret: process.env.JWT_SECRET || 'jwt_secret',
 };
 
+export const githubConfig = {
+  githubId: process.env.GITHUB_ID,
+  githubSecret: process.env.GITHUB_SECRET,
+};
+
 export const getDbUri = () => {
   const localUri = `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
   const srvUri = `mongodb+srv://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}/${dbConfig.database}`;
