@@ -1,22 +1,21 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import CategoryAPI from 'apis/category';
+import { TransactionStore } from '../Transaction';
+
+export const categoryType = {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE',
+};
 
 export const CategoryStore = makeAutoObservable({
-  type: 'EXPENSE',
-  dataList: [],
-  accountObjId: 'init',
-
-  setDataList(dataSet: any) {
-    this.dataList = dataSet[this.type];
-  },
-  setType(type: string) {
-    this.type = type;
-  },
+  categoryList: [],
 
   async loadCategories() {
-    const categories: any = await CategoryAPI.getCategories(this.accountObjId);
+    const categories: any = await CategoryAPI.getCategories(
+      TransactionStore.accountObjId,
+    );
     runInAction(() => {
-      this.dataList = categories[this.type];
+      this.categoryList = categories;
     });
   },
 });
