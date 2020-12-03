@@ -1,46 +1,80 @@
 import { AccountModel } from 'models/account';
-import { categoryType } from 'models/category';
+import { categoryType, ICategory } from 'models/category';
+import { ITotalPrice, ICategoryStatistics, IStatistics } from './index.type';
 
-const getSumByCategories = (transactions: Array<any>) => {
+const getSumByCategories = (
+  transactions: Array<any>,
+): { totalPrice: ITotalPrice; incomeObject: object; expenseObject: object } => {
   const initState = {
     totalPrice: { income: 0, expense: 0 },
-    incomeCategories: {},
-    expenseCategories: {},
+    incomeObject: {},
+    expenseObject: {},
   };
-  const reducer = (state: any, transaction: any) => {
-    const copyState = state;
-    const { type, title, _id: id } = transaction.category;
+  const calculateTotalPriceByCategory = (state: any, transaction: any) => {
+    const newState = state;
+    const { price } = transaction;
+    const { type, title, _id, color } = transaction.category;
     const [totalType, catType] =
       type === categoryType.EXPENSE
-        ? ['expense', 'expenseCategories']
-        : ['income', 'incomeCategories'];
-    copyState.totalPrice[totalType] += transaction.price;
-    if (copyState[catType][title]) {
-      copyState[catType][title].totalPrice += transaction.price;
+        ? ['expense', 'expenseObject']
+        : ['income', 'incomeObject'];
+    newState.totalPrice[totalType] += price;
+    if (newState[catType][title]) {
+      newState[catType][title].totalPrice += price;
     } else {
-      copyState[catType][title] = {
-        id,
+      newState[catType][title] = {
+        _id,
         title,
-        color: transaction.color,
-        totalPrice: transaction.price,
+        color,
+        totalPrice: price,
       };
     }
-    return copyState;
+    return newState;
   };
-  return transactions.reduce(reducer, initState);
+  return transactions.reduce(calculateTotalPriceByCategory, initState);
+};
+
+const calculatePercentAndGetArray = (
+  categoryObject: any,
+  totalTypePrice: number,
+): ICategoryStatistics[] => {
+  return Object.keys(categoryObject).map((title) => {
+    const { _id, color, totalPrice } = categoryObject[title];
+    return {
+      title,
+      color,
+      _id,
+      percent: Math.round((totalPrice / totalTypePrice) * 100),
+    };
+  });
 };
 
 export const getCategoryStatistics = async (
   accountObjId: string,
   startDate: string,
   endDate: string,
-) => {
+): Promise<IStatistics> => {
   const transactions = await AccountModel.findByPkAndGetTransCategory(
     accountObjId,
     startDate,
     endDate,
   );
-  return getSumByCategories(transactions);
+  const { totalPrice, incomeObject, expenseObject } = getSumByCategories(
+    transactions,
+  );
+  const incomeCategories = calculatePercentAndGetArray(
+    incomeObject,
+    totalPrice.income,
+  );
+  const expenseCategories = calculatePercentAndGetArray(
+    expenseObject,
+    totalPrice.expense,
+  );
+  return {
+    totalPrice,
+    incomeCategories,
+    expenseCategories,
+  };
 };
 
 export const getCategories = async (accountObjId: string) => {
