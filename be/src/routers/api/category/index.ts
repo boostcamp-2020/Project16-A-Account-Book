@@ -5,4 +5,5 @@ const router = new Router();
 
 router.get('/:accountObjId', categoryController.get);
 
+router.get('/statistics/:accountObjId', categoryController.getStatisticsInfo);
 export default router;

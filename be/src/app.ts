@@ -1,8 +1,8 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from '@koa/cors';
+import { connect as dbConnect } from 'models/database';
 import Router from './routers';
-import { connect as dbConnect } from './models/database';
 import { corsOptions } from './config';
 
 const app = new Koa();
