@@ -26,7 +26,7 @@ export const getTransaction = async ({
     .populate({
       path: 'transactions',
       match: { date: { $gte: startDate, $lt: endDate } },
-      populate: { path: 'category methods' },
+      populate: { path: 'category method' },
     })
     .exec();
 
