@@ -18,8 +18,11 @@ const TransactionRouter = () => {
     <>
       <AuthCheck />
       <Switch>
-        <Route path={`${url}/create`} component={CreateTransactionPage} />
-        <Route path={url} component={MainPage} />
+        <Route
+          path={`${url}/:title/create`}
+          component={CreateTransactionPage}
+        />
+        <Route path={`${url}/:title`} component={MainPage} />
       </Switch>
     </>
   );
@@ -58,7 +61,7 @@ const App = () => {
         <Switch>
           <Route path="/login" component={LoginRouter} />
           <Route path="/accounts" component={AccountRouter} />
-          <Route path="/transactions/:title" component={TransactionRouter} />
+          <Route path="/transactions" component={TransactionRouter} />
         </Switch>
       </Router>
     </GlobalThemeProvider>
