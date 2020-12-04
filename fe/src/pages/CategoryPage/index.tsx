@@ -14,7 +14,12 @@ import Button from 'components/atoms/Button';
 import LabelWrap from 'components/molecules/LabelWrap';
 import axios from 'apis/axios';
 import url from 'apis/urls';
+
 import * as S from './style';
+
+export interface MatchParams {
+  title: string;
+}
 
 export interface ClickTarget extends EventTarget {
   value: string;

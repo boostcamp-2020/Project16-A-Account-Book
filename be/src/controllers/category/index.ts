@@ -1,6 +1,9 @@
 import { Context } from 'koa';
-import { getCategories, postCategory } from 'services/category';
-import { getTotalPriceByClassification } from 'services/transaction';
+import {
+  getCategories,
+  postCategory,
+  getCategoryStatistics,
+} from 'services/category';
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
@@ -12,13 +15,12 @@ const get = async (ctx: Context) => {
 const getStatisticsInfo = async (ctx: Context) => {
   const { startDate, endDate } = ctx.query;
   const { accountObjId } = ctx.params;
-  const totalPayments = await getTotalPriceByClassification(
+  const statistics = await getCategoryStatistics(
     accountObjId,
     startDate,
     endDate,
   );
-  ctx.status = 200;
-  ctx.body = { totalPayments };
+  ctx.body = statistics;
 };
 
 const post = async (ctx: Context) => {

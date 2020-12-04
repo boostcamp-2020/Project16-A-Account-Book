@@ -7,4 +7,8 @@ export default {
     return `/api/categories/${accountObjId}`;
   },
   postCategory: 'api/categories',
+  account: '/api/accounts',
+  method: (accountObjId: string) => `/api/methods/${accountObjId}`,
+  statistics: (accountObjId: string) =>
+    `/api/categories/statistics/${accountObjId}`,
 };

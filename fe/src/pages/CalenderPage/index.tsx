@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
-import Template from 'components/templates/HeaderNav';
+import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import Calender from 'components/organisms/Calender';
@@ -27,6 +27,20 @@ const CalenderPage = () => {
       total={calTotalPrices(toJS(TransactionStore.transactions))}
     />
   );
+
+  if (
+    'message' in TransactionStore.transactions &&
+    toJS(TransactionStore.transactions.message) === 'nodata'
+  ) {
+    return (
+      <Template
+        HeaderBar={<Header />}
+        SubHeaderBar={SubHeaderBar}
+        Contents={<Calender isSundayStart transactions={[]} />}
+        NavBar={<NavBarComponent />}
+      />
+    );
+  }
 
   const Contents = (
     <>

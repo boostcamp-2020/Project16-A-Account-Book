@@ -1,5 +1,6 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import CategoryAPI from 'apis/category';
+import { ICategory } from 'types';
 import { TransactionStore } from '../Transaction';
 
 export const categoryType = {
@@ -8,17 +9,19 @@ export const categoryType = {
 };
 
 export const CategoryStore = makeAutoObservable({
-  accountObjId: '',
   categoryList: {
-    INCOME: [],
-    EXPENSE: [],
+    expense: [],
+    income: [],
   },
 
-  getCategories(type: string) {
-    if (type === categoryType.INCOME)
-      return this.categoryList.INCOME.map((category: any) => category.title);
-    if (type === categoryType.EXPENSE)
-      return this.categoryList.EXPENSE.map((category: any) => category.title);
+  getCategories(type: string): ICategory[] {
+    const convertedType = categoryConverter(type);
+    if (convertedType === categoryType.EXPENSE) {
+      return toJS(this.categoryList.expense);
+    }
+    if (convertedType === categoryType.INCOME) {
+      return toJS(this.categoryList.income);
+    }
     return [];
   },
 
@@ -27,14 +30,24 @@ export const CategoryStore = makeAutoObservable({
       TransactionStore.accountObjId,
     );
     runInAction(() => {
-      if (categories.EXPENSE) {
-        this.categoryList.EXPENSE = categories.EXPENSE;
-      }
-      if (categories.INCOME) {
-        this.categoryList.INCOME = categories.INCOME;
-      }
+      this.categoryList.expense = categories.EXPENSE || [];
+      this.categoryList.income = categories.INCOME || [];
     });
   },
 });
 
+const categoryConverter = (input: string): string => {
+  switch (input) {
+    case '지출':
+    case categoryType.EXPENSE:
+      return categoryType.EXPENSE;
+
+    case '수입':
+    case categoryType.INCOME:
+      return categoryType.INCOME;
+
+    default:
+      return 'NOP';
+  }
+};
 export default {};

@@ -1,41 +1,32 @@
-import React, { useState, useRef, useEffect } from 'react';
-import DropdownButton from './style';
+import React, { useRef } from 'react';
+import useVisible from 'hooks/useVisible';
 
-interface Props {
+import * as S from './style';
+
+export interface Props {
   title?: String;
-  children: React.ReactElement;
+  disabled?: boolean;
+  border?: boolean;
+  children?: React.ReactElement | React.ReactElement[] | string;
 }
 const arrowCharacter = '▾';
 
-const DropdownButtonHeader = ({ title = '', children }: Props) => {
-  const [visible, setVisible] = useState(false);
+const DropdownButtonHeader = ({
+  title = '',
+  children,
+  border = false,
+  disabled = false,
+}: Props) => {
   const dropdownContainer = useRef<HTMLDivElement>(null);
-  const outsideClickHandler = (event: any) => {
-    if (!dropdownContainer.current) return;
-    if (
-      dropdownContainer &&
-      !dropdownContainer.current.contains(event.target)
-    ) {
-      setVisible(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener('click', outsideClickHandler);
-    return () => {
-      document.removeEventListener('click', outsideClickHandler);
-    };
-  });
+  const [visible, toogleVisivle] = useVisible(dropdownContainer);
 
-  const toggleVisible = () => {
-    setVisible(!visible);
-  };
   return (
-    <div ref={dropdownContainer}>
-      <DropdownButton onClick={toggleVisible}>
+    <S.Container ref={dropdownContainer} border={border}>
+      <S.DropdownButton onClick={toogleVisivle} disabled={disabled}>
         <div>{`${title} ${arrowCharacter}`}</div>
-      </DropdownButton>
+      </S.DropdownButton>
       {visible && children}
-    </div>
+    </S.Container>
   );
 };
 

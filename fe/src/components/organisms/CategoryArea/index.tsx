@@ -1,6 +1,6 @@
 import React from 'react';
 import TabHeader from 'components/molecules/TabHeader';
-import DropdownBody from 'components/molecules/DropdownBody';
+import DropDownBody from 'components/molecules/DropdownBody';
 import PlusIcon from 'assets/svg/plus.svg';
 import * as S from './style';
 
@@ -34,7 +34,9 @@ const CategoryArea = ({
         </S.EditButton>
       </S.EditButtonArea>
       <S.DropDownContainer>
-        <DropdownBody dataList={dataList} onClick={dropDownItemClicked} />
+        <S.CustomDropDownBody>
+          <DropDownBody dataList={dataList} onClick={dropDownItemClicked} />
+        </S.CustomDropDownBody>
       </S.DropDownContainer>
       <S.TabBottomArea>
         <S.StyledButton icon={PlusIcon} onClick={onPlusButtonClick} />

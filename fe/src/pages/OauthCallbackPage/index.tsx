@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import loadingImg from 'img/loading.gif';
+import loadingImg from 'assets/svg/loading.svg';
 import { TransactionStore } from 'stores/Transaction';
 import auth from 'apis/auth';
 import user from 'apis/user';
 import qs from 'query-string';
+import Container from './style';
 
 function OauthCallbackPage({
   location,
@@ -15,18 +16,20 @@ function OauthCallbackPage({
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   useEffect(() => {
-    if (code == null) return;
     const getToken = async () => {
+      if (code == null) return;
       const result: any = await auth.getAccessToken(code);
       setIsLoading(false);
       const { accounts } = result;
       const accountObjId = accounts[0];
       const titleResult: any = await user.getTitleById(accountObjId);
       const { title } = titleResult;
-      localStorage.setItem('accountId', accountObjId);
-      localStorage.setItem('title', title);
+      sessionStorage.setItem(
+        'account',
+        JSON.stringify({ id: accountObjId, title }),
+      );
       TransactionStore.setAccountObjId(accountObjId);
-      history.push(`/${title}`);
+      history.push(`/transactions/${title}`);
     };
     getToken();
   }, []);
@@ -36,7 +39,9 @@ function OauthCallbackPage({
     </div>
   );
 
-  return <div>{isLoading ? renderLoading : <div>로딩완료</div>}</div>;
+  return (
+    <Container>{isLoading ? renderLoading : <div>로딩완료</div>}</Container>
+  );
 }
 
 export default OauthCallbackPage;

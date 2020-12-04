@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 import FilterBarComponent from 'components/organisms/FilterBar';
 
-export const HeaderNav = styled.div``;
+export const Container = styled.div``;
 
 export const FilterBar = styled(FilterBarComponent)`
   margin-top: 0.3rem;
 `;
 
 export const ContentArea = styled.div`
+  overflow-x: hidden;
+  overflow-y: auto;
   box-sizing: border-box;
   position: fixed;
   width: 100%;
-  overflow-y: auto;
   top: 3rem;
-  height: 80%;
+  height: calc(100vh - 3rem - 4rem - 2px);
   left: 0;
   padding: 0.5em 1em;
 `;

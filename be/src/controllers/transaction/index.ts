@@ -3,7 +3,8 @@ import { getTransaction, saveAndAddToAccount } from 'services/transaction';
 
 const get = async (ctx: Koa.Context) => {
   const { startDate, endDate } = ctx.query;
-  const res = await getTransaction({ startDate, endDate });
+  const { accountObjId } = ctx.params;
+  const res = await getTransaction({ startDate, endDate, accountObjId });
   ctx.status = 200;
   ctx.body = res;
 };
@@ -11,7 +12,12 @@ const get = async (ctx: Koa.Context) => {
 const post = async (ctx: Koa.Context) => {
   const { transaction } = ctx.request.body;
   const { accountObjId } = ctx.params;
-  await saveAndAddToAccount(transaction, accountObjId);
+  try {
+    await saveAndAddToAccount(transaction, accountObjId);
+  } catch (e) {
+    e.status = 400;
+    throw e;
+  }
   ctx.status = 201;
   ctx.res.end();
 };

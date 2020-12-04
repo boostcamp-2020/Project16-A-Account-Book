@@ -1,10 +1,21 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Model } from 'mongoose';
+import { createDefaultCategory } from './static';
 
 export const categoryType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
 };
 
+export interface ICategory {
+  type: string;
+  title: string;
+  color: string;
+}
+
+export interface ICategoryDocument extends ICategory, Document {}
+export interface ICategoryModel extends Model<ICategoryDocument> {
+  createDefaultCategory(): Promise<ICategoryDocument[]>;
+}
 const CategorySchema = new Schema({
   type: {
     type: String,
@@ -22,15 +33,9 @@ const CategorySchema = new Schema({
   },
 });
 
-export interface ICategory {
-  type: string;
-  title: string;
-  color: string;
-}
+CategorySchema.statics.createDefaultCategory = createDefaultCategory;
 
-export interface ICategoryDocument extends ICategory, Document {}
-
-export const CategoryModel = model<ICategoryDocument>(
+export const CategoryModel = model<ICategoryDocument, ICategoryModel>(
   'categories',
   CategorySchema,
 );

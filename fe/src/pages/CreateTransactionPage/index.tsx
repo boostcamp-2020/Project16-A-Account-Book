@@ -3,13 +3,18 @@ import FormTransactionTemplate from 'components/templates/FormTransaction';
 import TransactionForm from 'components/organisms/TransactionForm';
 import useTransactionInput from 'hooks/useTransactionInput';
 import transactionAPI from 'apis/transaction';
+import { TransactionStore } from 'stores/Transaction';
+import { observer } from 'mobx-react-lite';
+import { useHistory, useParams } from 'react-router-dom';
+import isCanSubmit from 'utils/isCanSubmit';
 
-const categories = ['미분류', '급여', '용돈', '금융수입'];
-const methods = ['현금', '카드', '카카오뱅크', '네이버페이'];
-const classifications = ['지출', '수입', '이체'];
+const classifications = ['지출', '수입'];
 
 const CreateTransacionPage = () => {
   const [transactionState, setInputState] = useTransactionInput();
+  const history = useHistory();
+  const { title } = useParams<any>();
+
   const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
     date,
@@ -17,15 +22,22 @@ const CreateTransacionPage = () => {
     memo,
     price,
     classification,
-    categories,
-    methods,
     classifications,
     formHandler: setInputState,
   };
 
-  const onSubmitHandler = (e: MouseEvent) => {
-    e.preventDefault();
-    transactionAPI.saveTransaction('123', transactionState);
+  const onSubmitHandler = async () => {
+    const flag = isCanSubmit(transactionState);
+
+    if (!flag) {
+      alert('🙀입력을 확인하세요!🙀');
+      return;
+    }
+    await transactionAPI.saveTransaction(
+      TransactionStore.accountObjId,
+      transactionState,
+    );
+    history.push(`/transactions/${title}`);
   };
   const Main = (
     <TransactionForm
@@ -39,4 +51,4 @@ const CreateTransacionPage = () => {
   );
 };
 
-export default CreateTransacionPage;
+export default observer(CreateTransacionPage);

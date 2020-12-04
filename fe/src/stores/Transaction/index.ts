@@ -52,12 +52,11 @@ const state = {
 };
 
 export const TransactionStore = makeAutoObservable({
-  transactions: initialState.transactions,
+  transactions: { message: 'nodata' } as any,
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
-  // TODO: user 스토어에서 가져오게 하기!
-  accountObjId: 'empty',
+  accountObjId: '',
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
   },
@@ -71,13 +70,19 @@ export const TransactionStore = makeAutoObservable({
       this.filter = filter;
     }
   },
+  getDates() {
+    return {
+      startDate: date.dateFormatter(this.dates.startDate),
+      endDate: date.dateFormatter(this.dates.endDate),
+    };
+  },
   async loadTransactions() {
     this.state = state.PENDING;
     try {
-      const result = await transactionAPI.getTransaction(this.accountObjId, {
-        startDate: date.dateFormatter(this.dates.startDate),
-        endDate: date.dateFormatter(this.dates.endDate),
-      });
+      const result = await transactionAPI.getTransaction(
+        this.accountObjId,
+        this.getDates(),
+      );
       runInAction(() => {
         this.transactions = result;
         this.state = state.DONE;
