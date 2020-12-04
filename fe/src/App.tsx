@@ -56,7 +56,6 @@ const AccountRouter = () => {
 const App = () => {
   return (
     <GlobalThemeProvider>
-      <AuthCheck />
       <Router>
         <Switch>
           <Route path="/login" component={LoginRouter} />
