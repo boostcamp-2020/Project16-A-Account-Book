@@ -6,7 +6,6 @@ import calendarSvg from 'assets/svg/calendar.svg';
 import tagSvg from 'assets/svg/tag.svg';
 import plusSvg from 'assets/svg/plus.svg';
 import { Link } from 'react-router-dom';
-
 import * as S from './style';
 
 const NavBar = ({ ...props }): React.ReactElement => {
@@ -23,10 +22,12 @@ const NavBar = ({ ...props }): React.ReactElement => {
       <Link to={`${baseUrl}/create`}>
         <S.PlusButton icon={plusSvg} />
       </Link>
-      <Link to={`/transactions/${title}/calender`}>
+      <Link to={`${baseUrl}/calender`}>
         <IconButton icon={calendarSvg}>달력</IconButton>
       </Link>
-      <IconButton icon={tagSvg}>태그</IconButton>
+      <Link to={`${baseUrl}/category`}>
+        <IconButton icon={tagSvg}>태그</IconButton>
+      </Link>
     </S.NavBar>
   );
 };

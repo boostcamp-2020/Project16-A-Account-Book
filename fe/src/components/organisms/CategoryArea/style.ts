@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import IconButton from 'components/molecules/IconButton';
 import Button from 'components/atoms/Button';
 
+export const CustomDropDownBody = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 export const EditButton = styled(Button)`
   width: 5%;
   font-size: ${({ theme }) => theme.fontSize.xs};
@@ -25,6 +30,7 @@ export const TabUIContainer = styled.div`
 
 export const DropDownContainer = styled.div`
   width: 100%;
+  margin-bottom: 10rem;
 `;
 
 export const EditButtonArea = styled.div`

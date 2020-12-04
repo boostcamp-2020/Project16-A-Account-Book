@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
 import CreateTransactionPage from './pages/CreateTransactionPage';
+import CategoryPage from './pages/CategoryPage';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
@@ -27,6 +28,7 @@ const TransactionRouter = () => {
         />
         <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
         <Route path={`${url}/:title/calender`} component={CalenderPage} />
+        <Route path={`${url}/:title/category`} component={CategoryPage} />
         <Route path={`${url}/:title`} component={MainPage} />
       </Switch>
     </>
@@ -64,7 +66,6 @@ const App = () => {
     <GlobalThemeProvider>
       <Router>
         <Switch>
-          <Route path="/oauth-callback" component={OauthCallbackPage} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/accounts" component={AccountRouter} />
           <Route path="/transactions" component={TransactionRouter} />

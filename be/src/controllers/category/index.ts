@@ -1,5 +1,9 @@
 import { Context } from 'koa';
-import { getCategories, getCategoryStatistics } from 'services/category';
+import {
+  getCategories,
+  postCategory,
+  getCategoryStatistics,
+} from 'services/category';
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
@@ -19,4 +23,16 @@ const getStatisticsInfo = async (ctx: Context) => {
   ctx.body = statistics;
 };
 
-export default { getStatisticsInfo, get };
+const post = async (ctx: Context) => {
+  const { type, title, color, accountObjId } = ctx.request.body;
+  const res = await postCategory(type, title, color, accountObjId);
+  if (res.success) {
+    ctx.status = 200;
+    ctx.body = res;
+  } else {
+    ctx.status = 401;
+    ctx.body = res;
+  }
+};
+
+export default { getStatisticsInfo, get, post };

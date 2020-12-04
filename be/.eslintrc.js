@@ -21,6 +21,7 @@ module.exports = {
     'import/no-unresolved': 0,
     'no-await-in-loop': 0,
     'no-unused-vars': 0,
+    'no-underscore-dangle': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
