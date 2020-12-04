@@ -1,16 +1,16 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
-import GithubBtn from '.';
+import CategoryPage from '.';
 
 export default {
-  title: 'Molecules / GithubBtn',
+  title: 'page / CategoryPage',
 };
 
-export const defaultButton = () => {
+export const defaultCategoryPage = () => {
   return (
     <ThemeProvider theme={theme}>
-      <GithubBtn />
+      <CategoryPage />
     </ThemeProvider>
   );
 };
