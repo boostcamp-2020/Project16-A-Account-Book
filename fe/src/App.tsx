@@ -14,8 +14,8 @@ const App = () => {
         <Switch>
           <Route path="/login" component={LoginPage} />
           <Route path="/oauth-callback" component={OauthCallbackPage} />
-          <Route path="/:account/transaction" component={MainPage} />
-          <Route path="/:account/calender" component={CalenderPage} />
+          <Route path="/transactions/:account" component={MainPage} />
+          <Route path="/calender/:account" component={CalenderPage} />
           <Route path="/" component={AccountListPage} />
         </Switch>
       </Router>
