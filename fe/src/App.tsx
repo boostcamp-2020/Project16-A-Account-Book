@@ -60,7 +60,6 @@ const AccountRouter = () => {
 const App = () => {
   return (
     <GlobalThemeProvider>
-      <AuthCheck />
       <Router>
         <Switch>
           <Route path="/oauth-callback" component={OauthCallbackPage} />
