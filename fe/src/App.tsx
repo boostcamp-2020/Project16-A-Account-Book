@@ -24,8 +24,8 @@ const TransactionRouter = () => {
           path={`${url}/:title/create`}
           component={CreateTransactionPage}
         />
+        <Route path={`${url}/:title/calender`} component={CalenderPage} />
         <Route path={`${url}/:title`} component={MainPage} />
-        <Route path={`${url}/calender/:account`} component={CalenderPage} />
       </Switch>
     </>
   );
@@ -63,7 +63,6 @@ const App = () => {
       <AuthCheck />
       <Router>
         <Switch>
-          <Route path="/login" component={LoginPage} />
           <Route path="/oauth-callback" component={OauthCallbackPage} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/accounts" component={AccountRouter} />

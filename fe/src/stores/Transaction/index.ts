@@ -58,6 +58,8 @@ export const TransactionStore = makeAutoObservable({
   state: state.PENDING,
   accountObjId: '',
   setAccountObjId(objId: string) {
+    console.log('set');
+    console.log(objId);
     this.accountObjId = objId;
   },
   setFilter(

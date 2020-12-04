@@ -6,15 +6,14 @@ import * as S from './style';
 export interface Props {}
 
 const onClickHandler = () => {
-  TransactionStore.setAccountTitle('N석봉');
-  TransactionStore.setAccountObjId('empty');
+  TransactionStore.setAccountObjId('');
 };
 
 const HeaderBar = ({ ...props }: Props): React.ReactElement => {
   return (
     <S.HeaderBar {...props}>
-      <Link to="/" onClick={onClickHandler}>
-        {TransactionStore.accountTitle}
+      <Link to="/accounts" onClick={onClickHandler}>
+        N석봉
       </Link>
     </S.HeaderBar>
   );
