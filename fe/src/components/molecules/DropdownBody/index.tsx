@@ -1,11 +1,13 @@
 import React from 'react';
 import { Props as ButtonProps } from 'components/atoms/Button';
 import * as S from './style';
+import CheckBox from '../Checkbox';
 
 export interface Props extends ButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: any;
   dataList: (string | number)[];
-  children?: React.ReactElement | string;
+  children?: React.ReactElement | React.ReactElement[] | string;
+  type?: string;
 }
 
 const DropdownBody = ({
@@ -17,9 +19,17 @@ const DropdownBody = ({
   return (
     <S.DropdownBodyWrap>
       {dataList.map(
-        (data: string | number): React.ReactElement => (
-          <S.DropdownItem value={data} key={data} onClick={onClick} {...props}>
-            <span>{data}</span>
+        (data: any): React.ReactElement => (
+          <S.DropdownItem
+            value={data}
+            key={data.objectId}
+            onClick={() => onClick({ ...data, ...props })}
+            {...props}
+          >
+            <span>{data.title}</span>
+            <S.CheckBoxContainer>
+              <CheckBox checked={data.checked} />
+            </S.CheckBoxContainer>
           </S.DropdownItem>
         ),
       )}

@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     ${reset} ;
   body{
     font-family: Bmeuljiro,sans-serif !important;
+    overflow : hidden;
     button{
       font-family :  Bmeuljiro,sans-serif !important;
     }
