@@ -7,26 +7,30 @@ import CategoryArea from 'components/organisms/CategoryArea';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { CategoryStore, categoryType } from 'stores/Category';
+import { TransactionStore } from 'stores/Transaction';
 import Modal from 'components/molecules/Modal';
 import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
 import LabelWrap from 'components/molecules/LabelWrap';
+import axios from 'apis/axios';
+import url from 'apis/urls';
 import * as S from './style';
 
-export interface TabClickTarget extends EventTarget {
-  value?: string;
+export interface ClickTarget extends EventTarget {
+  value: string;
 }
 
-export interface TabClickProps extends MouseEvent {
-  target: TabClickTarget;
+export interface ClickProps extends MouseEvent {
+  target: ClickTarget;
 }
 
 function CategoryPage(): React.ReactElement {
   const [type, setType] = useState<string>(categoryType.EXPENSE);
-  const [newCategory, setNewCategory] = useState('');
+  const [newCategory, setNewCategory] = useState<string>('');
+  const [color, setColor] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(false);
 
-  const TabClickHandler = (e: TabClickProps) => {
+  const TabClickHandler = (e: ClickProps) => {
     const { value } = e.target;
     if (value === categoryType.INCOME) {
       setType(categoryType.INCOME);
@@ -42,8 +46,19 @@ function CategoryPage(): React.ReactElement {
     setNewCategory(value);
   };
 
-  const newCategoryConfirm = () => {
-    console.log(newCategory);
+  const newColorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setColor(value);
+  };
+
+  const newCategoryConfirm = async () => {
+    await axios.post(url.postCategory, {
+      type,
+      title: newCategory,
+      color,
+      accountObjId: TransactionStore.accountObjId,
+    });
+    await CategoryStore.loadCategories();
     setVisible(false);
   };
 
@@ -69,9 +84,12 @@ function CategoryPage(): React.ReactElement {
         <LabelWrap htmlFor="memo" title={type}>
           <Input onChangeHandler={newCategoryNameHandler} />
         </LabelWrap>
+        <LabelWrap htmlFor="memo" title="color">
+          <Input type="color" onClick={newColorHandler} />
+        </LabelWrap>
       </S.ContentWrapper>
       <S.ContentWrapper>
-        <Button onClick={newCategoryConfirm}>확인</Button>
+        <Input type="button" onClick={newCategoryConfirm} value="확인" />
         <Button onClick={newCategoryCancel}>취소</Button>
       </S.ContentWrapper>
     </S.ContantsWrapper>

@@ -6,4 +6,5 @@ export default {
   category: (accountObjId: string) => {
     return `/api/categories/${accountObjId}`;
   },
+  postCategory: 'api/categories',
 };

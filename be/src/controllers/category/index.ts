@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import { getCategories } from 'services/category';
+import { getCategories, postCategory } from 'services/category';
 import { getTotalPriceByClassification } from 'services/transaction';
 
 const get = async (ctx: Context) => {
@@ -21,4 +21,16 @@ const getStatisticsInfo = async (ctx: Context) => {
   ctx.body = { totalPayments };
 };
 
-export default { getStatisticsInfo, get };
+const post = async (ctx: Context) => {
+  const { type, title, color, accountObjId } = ctx.request.body;
+  const res = await postCategory(type, title, color, accountObjId);
+  if (res.success) {
+    ctx.status = 200;
+    ctx.body = res;
+  } else {
+    ctx.status = 401;
+    ctx.body = res;
+  }
+};
+
+export default { getStatisticsInfo, get, post };

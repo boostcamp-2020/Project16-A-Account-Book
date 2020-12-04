@@ -15,8 +15,10 @@ export const CategoryStore = makeAutoObservable({
   },
 
   getCategories(type: string) {
-    if (type === categoryType.INCOME) return this.categoryList.INCOME;
-    if (type === categoryType.EXPENSE) return this.categoryList.EXPENSE;
+    if (type === categoryType.INCOME)
+      return this.categoryList.INCOME.map((category: any) => category.title);
+    if (type === categoryType.EXPENSE)
+      return this.categoryList.EXPENSE.map((category: any) => category.title);
     return [];
   },
 
@@ -25,7 +27,12 @@ export const CategoryStore = makeAutoObservable({
       TransactionStore.accountObjId,
     );
     runInAction(() => {
-      this.categoryList = categories;
+      if (categories.EXPENSE) {
+        this.categoryList.EXPENSE = categories.EXPENSE;
+      }
+      if (categories.INCOME) {
+        this.categoryList.INCOME = categories.INCOME;
+      }
     });
   },
 });

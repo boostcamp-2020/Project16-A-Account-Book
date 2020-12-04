@@ -14,12 +14,10 @@ const CategorySchema = new Schema({
   title: {
     type: String,
     required: true,
-    unique: true,
   },
   color: {
     type: String,
     required: true,
-    unique: true,
     validate: (color: string) => color.length === 7,
   },
 });

@@ -11,8 +11,8 @@ const App = () => {
     <GlobalThemeProvider>
       <Router>
         <Switch>
+          <Route path="/login/oauth-callback" component={OauthCallbackPage} />
           <Route path="/login" component={LoginPage} />
-          <Route path="/oauth-callback" component={OauthCallbackPage} />
           <Route path="/category" component={CategoryPage} />
           <Route path="/:account" component={MainPage} />
         </Switch>

@@ -8,4 +8,5 @@ export const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
   margin: 2% 0%;
+  align-items: center;
 `;
