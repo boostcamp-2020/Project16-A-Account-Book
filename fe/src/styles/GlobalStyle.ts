@@ -34,16 +34,12 @@ const GlobalStyle = createGlobalStyle`
 
   a:hover {
     color: none;
-    background-color: none;
   }
 
   a:active {
     color: black;
   }
 
-  a:hover:not(.active) {
-    background-color: #111;
-  }
 `;
 
 export default GlobalStyle;
