@@ -5,7 +5,6 @@ export interface Prop {
 }
 
 const SInput = styled.input<Prop>`
-  height: 4rem;
   width: 100%;
   border: 1px solid;
   border-radius: 0.1rem;

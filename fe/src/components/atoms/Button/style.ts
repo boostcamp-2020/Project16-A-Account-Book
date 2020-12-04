@@ -60,4 +60,9 @@ export const ButtonStyle = styled.button<ButtonStyleProps>`
   font-size: ${(props) =>
     props.size ? setButtonFontsizeUsingSize(props.size) : '100%'};
   text-align: center;
+  outline: none;
+  cursor: pointer;
+  &:disabled {
+    color: ${({ theme }) => theme.color.subText};
+  }
 `;

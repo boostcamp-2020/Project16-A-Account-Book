@@ -11,9 +11,7 @@ export default {
   decorators: [withKnobs],
 };
 export const Transaction = () => {
-  const categories = ['미분류', '급여', '용돈', '금융수입'];
-  const methods = ['현금', '카드', '카카오뱅크', '네이버페이'];
-  const classifications = ['지출', '수입', '이체'];
+  const classifications = ['지출', '수입'];
 
   const [formValue, setFormValue] = useState({
     category: '미분류',
@@ -22,6 +20,7 @@ export const Transaction = () => {
     memo: '',
     classification: '',
     method: '',
+    price: 0,
   });
 
   const formHandler = ({ target }: any): void => {
@@ -32,14 +31,13 @@ export const Transaction = () => {
   return (
     <ThemeProvider theme={theme}>
       <TransactionInputField
+        price={formValue.price}
         date={formValue.date}
-        categories={categories}
         classification={formValue.classification}
         classifications={classifications}
         client={formValue.client}
         memo={formValue.memo}
         formHandler={formHandler}
-        methods={methods}
       />
     </ThemeProvider>
   );

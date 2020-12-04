@@ -4,15 +4,30 @@ import { ButtonStyle } from './style';
 export interface Props {
   size?: string;
   value?: string | number;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: any;
   children?: React.ReactElement | React.ReactElement[] | string;
+  disabled?: boolean;
 }
 
-const Button = ({ size, value, onClick, children, ...props }: Props) => {
+const Button = ({
+  size,
+  disabled = false,
+  value,
+  onClick,
+  children,
+  ...props
+}: Props) => {
   const onClickHandler = onClick ? useCallback(onClick!, []) : undefined;
 
   return (
-    <ButtonStyle size={size} value={value} onClick={onClickHandler} {...props}>
+    <ButtonStyle
+      size={size}
+      value={value}
+      onClick={onClickHandler}
+      type="button"
+      disabled={disabled}
+      {...props}
+    >
       {children}
     </ButtonStyle>
   );

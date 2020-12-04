@@ -5,5 +5,4 @@ const router = new Router();
 
 router.get('/:accountObjId', transactionController.get);
 router.post('/:accountObjId', transactionController.post);
-
 export default router;

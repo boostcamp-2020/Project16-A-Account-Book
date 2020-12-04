@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const LabelWrap = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 export const Label = styled.label`

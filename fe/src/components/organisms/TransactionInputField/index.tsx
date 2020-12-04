@@ -1,5 +1,8 @@
 import React from 'react';
 import LabelWrap from 'components/molecules/LabelWrap';
+import { MethodStore } from 'stores/Method';
+import { CategoryStore } from 'stores/Category';
+import { observer } from 'mobx-react-lite';
 import * as S from './style';
 
 const CLASSIFICATION = 'classification';
@@ -8,50 +11,59 @@ const MEMO = 'memo';
 const DATE = 'date';
 const CLIENT = 'client';
 const METHOD = 'method';
+const PRICE = 'price';
 
 export interface Props {
   classification: string;
-  categories: string[];
   date: string | Date;
   client: string;
   memo: string;
   classifications: string[];
   formHandler: any;
-  methods: string[];
+  price: number;
 }
 
 const TransactionInputField = ({
   classification,
-  categories,
   date,
   classifications,
   client,
   memo,
   formHandler,
-  methods,
+  price,
 }: Props): React.ReactElement => {
+  const methods = MethodStore.getMethods();
+  const categories = CategoryStore.getCategories(classification);
+
   return (
-    <S.Form>
+    <>
+      <LabelWrap htmlFor={PRICE} title="금액">
+        <S.Input
+          value={price}
+          name={PRICE}
+          placeholder="금액을 입력하세요"
+          onChangeHandler={formHandler}
+          type="number"
+        />
+      </LabelWrap>
       <LabelWrap htmlFor={CLASSIFICATION} title="분류">
-        <>
-          {classifications.map((classItem) => (
-            <S.ButtonInput
-              name={CLASSIFICATION}
-              key={`${CLASSIFICATION}-${classItem}`}
-              id={CLASSIFICATION}
-              value={classItem}
-              active={classification === classItem}
-              onClick={formHandler}
-              type="button"
-            />
-          ))}
-        </>
+        {classifications.map((classItem) => (
+          <S.ButtonInput
+            name={CLASSIFICATION}
+            key={`${CLASSIFICATION}-${classItem}`}
+            id={CLASSIFICATION}
+            value={classItem}
+            active={classification === classItem}
+            onClick={formHandler}
+            type="button"
+          />
+        ))}
       </LabelWrap>
       <LabelWrap htmlFor={CATEGORY} title="카테고리">
         <select name={CATEGORY} id={CATEGORY} onChange={formHandler}>
           {categories.map((category) => (
-            <option key={`${CATEGORY}-${category}`} value={category}>
-              {category}
+            <option key={category._id} value={category._id}>
+              {category.title}
             </option>
           ))}
         </select>
@@ -67,8 +79,8 @@ const TransactionInputField = ({
       <LabelWrap htmlFor={METHOD} title="결제수단">
         <select name={METHOD} id={METHOD} onChange={formHandler}>
           {methods.map((method) => (
-            <option key={`${METHOD}-${method}`} value={method}>
-              {method}
+            <option key={method._id} value={method._id}>
+              {method.title}
             </option>
           ))}
         </select>
@@ -89,8 +101,8 @@ const TransactionInputField = ({
           onChangeHandler={formHandler}
         />
       </LabelWrap>
-    </S.Form>
+    </>
   );
 };
 
-export default TransactionInputField;
+export default observer(TransactionInputField);

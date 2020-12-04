@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { TransactionType } from 'stores/Transaction';
-import { AccountDate, Header, AccountTransaction } from './style';
+import React from 'react';
+import * as S from './style';
 
 export interface Props {
   date: Date;
-  transactionList: TransactionType[];
+  transactionList: any[];
 }
 
 interface accType {
@@ -12,34 +11,27 @@ interface accType {
   totalPrice: number;
 }
 
-const reduceTransactionList = (acc: accType, transEl: TransactionType) => {
-  acc.transList.push(<AccountTransaction key={transEl.id} trans={transEl} />);
+const reduceTransactionList = (acc: accType, transEl: any) => {
+  acc.transList.push(<S.AccountTransaction key={transEl.id} trans={transEl} />);
   acc.totalPrice += transEl.price;
   return acc;
 };
 
-const App = ({ date, transactionList, ...props }: Props) => {
-  const [totalPayment, setTotalPayment] = useState(10000);
-  const [transactionListComponent, setTransactionListComponent] = useState<
-    JSX.Element[]
-  >();
-
-  const res = transactionList.reduce(reduceTransactionList, {
-    transList: [],
-    totalPrice: 0,
-  });
-
-  useEffect(() => {
-    setTotalPayment(res.totalPrice);
-    setTransactionListComponent(res.transList);
-  }, []);
+const AccountDate = ({ date, transactionList }: Props) => {
+  const { transList, totalPrice } = transactionList.reduce(
+    reduceTransactionList,
+    {
+      transList: [],
+      totalPrice: 0,
+    },
+  );
 
   return (
-    <AccountDate {...props}>
-      <Header date={date} totalPayment={totalPayment} />
-      {transactionListComponent}
-    </AccountDate>
+    <S.AccountDate>
+      <S.Header date={date} totalPayment={totalPrice} />
+      {transList}
+    </S.AccountDate>
   );
 };
 
-export default App;
+export default AccountDate;

@@ -5,8 +5,6 @@ import * as UserSeed from './user';
 import * as transactionSeed from './transaction';
 import * as accountSeed from './account';
 
-import { Account } from '../models';
-
 const REPEAT_LENGTH = 5;
 const TRANSACTION_LENGTH = 30;
 const METHOD_LENGTH = 3;
@@ -30,10 +28,11 @@ export const totalSeed = async () => {
         ),
         methods: methods.slice(methodBase, methodBase + METHOD_LENGTH),
         categories: categories.slice(methodBase, methodBase + METHOD_LENGTH),
+        title: `가계부${idx}`,
       });
       return acc;
     }, []);
-  await accountSeed.up(accountsList).then(async (docs: [Account]) => {
+  await accountSeed.up(accountsList).then(async (docs: any) => {
     for (let i = 0; i < users.length; i += 1) {
       users[i].accounts = docs[i]._id;
       await users[i].save();

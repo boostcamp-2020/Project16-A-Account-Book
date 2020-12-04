@@ -1,72 +1,61 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { toJS } from 'mobx';
-import { observer } from 'mobx-react';
-import { transactionStore, TransactionDBType } from 'stores/Transaction';
-import * as S from './style';
+import { observer } from 'mobx-react-lite';
+import { TransactionStore } from 'stores/Transaction';
+import Template from 'components/templates/MainTemplate';
+import Header from 'components/organisms/HeaderBar';
+import FilterBar from 'components/organisms/FilterBar';
+import MonthInfo from 'components/organisms/MonthInfoHeader';
+import NavBarComponent from 'components/organisms/NavBar';
+import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
+import date from 'utils/date';
+import TransactionDateList from './TransactionDateList';
 
-export interface Props {}
+const { start, end } = date.getOneMonthRange(
+  String(new Date().getFullYear()),
+  String(new Date().getMonth() + 1),
+);
 
-const convertTransactionDBTypetoTransactionType = (
-  input: TransactionDBType[],
-) => {
-  return input.map((el) => {
-    const { _id, category, method, ...other } = el;
-    return {
-      ...other,
-      id: _id,
-      category: category.title,
-      method: method.title,
-    };
-  });
-};
+const MainPage = () => {
+  useEffect(() => {
+    TransactionStore.setFilter(new Date(start), new Date(end), null);
+    TransactionStore.loadTransactions();
+  }, []);
 
-const MainPage = ({ ...props }: Props) => {
-  const [accountDateList, setAccountDateList] = useState<JSX.Element[]>([]);
-  const HeaderBar = <S.HeaderBar />;
   const SubHeaderBar = (
-    <S.MonthInfoHeader
-      month={transactionStore.month}
-      total={{
-        income: transactionStore.totalPrices.income,
-        expense: transactionStore.totalPrices.expense,
-      }}
+    <MonthInfo
+      month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
+      total={calTotalPrices(toJS(TransactionStore.transactions))}
     />
   );
 
-  useEffect(() => {
-    const accountDateListComponent = Object.entries(
-      toJS(transactionStore.accountDateList),
-    ).map(([date, oneAccountDate]) => {
-      return (
-        <S.AccountDate
-          key={date}
-          date={new Date(date)}
-          transactionList={convertTransactionDBTypetoTransactionType(
-            oneAccountDate as [],
-          )}
-        />
-      );
-    });
-    setAccountDateList([...accountDateListComponent]);
-  }, [transactionStore.accountDateList]);
-
   const Contents = (
-    <>
-      <S.FilterBar />
-      {accountDateList}
-    </>
+    <div>
+      <FilterBar />
+      <TransactionDateList list={toJS(TransactionStore.transactions)} />
+    </div>
   );
-  const NavBar = <S.NavBar />;
 
-  return (
-    <S.MainPage {...props}>
-      <S.HeaderNav
-        HeaderBar={HeaderBar}
+  if (
+    'message' in TransactionStore.transactions &&
+    toJS(TransactionStore.transactions.message) === 'nodata'
+  ) {
+    return (
+      <Template
+        HeaderBar={<Header />}
         SubHeaderBar={SubHeaderBar}
-        Contents={Contents}
-        NavBar={NavBar}
+        Contents={<FilterBar />}
+        NavBar={<NavBarComponent />}
       />
-    </S.MainPage>
+    );
+  }
+  return (
+    <Template
+      HeaderBar={<Header />}
+      SubHeaderBar={SubHeaderBar}
+      Contents={Contents}
+      NavBar={<NavBarComponent />}
+    />
   );
 };
 

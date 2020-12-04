@@ -1,120 +1,96 @@
-import { toJS, observable, makeObservable, computed } from 'mobx';
-import axios from 'apis/axios';
-import urls from 'apis/urls';
+import { makeAutoObservable, runInAction } from 'mobx';
+import transactionAPI from 'apis/transaction';
+import date from 'utils/date';
+import * as types from 'types';
 import { testAccountDateList } from './testData';
 
-interface PricesType {
-  income: number;
-  expense: number;
+export interface ITransactionStore {
+  transactions: any;
+  dates: {
+    startDate: Date;
+    endDate: Date;
+  };
+  filter: {
+    methods: types.ICheckMethod[];
+    categories: {
+      income: types.IFilterCategory;
+      expense: types.IFilterCategory;
+    };
+  };
 }
 
-export type AccountDateType = {
-  date: number;
-  transactionList: [];
+const { start, end } = date.getOneMonthRange(
+  String(new Date().getFullYear()),
+  String(new Date().getMonth() + 1),
+);
+
+const initialState: ITransactionStore = {
+  transactions: testAccountDateList,
+  dates: {
+    startDate: new Date(start),
+    endDate: new Date(end),
+  },
+  filter: {
+    methods: [],
+    categories: {
+      income: {
+        disabled: false,
+        list: [],
+      },
+      expense: {
+        disabled: false,
+        list: [],
+      },
+    },
+  },
 };
 
-export interface TransactionType {
-  id: string;
-  icon?: string;
-  date: Date;
-  client: string;
-  memo?: string;
-  category: string;
-  method: string;
-  price: number;
-}
+const state = {
+  PENDING: 'PENDING',
+  DONE: 'DONE',
+  ERROR: 'ERROR',
+};
 
-export interface TransactionDBType {
-  excludeFromBudget: boolean;
-  _id: string;
-  client: string;
-  date: Date;
-  memo?: string;
-  method: {
-    _id: string;
-    title: string;
-    __v?: number;
-  };
-  category: {
-    _id: string;
-    type: string;
-    title: string;
-    __v?: number;
-  };
-  price: number;
-}
-
-class Transaction {
-  selectedDate = {
-    year: new Date().getFullYear(),
-    month: new Date().getMonth() + 1,
-  };
-
-  accountObjId = 'test';
-
-  accountDateList: any = testAccountDateList;
-
-  constructor() {
-    makeObservable(this, {
-      accountObjId: observable,
-      accountDateList: observable,
-      totalPrices: computed,
-    });
-
-    this.loadTransactions();
-  }
-
+export const TransactionStore = makeAutoObservable({
+  transactions: { message: 'nodata' } as any,
+  dates: initialState.dates,
+  filter: initialState.filter,
+  state: state.PENDING,
+  accountObjId: '',
+  setAccountObjId(objId: string) {
+    this.accountObjId = objId;
+  },
+  setFilter(
+    startDate: Date,
+    endDate: Date,
+    filter: ITransactionStore['filter'] | null,
+  ) {
+    this.dates = { startDate, endDate };
+    if (filter) {
+      this.filter = filter;
+    }
+  },
+  getDates() {
+    return {
+      startDate: date.dateFormatter(this.dates.startDate),
+      endDate: date.dateFormatter(this.dates.endDate),
+    };
+  },
   async loadTransactions() {
-    const queryString = `?year=${this.selectedDate.year}&month=${this.selectedDate.month}`;
-    const result = await axios.get(
-      `${urls.transaction(this.accountObjId)}${queryString}`,
-    );
-    this.accountDateList = result;
-  }
-
-  get year() {
-    return this.selectedDate.year;
-  }
-
-  get month() {
-    return this.selectedDate.month;
-  }
-
-  set date({ year, month }: { year: number; month: number }) {
-    this.selectedDate.year = year;
-    this.selectedDate.month = month;
-  }
-
-  get totalPrices() {
-    return Object.entries(toJS(this.accountDateList)).reduce(
-      (totalPrices: PricesType, [, oneAccountDate]) => {
-        const res = (oneAccountDate as []).reduce(
-          (subPrices: PricesType, transaction: any) => {
-            if (transaction.category.type === 'INCOME') {
-              return {
-                ...subPrices,
-                income: subPrices.income + transaction.price,
-              };
-            }
-            if (transaction.category.type === 'EXPENSE') {
-              return {
-                ...subPrices,
-                expense: subPrices.expense + transaction.price,
-              };
-            }
-            return subPrices;
-          },
-          { income: 0, expense: 0 },
-        );
-
-        return {
-          income: totalPrices.income + res.income,
-          expense: totalPrices.expense + res.expense,
-        };
-      },
-      { income: 0, expense: 0 },
-    );
-  }
-}
-
-export const transactionStore = new Transaction();
+    this.state = state.PENDING;
+    try {
+      const result = await transactionAPI.getTransaction(
+        this.accountObjId,
+        this.getDates(),
+      );
+      runInAction(() => {
+        this.transactions = result;
+        this.state = state.DONE;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this.state = state.ERROR;
+      });
+    }
+  },
+});
