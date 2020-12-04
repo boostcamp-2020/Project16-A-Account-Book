@@ -1,5 +1,6 @@
 import { TransactionModel, ITransaction } from 'models/transaction';
 import { AccountModel } from 'models/account';
+import { categoryType } from 'models/category';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
   const year = transaction.date.getFullYear();
@@ -11,22 +12,54 @@ const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
     : { ...acc, [key]: [transaction] };
 };
 
+const sumPricesByType = (transactions: Array<any>) => {
+  const initTotalPrice = { income: 0, expense: 0 };
+  const totalPrice = transactions.reduce((sumPrice, transaction) => {
+    if (transaction.category.type === categoryType.EXPENSE) {
+      return { ...sumPrice, expense: sumPrice.expense + transaction.price };
+    }
+    return { ...sumPrice, income: sumPrice.income + transaction.price };
+  }, initTotalPrice);
+  return totalPrice;
+};
+
+const sumPricesByCategory = (transactions: Array<any>) => {};
 export const getTransaction = async ({
   startDate,
   endDate,
+  accountObjId,
 }: {
   startDate: string;
   endDate: string;
+  accountObjId: string;
 }) => {
-  const oneMonthTransactions: ITransaction[] = await TransactionModel.find()
-    .populate('category')
-    .populate('method')
-    .where('date')
-    .gte(new Date(startDate))
-    .lt(new Date(endDate))
-    .sort('date');
+  const res = await AccountModel.findOne({
+    _id: accountObjId,
+  })
+    .populate({
+      path: 'transactions',
+      match: { date: { $gte: startDate, $lt: endDate } },
+      populate: { path: 'category methods' },
+    })
+    .exec();
 
-  const result = oneMonthTransactions.reduce(oneMonthTransactionsReducer, {});
+  if (!res) {
+    return { message: 'nodata' };
+  }
+
+  const trans = await res.transactions;
+  if (!trans || trans.length === 0) {
+    return { message: 'nodata' };
+  }
+
+  trans.sort((firstEl: any, secondEl: any) => {
+    return firstEl.date - secondEl.date;
+  });
+
+  const result = (trans as ITransaction[]).reduce(
+    oneMonthTransactionsReducer,
+    {},
+  );
   return result;
 };
 
@@ -40,23 +73,17 @@ export const saveAndAddToAccount = async (
     transcationObjId,
   );
 };
-
-export const getTotalPriceByClassification = async (
+export const getCategoryStatistics = async (
   accountObjId: string,
   startDate: string,
   endDate: string,
 ) => {
-  const transactionsInDateRange = await AccountModel.findById(
+  const transactions = await AccountModel.findByPkAndGetTransCategory(
     accountObjId,
-    'transactions',
-  )
-    .populate({
-      path: 'transactions',
-      match: { date: { $gte: startDate, $lt: endDate } },
-      select: 'price category date',
-      populate: { path: 'category', select: 'type' },
-    })
-    .exec();
-
-  return transactionsInDateRange;
+    startDate,
+    endDate,
+  );
+  const totalPrice = sumPricesByType(transactions);
+  const categories = sumPricesByCategory(transactions);
+  return { totalPrice };
 };

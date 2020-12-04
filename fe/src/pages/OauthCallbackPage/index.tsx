@@ -15,18 +15,20 @@ function OauthCallbackPage({
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   useEffect(() => {
-    if (code == null) return;
     const getToken = async () => {
+      if (code == null) return;
       const result: any = await auth.getAccessToken(code);
       setIsLoading(false);
       const { accounts } = result;
       const accountObjId = accounts[0];
       const titleResult: any = await user.getTitleById(accountObjId);
       const { title } = titleResult;
-      localStorage.setItem('accountId', accountObjId);
-      localStorage.setItem('title', title);
+      sessionStorage.setItem(
+        'account',
+        JSON.stringify({ id: accountObjId, title }),
+      );
       TransactionStore.setAccountObjId(accountObjId);
-      history.push(`/${title}`);
+      history.push(`/transactions/${title}`);
     };
     getToken();
   }, []);
