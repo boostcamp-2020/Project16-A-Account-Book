@@ -8,4 +8,19 @@ export async function findByPkAndPushTransaction(
   }).exec();
 }
 
-export default {};
+export async function findByPkAndGetTransCategory(
+  this: any,
+  accountObjId: string,
+  startDate: string,
+  endDate: string,
+) {
+  const accountInfo = await this.findById(accountObjId, 'transactions')
+    .populate({
+      path: 'transactions',
+      match: { date: { $gte: startDate, $lt: endDate } },
+      select: 'price category date',
+      populate: { path: 'category', select: 'type color title' },
+    })
+    .exec();
+  return accountInfo.transactions;
+}

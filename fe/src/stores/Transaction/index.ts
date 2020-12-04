@@ -56,14 +56,9 @@ export const TransactionStore = makeAutoObservable({
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
-  // TODO: user 스토어에서 가져오게 하기!
-  accountObjId: 'empty',
-  accountTitle: 'N석봉',
+  accountObjId: '',
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
-  },
-  setAccountTitle(title: string) {
-    this.accountTitle = title;
   },
   setFilter(
     startDate: Date,

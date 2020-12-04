@@ -17,7 +17,7 @@ const TransactionForm = ({
   return (
     <S.Form>
       <TransactionInputField {...InputFieldProps} />
-      <S.SubmitButton onClick={onSubmit}>저장</S.SubmitButton>
+      <S.SubmitButton onClick={onSubmit} value="저장" />
     </S.Form>
   );
 };

@@ -7,17 +7,19 @@ import calendarSvg from 'assets/svg/calendar.svg';
 import tagSvg from 'assets/svg/tag.svg';
 import plusSvg from 'assets/svg/plus.svg';
 import { TransactionStore } from 'stores/Transaction';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
+
 import * as S from './style';
 
 const onClickHandler = (history: any, title: string) =>
   useCallback(() => {
-    history.push(`/calender/${title}`);
+    history.push(`transactions/calender/${title}`);
   }, [toJS(TransactionStore.dates)]);
 
 const NavBar = ({ ...props }): React.ReactElement => {
   const history = useHistory();
   const { account } = useParams<any>();
+  const { title } = JSON.parse(sessionStorage.getItem('account') || '');
   return (
     <S.NavBar {...props}>
       <IconButton icon={homeSvg}>홈</IconButton>
@@ -26,6 +28,10 @@ const NavBar = ({ ...props }): React.ReactElement => {
       <IconButton icon={calendarSvg} onClick={onClickHandler(history, account)}>
         달력
       </IconButton>
+      <Link to={`/transactions/${title}/create`}>
+        <S.PlusButton icon={plusSvg} />
+      </Link>
+      <IconButton icon={calendarSvg}>달력</IconButton>
       <IconButton icon={tagSvg}>태그</IconButton>
     </S.NavBar>
   );
