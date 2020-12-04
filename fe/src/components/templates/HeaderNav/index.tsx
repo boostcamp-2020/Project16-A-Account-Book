@@ -3,7 +3,7 @@ import * as S from './style';
 
 export interface Props {
   HeaderBar: ReactElement;
-  SubHeaderBar: ReactElement;
+  SubHeaderBar?: ReactElement;
   Contents: ReactElement;
   NavBar: ReactElement;
 }

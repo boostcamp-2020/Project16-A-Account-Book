@@ -21,6 +21,25 @@ const GlobalStyle = createGlobalStyle`
   menu, ol, ul {
     list-style: none;
   }
+
+  a:link {
+    color: black; 
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: black;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: none;
+  }
+
+  a:active {
+    color: black;
+  }
+
 `;
 
 export default GlobalStyle;
