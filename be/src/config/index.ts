@@ -12,7 +12,7 @@ const dbConfig = {
   port: process.env.DB_PORT,
 };
 
-const hostConfig = {
+export const hostConfig = {
   url: process.env.HOST,
   backPort: process.env.BE_PORT,
   frontPort: process.env.FE_PORT,
@@ -45,5 +45,3 @@ export const corsOptions = {
   origin: (ctx: Context) => ctx.request.header.origin,
   credentials: true,
 };
-
-export default {};
