@@ -16,8 +16,7 @@ const onClickHandler = (
   accountTitle: string,
 ) => () => {
   TransactionStore.setAccountObjId(accountObjId);
-  TransactionStore.setAccountTitle(accountTitle);
-  history.push(`/${accountTitle}/transaction`);
+  history.push(`/transactions/${accountTitle}`);
 };
 
 const MainPage = () => {

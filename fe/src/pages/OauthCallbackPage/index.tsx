@@ -26,7 +26,7 @@ function OauthCallbackPage({
       localStorage.setItem('accountId', accountObjId);
       localStorage.setItem('title', title);
       TransactionStore.setAccountObjId(accountObjId);
-      history.push(`/${title}`);
+      history.push(`/transactions/${title}`);
     };
     getToken();
   }, []);
