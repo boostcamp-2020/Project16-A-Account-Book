@@ -8,15 +8,15 @@ import HeaderBar from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import NavBar from 'components/organisms/NavBar';
 import locksvg from 'assets/svg/lock.svg';
-import HeaderNav from '.';
+import Main from '.';
 
 export default {
-  title: 'templates/HeaderNav',
-  component: HeaderNav,
+  title: 'templates/Main',
+  component: Main,
   decorators: [withKnobs],
 };
 
-export const HeaderNavSample = () => {
+export const MainSample = () => {
   const testTransactionList: any[] = [
     {
       id: 'dekvmczld',
@@ -57,7 +57,7 @@ export const HeaderNavSample = () => {
   const NavBarComponent = <NavBar />;
   return (
     <ThemeProvider theme={theme}>
-      <HeaderNav
+      <Main
         HeaderBar={<HeaderBar />}
         SubHeaderBar={MonthInfoHeaderComponent}
         Contents={AccountDateComponent}

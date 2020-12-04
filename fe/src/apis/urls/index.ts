@@ -6,4 +6,6 @@ export default {
   account: '/api/accounts',
   category: (accountObjId: string) => `/api/categories/${accountObjId}`,
   method: (accountObjId: string) => `/api/methods/${accountObjId}`,
+  statistics: (accountObjId: string) =>
+    `/api/categories/statistics/${accountObjId}`,
 };

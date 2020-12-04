@@ -72,13 +72,19 @@ export const TransactionStore = makeAutoObservable({
       this.filter = filter;
     }
   },
+  getDates() {
+    return {
+      startDate: date.dateFormatter(this.dates.startDate),
+      endDate: date.dateFormatter(this.dates.endDate),
+    };
+  },
   async loadTransactions() {
     this.state = state.PENDING;
     try {
-      const result = await transactionAPI.getTransaction(this.accountObjId, {
-        startDate: date.dateFormatter(this.dates.startDate),
-        endDate: date.dateFormatter(this.dates.endDate),
-      });
+      const result = await transactionAPI.getTransaction(
+        this.accountObjId,
+        this.getDates(),
+      );
       runInAction(() => {
         this.transactions = result;
         this.state = state.DONE;

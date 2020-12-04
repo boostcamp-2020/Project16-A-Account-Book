@@ -28,6 +28,7 @@ const CircleSvg = ({
       cy={cy}
       stroke={stroke}
       strokeDasharray={strokeDasharray}
+      fill={fill}
       {...props}
     />
   );

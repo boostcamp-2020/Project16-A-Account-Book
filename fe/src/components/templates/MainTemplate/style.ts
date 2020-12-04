@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import FilterBarComponent from 'components/organisms/FilterBar';
 
-export const HeaderNav = styled.div``;
+export const Container = styled.div``;
 
 export const FilterBar = styled(FilterBarComponent)`
   margin-top: 0.3rem;

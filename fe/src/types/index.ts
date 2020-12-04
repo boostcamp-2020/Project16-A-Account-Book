@@ -43,3 +43,19 @@ export interface IFilterCategory {
   disabled: boolean;
   list: ICheckCategory[];
 }
+
+export interface ICategoryStatistics extends Omit<ICategory, '__v' | 'type'> {
+  totalPrice: number;
+  percent: number;
+}
+
+export interface ITotalPrice {
+  income: number;
+  expense: number;
+}
+
+export interface IStatistics {
+  totalPrice: ITotalPrice;
+  incomeCategories: ICategoryStatistics[];
+  expenseCategories: ICategoryStatistics[];
+}
