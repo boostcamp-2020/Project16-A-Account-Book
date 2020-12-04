@@ -26,6 +26,9 @@ const TransactionsReduce = (
 export const calTotalPrices = (list: any) => {
   return Object.values<any[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
+      if (typeof transactions === 'string') {
+        return acc;
+      }
       const res = transactions.reduce(TransactionsReduce, {
         ...initTotalPrice,
       });

@@ -2,6 +2,9 @@ import React from 'react';
 import AccountDate from 'components/organisms/AccountDate';
 
 const convertTransactionDBTypetoTransactionType = (input: any[]) => {
+  if (typeof input === 'string') {
+    return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
+  }
   return input.map((el) => {
     const { _id, category, method, ...other } = el;
     return {

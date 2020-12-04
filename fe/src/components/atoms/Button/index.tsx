@@ -24,9 +24,9 @@ const Button = ({
       size={size}
       value={value}
       onClick={onClickHandler}
-      {...props}
       type="button"
       disabled={disabled}
+      {...props}
     >
       {children}
     </ButtonStyle>
