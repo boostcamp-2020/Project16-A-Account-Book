@@ -1,6 +1,6 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
+import { withKnobs } from '@storybook/addon-knobs';
 import MainPage from '.';
 
 export default {

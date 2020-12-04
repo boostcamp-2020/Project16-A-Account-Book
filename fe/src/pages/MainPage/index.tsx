@@ -36,6 +36,19 @@ const MainPage = () => {
     </div>
   );
 
+  if (
+    'message' in TransactionStore.transactions &&
+    toJS(TransactionStore.transactions.message) === 'nodata'
+  ) {
+    return (
+      <Template
+        HeaderBar={<Header />}
+        SubHeaderBar={SubHeaderBar}
+        Contents={<FilterBar />}
+        NavBar={<NavBarComponent />}
+      />
+    );
+  }
   return (
     <Template
       HeaderBar={<Header />}

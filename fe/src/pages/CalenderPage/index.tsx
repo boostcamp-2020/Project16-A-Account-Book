@@ -28,6 +28,20 @@ const CalenderPage = () => {
     />
   );
 
+  if (
+    'message' in TransactionStore.transactions &&
+    toJS(TransactionStore.transactions.message) === 'nodata'
+  ) {
+    return (
+      <Template
+        HeaderBar={<Header />}
+        SubHeaderBar={SubHeaderBar}
+        Contents={<Calender isSundayStart transactions={[]} />}
+        NavBar={<NavBarComponent />}
+      />
+    );
+  }
+
   const Contents = (
     <>
       <Calender

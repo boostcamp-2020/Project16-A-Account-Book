@@ -27,19 +27,39 @@ const sumPricesByCategory = (transactions: Array<any>) => {};
 export const getTransaction = async ({
   startDate,
   endDate,
+  accountObjId,
 }: {
   startDate: string;
   endDate: string;
+  accountObjId: string;
 }) => {
-  const oneMonthTransactions: ITransaction[] = await TransactionModel.find()
-    .populate('category')
-    .populate('method')
-    .where('date')
-    .gte(new Date(startDate))
-    .lt(new Date(endDate))
-    .sort('date');
+  const res = await AccountModel.findOne({
+    _id: accountObjId,
+  })
+    .populate({
+      path: 'transactions',
+      match: { date: { $gte: startDate, $lt: endDate } },
+      populate: { path: 'category method' },
+    })
+    .exec();
 
-  const result = oneMonthTransactions.reduce(oneMonthTransactionsReducer, {});
+  if (!res) {
+    return { message: 'nodata' };
+  }
+
+  const trans = await res.transactions;
+  if (!trans || trans.length === 0) {
+    return { message: 'nodata' };
+  }
+
+  trans.sort((firstEl: any, secondEl: any) => {
+    return firstEl.date - secondEl.date;
+  });
+
+  const result = (trans as ITransaction[]).reduce(
+    oneMonthTransactionsReducer,
+    {},
+  );
   return result;
 };
 

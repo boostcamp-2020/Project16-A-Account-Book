@@ -1,3 +1,4 @@
+import { ITransaction } from 'models/transaction';
 import { Schema, Types, model, Document, Model } from 'mongoose';
 import {
   findByPkAndPushTransaction,
@@ -6,7 +7,7 @@ import {
 
 export interface IAccount {
   title: string;
-  transactions?: string[];
+  transactions?: string[] | ITransaction[];
   categories?: string[];
   methods?: string[];
 }

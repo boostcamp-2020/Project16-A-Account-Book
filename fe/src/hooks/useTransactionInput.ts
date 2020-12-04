@@ -25,12 +25,22 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
   const [transactionState, setTransaction] = useState(initState);
   const setInputState = ({ target }: any): void => {
     const { name, value } = target;
-
     setTransaction((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    const { classification } = transactionState;
+    const defaultCategory = CategoryStore.getCategories(classification)[0];
+    const input = defaultCategory ? defaultCategory._id : '';
+    setTransaction((preState) => ({
+      ...preState,
+      category: input,
+    }));
+  }, [transactionState.classification]);
+
   useEffect(() => {
     CategoryStore.loadCategories();
     MethodStore.loadMethods();

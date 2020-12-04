@@ -27,11 +27,11 @@ const data = [
     price: 50,
   },
 ];
-test('타입이 income인 거래내역 리스트를 반환한다.', () => {
-  expect(filterTransactionByType(data, categoryType.INCOME)).toEqual(
-    data.slice(0, 1),
-  );
-  expect(filterTransactionByType(data, categoryType.EXPENSE)).toEqual(
-    data.slice(1),
-  );
-});
+// test('타입이 income인 거래내역 리스트를 반환한다.', () => {
+//   expect(filterTransactionByType(data, categoryType.INCOME)).toEqual(
+//     data.slice(0, 1),
+//   );
+//   expect(filterTransactionByType(data, categoryType.EXPENSE)).toEqual(
+//     data.slice(1),
+//   );
+// });

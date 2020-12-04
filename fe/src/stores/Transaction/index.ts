@@ -52,12 +52,14 @@ const state = {
 };
 
 export const TransactionStore = makeAutoObservable({
-  transactions: initialState.transactions,
+  transactions: { message: 'nodata' } as any,
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
   accountObjId: '',
   setAccountObjId(objId: string) {
+    console.log('set');
+    console.log(objId);
     this.accountObjId = objId;
   },
   setFilter(

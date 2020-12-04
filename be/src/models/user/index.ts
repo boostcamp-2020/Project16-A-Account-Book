@@ -9,6 +9,7 @@ const UserSchema = new Schema({
     type: String,
     default: 'sunday',
   },
+  nickname: String,
   id: {
     type: String,
   },

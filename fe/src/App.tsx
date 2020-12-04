@@ -6,6 +6,8 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
+import AccountListPage from 'pages/AccountListPage';
+import CalenderPage from 'pages/CalenderPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
 import LoginPage from './pages/LoginPage';
@@ -24,6 +26,7 @@ const TransactionRouter = () => {
           component={CreateTransactionPage}
         />
         <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
+        <Route path={`${url}/:title/calender`} component={CalenderPage} />
         <Route path={`${url}/:title`} component={MainPage} />
       </Switch>
     </>
@@ -47,10 +50,11 @@ const LoginRouter = () => {
 };
 
 const AccountRouter = () => {
+  const { url } = useRouteMatch();
   return (
     <>
       <AuthCheck />
-      가계부 선택
+      <Route path={`${url}`} component={AccountListPage} />
     </>
   );
 };
@@ -58,9 +62,9 @@ const AccountRouter = () => {
 const App = () => {
   return (
     <GlobalThemeProvider>
-      <AuthCheck />
       <Router>
         <Switch>
+          <Route path="/oauth-callback" component={OauthCallbackPage} />
           <Route path="/login" component={LoginRouter} />
           <Route path="/accounts" component={AccountRouter} />
           <Route path="/transactions" component={TransactionRouter} />
