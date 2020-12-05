@@ -78,6 +78,11 @@ export const TransactionStore = makeAutoObservable({
     };
   },
   get totalPrices() {
+    if (this.state === state.PENDING) {
+      // TODO PENDING 일 때 0,0을 보여주면 잠시 깜빡거림
+      // 로딩관련 글씨를 보여주면 좋을 듯
+      return { income: 0, expense: 0 };
+    }
     return calTotalPrices(this.transactions);
   },
   async loadTransactions() {
