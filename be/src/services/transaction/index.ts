@@ -1,6 +1,7 @@
 import { TransactionModel, ITransaction } from 'models/transaction';
 import { AccountModel } from 'models/account';
 import { categoryType } from 'models/category';
+import { getCompFuncByKey } from 'libs/utils';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
   const year = transaction.date.getFullYear();
@@ -52,9 +53,7 @@ export const getTransaction = async ({
     return { message: 'nodata' };
   }
 
-  trans.sort((firstEl: any, secondEl: any) => {
-    return firstEl.date - secondEl.date;
-  });
+  trans.sort(getCompFuncByKey('date'));
 
   const result = (trans as ITransaction[]).reduce(
     oneMonthTransactionsReducer,
