@@ -16,7 +16,7 @@ const CalenderPage = () => {
   const SubHeaderBar = (
     <MonthInfo
       month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={TransactionStore.transactions}
+      total={TransactionStore.totalPrices}
     />
   );
 
