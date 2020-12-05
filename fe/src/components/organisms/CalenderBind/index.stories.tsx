@@ -1,10 +1,10 @@
 import React from 'react';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
-import BindCalender from '.';
+import CalenderBind from '.';
 
 export default {
-  title: 'Organisms / BindCalender',
-  component: BindCalender,
+  title: 'Organisms / CalenderBind',
+  component: CalenderBind,
 };
 
 const testAccountDateList = {
@@ -192,7 +192,7 @@ const testAccountDateList = {
 export const SundayStart = () => {
   return (
     <GlobalThemeProvider>
-      <BindCalender isSundayStart transactions={testAccountDateList} />
+      <CalenderBind isSundayStart transactions={testAccountDateList} />
     </GlobalThemeProvider>
   );
 };
@@ -200,7 +200,7 @@ export const SundayStart = () => {
 export const MondayStart = () => {
   return (
     <GlobalThemeProvider>
-      <BindCalender isSundayStart={false} transactions={testAccountDateList} />
+      <CalenderBind isSundayStart={false} transactions={testAccountDateList} />
     </GlobalThemeProvider>
   );
 };

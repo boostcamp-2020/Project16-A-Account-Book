@@ -6,7 +6,7 @@ interface Props {
   transactions: any;
 }
 
-const BindCalender = ({
+const CalenderBind = ({
   isSundayStart,
   transactions = {},
   ...props
@@ -36,6 +36,7 @@ const BindCalender = ({
     Calenders.push({ ...nowTransactions });
   }
   const CalenderComponents = Calenders.map((el: any) => {
+    console.log('el : ', el);
     return (
       <S.Calender
         key={JSON.stringify(el)}
@@ -44,8 +45,9 @@ const BindCalender = ({
       />
     );
   });
+  console.log('CalenderComponents ', CalenderComponents);
 
-  return <S.BindCalender {...props}>{CalenderComponents}</S.BindCalender>;
+  return <S.CalenderBind {...props}>{CalenderComponents}</S.CalenderBind>;
 };
 
-export default BindCalender;
+export default CalenderBind;
