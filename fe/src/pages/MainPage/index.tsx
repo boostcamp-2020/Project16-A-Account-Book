@@ -7,17 +7,10 @@ import Header from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
-// import date from 'utils/date';
 import TransactionDateList from './TransactionDateList';
-
-// const { start, end } = date.getOneMonthRange(
-//   String(new Date().getFullYear()),
-//   String(new Date().getMonth() + 1),
-// );
 
 const MainPage = () => {
   useEffect(() => {
-    // TransactionStore.setFilter(new Date(start), new Date(end), null);
     TransactionStore.loadTransactions();
   }, []);
 
