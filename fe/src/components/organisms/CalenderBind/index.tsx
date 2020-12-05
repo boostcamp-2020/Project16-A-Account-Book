@@ -36,7 +36,6 @@ const CalenderBind = ({
     Calenders.push({ ...nowTransactions });
   }
   const CalenderComponents = Calenders.map((el: any) => {
-    console.log('el : ', el);
     return (
       <S.Calender
         key={JSON.stringify(el)}
@@ -45,7 +44,6 @@ const CalenderBind = ({
       />
     );
   });
-  console.log('CalenderComponents ', CalenderComponents);
 
   return <S.CalenderBind {...props}>{CalenderComponents}</S.CalenderBind>;
 };
