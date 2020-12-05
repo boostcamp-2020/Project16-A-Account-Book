@@ -5,7 +5,7 @@ import { TransactionStore } from 'stores/Transaction';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
-import Calender from 'components/organisms/Calender';
+import CalenderBind from 'components/organisms/CalenderBind';
 import NavBarComponent from 'components/organisms/NavBar';
 
 const CalenderPage = () => {
@@ -28,7 +28,7 @@ const CalenderPage = () => {
       <Template
         HeaderBar={<Header />}
         SubHeaderBar={SubHeaderBar}
-        Contents={<Calender isSundayStart transactions={[]} />}
+        Contents={<CalenderBind isSundayStart transactions={[]} />}
         NavBar={<NavBarComponent />}
       />
     );
@@ -36,7 +36,7 @@ const CalenderPage = () => {
 
   const Contents = (
     <>
-      <Calender
+      <CalenderBind
         isSundayStart
         transactions={toJS(TransactionStore.transactions)}
       />
