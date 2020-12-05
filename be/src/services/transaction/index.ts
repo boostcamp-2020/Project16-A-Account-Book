@@ -47,7 +47,7 @@ export const getTransaction = async ({
     return { message: 'nodata' };
   }
 
-  const trans = await res.transactions;
+  const trans = res.transactions;
   if (!trans || trans.length === 0) {
     return { message: 'nodata' };
   }
