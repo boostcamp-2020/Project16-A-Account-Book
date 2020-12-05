@@ -7,25 +7,24 @@ import Header from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
-import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
-import date from 'utils/date';
+// import date from 'utils/date';
 import TransactionDateList from './TransactionDateList';
 
-const { start, end } = date.getOneMonthRange(
-  String(new Date().getFullYear()),
-  String(new Date().getMonth() + 1),
-);
+// const { start, end } = date.getOneMonthRange(
+//   String(new Date().getFullYear()),
+//   String(new Date().getMonth() + 1),
+// );
 
 const MainPage = () => {
   useEffect(() => {
-    TransactionStore.setFilter(new Date(start), new Date(end), null);
+    // TransactionStore.setFilter(new Date(start), new Date(end), null);
     TransactionStore.loadTransactions();
   }, []);
 
   const SubHeaderBar = (
     <MonthInfo
       month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={calTotalPrices(toJS(TransactionStore.transactions))}
+      total={TransactionStore.totalPrices}
     />
   );
 
