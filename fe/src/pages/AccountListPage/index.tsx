@@ -15,6 +15,10 @@ const onClickHandler = (
   accountTitle: string,
   accountOwner: string,
 ) => () => {
+  sessionStorage.setItem(
+    'account',
+    JSON.stringify({ id: accountObjId, title: accountTitle }),
+  );
   TransactionStore.setAccountObjId(accountObjId);
   history.push(`/transactions/${accountOwner}/${accountTitle}`);
 };
