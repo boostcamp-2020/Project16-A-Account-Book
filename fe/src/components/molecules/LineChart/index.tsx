@@ -28,12 +28,13 @@ const LineChart = ({
   const digits =
     parseFloat(maximumYFromData.toString()).toFixed(precision).length + 1;
 
-  const padding = (FONT_SIZE + digits) * 3;
-  const chartWidth = width - padding * 2;
-  const chartHeight = height - padding * 2;
-  const getXpos = (ratio: number) => ratio * chartWidth + padding;
+  const paddingWidth = (FONT_SIZE + digits) * 3;
+  const paddingHeight = FONT_SIZE * 3;
+  const chartWidth = width - paddingWidth * 2;
+  const chartHeight = height - paddingHeight * 2;
+  const getXpos = (ratio: number) => ratio * chartWidth + paddingWidth;
   const getYpos = (ratio: number) =>
-    chartHeight - ratio * chartHeight + padding;
+    chartHeight - ratio * chartHeight + paddingHeight;
   const points = data
     .map((element, index) => {
       const x = getXpos(index / maximumXFromData);
@@ -43,16 +44,16 @@ const LineChart = ({
     .join(' ');
   const xAxisPos = {
     x: {
-      start: padding,
-      end: chartWidth + padding / 2,
+      start: paddingWidth,
+      end: chartWidth + paddingWidth / 2,
     },
-    y: height - padding,
+    y: height - paddingHeight,
   };
   const yAxisPos = {
-    x: padding,
+    x: paddingWidth,
     y: {
-      start: padding,
-      end: height - padding,
+      start: paddingHeight,
+      end: height - paddingHeight,
     },
   };
 
@@ -100,7 +101,7 @@ const LineChart = ({
   };
 
   const LabelsXAxis = () => {
-    const y = height - padding + FONT_SIZE * 2;
+    const y = height - paddingHeight + FONT_SIZE * 2;
     return (
       <>
         {data.map((element, index) => {
@@ -136,20 +137,10 @@ const LineChart = ({
     );
   };
 
-  const LabelYUnit = () => {
-    const x = FONT_SIZE;
-    const y = padding - FONT_SIZE;
-    return (
-      <text x={x} y={y} style={labelStyle}>
-        (만원)
-      </text>
-    );
-  };
-
   const LabelLineInfo = () => {
     const startX = xAxisPos.x.start;
     const endX = xAxisPos.x.start + STROKE * 2;
-    const y = padding - FONT_SIZE;
+    const y = paddingHeight - FONT_SIZE;
     return (
       <>
         <polyline
@@ -170,7 +161,6 @@ const LineChart = ({
   };
   return (
     <svg viewBox={`0 0 ${width} ${height}`}>
-      <LabelYUnit />
       <XAxis />
       <LabelsXAxis />
       <YAxis />
