@@ -53,10 +53,7 @@ export const calTotalPriceByDateAndType = (
         (transaction: TransactionDBType) => transaction.category.type === type,
       );
       const totalPrice = math.sumByKey(filteredTransactions, 'price');
-      if (totalPrice) {
-        return [...acc, { date, totalPrice }];
-      }
-      return acc;
+      return [...acc, { date, totalPrice }];
     },
     [],
   );
