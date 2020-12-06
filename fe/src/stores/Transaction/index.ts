@@ -107,6 +107,13 @@ export const TransactionStore = makeAutoObservable({
       this.filter = filter;
     }
   },
+  resetFilter() {
+    this.setFilter(
+      initialState.dates.startDate,
+      initialState.dates.endDate,
+      initialState.filter,
+    );
+  },
   getFilter() {
     return toJS(this.filter);
   },

@@ -19,6 +19,8 @@ const onClickHandler = (
     'account',
     JSON.stringify({ id: accountObjId, title: accountTitle }),
   );
+  sessionStorage.removeItem('filter');
+  TransactionStore.resetFilter();
   TransactionStore.setAccountObjId(accountObjId);
   history.push(`/transactions/${accountOwner}/${accountTitle}`);
 };
