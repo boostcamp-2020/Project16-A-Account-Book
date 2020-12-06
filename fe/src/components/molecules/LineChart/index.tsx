@@ -147,13 +147,23 @@ const LineChart = ({
   };
 
   const LabelLineInfo = () => {
-    const x = 0;
-    const y = 0;
+    const startX = xAxisPos.x.start;
+    const endX = xAxisPos.x.start + STROKE * 2;
+    const y = padding - FONT_SIZE;
     return (
       <>
-        <polyline />
-        <text x={x} y={y} style={labelStyle}>
-          (만원)
+        <polyline
+          stroke={theme.color.brandColor}
+          strokeWidth={STROKE}
+          points={`${startX},${y} ${endX},${y}`}
+        />
+        <text
+          x={endX + FONT_SIZE}
+          y={y}
+          fill={labelStyle.fill}
+          fontSize={FONT_SIZE * 0.8}
+        >
+          지출 추이
         </text>
       </>
     );
