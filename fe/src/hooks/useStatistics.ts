@@ -20,6 +20,7 @@ const useStatistics = (): IStatistics => {
       TransactionStore.getDates(),
     );
     setStatistics(loadedStatistics);
+    await TransactionStore.loadTransactions();
   };
   useEffect(() => {
     loadAndSetStatistics();
