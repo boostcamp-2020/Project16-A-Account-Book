@@ -18,8 +18,8 @@ export interface ITransactionStore {
   filter: {
     methods: types.ICheckMethod[];
     categories: {
-      income: string[];
-      expense: string[];
+      income: types.IFilterCategory;
+      expense: types.IFilterCategory;
     };
   };
 }
@@ -49,11 +49,11 @@ const initialState: ITransactionStore = {
     categories: {
       income: {
         disabled: false,
-        list: [],
+        list: new Set(),
       },
       expense: {
         disabled: false,
-        list: [],
+        list: new Set(),
       },
     },
   },

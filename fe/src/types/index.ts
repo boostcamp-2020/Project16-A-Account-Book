@@ -39,6 +39,10 @@ export interface ICheckCategory extends ICategory {
 export interface ICheckMethod extends IMethod {
   checked: boolean;
 }
+export interface IFilterCategory {
+  disabled: boolean;
+  list: Set<string>;
+}
 
 export interface ICategoryStatistics extends Omit<ICategory, '__v' | 'type'> {
   totalPrice: number;

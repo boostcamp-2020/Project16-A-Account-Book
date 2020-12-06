@@ -1,4 +1,3 @@
-/* eslint-disable no-fallthrough */
 const fetchLocalStorage = 'FETCH_LOCAL_STORAGE';
 const setDates = 'SET_DATES';
 const setMethod = 'SET_METHOD';
@@ -52,62 +51,18 @@ export const initialState = {
     startDate: new Date(),
     endDate: new Date(),
   },
-  methods: [
-    {
-      checked: true,
-      objectId: 1,
-      title: '제목1',
-    },
-    {
-      checked: false,
-      objectId: 2,
-      title: '제목2',
-    },
-  ],
+  methods: [],
   categories: {
     income: {
-      disabled: false,
-      list: [
-        {
-          checked: true,
-          objectId: 1,
-          title: '제목1',
-        },
-        {
-          checked: true,
-          objectId: 2,
-          title: '제목2',
-        },
-        {
-          checked: false,
-          objectId: 3,
-          title: '제목3',
-        },
-      ],
+      disable: false,
+      list: [],
     },
     expense: {
-      disabled: false,
+      disable: false,
       list: [],
     },
   },
 };
-// export const initialState = {
-//   dates: {
-//     startDate: new Date(),
-//     endDate: new Date(),
-//   },
-//   methods: [],
-//   categories: {
-//     income: {
-//       disabled: false,
-//       list: [],
-//     },
-//     expense: {
-//       disabled: false,
-//       list: [],
-//     },
-//   },
-// };
 
 export const reducer = (state: any, action: any) => {
   switch (action.type) {
@@ -138,18 +93,27 @@ export const reducer = (state: any, action: any) => {
       const { type, category } = action.payload;
       const target = state.categories[type];
       if (!target) return state;
+      if (target.has(category)) {
+        return {
+          ...state,
+          categories: {
+            ...state.categories,
+            [type]: {
+              ...target,
+              list: new Set([
+                [...target.list].filter((x: string) => x !== category),
+              ]),
+            },
+          },
+        };
+      }
       return {
         ...state,
         categories: {
           ...state.categories,
           [type]: {
             ...target,
-            list: [
-              ...target.list.map((cat: any) => {
-                if (cat.objectId !== category) return cat;
-                return { ...cat, checked: !cat.checked };
-              }),
-            ],
+            list: new Set([...target.list, category]),
           },
         },
       };
