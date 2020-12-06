@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
+dayjs.locale('ko');
 export default {
   dateFormatter: (date: Date): string => dayjs(date).format('YYYY-MM-DD'),
   dateCustomFormatter: (date: Date | string | number, format: string): string =>
@@ -22,4 +24,25 @@ export default {
   },
   getNextDate: (date: Date | string) =>
     dayjs(date).add(1, 'day').format('YYYY-MM-DD'),
+  getOneWeekRange: (date: Date, standard?: boolean) => {
+    const now = dayjs(date);
+    const day = 1000 * 60 * 60 * 24;
+    const term = standard ? now.day() - 1 : now.day();
+    const startDate = dayjs(now.valueOf() - day * term);
+    const endDate = dayjs(startDate.valueOf() + day * 6);
+    return {
+      startDate: startDate.toDate(),
+      endDate: endDate.toDate(),
+    };
+  },
+  getOneYearRange: (date: Date) => {
+    const now = dayjs(date);
+    const year = now.year();
+    const startDate = dayjs(`${year}-01-01`);
+    const endDate = dayjs(`${year}-12-31`);
+    return {
+      startDate: startDate.toDate(),
+      endDate: endDate.toDate(),
+    };
+  },
 };
