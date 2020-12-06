@@ -6,7 +6,6 @@ import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
-import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
 import useStatistics from 'hooks/useStatistics';
 import PieChartOverview from 'components/organisms/PieChartOverview';
 
@@ -15,7 +14,7 @@ const StatisticsPage = () => {
   const SubHeaderBar = (
     <MonthInfo
       month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={calTotalPrices(toJS(TransactionStore.transactions))}
+      total={TransactionStore.totalPrices}
     />
   );
 
