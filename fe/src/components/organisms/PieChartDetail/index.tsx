@@ -3,12 +3,11 @@ import StatisticsList from 'components/organisms/StatisticsList';
 import PieChart from 'components/molecules/PieChart';
 import Checkbox from 'components/molecules/Checkbox';
 import PriceTag from 'components/atoms/PriceTag';
-import { ICategoryStatistics, ITotalPrice } from 'types';
+import { IStatistics } from 'types';
 import * as S from './style';
 
 export interface Props {
-  categories: ICategoryStatistics[];
-  totalPrice: ITotalPrice;
+  statistics: IStatistics;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   checkStatus: {
     income: boolean;
@@ -16,22 +15,25 @@ export interface Props {
   };
 }
 const PieChartDetail = ({
-  categories,
-  totalPrice,
+  statistics,
   checkStatus,
   onClick,
 }: Props): React.ReactElement => {
+  const categories = checkStatus.income
+    ? statistics.incomeCategories
+    : statistics.expenseCategories;
+
   const TotalStatusCheckBox = (
     <S.TotalStatusCheckBox>
       <div className="total-checkbox-wrap">
         <Checkbox checked={checkStatus.income} onClick={onClick} />
         수입
-        <PriceTag value={totalPrice.income} />
+        <PriceTag value={statistics.totalPrice.income} />
       </div>
       <div className="total-checkbox-wrap">
         <Checkbox checked={checkStatus.expense} onClick={onClick} />
         지출
-        <PriceTag value={totalPrice.expense} />
+        <PriceTag value={statistics.totalPrice.expense} />
       </div>
     </S.TotalStatusCheckBox>
   );
