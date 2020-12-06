@@ -18,8 +18,8 @@ export interface ITransactionStore {
   filter: {
     methods: types.ICheckMethod[];
     categories: {
-      income: types.IFilterCategory;
-      expense: types.IFilterCategory;
+      income: string[];
+      expense: string[];
     };
   };
 }
