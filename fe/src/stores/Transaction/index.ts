@@ -65,6 +65,28 @@ export const state = {
   ERROR: 'ERROR',
 };
 
+const fetchDate = () => {
+  const session = window.sessionStorage.getItem('filter');
+  if (session) {
+    const convert = JSON.parse(session);
+    return {
+      startDate: new Date(convert.dates.startDate),
+      endDate: new Date(convert.dates.endDate),
+    };
+  }
+  return initialState.dates;
+};
+const fetchFilter = () => {
+  const session = window.sessionStorage.getItem('filter');
+  if (session) {
+    const convert = JSON.parse(session);
+    return {
+      categories: convert.categories,
+      methods: convert.methods,
+    };
+  }
+  return initialState.filter;
+};
 export const TransactionStore = makeAutoObservable({
   transactions: [] as any,
   dates: initialState.dates,
@@ -78,7 +100,7 @@ export const TransactionStore = makeAutoObservable({
   setFilter(
     startDate: Date,
     endDate: Date,
-    filter: ITransactionStore['filter'] | null,
+    filter?: ITransactionStore['filter'] | null,
   ) {
     this.dates = { startDate, endDate };
     if (filter) {

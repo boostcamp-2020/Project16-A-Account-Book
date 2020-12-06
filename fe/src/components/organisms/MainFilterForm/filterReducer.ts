@@ -44,6 +44,17 @@ export const actions = {
 
 export const reducer = (state: any, action: any) => {
   switch (action.type) {
+    case setDates: {
+      const { startDate, endDate } = action.payload.dates;
+
+      return {
+        ...state,
+        dates: {
+          startDate,
+          endDate,
+        },
+      };
+    }
     case setMethod: {
       const { method } = action.payload;
       const exist = state.methods.find((item: string) => item === method);
