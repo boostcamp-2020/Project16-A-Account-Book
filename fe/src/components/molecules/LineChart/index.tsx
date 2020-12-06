@@ -1,6 +1,7 @@
 import React from 'react';
 import { IDateTotalprice } from 'types';
 import theme from 'styles/theme';
+import utils from 'utils';
 
 const STROKE = 1;
 const labelStyle = {
@@ -12,21 +13,17 @@ export interface Props {
   width: number;
   height: number;
   horizontalGuides: number;
-  precision: number;
 }
 const LineChart = ({
   data,
   height,
   width,
   horizontalGuides: numberOfHorizontalGuides,
-  precision,
 }: Props) => {
   const FONT_SIZE = width / 60;
   const maximumXFromData = data.length;
   const maximumYFromData = Math.max(...data.map((e) => e.totalPrice));
-
-  const digits =
-    parseFloat(maximumYFromData.toString()).toFixed(precision).length + 1;
+  const digits = utils.moneyFormatter(maximumYFromData).length;
 
   const paddingWidth = (FONT_SIZE + digits) * 3;
   const paddingHeight = FONT_SIZE * 3;
@@ -127,9 +124,7 @@ const LineChart = ({
           const y = getYpos(ratio) + FONT_SIZE / 2;
           return (
             <text key={`label-y-${y}`} x={x} y={y} style={labelStyle}>
-              {parseFloat(
-                (maximumYFromData * (index / PARTS)).toString(),
-              ).toFixed(precision)}
+              {utils.moneyFormatter(maximumYFromData * (index / PARTS))}
             </text>
           );
         })}
