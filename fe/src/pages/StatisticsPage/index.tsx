@@ -8,6 +8,7 @@ import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
 import useStatistics from 'hooks/useStatistics';
 import PieChartOverview from 'components/organisms/PieChartOverview';
+import LineChartOverview from 'components/organisms/LineChartOverview';
 
 const StatisticsPage = () => {
   const statistics = useStatistics();
@@ -18,11 +19,18 @@ const StatisticsPage = () => {
     />
   );
 
+  const Contents = (
+    <>
+      <PieChartOverview categories={statistics.expenseCategories} />
+      <LineChartOverview />
+    </>
+  );
+
   return (
     <Template
       HeaderBar={<Header />}
       SubHeaderBar={SubHeaderBar}
-      Contents={<PieChartOverview categories={statistics.expenseCategories} />}
+      Contents={Contents}
       NavBar={<NavBarComponent />}
     />
   );
