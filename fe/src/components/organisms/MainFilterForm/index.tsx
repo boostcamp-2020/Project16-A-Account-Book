@@ -4,6 +4,7 @@ import { MethodStore } from 'stores/Method';
 import { CategoryStore, categoryType } from 'stores/Category';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react';
+import dateUtils from 'utils/date';
 import * as S from './style';
 import TopFilter from './TopFilter';
 import CategoryFilterList from './CategoryFilterList';
@@ -17,13 +18,43 @@ const types = {
   INCOME: 'income',
   expense: 'expense',
 };
-const Buttons = ({ onClick }: { onClick: any }) => {
+const Buttons = ({
+  onClick,
+  onClickFix,
+}: {
+  onClick: any;
+  onClickFix: any;
+}) => {
   return (
     <S.DateFilterContainer>
-      <S.DateFilterButton onClick={() => {}}>오늘</S.DateFilterButton>
-      <S.DateFilterButton onClick={() => {}}>이번주</S.DateFilterButton>
-      <S.DateFilterButton onClick={() => {}}>이번달</S.DateFilterButton>
-      <S.DateFilterButton onClick={() => {}}>올 해</S.DateFilterButton>
+      <S.DateFilterButton
+        onClick={() => {
+          onClickFix(1);
+        }}
+      >
+        오늘
+      </S.DateFilterButton>
+      <S.DateFilterButton
+        onClick={() => {
+          onClickFix(2);
+        }}
+      >
+        이번주
+      </S.DateFilterButton>
+      <S.DateFilterButton
+        onClick={() => {
+          onClickFix(3);
+        }}
+      >
+        이번달
+      </S.DateFilterButton>
+      <S.DateFilterButton
+        onClick={() => {
+          onClickFix(4);
+        }}
+      >
+        올 해
+      </S.DateFilterButton>
       <S.DateFilterButton onClick={onClick}>기간 설정</S.DateFilterButton>
     </S.DateFilterContainer>
   );
@@ -56,6 +87,33 @@ const MainFilterForm = () => {
   }, []);
 
   const [visible, toggleVisible] = useVisible(container);
+
+  const onClickDateFix = (type: number) => {
+    switch (type) {
+      case 1: {
+        dispatch(actions.setDates(new Date(), new Date()));
+        break;
+      }
+      case 2: {
+        const d = dateUtils.getOneWeekRange(new Date(), false);
+        dispatch(actions.setDates(d.startDate, d.endDate));
+        break;
+      }
+      case 3: {
+        dispatch(actions.setDates(new Date(), new Date()));
+        break;
+      }
+      case 4: {
+        const d = dateUtils.getOneYearRange(new Date());
+        dispatch(actions.setDates(d.startDate, d.endDate));
+        break;
+      }
+      default: {
+        dispatch(actions.setDates(new Date(), new Date()));
+        break;
+      }
+    }
+  };
 
   const onChangeDate = (dateList: [Date | null, Date | null]) => {
     const [startDate, endDate] = dateList;
@@ -90,7 +148,7 @@ const MainFilterForm = () => {
       <TopFilter filterTitle="기간">
         <S.DateContainer>
           <DropdownHeader title="기간">
-            <Buttons onClick={toggleVisible} />
+            <Buttons onClick={toggleVisible} onClickFix={onClickDateFix} />
           </DropdownHeader>
           <button
             type="button"
