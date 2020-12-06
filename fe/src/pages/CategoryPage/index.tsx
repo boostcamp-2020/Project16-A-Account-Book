@@ -34,6 +34,16 @@ function CategoryPage(): React.ReactElement {
   const [newCategory, setNewCategory] = useState<string>('');
   const [color, setColor] = useState<string>('');
   const [visible, setVisible] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [selected, setSelected] = useState<string>('');
+
+  const editButtonHandler = async () => {
+    if (isClicked) {
+      await setIsClicked(false);
+    } else {
+      await setIsClicked(true);
+    }
+  };
 
   const TabClickHandler = (e: ClickProps) => {
     const { value } = e.target;
@@ -56,15 +66,32 @@ function CategoryPage(): React.ReactElement {
     setColor(value);
   };
 
+  const dropDownItemClicked = async (objId: string) => {
+    await setSelected(objId);
+    setVisible(true);
+  };
+
   const newCategoryConfirm = async () => {
-    await axios.post(url.postCategory, {
-      type,
-      title: newCategory,
-      color,
-      accountObjId: TransactionStore.accountObjId,
-    });
-    await CategoryStore.loadCategories();
-    setVisible(false);
+    if (selected === '') {
+      await axios.post(url.postCategory, {
+        type,
+        title: newCategory,
+        color,
+        accountObjId: TransactionStore.accountObjId,
+      });
+      await CategoryStore.loadCategories();
+      setVisible(false);
+    } else {
+      await axios.put(url.postCategory, {
+        objId: selected,
+        type,
+        title: newCategory,
+        color,
+        accountObjId: TransactionStore.accountObjId,
+      });
+      await CategoryStore.loadCategories();
+      setVisible(false);
+    }
   };
 
   const newCategoryCancel = () => {
@@ -106,6 +133,9 @@ function CategoryPage(): React.ReactElement {
         dataList={toJS(CategoryStore.getCategories(type))}
         onClickHandler={TabClickHandler}
         onPlusButtonClick={onPlusButtonClick}
+        dropDownItemClicked={dropDownItemClicked}
+        editButtonHandler={editButtonHandler}
+        isClicked={isClicked}
       />
       <Modal visible={visible} content={modalContent} />
     </S.PageContainer>

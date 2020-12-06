@@ -3,6 +3,7 @@ import {
   getCategories,
   postCategory,
   getCategoryStatistics,
+  putCategory,
 } from 'services/category';
 
 const get = async (ctx: Context) => {
@@ -35,4 +36,16 @@ const post = async (ctx: Context) => {
   }
 };
 
-export default { getStatisticsInfo, get, post };
+const put = async (ctx: Context) => {
+  const { objId, type, title, color, accountObjId } = ctx.request.body;
+  const res = await putCategory(objId, type, title, color, accountObjId);
+  if (res.success) {
+    ctx.status = 200;
+    ctx.body = res;
+  } else {
+    ctx.status = 401;
+    ctx.body = res;
+  }
+};
+
+export default { getStatisticsInfo, get, post, put };

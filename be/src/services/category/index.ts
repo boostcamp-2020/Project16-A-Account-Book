@@ -123,4 +123,18 @@ export const postCategory = async (
   return { success: true, newCategory };
 };
 
+export const putCategory = async (
+  objId: string,
+  type: string,
+  title: string,
+  color: string,
+  accountObjId: string,
+) => {
+  const res = await CategoryModel.update(
+    { _id: objId },
+    { $set: { type, title, color } },
+  );
+  return { success: true, res };
+};
+
 export default {};

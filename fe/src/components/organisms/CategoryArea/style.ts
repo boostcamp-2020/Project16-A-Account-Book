@@ -4,7 +4,9 @@ import Button from 'components/atoms/Button';
 
 export const CustomDropDownBody = styled.div`
   position: relative;
-  width: 100%;
+  width: 98%;
+  height: 25rem;
+  overflow-y: auto;
 `;
 
 export const EditButton = styled(Button)`
@@ -16,7 +18,6 @@ export const EditButton = styled(Button)`
 `;
 
 export const StyledButton = styled(IconButton)`
-  margin-top: 5%;
   width: 2rem;
   height: 2rem;
   border-radius: 1rem;
@@ -30,7 +31,6 @@ export const TabUIContainer = styled.div`
 
 export const DropDownContainer = styled.div`
   width: 100%;
-  margin-bottom: 10rem;
 `;
 
 export const EditButtonArea = styled.div`
