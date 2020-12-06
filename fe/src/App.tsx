@@ -27,11 +27,11 @@ const TransactionRouter = () => {
           path={`${url}/:title/create`}
           component={CreateTransactionPage}
         />
-        <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
         <Route
           path={`${url}/:title/statistics/detail`}
           component={StatisticsDetailPage}
         />
+        <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
         <Route path={`${url}/:title/calender`} component={CalenderPage} />
         <Route path={`${url}/:title/category`} component={CategoryPage} />
         <Route path={`${url}/:title`} component={MainPage} />
