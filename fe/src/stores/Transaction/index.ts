@@ -82,6 +82,9 @@ export const TransactionStore = makeAutoObservable({
     };
   },
   get totalExpensePriceByDate() {
+    if (this.state !== state.DONE || this.transactions.message) {
+      return [];
+    }
     return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
   },
   get totalPrices() {
