@@ -6,7 +6,7 @@ export interface EditButtonProps {
 
 export const EditButton = styled.button<EditButtonProps>`
   background-color: ${({ theme }) => theme.color.grayBackground};
-  display: ${(props) => (props.isClicked ? 'none' : 'block')};
+  display: ${(props) => (props.isClicked ? 'block' : 'none')};
 `;
 
 export default {};

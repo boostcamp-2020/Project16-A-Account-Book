@@ -9,6 +9,10 @@ export default {
 
 const dataList = ['random', 'values'];
 
+const dropDownItemClicked = () => {
+  console.log('dropdown item clicked');
+};
+
 const defaultClickHandler = () => {
   const a = [];
   a.push(1);
@@ -25,6 +29,11 @@ export const defaultTabHeader = () => {
         dataList={dataList}
         onClickHandler={defaultClickHandler}
         onPlusButtonClick={onPlusButtonClick}
+        dropDownItemClicked={dropDownItemClicked}
+        isClicked={false}
+        editButtonHandler={() => {
+          console.log('hi');
+        }}
       />
     </ThemeProvider>
   );
