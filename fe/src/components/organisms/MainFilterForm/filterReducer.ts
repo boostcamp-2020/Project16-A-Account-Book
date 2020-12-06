@@ -1,13 +1,9 @@
-const fetchLocalStorage = 'FETCH_LOCAL_STORAGE';
 const setDates = 'SET_DATES';
 const setMethod = 'SET_METHOD';
 const setCategory = 'SET_CATEGORY';
 const setCategoryDisable = 'SET_CATEGORY_DISABLE';
 
 export const actions = {
-  fetchLocalStorage() {
-    return { type: fetchLocalStorage };
-  },
   setDates(startDate: Date | null, endDate: Date | null) {
     return {
       type: setDates,
@@ -48,17 +44,6 @@ export const actions = {
 
 export const reducer = (state: any, action: any) => {
   switch (action.type) {
-    case fetchLocalStorage: {
-      const filter = localStorage.getItem('filter');
-      if (filter) {
-        return { ...state, ...JSON.parse(filter) };
-      }
-      return state;
-    }
-    case setDates: {
-      const { dates } = action.payload;
-      return { ...state, dates };
-    }
     case setMethod: {
       const { method } = action.payload;
       const exist = state.methods.find((item: string) => item === method);
