@@ -9,5 +9,6 @@ router.get('/statistics', categoryController.getStatisticsInfo);
 router.use('/', verifyAccountAccess);
 router.get('/', categoryController.get);
 router.post('/', categoryController.post);
+router.put('/', categoryController.put);
 
 export default router;

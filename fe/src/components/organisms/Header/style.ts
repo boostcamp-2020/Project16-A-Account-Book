@@ -9,6 +9,7 @@ const HeaderBox = styled.div`
   height: 50px;
   color: ${theme.color.white};
   background-color: ${theme.color.brandColor};
+  margin-bottom: 1rem;
 `;
 
 export default HeaderBox;
