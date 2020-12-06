@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
@@ -10,8 +11,12 @@ import useStatistics from 'hooks/useStatistics';
 import PieChartOverview from 'components/organisms/PieChartOverview';
 import LineChartOverview from 'components/organisms/LineChartOverview';
 
-const StatisticsPage = () => {
+const StatisticsPage = ({ location }: { location: any }) => {
   const statistics = useStatistics();
+  const history = useHistory();
+  const moveToStatisticDetailPage = () =>
+    history.push(`${location.pathname}/detail`);
+
   const SubHeaderBar = (
     <MonthInfo
       month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
@@ -21,7 +26,10 @@ const StatisticsPage = () => {
 
   const Contents = (
     <>
-      <PieChartOverview categories={statistics.expenseCategories} />
+      <PieChartOverview
+        categories={statistics.expenseCategories}
+        onClick={moveToStatisticDetailPage}
+      />
       <LineChartOverview />
     </>
   );

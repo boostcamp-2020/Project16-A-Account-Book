@@ -10,6 +10,7 @@ import AccountListPage from 'pages/AccountListPage';
 import CalenderPage from 'pages/CalenderPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
+import StatisticsDetailPage from 'pages/StatisticsDetailPage';
 import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
@@ -27,6 +28,10 @@ const TransactionRouter = () => {
           component={CreateTransactionPage}
         />
         <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
+        <Route
+          path={`${url}/:title/statistics/detail`}
+          component={StatisticsDetailPage}
+        />
         <Route path={`${url}/:title/calender`} component={CalenderPage} />
         <Route path={`${url}/:title/category`} component={CategoryPage} />
         <Route path={`${url}/:title`} component={MainPage} />
