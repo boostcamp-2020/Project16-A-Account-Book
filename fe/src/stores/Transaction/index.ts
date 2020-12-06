@@ -1,8 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
+import { categoryType } from 'stores/Category';
 import * as types from 'types';
-import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
+import {
+  calTotalPrices,
+  calTotalPriceByDateAndType,
+} from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
 export interface ITransactionStore {
@@ -76,6 +80,9 @@ export const TransactionStore = makeAutoObservable({
       startDate: date.dateFormatter(this.dates.startDate),
       endDate: date.dateFormatter(this.dates.endDate),
     };
+  },
+  get totalExpensePriceByDate() {
+    return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
   },
   get totalPrices() {
     if (this.state === state.PENDING) {
