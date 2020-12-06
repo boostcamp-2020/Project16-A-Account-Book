@@ -49,11 +49,11 @@ const initialState: ITransactionStore = {
     categories: {
       income: {
         disabled: false,
-        list: new Set(),
+        list: [],
       },
       expense: {
         disabled: false,
-        list: new Set(),
+        list: [],
       },
     },
   },
@@ -84,6 +84,12 @@ export const TransactionStore = makeAutoObservable({
     if (filter) {
       this.filter = filter;
     }
+  },
+  getFilter() {
+    return toJS(this.filter);
+  },
+  getOriginDates() {
+    return toJS(this.dates);
   },
   getDates() {
     return {

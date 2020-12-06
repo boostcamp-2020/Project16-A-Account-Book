@@ -46,24 +46,6 @@ export const actions = {
   },
 };
 
-export const initialState = {
-  dates: {
-    startDate: new Date(),
-    endDate: new Date(),
-  },
-  methods: [],
-  categories: {
-    income: {
-      disable: false,
-      list: [],
-    },
-    expense: {
-      disable: false,
-      list: [],
-    },
-  },
-};
-
 export const reducer = (state: any, action: any) => {
   switch (action.type) {
     case fetchLocalStorage: {
@@ -79,30 +61,31 @@ export const reducer = (state: any, action: any) => {
     }
     case setMethod: {
       const { method } = action.payload;
+      const exist = state.methods.find((item: string) => item === method);
+      if (exist) {
+        return {
+          ...state,
+          methods: state.methods.filter((x: string) => x !== method),
+        };
+      }
       return {
         ...state,
-        methods: [
-          ...state.methods.map((m: any) => {
-            if (m.objectId !== method) return m;
-            return { ...m, checked: !m.checked };
-          }),
-        ],
+        methods: [...state.methods, method],
       };
     }
     case setCategory: {
       const { type, category } = action.payload;
       const target = state.categories[type];
       if (!target) return state;
-      if (target.has(category)) {
+      const exist = target.list.find((item: string) => item === category);
+      if (exist) {
         return {
           ...state,
           categories: {
             ...state.categories,
             [type]: {
               ...target,
-              list: new Set([
-                [...target.list].filter((x: string) => x !== category),
-              ]),
+              list: target.list.filter((x: string) => x !== category),
             },
           },
         };
@@ -113,7 +96,7 @@ export const reducer = (state: any, action: any) => {
           ...state.categories,
           [type]: {
             ...target,
-            list: new Set([...target.list, category]),
+            list: [...target.list, category],
           },
         },
       };
@@ -137,4 +120,3 @@ export const reducer = (state: any, action: any) => {
       return state;
   }
 };
-export default initialState;

@@ -1,5 +1,9 @@
 import React, { useRef, useReducer, useEffect } from 'react';
 import useVisible from 'hooks/useVisible';
+import { MethodStore } from 'stores/Method';
+import { CategoryStore, categoryType } from 'stores/Category';
+import { TransactionStore } from 'stores/Transaction';
+import { observer } from 'mobx-react';
 import * as S from './style';
 import TopFilter from './TopFilter';
 import CategoryFilterList from './CategoryFilterList';
@@ -7,8 +11,12 @@ import DateRange from '../../molecules/DateRange';
 import DropdownHeader from '../../molecules/DropdownHeader';
 import Dropdown from '../../molecules/Dropdown';
 import DataPicker, { IDatePicker } from '../../molecules/DatePicker';
-import { initialState, reducer, actions } from './filterReducer';
+import { reducer, actions } from './filterReducer';
 
+const types = {
+  INCOME: 'income',
+  expense: 'expense',
+};
 const Buttons = ({ onClick }: { onClick: any }) => {
   return (
     <S.DateFilterContainer>
@@ -32,15 +40,20 @@ const Modal = ({ dates, onChange, ref }: IModal) => {
     </S.Model>
   );
 };
+
 const MainFilterForm = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, {
+    dates: TransactionStore.getOriginDates(),
+    ...TransactionStore.getFilter(),
+  });
+
   const { dates, categories, methods } = state;
   const { income, expense } = categories;
   const container = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    localStorage.setItem('filter', JSON.stringify(state));
-  }, [state]);
+    CategoryStore.loadCategories();
+    MethodStore.loadMethods();
+  }, []);
 
   const [visible, toggleVisible] = useVisible(container);
 
@@ -50,21 +63,27 @@ const MainFilterForm = () => {
     if (endDate) toggleVisible();
   };
 
-  const onClickCategory = ({
-    type,
-    objectId,
-  }: {
-    type: string;
-    objectId: string;
-  }) => {
-    dispatch(actions.setCategory(type, objectId));
+  const onClickCategory = ({ type, _id }: { type: string; _id: string }) => {
+    dispatch(actions.setCategory(type, _id));
   };
 
   const onClickCategoryDisable = (type: string) =>
     dispatch(actions.setCategoryDisable(type));
 
-  const onClickMethod = ({ objectId }: { objectId: string }) => {
-    dispatch(actions.setMethod(objectId));
+  const onClickMethod = ({ _id }: { _id: string }) => {
+    dispatch(actions.setMethod(_id));
+  };
+  const onCancle = () => {
+    document.body.click();
+  };
+
+  const onApplyHandler = () => {
+    window.sessionStorage.setItem('filter', JSON.stringify(state));
+    TransactionStore.setFilter(dates.startDate, dates.endDate, {
+      categories,
+      methods,
+    });
+    document.body.click();
   };
   return (
     <S.Container>
@@ -85,8 +104,9 @@ const MainFilterForm = () => {
 
       <TopFilter filterTitle="결제수단">
         <Dropdown
-          dataList={methods}
+          dataList={MethodStore.getMethods()}
           onClick={onClickMethod}
+          checkList={methods}
           title="수입 카테고리"
         />
       </TopFilter>
@@ -99,35 +119,41 @@ const MainFilterForm = () => {
         </S.Label>
 
         <CategoryFilterList
-          filterTitle="지출"
-          disabled={income.disabled}
-          onClick={() => onClickCategoryDisable('income')}
-        >
-          <Dropdown
-            dataList={income.list}
-            onClick={onClickCategory}
-            disabled={income.disabled}
-            title="지출 카테고리"
-            type="income"
-          />
-        </CategoryFilterList>
-
-        <CategoryFilterList
           filterTitle="수입"
           disabled={expense.disabled}
-          onClick={() => onClickCategoryDisable('expense')}
+          onClick={() => onClickCategoryDisable(types.expense)}
         >
           <Dropdown
             disabled={expense.disabled}
-            dataList={expense.list}
+            dataList={CategoryStore.getCategories(categoryType.EXPENSE)}
             onClick={onClickCategory}
+            checkList={expense.list}
             title="수입 카테고리"
-            type="expense"
+            type={types.expense}
+          />
+        </CategoryFilterList>
+        <CategoryFilterList
+          filterTitle="지출"
+          disabled={income.disabled}
+          onClick={() => onClickCategoryDisable(types.INCOME)}
+        >
+          <Dropdown
+            dataList={CategoryStore.getCategories(categoryType.INCOME)}
+            onClick={onClickCategory}
+            disabled={income.disabled}
+            checkList={income.list}
+            title="지출 카테고리"
+            type={types.INCOME}
           />
         </CategoryFilterList>
       </S.Box>
+      <div className="buttons">
+        <S.BottomButton type="button" onClick={onApplyHandler} value="확인" />
+
+        <S.BottomButton type="button" onClick={onCancle} value="취소" />
+      </div>
     </S.Container>
   );
 };
 
-export default React.memo(MainFilterForm);
+export default observer(MainFilterForm);

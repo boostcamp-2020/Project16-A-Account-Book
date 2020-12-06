@@ -5,7 +5,8 @@ import CheckBox from '../Checkbox';
 
 export interface Props extends ButtonProps {
   onClick: any;
-  dataList: (string | number)[];
+  dataList: any[];
+  checkList?: string[];
   children?: React.ReactElement | React.ReactElement[] | string;
   type?: string;
 }
@@ -14,6 +15,7 @@ const DropdownBody = ({
   dataList = [],
   size,
   onClick,
+  checkList,
   ...props
 }: Props): React.ReactElement => {
   return (
@@ -28,7 +30,9 @@ const DropdownBody = ({
           >
             <span>{data.title}</span>
             <S.CheckBoxContainer>
-              <CheckBox checked={data.checked} />
+              <CheckBox
+                checked={!!checkList?.find((x: string) => x === data._id)}
+              />
             </S.CheckBoxContainer>
           </S.DropdownItem>
         ),
