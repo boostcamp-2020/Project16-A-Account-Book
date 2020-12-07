@@ -6,10 +6,23 @@ const state = {
   DONE: 'DONE',
   ERROR: 'ERROR',
 };
+type accountItem = {
+  _id: string;
+  title: string;
+  owner: string;
+};
+export interface Account {
+  accountList: Array<accountItem>;
+  state: string;
+}
 
-export const AccountStore = makeAutoObservable({
-  accountList: [{ _id: 'temp', title: 'test' }],
+const initialState: Account = {
+  accountList: [],
   state: state.PENDING,
+};
+export const AccountStore = makeAutoObservable({
+  accountList: initialState.accountList,
+  state: initialState.state,
   getAccountList() {
     return toJS(this.accountList);
   },
