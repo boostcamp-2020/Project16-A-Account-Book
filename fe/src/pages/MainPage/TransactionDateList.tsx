@@ -49,7 +49,8 @@ const TransactionDateList = ({
   const mapFunc = (item: TransactionDBKeyValue) => {
     const [date, transactions] = item;
     const targetDate = new Date(date).getTime();
-    if (targetDate < start || targetDate > end) return '';
+    if (TransactionStore.isFiltered && (targetDate < start || targetDate > end))
+      return '';
     const filteredTransactionList = convertTransactionDBTypetoTransactionType(
       transactions,
     );
