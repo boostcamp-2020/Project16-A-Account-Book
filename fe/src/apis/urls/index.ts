@@ -13,8 +13,7 @@ export default {
   category: (accountObjId: string) => {
     return `/api/${accountObjId}/categories/`;
   },
-  postCategory: '/api/categories',
-
+  defaultCategory: 'api/categories',
   account: '/api/accounts',
 
   method: (accountObjId: string) => `/api/${accountObjId}/methods/`,
@@ -24,4 +23,5 @@ export default {
 
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
+  deleteCategory: 'api/categories/delete',
 };

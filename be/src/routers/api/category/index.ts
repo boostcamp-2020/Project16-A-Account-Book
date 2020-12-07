@@ -10,5 +10,6 @@ router.use('/', verifyAccountAccess);
 router.get('/', categoryController.get);
 router.post('/', categoryController.post);
 router.put('/', categoryController.put);
+router.put('/delete', categoryController.deleteCategory);
 
 export default router;
