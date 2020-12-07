@@ -89,8 +89,8 @@ const fetchFilter = () => {
 };
 export const TransactionStore = makeAutoObservable({
   transactions: [] as any,
-  dates: initialState.dates,
-  filter: initialState.filter,
+  dates: fetchDate(),
+  filter: fetchFilter(),
   state: state.PENDING,
   accountObjId: '-1',
   setAccountObjId(objId: string) {
