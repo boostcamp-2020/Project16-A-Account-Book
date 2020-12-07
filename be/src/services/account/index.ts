@@ -2,7 +2,7 @@ import { AccountModel } from 'models/account';
 import { NotVaildException } from 'models/account/static';
 
 export const getAccounts = async () => {
-  const res = await AccountModel.find().select('_id title').exec();
+  const res = await AccountModel.find().select('_id title owner').exec();
   return res;
 };
 
