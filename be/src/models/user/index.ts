@@ -38,6 +38,7 @@ export interface IUserDocument extends Document {
   id?: String;
   password?: String;
   salt?: String;
+  nickname: String;
 }
 
 export const UserModel = model<IUserDocument>('users', UserSchema);

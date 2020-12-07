@@ -44,5 +44,5 @@ export async function findByTitleAndOwner(
   owner: string,
 ) {
   if (!title || !owner) throw new NotVaildException();
-  this.find({ title, owner: { nickname: owner } }, { _id: true });
+  this.find({ title, owner }, { _id: true });
 }

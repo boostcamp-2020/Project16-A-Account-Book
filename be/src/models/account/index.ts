@@ -59,7 +59,7 @@ export const AccountSchema = new Schema({
       ref: 'methods',
     },
   ],
-  owner: UserSchema,
+  owner: String,
 });
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
