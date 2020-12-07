@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import * as S from './style';
 
 const NavBar = ({ ...props }): React.ReactElement => {
-  const { title } = JSON.parse(sessionStorage.getItem('account') || '');
+  const title = '';
   const baseUrl = `/transactions/${title}`;
   return (
     <S.NavBar {...props}>

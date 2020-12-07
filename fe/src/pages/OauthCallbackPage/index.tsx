@@ -24,10 +24,6 @@ function OauthCallbackPage({
       const accountObjId = accounts[0];
       const titleResult: any = await user.getTitleById(accountObjId);
       const { title } = titleResult;
-      sessionStorage.setItem(
-        'account',
-        JSON.stringify({ id: accountObjId, title }),
-      );
       TransactionStore.setAccountObjId(accountObjId);
       history.push(`/transactions/${title}`);
     };
