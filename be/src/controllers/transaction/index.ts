@@ -5,7 +5,11 @@ const get = async (ctx: Koa.Context) => {
   const { startDate, endDate } = ctx.query;
   const { accountObjId } = ctx.params;
   const res = await getTransaction({ startDate, endDate, accountObjId });
-  ctx.status = 200;
+  if (res.length === 0) {
+    ctx.status = 204;
+  } else {
+    ctx.status = 200;
+  }
   ctx.body = res;
 };
 
