@@ -1,5 +1,5 @@
 export default {
-  transaction: (accountObjId: string) => `/api/transactions/${accountObjId}`,
+  transaction: (id: string) => `/api/transactions/${id}`,
   transactionDetail: (transactionObjId: string) =>
     `/api/transactions/${transactionObjId}/detail`,
   github: '/api/auth/github',
