@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import { invalidTransactionError } from 'libs/error';
 import * as service from 'services/transaction';
 
 const getTransactionList = async (ctx: Koa.Context) => {
@@ -19,8 +20,7 @@ const getTransaction = async (ctx: Koa.Context) => {
     const transaction = await service.getTransaction(transactionObjId);
     ctx.body = transaction;
   } catch (e) {
-    e.status = 400;
-    throw e;
+    throw invalidTransactionError;
   }
 };
 

@@ -65,7 +65,7 @@ export const getTransaction = async (transactionObjId: string) => {
     transactionObjId,
   );
   if (!transaction) {
-    throw new Error('Invalid Transaction Object Id ');
+    throw new Error();
   }
   return transaction;
 };
