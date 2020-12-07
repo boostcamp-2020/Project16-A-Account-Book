@@ -1,5 +1,7 @@
 import { ITransaction } from 'models/transaction';
 import { Schema, Types, model, Document, Model } from 'mongoose';
+import { UserSchema } from '../user';
+
 import {
   findByPkAndPushTransaction,
   findByPkAndGetTransCategory,
@@ -55,6 +57,7 @@ export const AccountSchema = new Schema({
       ref: 'methods',
     },
   ],
+  owner: UserSchema,
 });
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;

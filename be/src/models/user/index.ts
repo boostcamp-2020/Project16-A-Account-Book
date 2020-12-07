@@ -1,6 +1,6 @@
 import { Schema, Types, model, Document } from 'mongoose';
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
   timezone: {
     type: String,
     default: 'Asia/Seoul',
