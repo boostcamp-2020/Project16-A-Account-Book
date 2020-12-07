@@ -10,7 +10,7 @@ import AccountListPage from 'pages/AccountListPage';
 import CalenderPage from 'pages/CalenderPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
-import StatisticsDetailPage from 'pages/StatisticsDetailPage';
+import useAccountInfo from 'hooks/useAccountInfo';
 import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
@@ -19,6 +19,7 @@ import CategoryPage from './pages/CategoryPage';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
+  useAccountInfo();
   return (
     <>
       <AuthCheck />
