@@ -5,6 +5,7 @@ import { UserSchema } from '../user';
 import {
   findByPkAndPushTransaction,
   findByPkAndGetTransCategory,
+  findByTitleAndOwner,
 } from './static';
 
 export interface IAccount {
@@ -33,6 +34,7 @@ export interface IAccountModel extends Model<IAccountDocument> {
     startDate: string,
     endDate: string,
   ): Promise<any>;
+  findByTitleAndOwner(title: string, owner: string): Promise<IAccountDocument>;
 }
 
 export const AccountSchema = new Schema({
@@ -62,6 +64,7 @@ export const AccountSchema = new Schema({
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
+AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
