@@ -9,11 +9,7 @@ const getTransactionList = async (ctx: Koa.Context) => {
     endDate,
     accountObjId,
   });
-  if (res.length === 0) {
-    ctx.status = 204;
-  } else {
-    ctx.status = 200;
-  }
+  ctx.status = res.length === 0 ? 204 : 200;
   ctx.body = res;
 };
 
