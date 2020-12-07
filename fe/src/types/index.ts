@@ -59,3 +59,8 @@ export interface IStatistics {
   incomeCategories: ICategoryStatistics[];
   expenseCategories: ICategoryStatistics[];
 }
+
+export interface IDateTotalprice {
+  date: string;
+  totalPrice: number;
+}

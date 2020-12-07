@@ -1,3 +1,6 @@
+import math from 'utils/math';
+import { IDateTotalprice, TransactionDBType } from 'types';
+
 export const initTotalPrice = {
   income: 0,
   expense: 0,
@@ -19,7 +22,6 @@ const TransactionsReduce = (
       expense: oneDayPrice.expense + transaction.price,
     };
   }
-  // TODO 이체 처리
   return oneDayPrice;
 };
 
@@ -54,4 +56,21 @@ export const calTotalPrices = (list: any) => {
     },
     { ...initTotalPrice },
   );
+};
+
+export const calTotalPriceByDateAndType = (
+  transactions: any,
+  type: string,
+): IDateTotalprice[] => {
+  const totalPriceByDateList = Object.keys(transactions).reduce(
+    (acc: IDateTotalprice[], date: string) => {
+      const filteredTransactions = transactions[date].filter(
+        (transaction: TransactionDBType) => transaction.category.type === type,
+      );
+      const totalPrice = math.sumByKey(filteredTransactions, 'price');
+      return [...acc, { date, totalPrice }];
+    },
+    [],
+  );
+  return totalPriceByDateList;
 };

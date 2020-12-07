@@ -1,5 +1,4 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
@@ -8,30 +7,32 @@ import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
 import useStatistics from 'hooks/useStatistics';
-import PieChartOverview from 'components/organisms/PieChartOverview';
-import LineChartOverview from 'components/organisms/LineChartOverview';
+import PieChartDetail from 'components/organisms/PieChartDetail';
 
-const StatisticsPage = ({ location }: { location: any }) => {
+const StatisticsDetailPage = () => {
   const statistics = useStatistics();
-  const history = useHistory();
-  const moveToStatisticDetailPage = () =>
-    history.push(`${location.pathname}/detail`);
-
+  const [showType, setShowType] = useState({
+    income: false,
+    expense: true,
+  });
+  const toggleType = useCallback(() => {
+    setShowType((prevShowType) => ({
+      income: !prevShowType.income,
+      expense: !prevShowType.expense,
+    }));
+  }, []);
   const SubHeaderBar = (
     <MonthInfo
       month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
       total={TransactionStore.totalPrices}
     />
   );
-
   const Contents = (
-    <>
-      <PieChartOverview
-        categories={statistics.expenseCategories}
-        onClick={moveToStatisticDetailPage}
-      />
-      <LineChartOverview />
-    </>
+    <PieChartDetail
+      statistics={statistics}
+      checkStatus={showType}
+      onClick={toggleType}
+    />
   );
 
   return (
@@ -44,4 +45,4 @@ const StatisticsPage = ({ location }: { location: any }) => {
   );
 };
 
-export default observer(StatisticsPage);
+export default observer(StatisticsDetailPage);

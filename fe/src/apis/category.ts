@@ -6,7 +6,7 @@ export default {
   getCategories(accountObjId: string) {
     return axios.get(url.category(accountObjId));
   },
-  getStatistics(accountObjId: string, query: object) {
+  getCategoryStatistics(accountObjId: string, query: object) {
     return axios.get(
       `${url.statistics(accountObjId)}${makeQueryString(query)}`,
     );

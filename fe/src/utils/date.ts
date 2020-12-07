@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 
 export default {
   dateFormatter: (date: Date): string => dayjs(date).format('YYYY-MM-DD'),
+  dateCustomFormatter: (date: Date | string | number, format: string): string =>
+    dayjs(date).format(format),
   monthMaxDate: (date: Date): number => {
     const nowMaxDate = new Date(date.getFullYear(), date.getMonth() + 1, -1);
     return nowMaxDate.getDate() + 1;

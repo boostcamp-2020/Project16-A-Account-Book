@@ -1,10 +1,12 @@
 import { toJS, makeAutoObservable, runInAction } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
+import { categoryType } from 'stores/Category';
 import * as types from 'types';
 import {
   calTotalPrices,
   convertTransactionDBTypetoTransactionType,
+  calTotalPriceByDateAndType,
 } from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
@@ -32,18 +34,12 @@ const oneMonthDate = date.getOneMonthRange(
   String(new Date().getFullYear()),
   String(new Date().getMonth() + 1),
 );
-// const oneMonthDate = date.getOneMonthRange(
-//   String(new Date().getFullYear()),
-//   String(new Date().getMonth() + 1),
-// );
+
 console.log('oneMonthDate : ', oneMonthDate);
 
 const initialState: ITransactionStore = {
   transactions: testAccountDateList,
-  // dates: {
-  //   startDate: oneMonthDate.startDate,
-  //   endDate: oneMonthDate.endDate,
-  // },
+
   dates: {
     startDate: new Date('2020-10-01'),
     endDate: new Date('2021-06-01'),
@@ -68,7 +64,7 @@ const initialState: ITransactionStore = {
   },
 };
 
-const state = {
+export const state = {
   PENDING: 'PENDING',
   DONE: 'DONE',
   ERROR: 'ERROR',
@@ -111,6 +107,9 @@ export const TransactionStore = makeAutoObservable({
       startDate: date.dateFormatter(this.dates.startDate),
       endDate: date.dateFormatter(this.dates.endDate),
     };
+  },
+  get totalExpensePriceByDate() {
+    return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
   },
   get totalPrices() {
     if (this.state === state.PENDING) {
