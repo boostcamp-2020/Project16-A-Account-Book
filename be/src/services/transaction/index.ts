@@ -45,12 +45,12 @@ export const getTransaction = async ({
     .exec();
 
   if (!res) {
-    return { message: 'nodata' };
+    return [];
   }
 
   const trans = res.transactions;
   if (!trans || trans.length === 0) {
-    return { message: 'nodata' };
+    return [];
   }
 
   trans.sort(getCompFuncByKey('date'));
