@@ -10,6 +10,7 @@ export interface Props {
   onPlusButtonClick: any;
   dropDownItemClicked: any;
   editButtonHandler: any;
+  deleteClicked: any;
   isClicked: boolean;
 }
 
@@ -19,6 +20,7 @@ const CategoryArea = ({
   onPlusButtonClick,
   dropDownItemClicked,
   editButtonHandler,
+  deleteClicked,
   isClicked,
 }: Props) => {
   return (
@@ -27,9 +29,11 @@ const CategoryArea = ({
         <TabHeader onClickHandler={onClickHandler} />
       </S.TabUIContainer>
       <S.EditButtonArea>
-        <S.EditButton value="edit" onClick={editButtonHandler}>
-          편집
-        </S.EditButton>
+        <S.CustomEditButton
+          value="편집"
+          onClick={editButtonHandler}
+          type="button"
+        />
       </S.EditButtonArea>
       <S.DropDownContainer>
         <S.CustomDropDownBody>
@@ -37,6 +41,7 @@ const CategoryArea = ({
             dataList={dataList}
             dropDownItemClicked={dropDownItemClicked}
             isClicked={isClicked}
+            deleteClicked={deleteClicked}
           />
         </S.CustomDropDownBody>
       </S.DropDownContainer>

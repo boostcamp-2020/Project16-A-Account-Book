@@ -15,12 +15,16 @@ export const categoryDropdownBody = () => {
   const dropDownItemClicked = ({ target }: any) => {
     alert(`${target.value}`);
   };
+  const deleteClicked = ({ target }: any) => {
+    alert(`${target.value}`);
+  };
   return (
     <ThemeProvider theme={theme}>
       <CategoryDropdown
         dataList={categories}
         dropDownItemClicked={dropDownItemClicked}
         isClicked={false}
+        deleteClicked={deleteClicked}
       />
     </ThemeProvider>
   );
@@ -31,12 +35,16 @@ export const editButtonDropdownBody = () => {
   const dropDownItemClicked = ({ target }: any) => {
     alert(`${target.value}`);
   };
+  const deleteClicked = ({ target }: any) => {
+    alert(`${target.value}`);
+  };
   return (
     <ThemeProvider theme={theme}>
       <CategoryDropdown
         dataList={categories}
         dropDownItemClicked={dropDownItemClicked}
         isClicked
+        deleteClicked={deleteClicked}
       />
     </ThemeProvider>
   );
