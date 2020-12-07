@@ -27,7 +27,7 @@ export async function findByPkAndGetTransCategory(
   return accountInfo.transactions;
 }
 
-class NotVaildException {
+export class NotVaildException {
   message: string;
 
   status: number;
