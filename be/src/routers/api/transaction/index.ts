@@ -3,6 +3,6 @@ import transactionController from 'controllers/transaction';
 
 const router = new Router();
 
-router.get('/:accountObjId', transactionController.get);
+router.get('/:accountObjId', transactionController.getTransactionList);
 router.post('/:accountObjId', transactionController.post);
 export default router;

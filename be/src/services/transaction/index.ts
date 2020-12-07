@@ -12,7 +12,7 @@ const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
     : { ...acc, [key]: [transaction] };
 };
 
-export const getTransaction = async ({
+export const getTransactionList = async ({
   startDate,
   endDate,
   accountObjId,
