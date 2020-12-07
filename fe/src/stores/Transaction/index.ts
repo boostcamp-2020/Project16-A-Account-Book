@@ -1,7 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
+import { categoryType } from 'stores/Category';
 import * as types from 'types';
+import {
+  calTotalPrices,
+  calTotalPriceByDateAndType,
+} from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
 export interface ITransactionStore {
@@ -19,7 +24,7 @@ export interface ITransactionStore {
   };
 }
 
-const { start, end } = date.getOneMonthRange(
+const oneMonthDate = date.getOneMonthRange(
   String(new Date().getFullYear()),
   String(new Date().getMonth() + 1),
 );
@@ -27,8 +32,8 @@ const { start, end } = date.getOneMonthRange(
 const initialState: ITransactionStore = {
   transactions: testAccountDateList,
   dates: {
-    startDate: new Date(start),
-    endDate: new Date(end),
+    startDate: oneMonthDate.startDate,
+    endDate: oneMonthDate.endDate,
   },
   filter: {
     methods: [],
@@ -45,14 +50,14 @@ const initialState: ITransactionStore = {
   },
 };
 
-const state = {
+export const state = {
   PENDING: 'PENDING',
   DONE: 'DONE',
   ERROR: 'ERROR',
 };
 
 export const TransactionStore = makeAutoObservable({
-  transactions: { message: 'nodata' } as any,
+  transactions: [] as any,
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
@@ -75,6 +80,17 @@ export const TransactionStore = makeAutoObservable({
       startDate: date.dateFormatter(this.dates.startDate),
       endDate: date.dateFormatter(this.dates.endDate),
     };
+  },
+  get totalExpensePriceByDate() {
+    return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
+  },
+  get totalPrices() {
+    if (this.state === state.PENDING) {
+      // TODO PENDING 일 때 0,0을 보여주면 잠시 깜빡거림
+      // 로딩관련 글씨를 보여주면 좋을 듯
+      return { income: 0, expense: 0 };
+    }
+    return calTotalPrices(this.transactions);
   },
   async loadTransactions() {
     this.state = state.PENDING;
