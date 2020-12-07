@@ -13,9 +13,10 @@ const onClickHandler = (
   history: any,
   accountObjId: string,
   accountTitle: string,
+  accountOwner: string,
 ) => () => {
   TransactionStore.setAccountObjId(accountObjId);
-  history.push(`/transactions/${accountTitle}`);
+  history.push(`/transactions/${accountOwner}/${accountTitle}`);
 };
 
 const MainPage = () => {
@@ -25,7 +26,7 @@ const MainPage = () => {
       <Account
         key={el._id}
         account={{ ...el, icon: AccountSvg }}
-        onClick={onClickHandler(history, el._id, el.title)}
+        onClick={onClickHandler(history, el._id, el.title, el.owner)}
       />
     );
   });
