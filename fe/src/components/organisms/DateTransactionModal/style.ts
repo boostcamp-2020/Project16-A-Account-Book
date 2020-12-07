@@ -1,5 +1,20 @@
 import styled from 'styled-components';
 
+export const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  border-radius: 1.5rem;
+  width: 90%;
+  height: 30%;
+  bottom: -30%;
+  z-index: 15;
+  transition: all 1s ease 0s;
+  & > div {
+    width: 80%;
+  }
+`;
+
 export const DateTransactionModal = styled.div`
   position: fixed;
   top: 0;
@@ -10,18 +25,13 @@ export const DateTransactionModal = styled.div`
   display: none;
   &.visible {
     display: flex;
-    background-color: red;
+    justify-content: center;
+    background-color: ${({ theme }) => theme.color.transparentBackground};
   }
-`;
-
-export const Content = styled.div`
-  position: fixed;
-  width: 200px;
-  height: 200px;
-  left: calc(50% - 100px);
-  top: calc(50% - 100px);
-  background-color: green;
-  z-index: 15;
+  &.visible + div {
+    background-color: white;
+    bottom: 0;
+  }
 `;
 
 export default {};
