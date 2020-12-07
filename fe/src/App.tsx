@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import AccountListPage from 'pages/AccountListPage';
-import CalenderPage from 'pages/CalenderPage';
+import CalendarPage from 'pages/CalendarPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
 import LoginPage from './pages/LoginPage';
@@ -27,7 +27,7 @@ const TransactionRouter = () => {
           component={CreateTransactionPage}
         />
         <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
-        <Route path={`${url}/:title/calender`} component={CalenderPage} />
+        <Route path={`${url}/:title/calendar`} component={CalendarPage} />
         <Route path={`${url}/:title/category`} component={CategoryPage} />
         <Route path={`${url}/:title`} component={MainPage} />
       </Switch>
