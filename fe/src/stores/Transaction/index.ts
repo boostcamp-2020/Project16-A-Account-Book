@@ -18,6 +18,7 @@ export interface ITransactionStore {
       expense: types.IFilterCategory;
     };
   };
+  isCalendarModalOpen: boolean;
 }
 
 const oneMonthDate = date.getOneMonthRange(
@@ -40,6 +41,7 @@ const initialState: ITransactionStore = {
     startDate: new Date('2020-10-01'),
     endDate: new Date('2021-06-01'),
   },
+  isCalendarModalOpen: false,
   filter: {
     methods: [],
     categories: {
@@ -67,9 +69,9 @@ export const TransactionStore = makeAutoObservable({
   filter: initialState.filter,
   state: state.PENDING,
   accountObjId: '',
+  isCalendarModalOpen: initialState.isCalendarModalOpen,
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
-    // sessionStorage.setItem('account', objId);
   },
   setFilter(
     startDate: Date,
@@ -80,6 +82,9 @@ export const TransactionStore = makeAutoObservable({
     if (filter) {
       this.filter = filter;
     }
+  },
+  setModalVisible(modalState: boolean) {
+    this.isCalendarModalOpen = modalState;
   },
   getDates() {
     return {
