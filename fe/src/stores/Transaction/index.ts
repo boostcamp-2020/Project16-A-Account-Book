@@ -95,7 +95,7 @@ export const TransactionStore = makeAutoObservable({
   async loadTransactions() {
     this.state = state.PENDING;
     try {
-      const result = await transactionAPI.getTransaction(
+      const result = await transactionAPI.getTransactionList(
         this.accountObjId,
         this.getDates(),
       );
