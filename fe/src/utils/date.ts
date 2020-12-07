@@ -45,4 +45,14 @@ export default {
       endDate: endDate.toDate(),
     };
   },
+  getMonthRange: (date: Date) => {
+    const now = dayjs(date);
+    const day = 1000 * 60 * 60 * 24;
+    const startDate = dayjs(`${now.year()}-${now.month() + 1}-01`);
+    const endDate = dayjs(`${now.year()}-${now.month() + 2}-01`);
+    return {
+      startDate: startDate.toDate(),
+      endDate: new Date(endDate.valueOf() - day),
+    };
+  },
 };

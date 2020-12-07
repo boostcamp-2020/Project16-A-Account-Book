@@ -100,7 +100,8 @@ const MainFilterForm = () => {
         break;
       }
       case 3: {
-        dispatch(actions.setDates(new Date(), new Date()));
+        const d = dateUtils.getMonthRange(new Date());
+        dispatch(actions.setDates(d.startDate, d.endDate));
         break;
       }
       case 4: {
