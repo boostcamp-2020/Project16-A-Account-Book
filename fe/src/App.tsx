@@ -24,17 +24,22 @@ const TransactionRouter = () => {
       <AuthCheck />
       <Switch>
         <Route
-          path={`${url}/:title/create`}
+          path={`${url}/:owner/:title/create`}
           component={CreateTransactionPage}
         />
         <Route
-          path={`${url}/:title/statistics/detail`}
-          component={StatisticsDetailPage}
+          path={`${url}/:owner/:title/statistics`}
+          component={StatisticsPage}
         />
-        <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
-        <Route path={`${url}/:title/calender`} component={CalenderPage} />
-        <Route path={`${url}/:title/category`} component={CategoryPage} />
-        <Route path={`${url}/:title`} component={MainPage} />
+        <Route
+          path={`${url}/:owner/:title/calender`}
+          component={CalenderPage}
+        />
+        <Route
+          path={`${url}/:owner/:title/category`}
+          component={CategoryPage}
+        />
+        <Route path={`${url}/:owner/:title`} component={MainPage} />
       </Switch>
     </>
   );
