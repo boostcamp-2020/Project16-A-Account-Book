@@ -1,9 +1,11 @@
 import React from 'react';
+import { TransactionStore } from 'stores/Transaction';
 import { OneDateType } from '../CalendarOneDate';
 import * as S from './style';
 
 export interface Props {
   oneDateList: OneDateType[];
+  selectedDate: any;
 }
 
 interface accProps {
@@ -12,8 +14,13 @@ interface accProps {
   expense: number;
 }
 
+const getDateString = (selectedDate: Date, date: number) => {
+  return `${selectedDate.getFullYear()}-${selectedDate.getMonth() + 1}-${date}`;
+};
+
 const CalendarOneDate = ({
   oneDateList,
+  selectedDate,
   ...props
 }: Props): React.ReactElement => {
   const res = oneDateList.reduce(
@@ -25,7 +32,8 @@ const CalendarOneDate = ({
           income={el.income}
           expense={el.expense}
           onClick={() => {
-            alert('click!');
+            TransactionStore.setModalVisible(true);
+            alert(getDateString(selectedDate, el.date!));
           }}
         />
       );
