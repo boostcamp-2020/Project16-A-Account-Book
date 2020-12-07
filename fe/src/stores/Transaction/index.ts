@@ -53,7 +53,7 @@ const state = {
 };
 
 export const TransactionStore = makeAutoObservable({
-  transactions: { message: 'nodata' } as any,
+  transactions: [] as any,
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
