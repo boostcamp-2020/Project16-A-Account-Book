@@ -7,6 +7,7 @@ import Header from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
+import NoData from 'components/organisms/NoData';
 import TransactionDateList from './TransactionDateList';
 
 const MainPage = () => {
@@ -29,11 +30,17 @@ const MainPage = () => {
   );
 
   if (toJS(TransactionStore.transactions).length === 0) {
+    const ContentsComponent = (
+      <>
+        <FilterBar />
+        <NoData />
+      </>
+    );
     return (
       <Template
         HeaderBar={<Header />}
         SubHeaderBar={SubHeaderBar}
-        Contents={<FilterBar />}
+        Contents={ContentsComponent}
         NavBar={<NavBarComponent />}
       />
     );
