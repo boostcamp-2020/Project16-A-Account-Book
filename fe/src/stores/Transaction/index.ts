@@ -109,11 +109,13 @@ export const TransactionStore = makeAutoObservable({
     }
   },
   resetFilter() {
+    sessionStorage.removeItem('filter');
     this.setFilter(
       initialState.dates.startDate,
       initialState.dates.endDate,
       initialState.filter,
     );
+    this.isFiltered = false;
   },
   getFilter() {
     return toJS(this.filter);
