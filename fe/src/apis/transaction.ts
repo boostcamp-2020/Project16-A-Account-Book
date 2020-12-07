@@ -1,10 +1,11 @@
 import { State as TransactionItem } from 'hooks/useTransactionInput';
 import makeQueryString from 'utils/query';
+import { TransactionDBType } from 'types';
 import axios from './axios';
 import url from './urls';
 
 export default {
-  getTransaction(transactionObjId: string) {
+  getTransaction(transactionObjId: string): Promise<TransactionDBType> {
     return axios.get(url.transactionDetail(transactionObjId));
   },
   getTransactionList(accountObjId: string, query: object) {
