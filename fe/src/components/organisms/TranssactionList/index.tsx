@@ -17,7 +17,7 @@ const reduceTransactionList = (acc: accType, transEl: any) => {
   return acc;
 };
 
-const AccountDate = ({ date, transactionList }: Props) => {
+const TransactionList = ({ date, transactionList }: Props) => {
   const { transList, totalPrice } = transactionList.reduce(
     reduceTransactionList,
     {
@@ -27,11 +27,11 @@ const AccountDate = ({ date, transactionList }: Props) => {
   );
 
   return (
-    <S.AccountDate>
+    <S.TransactionList>
       <S.Header date={date} totalPayment={totalPrice} />
       {transList}
-    </S.AccountDate>
+    </S.TransactionList>
   );
 };
 
-export default AccountDate;
+export default TransactionList;

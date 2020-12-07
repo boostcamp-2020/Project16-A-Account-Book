@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import { withKnobs } from '@storybook/addon-knobs';
 import MonthInfoHeader from 'components/organisms/MonthInfoHeader';
-import AccountDate from 'components/organisms/AccountDate';
+import AccountDate from 'components/organisms/TranssactionList';
 import HeaderBar from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import NavBar from 'components/organisms/NavBar';
