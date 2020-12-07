@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import accountAPI from 'apis/account';
 
 const state = {
@@ -10,6 +10,9 @@ const state = {
 export const AccountStore = makeAutoObservable({
   accountList: [{ _id: 'temp', title: 'test' }],
   state: state.PENDING,
+  getAccountList() {
+    return toJS(this.accountList);
+  },
   async loadTransactions() {
     this.state = state.PENDING;
     try {
