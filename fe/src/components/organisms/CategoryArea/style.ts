@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import IconButton from 'components/molecules/IconButton';
-import Button from 'components/atoms/Button';
 
 export const CustomDropDownBody = styled.div`
   position: relative;
@@ -9,12 +8,14 @@ export const CustomDropDownBody = styled.div`
   overflow-y: auto;
 `;
 
-export const EditButton = styled(Button)`
+export const CustomEditButton = styled.input`
   width: 5%;
   font-size: ${({ theme }) => theme.fontSize.xs};
   background: none;
   border: none;
   color: ${({ theme }) => theme.color.selectedBlue};
+  margin-right: 1rem;
+  padding: 0%;
 `;
 
 export const StyledButton = styled(IconButton)`

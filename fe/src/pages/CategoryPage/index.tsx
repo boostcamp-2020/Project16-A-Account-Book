@@ -36,12 +36,13 @@ function CategoryPage(): React.ReactElement {
   const [visible, setVisible] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>('');
+  const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
 
   const editButtonHandler = async () => {
     if (isClicked) {
-      await setIsClicked(false);
+      setIsClicked(false);
     } else {
-      await setIsClicked(true);
+      setIsClicked(true);
     }
   };
 
@@ -66,32 +67,48 @@ function CategoryPage(): React.ReactElement {
     setColor(value);
   };
 
-  const dropDownItemClicked = async (objId: string) => {
-    await setSelected(objId);
+  const dropDownItemClicked = (objId: string) => {
+    setSelected(objId);
     setVisible(true);
   };
 
+  const deleteClicked = async (objId: string) => {
+    setSelected(objId);
+    setDeleteVisible(true);
+  };
+
+  const deleteConfirm = async () => {
+    await axios.put(url.defaultCategory, { objId: selected });
+    setSelected('');
+    CategoryStore.loadCategories();
+    setDeleteVisible(false);
+  };
+
   const newCategoryConfirm = async () => {
-    if (selected === '') {
-      await axios.post(url.postCategory, {
+    if (!selected) {
+      await axios.post(url.defaultCategory, {
         type,
         title: newCategory,
         color,
         accountObjId: TransactionStore.accountObjId,
       });
-      await CategoryStore.loadCategories();
+      CategoryStore.loadCategories();
       setVisible(false);
     } else {
-      await axios.put(url.postCategory, {
+      await axios.put(url.defaultCategory, {
         objId: selected,
         type,
         title: newCategory,
         color,
-        accountObjId: TransactionStore.accountObjId,
       });
-      await CategoryStore.loadCategories();
+      setSelected('');
+      CategoryStore.loadCategories();
       setVisible(false);
     }
+  };
+
+  const deleteCancel = () => {
+    setDeleteVisible(false);
   };
 
   const newCategoryCancel = () => {
@@ -109,6 +126,15 @@ function CategoryPage(): React.ReactElement {
   const headerContent = <Header />;
 
   const homeButton = <IconButton icon={backArrow} />;
+
+  const deleteModalContent = (
+    <S.ContantsWrapper>
+      <S.ContentWrapper>
+        <Input type="button" onClick={deleteConfirm} value="확인" />
+        <Button onClick={deleteCancel}>취소</Button>
+      </S.ContentWrapper>
+    </S.ContantsWrapper>
+  );
 
   const modalContent = (
     <S.ContantsWrapper>
@@ -136,8 +162,10 @@ function CategoryPage(): React.ReactElement {
         dropDownItemClicked={dropDownItemClicked}
         editButtonHandler={editButtonHandler}
         isClicked={isClicked}
+        deleteClicked={deleteClicked}
       />
       <Modal visible={visible} content={modalContent} />
+      <Modal visible={deleteVisible} content={deleteModalContent} />
     </S.PageContainer>
   );
 

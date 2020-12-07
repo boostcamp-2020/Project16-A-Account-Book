@@ -34,6 +34,9 @@ export const defaultTabHeader = () => {
         editButtonHandler={() => {
           console.log('hi');
         }}
+        deleteClicked={() => {
+          console.log('deleted');
+        }}
       />
     </ThemeProvider>
   );

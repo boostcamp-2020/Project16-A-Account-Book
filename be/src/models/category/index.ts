@@ -31,6 +31,10 @@ const CategorySchema = new Schema({
     required: true,
     validate: (color: string) => color.length === 7,
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 CategorySchema.statics.createDefaultCategory = createDefaultCategory;

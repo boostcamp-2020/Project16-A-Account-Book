@@ -4,6 +4,7 @@ import {
   postCategory,
   getCategoryStatistics,
   putCategory,
+  deleteOneCategory,
 } from 'services/category';
 
 const get = async (ctx: Context) => {
@@ -37,8 +38,8 @@ const post = async (ctx: Context) => {
 };
 
 const put = async (ctx: Context) => {
-  const { objId, type, title, color, accountObjId } = ctx.request.body;
-  const res = await putCategory(objId, type, title, color, accountObjId);
+  const { objId, type, title, color } = ctx.request.body;
+  const res = await putCategory(objId, type, title, color);
   if (res.success) {
     ctx.status = 200;
     ctx.body = res;
@@ -48,4 +49,16 @@ const put = async (ctx: Context) => {
   }
 };
 
-export default { getStatisticsInfo, get, post, put };
+const deleteCategory = async (ctx: Context) => {
+  const { objId } = ctx.request.body;
+  const res = await deleteOneCategory(objId);
+  if (res.success) {
+    ctx.status = 200;
+    ctx.body = res;
+  } else {
+    ctx.status = 401;
+    ctx.body = res;
+  }
+};
+
+export default { getStatisticsInfo, get, post, put, deleteCategory };
