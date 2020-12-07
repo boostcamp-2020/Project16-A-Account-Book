@@ -16,4 +16,7 @@ export default {
   saveTransaction(accountObjId: string, transaction: TransactionItem) {
     return axios.post(url.transaction(accountObjId), { transaction });
   },
+  updateTransaction(transactionObjId: string, transaction: TransactionItem) {
+    return axios.put(url.transaction(transactionObjId), { transaction });
+  },
 };
