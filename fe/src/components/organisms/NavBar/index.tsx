@@ -22,7 +22,7 @@ const NavBar = ({ ...props }): React.ReactElement => {
       <Link to={`${baseUrl}/create`}>
         <S.PlusButton icon={plusSvg} />
       </Link>
-      <Link to={`${baseUrl}/calender`}>
+      <Link to={`${baseUrl}/calendar`}>
         <IconButton icon={calendarSvg}>달력</IconButton>
       </Link>
       <Link to={`${baseUrl}/category`}>
