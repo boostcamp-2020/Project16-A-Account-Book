@@ -20,7 +20,7 @@ export interface ITransactionStore {
   };
 }
 
-const { start, end } = date.getOneMonthRange(
+const { startDate, endDate } = date.getOneMonthRange(
   String(new Date().getFullYear()),
   String(new Date().getMonth() + 1),
 );
@@ -28,8 +28,8 @@ const { start, end } = date.getOneMonthRange(
 const initialState: ITransactionStore = {
   transactions: testAccountDateList,
   dates: {
-    startDate: new Date(start),
-    endDate: new Date(end),
+    startDate,
+    endDate,
   },
   filter: {
     methods: [],
