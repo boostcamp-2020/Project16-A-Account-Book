@@ -1,6 +1,5 @@
 import React from 'react';
-import { TransactionStore } from 'stores/Transaction';
-import { toJS } from 'mobx';
+import date from 'utils/date';
 import * as S from './style';
 
 export interface Props {
@@ -22,7 +21,9 @@ const Calender = ({
   ...props
 }: Props): React.ReactElement => {
   const defaultStartDay = isSundayStart ? 0 : 1;
-
+  if (JSON.stringify(transactions) === '{}') {
+    return <>해당하는 기간에 데이터가 없습니다.</>;
+  }
   const { oneDateList } = Object.entries(transactions).reduce(
     (acc: accType, el: any) => {
       const [key, value]: [string, any[]] = el;
@@ -53,11 +54,8 @@ const Calender = ({
       oneDateList: [],
     },
   );
-  const oneDateSecond = 24 * 60 * 60 * 1000;
-  const nowDate = toJS(TransactionStore.dates.startDate);
-  const maxDate =
-    (toJS(TransactionStore.dates.endDate).getTime() - nowDate.getTime()) /
-    oneDateSecond;
+  const nowDate = new Date(oneDateList[0].date);
+  const maxDate = date.monthMaxDate(nowDate);
   const nowYear = nowDate.getFullYear();
   const nowMonth = nowDate.getMonth();
   const oneWeekListData = [];
@@ -92,6 +90,7 @@ const Calender = ({
     <S.Calender {...props}>
       <S.DayBar isSundayStart={isSundayStart} />
       {oneWeekComponentList}
+      <S.CenterMonth>{nowMonth + 1}</S.CenterMonth>
     </S.Calender>
   );
 };
