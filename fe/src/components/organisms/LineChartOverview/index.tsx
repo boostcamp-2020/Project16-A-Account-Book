@@ -6,17 +6,9 @@ import { IDateTotalprice } from 'types';
 import dateUtils from 'utils/date';
 import * as S from './style';
 
-const addDataIfScarce = (dataList: IDateTotalprice[]) => {
-  if (dataList.length !== 1) {
-    return dataList;
-  }
-  const nextDateData = {
-    date: dateUtils.getNextDate(dataList[0].date),
-    totalPrice: 0,
-  };
-  return [...dataList, nextDateData];
-};
-const isAllZeroPrice = (dataList: IDateTotalprice[]) =>
+const checkDataIfScarce = (dataList: IDateTotalprice[]) =>
+  dataList.length === 1;
+const checkAllZeroPrice = (dataList: IDateTotalprice[]) =>
   dataList.every((data) => data.totalPrice === 0);
 
 const formalizeDate = (dataList: IDateTotalprice[]) => {
@@ -37,15 +29,17 @@ const formalizeDate = (dataList: IDateTotalprice[]) => {
   }));
 };
 
-const LineChartOverview = (): React.ReactElement => {
-  const dataList = addDataIfScarce(TransactionStore.totalExpensePriceByDate);
-  const EmptyData = <div>소비를 하지 않으셨네요!</div>;
+const WarningMessage = <div>데이터가 충분하지 않습니다 😢 </div>;
 
+const LineChartOverview = (): React.ReactElement => {
+  const dataList = TransactionStore.totalExpensePriceByDate;
+  const unSuitableForRendering =
+    checkDataIfScarce(dataList) || checkAllZeroPrice(dataList);
   return (
     <div>
       <S.StatisticsTitle>지출 추이</S.StatisticsTitle>
-      {dataList.length > 0 && isAllZeroPrice(dataList) ? (
-        EmptyData
+      {dataList.length > 0 && unSuitableForRendering ? (
+        WarningMessage
       ) : (
         <LineChart
           width={250}
