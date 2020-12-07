@@ -9,7 +9,10 @@ export const UserSchema = new Schema({
     type: String,
     default: 'sunday',
   },
-  nickname: String,
+  nickname: {
+    type: String,
+    required: true,
+  },
   id: {
     type: String,
   },
