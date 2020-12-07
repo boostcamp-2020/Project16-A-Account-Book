@@ -39,6 +39,10 @@ const pushEmptyCalender = (
   return localNowSelectedDate;
 };
 
+const dateToYearMonth = (date: Date) => {
+  return `${date.getFullYear()}-${date.getMonth() + 1}`;
+};
+
 const CalenderBind = ({
   isSundayStart,
   transactions = {},
@@ -49,12 +53,8 @@ const CalenderBind = ({
   let nowKey = '';
   let nowYearMonthKey = '';
   let nowTransactions: any = {};
-  let nowSelectedDate = `${selectedDate.startDate.getFullYear()}-${
-    selectedDate.startDate.getMonth() + 1
-  }`;
-  const endDateString = `${selectedDate.endDate.getFullYear()}-${
-    selectedDate.endDate.getMonth() + 1
-  }`;
+  let nowSelectedDate = dateToYearMonth(selectedDate.startDate);
+  const endDateString = dateToYearMonth(selectedDate.endDate);
   Object.entries(transactions).forEach((el) => {
     const [key, value] = el;
     const [year, month] = key.split('-');
