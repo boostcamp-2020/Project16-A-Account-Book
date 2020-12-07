@@ -1,3 +1,5 @@
+import { IAccountDocument, IAccountModel } from '.';
+
 export async function findByPkAndPushTransaction(
   this: any,
   accountObjId: string,
@@ -23,4 +25,24 @@ export async function findByPkAndGetTransCategory(
     })
     .exec();
   return accountInfo.transactions;
+}
+
+class NotVaildException {
+  message: string;
+
+  status: number;
+
+  constructor() {
+    this.message = '잘못된 접근 입니다.';
+    this.status = 400;
+  }
+}
+
+export async function findByTitleAndOwner(
+  this: IAccountModel,
+  title: string,
+  owner: string,
+) {
+  if (!title || !owner) throw new NotVaildException();
+  this.find({ title, owner });
 }
