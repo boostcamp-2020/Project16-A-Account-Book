@@ -18,12 +18,12 @@ const nextMonth = (dateString: string) => {
   return `${year}-${Number(month) + 1}`;
 };
 
-const pushEmptyCalender = (
+const pushEmptyCalendar = (
   yearMonthKey: string,
   nowSelectedDate: string,
   nowTransactions: any,
   endDateString: string,
-  Calenders: any,
+  Calendars: any,
 ): string => {
   let localNowSelectedDate = nowSelectedDate;
   while (
@@ -33,7 +33,7 @@ const pushEmptyCalender = (
     if (endDateString === localNowSelectedDate) {
       return 'end';
     }
-    Calenders.push({ nowYearMonthKey: `${localNowSelectedDate}` });
+    Calendars.push({ nowYearMonthKey: `${localNowSelectedDate}` });
     localNowSelectedDate = nextMonth(localNowSelectedDate);
   }
   return localNowSelectedDate;
@@ -43,13 +43,13 @@ const dateToYearMonth = (date: Date) => {
   return `${date.getFullYear()}-${date.getMonth() + 1}`;
 };
 
-const CalenderBind = ({
+const CalendarBind = ({
   isSundayStart,
   transactions = {},
   selectedDate,
   ...props
 }: Props): React.ReactElement => {
-  const Calenders: Array<any> = [];
+  const Calendars: Array<any> = [];
   let nowKey = '';
   let nowYearMonthKey = '';
   let nowTransactions: any = {};
@@ -60,12 +60,12 @@ const CalenderBind = ({
     const [year, month] = key.split('-');
     const yearMonthKey = `${year}-${month}`;
 
-    nowSelectedDate = pushEmptyCalender(
+    nowSelectedDate = pushEmptyCalendar(
       yearMonthKey,
       nowSelectedDate,
       nowTransactions,
       endDateString,
-      Calenders,
+      Calendars,
     );
 
     if (nowSelectedDate === 'end') {
@@ -79,17 +79,17 @@ const CalenderBind = ({
 
     if (nowYearMonthKey !== yearMonthKey) {
       nowSelectedDate = nextMonth(nowSelectedDate);
-      Calenders.push({ transactions: { ...nowTransactions }, nowYearMonthKey });
+      Calendars.push({ transactions: { ...nowTransactions }, nowYearMonthKey });
       nowYearMonthKey = yearMonthKey;
       nowKey = key;
       nowTransactions = {};
 
-      nowSelectedDate = pushEmptyCalender(
+      nowSelectedDate = pushEmptyCalendar(
         yearMonthKey,
         nowSelectedDate,
         nowTransactions,
         endDateString,
-        Calenders,
+        Calendars,
       );
       if (nowSelectedDate === 'end') {
         return;
@@ -98,7 +98,7 @@ const CalenderBind = ({
     nowTransactions[key] = value;
   });
   if (JSON.stringify(nowTransactions) !== '{}') {
-    Calenders.push({ transactions: { ...nowTransactions }, nowYearMonthKey });
+    Calendars.push({ transactions: { ...nowTransactions }, nowYearMonthKey });
     nowSelectedDate = nextMonth(nowSelectedDate);
     nowTransactions = {};
   }
@@ -109,12 +109,12 @@ const CalenderBind = ({
     if (endDateString === nowSelectedDate) {
       break;
     }
-    Calenders.push({ nowYearMonthKey: `${nowSelectedDate}` });
+    Calendars.push({ nowYearMonthKey: `${nowSelectedDate}` });
     nowSelectedDate = nextMonth(nowSelectedDate);
   }
-  const CalenderComponents = Calenders.map((el: any) => {
+  const CalendarComponents = Calendars.map((el: any) => {
     return (
-      <S.Calender
+      <S.Calendar
         key={JSON.stringify(el)}
         isSundayStart={isSundayStart}
         transactions={el.transactions}
@@ -122,7 +122,7 @@ const CalenderBind = ({
       />
     );
   });
-  return <S.CalenderBind {...props}>{CalenderComponents}</S.CalenderBind>;
+  return <S.CalendarBind {...props}>{CalendarComponents}</S.CalendarBind>;
 };
 
-export default CalenderBind;
+export default CalendarBind;

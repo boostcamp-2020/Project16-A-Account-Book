@@ -2,11 +2,11 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import { withKnobs, select } from '@storybook/addon-knobs';
-import CalenderDayBar from '.';
+import CalendarDayBar from '.';
 
 export default {
-  title: 'molecules / CalenderDayBar',
-  component: CalenderDayBar,
+  title: 'molecules / CalendarDayBar',
+  component: CalendarDayBar,
   decorators: [withKnobs],
 };
 
@@ -14,7 +14,7 @@ export const Default = () => {
   const isSundayStart = select('isSundayStart', [true, false], true);
   return (
     <ThemeProvider theme={theme}>
-      <CalenderDayBar isSundayStart={isSundayStart} />
+      <CalendarDayBar isSundayStart={isSundayStart} />
     </ThemeProvider>
   );
 };

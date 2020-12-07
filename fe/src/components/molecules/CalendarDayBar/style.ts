@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CalenderDayBar = styled.div`
+export const CalendarDayBar = styled.div`
   width: 100%;
   display: flex;
 `;

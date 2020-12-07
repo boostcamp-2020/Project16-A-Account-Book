@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-import CalenderOneWeek from 'components/molecules/CalenderOneWeek';
-import CalenderDayBar from 'components/molecules/CalenderDayBar';
+import CalendarOneWeek from 'components/molecules/CalendarOneWeek';
+import CalendarDayBar from 'components/molecules/CalendarDayBar';
 
-export const Calender = styled.div`
+export const Calendar = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
 `;
 
-export const DayBar = styled(CalenderDayBar)``;
+export const DayBar = styled(CalendarDayBar)``;
 
-export const OneWeek = styled(CalenderOneWeek)`
+export const OneWeek = styled(CalendarOneWeek)`
   width: 100%;
 `;
 
