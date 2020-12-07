@@ -9,6 +9,7 @@ export interface ITransaction {
   price: number;
   memo?: string;
   excludeFromBudget?: boolean;
+  isDeleted?: boolean;
 }
 export interface TransactionDocument extends Document {
   client: string;
@@ -18,6 +19,7 @@ export interface TransactionDocument extends Document {
   price: number;
   memo?: string;
   excludeFromBudget?: boolean;
+  isDeleted?: boolean;
 }
 
 export interface ITransactionDocument extends ITransaction, Document {}
@@ -54,6 +56,10 @@ const TransactionSchema = new Schema({
     required: true,
   },
   excludeFromBudget: {
+    type: Boolean,
+    default: 'false',
+  },
+  isDeleted: {
     type: Boolean,
     default: 'false',
   },
