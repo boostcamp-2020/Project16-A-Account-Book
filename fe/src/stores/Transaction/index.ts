@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
 import { categoryType } from 'stores/Category';
@@ -108,5 +108,8 @@ export const TransactionStore = makeAutoObservable({
         this.state = state.ERROR;
       });
     }
+  },
+  getAccountId() {
+    return toJS(this.accountObjId);
   },
 });
