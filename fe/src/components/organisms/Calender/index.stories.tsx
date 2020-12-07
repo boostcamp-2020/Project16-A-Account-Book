@@ -93,7 +93,11 @@ const testAccountDateList = {
 export const SundayStart = () => {
   return (
     <GlobalThemeProvider>
-      <Calender isSundayStart transactions={testAccountDateList} />
+      <Calender
+        isSundayStart
+        selectedDate={new Date('2020-11')}
+        transactions={testAccountDateList}
+      />
     </GlobalThemeProvider>
   );
 };
@@ -101,7 +105,19 @@ export const SundayStart = () => {
 export const MondayStart = () => {
   return (
     <GlobalThemeProvider>
-      <Calender isSundayStart={false} transactions={testAccountDateList} />
+      <Calender
+        isSundayStart={false}
+        selectedDate={new Date('2020-11')}
+        transactions={testAccountDateList}
+      />
+    </GlobalThemeProvider>
+  );
+};
+
+export const Empty = () => {
+  return (
+    <GlobalThemeProvider>
+      <Calender isSundayStart selectedDate={new Date('2020-11')} />
     </GlobalThemeProvider>
   );
 };
