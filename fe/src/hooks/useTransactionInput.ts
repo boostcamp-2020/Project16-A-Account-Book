@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import utils from 'utils/date';
 import { MethodStore } from 'stores/Method';
-import { CategoryStore } from 'stores/Category';
+import { CategoryStore, categoryType } from 'stores/Category';
+import transactionAPI from 'apis/transaction';
 
 export interface State {
   date: string;
@@ -38,6 +39,21 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
       method: initialMethod._id,
     }));
   };
+  const loadTransactionAndSetInitialInput = async () => {
+    const transaction = await transactionAPI.getTransaction(
+      transactionObjId as string,
+    );
+    const { date, memo, client, price, method, category } = transaction;
+    setTransaction({
+      date: utils.dateFormatter(date),
+      client,
+      price,
+      memo: memo || '',
+      classification: category.type === categoryType.INCOME ? '수입' : '지출',
+      method: method._id,
+      category: category._id,
+    });
+  };
   useEffect(() => {
     const { classification } = transactionState;
     const defaultCategory = CategoryStore.getCategories(classification)[0];
@@ -52,7 +68,7 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     CategoryStore.loadCategories();
     loadAndSetInitialMethod();
     if (transactionObjId) {
-      // TODO: transaction 하나의 data 가져와서, initState에 넣어주기
+      loadTransactionAndSetInitialInput();
     }
   }, []);
   return [transactionState, setInputState];
