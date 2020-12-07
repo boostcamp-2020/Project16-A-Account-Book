@@ -28,10 +28,7 @@ const MainPage = () => {
     </div>
   );
 
-  if (
-    'message' in TransactionStore.transactions &&
-    toJS(TransactionStore.transactions.message) === 'nodata'
-  ) {
+  if (toJS(TransactionStore.transactions).length === 0) {
     return (
       <Template
         HeaderBar={<Header />}
