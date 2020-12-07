@@ -137,6 +137,9 @@ export const TransactionStore = makeAutoObservable({
     }
     return calTotalPrices(this.transactions);
   },
+  getTransactionList() {
+    return toJS(this.transactions);
+  },
   async loadTransactions() {
     this.state = state.PENDING;
     try {
