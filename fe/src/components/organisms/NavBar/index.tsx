@@ -5,12 +5,17 @@ import graphSvg from 'assets/svg/graph.svg';
 import calendarSvg from 'assets/svg/calendar.svg';
 import tagSvg from 'assets/svg/tag.svg';
 import plusSvg from 'assets/svg/plus.svg';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import * as S from './style';
 
+type Params = {
+  title: string;
+  owner: string;
+};
 const NavBar = ({ ...props }): React.ReactElement => {
-  const title = '';
-  const baseUrl = `/transactions/${title}`;
+  const { title, owner } = useParams<Params>();
+
+  const baseUrl = `/transactions/${owner}/${title}`;
   return (
     <S.NavBar {...props}>
       <Link to={`${baseUrl}`}>
