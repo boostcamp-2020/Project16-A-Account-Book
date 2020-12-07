@@ -1,8 +1,11 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { toJS, makeAutoObservable, runInAction } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
 import * as types from 'types';
-import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
+import {
+  calTotalPrices,
+  convertTransactionDBTypetoTransactionType,
+} from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
 export interface ITransactionStore {
@@ -19,6 +22,10 @@ export interface ITransactionStore {
     };
   };
   isCalendarModalOpen: boolean;
+  modalData: {
+    date: Date;
+    transactionList: Array<any>;
+  };
 }
 
 const oneMonthDate = date.getOneMonthRange(
@@ -42,6 +49,10 @@ const initialState: ITransactionStore = {
     endDate: new Date('2021-06-01'),
   },
   isCalendarModalOpen: false,
+  modalData: {
+    date: new Date(),
+    transactionList: [] as any,
+  },
   filter: {
     methods: [],
     categories: {
@@ -70,6 +81,8 @@ export const TransactionStore = makeAutoObservable({
   state: state.PENDING,
   accountObjId: '',
   isCalendarModalOpen: initialState.isCalendarModalOpen,
+  modalData: initialState.modalData,
+
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
   },
@@ -85,6 +98,13 @@ export const TransactionStore = makeAutoObservable({
   },
   setModalVisible(modalState: boolean) {
     this.isCalendarModalOpen = modalState;
+  },
+  setModalData(dateString: string) {
+    const res = toJS(this.transactions)[dateString];
+    if (!res) return;
+    this.modalData.transactionList = convertTransactionDBTypetoTransactionType(
+      res,
+    );
   },
   getDates() {
     return {
