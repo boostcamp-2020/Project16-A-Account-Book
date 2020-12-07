@@ -30,5 +30,10 @@ export const DropdownBodyWrap = styled.div`
 `;
 
 export const CategoryEditButton = styled(EditButton)`
+  font-size: ${({ theme }) => theme.fontSize.sm};
   width: 5%;
+`;
+
+export const TitleSpan = styled.span`
+  width: 90%;
 `;

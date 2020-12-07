@@ -8,6 +8,7 @@ export interface Props extends ButtonProps {
   children?: React.ReactElement | React.ReactElement[] | string;
   type?: string;
   isClicked: boolean;
+  deleteClicked: any;
 }
 
 const CategoryDropdown = ({
@@ -15,6 +16,7 @@ const CategoryDropdown = ({
   size,
   isClicked,
   dropDownItemClicked,
+  deleteClicked,
   ...props
 }: Props): React.ReactElement => {
   return (
@@ -27,10 +29,22 @@ const CategoryDropdown = ({
               isClicked={isClicked}
               onClick={(e: MouseEvent) => {
                 e.preventDefault();
-                dropDownItemClicked(data._id, data.title);
+                dropDownItemClicked(data._id);
               }}
+              type="button"
+              value="수정"
             />
-            <span key={data.objectId}>{data.title}</span>
+            <S.TitleSpan key={data.objectId}>{data.title}</S.TitleSpan>
+            <S.CategoryEditButton
+              key={data._id}
+              isClicked={isClicked}
+              onClick={(e: MouseEvent) => {
+                e.preventDefault();
+                deleteClicked(data._id);
+              }}
+              type="button"
+              value="삭제"
+            />
           </S.DropdownItem>
         ),
       )}

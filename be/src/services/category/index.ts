@@ -115,12 +115,16 @@ export const postCategory = async (
     title,
     color,
   });
-  await newCategory.save();
-  await AccountModel.update(
-    { _id: accountObjId },
-    { $push: { categories: newCategory._id } },
-  );
-  return { success: true, newCategory };
+  try {
+    await newCategory.save();
+    await AccountModel.update(
+      { _id: accountObjId },
+      { $push: { categories: newCategory._id } },
+    );
+    return { success: true, newCategory };
+  } catch (e) {
+    return { success: false, message: e };
+  }
 };
 
 export const putCategory = async (
@@ -128,13 +132,25 @@ export const putCategory = async (
   type: string,
   title: string,
   color: string,
-  accountObjId: string,
 ) => {
-  const res = await CategoryModel.update(
-    { _id: objId },
-    { $set: { type, title, color } },
-  );
-  return { success: true, res };
+  try {
+    await CategoryModel.update(
+      { _id: objId },
+      { $set: { type, title, color } },
+    );
+    return { success: true };
+  } catch (e) {
+    return { success: false };
+  }
+};
+
+export const deleteOneCategory = async (objId: string) => {
+  try {
+    await CategoryModel.update({ _id: objId }, { $set: { isDeleted: false } });
+    return { success: true };
+  } catch (e) {
+    return { success: false };
+  }
 };
 
 export default {};
