@@ -1,5 +1,6 @@
 import React, { useRef, forwardRef } from 'react';
 import { TransactionStore } from 'stores/Transaction';
+import TransactionList from 'components/organisms/TranssactionList';
 import * as S from './style';
 
 export interface Props {}
@@ -23,7 +24,12 @@ const DateTransactionModal = forwardRef(
         ref={ref}
         {...props}
       >
-        <S.Content ref={contentRef} />
+        <S.Content ref={contentRef}>
+          <TransactionList
+            date={TransactionStore.modalData.date}
+            transactionList={TransactionStore.modalData.transactionList}
+          />
+        </S.Content>
       </S.DateTransactionModal>
     );
   },
