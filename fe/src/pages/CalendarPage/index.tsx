@@ -25,7 +25,7 @@ const CalenderPage = () => {
     endDate: toJS(TransactionStore.dates.endDate),
   };
 
-  if (toJS(TransactionStore.transactions).length === 0) {
+  if (Object.keys(toJS(TransactionStore.transactions)).length === 0) {
     const ContentsComponent = <NoData />;
 
     return (
