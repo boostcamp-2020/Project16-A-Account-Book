@@ -15,6 +15,7 @@ import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
 import CreateTransactionPage from './pages/CreateTransactionPage';
+import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
 
 const TransactionRouter = () => {
@@ -26,6 +27,10 @@ const TransactionRouter = () => {
         <Route
           path={`${url}/:title/create`}
           component={CreateTransactionPage}
+        />
+        <Route
+          path={`${url}/:title/update`}
+          component={UpdateTransactionPage}
         />
         <Route
           path={`${url}/:title/statistics/detail`}
