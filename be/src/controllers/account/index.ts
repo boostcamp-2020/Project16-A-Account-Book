@@ -7,4 +7,10 @@ export const get = async (ctx: Koa.Context) => {
   ctx.response.body = res;
 };
 
+export const getThisAccountInfo = async (ctx: Koa.Context) => {
+  const { title, owner } = ctx.query;
+  const account = await accountService.getAccountByTitleAndOwner(title, owner);
+  ctx.status = 200;
+  ctx.body = account;
+};
 export default { get };
