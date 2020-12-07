@@ -130,6 +130,9 @@ function CategoryPage(): React.ReactElement {
   const deleteModalContent = (
     <S.ContantsWrapper>
       <S.ContentWrapper>
+        <span>정말 삭제하시겠습니까?</span>
+      </S.ContentWrapper>
+      <S.ContentWrapper>
         <Input type="button" onClick={deleteConfirm} value="확인" />
         <Button onClick={deleteCancel}>취소</Button>
       </S.ContentWrapper>
