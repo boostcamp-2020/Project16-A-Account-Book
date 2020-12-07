@@ -141,6 +141,7 @@ const MainFilterForm = () => {
       categories,
       methods,
     });
+    TransactionStore.isFiltered = true;
     document.body.click();
   };
   return (

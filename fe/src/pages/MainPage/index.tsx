@@ -18,7 +18,7 @@ const MainPage = () => {
 
   useEffect(() => {
     TransactionStore.loadTransactions();
-  }, []);
+  }, [TransactionStore.dates]);
 
   const SubHeaderBar = (
     <MonthInfo
