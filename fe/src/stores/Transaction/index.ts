@@ -61,7 +61,7 @@ export const TransactionStore = makeAutoObservable({
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
-  accountObjId: '',
+  accountObjId: '-1',
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
   },

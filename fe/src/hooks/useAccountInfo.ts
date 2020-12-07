@@ -8,9 +8,8 @@ const useAccountInfo = () => {
   const location = useLocation();
   const history = useHistory();
   const [loading, setLoading] = useState<boolean>(
-    accountObjId ? accountObjId === '' : false,
+    accountObjId ? accountObjId === '-1' : false,
   );
-
   const getAccountInfo = async () => {
     const reg = /(\/transactions\/)(([^/])*)?\/(([^/])*)?/;
     const result = reg.exec(location.pathname);
@@ -30,6 +29,8 @@ const useAccountInfo = () => {
       getAccountInfo();
     }
   }, []);
+
+  return [loading];
 };
 
 export default useAccountInfo;

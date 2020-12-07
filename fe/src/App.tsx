@@ -19,29 +19,33 @@ import CategoryPage from './pages/CategoryPage';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
-  useAccountInfo();
+  const [loading] = useAccountInfo();
   return (
     <>
       <AuthCheck />
-      <Switch>
-        <Route
-          path={`${url}/:owner/:title/create`}
-          component={CreateTransactionPage}
-        />
-        <Route
-          path={`${url}/:owner/:title/statistics`}
-          component={StatisticsPage}
-        />
-        <Route
-          path={`${url}/:owner/:title/calender`}
-          component={CalenderPage}
-        />
-        <Route
-          path={`${url}/:owner/:title/category`}
-          component={CategoryPage}
-        />
-        <Route path={`${url}/:owner/:title`} component={MainPage} />
-      </Switch>
+      {!loading && (
+        <>
+          <Switch>
+            <Route
+              path={`${url}/:owner/:title/create`}
+              component={CreateTransactionPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/statistics`}
+              component={StatisticsPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/calender`}
+              component={CalenderPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/category`}
+              component={CategoryPage}
+            />
+            <Route path={`${url}/:owner/:title`} component={MainPage} />
+          </Switch>
+        </>
+      )}
     </>
   );
 };
