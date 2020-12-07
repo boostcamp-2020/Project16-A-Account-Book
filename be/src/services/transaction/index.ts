@@ -59,3 +59,13 @@ export const saveAndAddToAccount = async (
     transcationObjId,
   );
 };
+
+export const getTransaction = async (transactionObjId: string) => {
+  const transaction = await TransactionModel.findByPkAndPopulateAll(
+    transactionObjId,
+  );
+  if (!transaction) {
+    throw new Error('Invalid Transaction Object Id ');
+  }
+  return transaction;
+};

@@ -13,6 +13,17 @@ const getTransactionList = async (ctx: Koa.Context) => {
   ctx.body = res;
 };
 
+const getTransaction = async (ctx: Koa.Context) => {
+  const { transactionObjId } = ctx.params;
+  try {
+    const transaction = await service.getTransaction(transactionObjId);
+    ctx.body = transaction;
+  } catch (e) {
+    e.status = 400;
+    throw e;
+  }
+};
+
 const post = async (ctx: Koa.Context) => {
   const { transaction } = ctx.request.body;
   const { accountObjId } = ctx.params;
@@ -26,4 +37,4 @@ const post = async (ctx: Koa.Context) => {
   ctx.res.end();
 };
 
-export default { getTransactionList, post };
+export default { getTransactionList, post, getTransaction };
