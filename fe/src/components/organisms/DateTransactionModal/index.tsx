@@ -19,18 +19,19 @@ const DateTransactionModal = forwardRef(
   ({ ...props }: Props, ref: any): React.ReactElement => {
     const contentRef = useRef<HTMLDivElement>(null);
     return (
-      <S.DateTransactionModal
-        onClick={onClickHandler(contentRef)}
-        ref={ref}
-        {...props}
-      >
+      <>
+        <S.DateTransactionModal
+          onClick={onClickHandler(contentRef)}
+          ref={ref}
+          {...props}
+        />
         <S.Content ref={contentRef}>
           <TransactionList
             date={TransactionStore.modalData.date}
             transactionList={TransactionStore.modalData.transactionList}
           />
         </S.Content>
-      </S.DateTransactionModal>
+      </>
     );
   },
 );
