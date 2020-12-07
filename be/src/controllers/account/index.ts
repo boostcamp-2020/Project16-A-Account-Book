@@ -13,4 +13,4 @@ export const getThisAccountInfo = async (ctx: Koa.Context) => {
   ctx.status = 200;
   ctx.body = account;
 };
-export default { get };
+export default { get, getThisAccountInfo };

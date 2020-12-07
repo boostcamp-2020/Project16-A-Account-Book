@@ -11,6 +11,7 @@ export const getAccountByTitleAndOwner = async (
   owner: string,
 ) => {
   const account = await AccountModel.findByTitleAndOwner(title, owner);
+
   if (!account) throw new NotVaildException();
   return account;
 };
