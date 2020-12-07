@@ -91,6 +91,7 @@ export const TransactionStore = makeAutoObservable({
   transactions: [] as any,
   dates: fetchDate(),
   filter: fetchFilter(),
+  isFiltered: !!window.sessionStorage.getItem('filter'),
   state: state.PENDING,
   accountObjId: '-1',
   setAccountObjId(objId: string) {

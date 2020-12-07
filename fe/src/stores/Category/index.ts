@@ -50,4 +50,18 @@ const categoryConverter = (input: string): string => {
       return 'NOP';
   }
 };
+export const categoryCovertBig2Samll = (input: string): string => {
+  switch (input) {
+    case categoryType.EXPENSE:
+    case 'expense':
+      return 'expense';
+
+    case categoryType.INCOME:
+    case 'income':
+      return 'income';
+
+    default:
+      return 'NOP';
+  }
+};
 export default {};
