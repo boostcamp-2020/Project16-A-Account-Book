@@ -1,6 +1,6 @@
 import React from 'react';
 import LineChart from 'components/molecules/LineChart';
-import { TransactionStore } from 'stores/Transaction';
+import { TransactionStore, state } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 import { IDateTotalprice } from 'types';
 import dateUtils from 'utils/date';
@@ -12,7 +12,7 @@ const checkAllZeroPrice = (dataList: IDateTotalprice[]) =>
   dataList.every((data) => data.totalPrice === 0);
 
 const formalizeDate = (dataList: IDateTotalprice[]) => {
-  if (dataList.length < 1) return [];
+  if (dataList.length === 0) return [];
   const YEAR_FORMAT = 'YYYY';
   const yearOfFirstData = dateUtils.dateCustomFormatter(
     dataList[0].date,
@@ -32,13 +32,14 @@ const formalizeDate = (dataList: IDateTotalprice[]) => {
 const WarningMessage = <div>데이터가 충분하지 않습니다 😢 </div>;
 
 const LineChartOverview = (): React.ReactElement => {
+  const dataLoaded = TransactionStore.state === state.DONE;
   const dataList = TransactionStore.totalExpensePriceByDate;
   const unSuitableForRendering =
     checkDataIfScarce(dataList) || checkAllZeroPrice(dataList);
   return (
     <div>
       <S.StatisticsTitle>지출 추이</S.StatisticsTitle>
-      {dataList.length > 0 && unSuitableForRendering ? (
+      {dataLoaded && unSuitableForRendering ? (
         WarningMessage
       ) : (
         <LineChart
