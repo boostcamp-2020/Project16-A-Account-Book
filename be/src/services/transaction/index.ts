@@ -69,3 +69,11 @@ export const getTransaction = async (transactionObjId: string) => {
   }
   return transaction;
 };
+
+export const updateTransaction = async (
+  transactionObjId: string,
+  transaction: ITransaction,
+) => {
+  const conditions = { _id: transactionObjId, isDeleted: false };
+  return TransactionModel.findOneAndUpdate(conditions, transaction).exec();
+};

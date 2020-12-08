@@ -42,7 +42,11 @@ export const AccountDateSample = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AccountDate date={date} transactionList={testTransactionList} />
+      <AccountDate
+        date={date}
+        transactionList={testTransactionList}
+        onClick={() => {}}
+      />
     </ThemeProvider>
   );
 };

@@ -21,7 +21,7 @@ export const TransactionSample1 = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Transaction trans={testTransaction} />
+      <Transaction trans={testTransaction} onClick={() => {}} />
     </ThemeProvider>
   );
 };
@@ -39,7 +39,7 @@ export const TransactionSample2 = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Transaction trans={testTransaction} />
+      <Transaction trans={testTransaction} onClick={() => {}} />
     </ThemeProvider>
   );
 };

@@ -4,13 +4,13 @@ import * as S from './style';
 
 export interface Props {
   trans: any;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
-const Transaction = ({ trans, ...props }: Props) => {
+const Transaction = ({ trans, onClick }: Props) => {
   const classificationString = `${trans.category} | ${trans.method}`;
-
   return (
-    <S.TransactionStyle {...props}>
+    <S.TransactionStyle onClick={() => onClick(trans.id)}>
       <S.TransactionIcon icon={trans.icon || doubleArrowIcon} size="sm" />
       <S.Text>
         <S.PaymentInfo>
