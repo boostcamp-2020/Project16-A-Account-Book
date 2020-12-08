@@ -18,10 +18,11 @@ export const OneWeek = styled(CalendarOneWeek)`
 export const CenterMonth = styled.div`
   font-size: 6rem;
   color: rgba(0, 0, 0, 0.2);
-  width: 12rem;
+  width: 20rem;
   height: 4rem;
   position: absolute;
-  left: calc(50% - 6rem);
+  left: calc(50% - 10rem);
   top: calc(50% - 2rem);
   text-align: center;
+  z-index: -1;
 `;
