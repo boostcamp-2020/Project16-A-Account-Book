@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import jwt from 'jsonwebtoken';
 import { jwtConfig } from 'config';
-import { unAuthroziedError } from 'libs/error';
+import { unAuthroziedError, invalidAccessError } from 'libs/error';
 import { UserModel } from 'models/user';
 
 interface IDecodedData {
@@ -33,4 +33,20 @@ export const authorization = async (
     throw unAuthroziedError;
   }
 };
-export default {};
+
+export const verifyAccountAccess = (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { accountObjId } = ctx.params;
+  if (!ctx.user) {
+    throw unAuthroziedError;
+  }
+  const userHasAccountId = ctx.user.accounts.some(
+    (account: string) => account === accountObjId,
+  );
+  if (!userHasAccountId) {
+    throw invalidAccessError;
+  }
+  next();
+};
