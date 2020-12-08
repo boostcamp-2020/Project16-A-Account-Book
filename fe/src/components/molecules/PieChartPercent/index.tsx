@@ -1,5 +1,4 @@
 import React from 'react';
-import CircleSvg from 'components/atoms/CircleSvg';
 import theme from 'styles/theme';
 
 export interface Props {
@@ -35,14 +34,14 @@ const PieChartPercent = ({
   };
   return (
     <svg width={size} height={size}>
-      <CircleSvg
+      <circle
         r={circle.r()}
         cx={circle.cx()}
         cy={circle.cy()}
         fill="white"
         stroke="lightgrey"
-        stroke-width="1"
-        stroke-opacity="0.3"
+        strokeWidth="1"
+        strokeOpacity="0.3"
       />
       <text
         x={text.x()}

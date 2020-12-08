@@ -1,8 +1,12 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
+import { categoryType } from 'stores/Category';
 import * as types from 'types';
-import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
+import {
+  calTotalPrices,
+  calTotalPriceByDateAndType,
+} from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
 export interface ITransactionStore {
@@ -55,7 +59,7 @@ const initialState: ITransactionStore = {
   },
 };
 
-const state = {
+export const state = {
   PENDING: 'PENDING',
   DONE: 'DONE',
   ERROR: 'ERROR',
@@ -66,7 +70,7 @@ export const TransactionStore = makeAutoObservable({
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
-  accountObjId: '',
+  accountObjId: '-1',
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
     // sessionStorage.setItem('account', objId);
@@ -86,6 +90,9 @@ export const TransactionStore = makeAutoObservable({
       startDate: date.dateFormatter(this.dates.startDate),
       endDate: date.dateFormatter(this.dates.endDate),
     };
+  },
+  get totalExpensePriceByDate() {
+    return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
   },
   get totalPrices() {
     if (this.state === state.PENDING) {
@@ -111,5 +118,8 @@ export const TransactionStore = makeAutoObservable({
         this.state = state.ERROR;
       });
     }
+  },
+  getAccountId() {
+    return toJS(this.accountObjId);
   },
 });

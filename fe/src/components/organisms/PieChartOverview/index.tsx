@@ -6,8 +6,12 @@ import * as S from './style';
 
 export interface Props {
   categories: ICategoryStatistics[];
+  onClick: any;
 }
-const PieChartOverview = ({ categories }: Props): React.ReactElement => {
+const PieChartOverview = ({
+  categories,
+  onClick,
+}: Props): React.ReactElement => {
   const topFiveCategories = categories.slice(0, 5);
   return (
     <>
@@ -16,7 +20,7 @@ const PieChartOverview = ({ categories }: Props): React.ReactElement => {
         <PieChart pieces={topFiveCategories} />
       </S.PieChartWrap>
       <StatisticsList categories={topFiveCategories} />
-      <S.TotalViewButton>전체보기</S.TotalViewButton>
+      <S.TotalViewButton onClick={onClick}>전체보기</S.TotalViewButton>
     </>
   );
 };
