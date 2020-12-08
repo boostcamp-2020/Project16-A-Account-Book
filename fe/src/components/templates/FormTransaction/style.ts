@@ -7,4 +7,6 @@ export const Header = styled.header`
   width: 100%;
 `;
 
-export const Main = styled.main``;
+export const Main = styled.main`
+  margin: 10% 0;
+`;
