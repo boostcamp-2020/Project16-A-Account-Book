@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import utils from 'utils/date';
+import { TransactionStore } from 'stores/Transaction';
 import { MethodStore } from 'stores/Method';
 import { CategoryStore, categoryType } from 'stores/Category';
 import transactionAPI from 'apis/transaction';
@@ -41,6 +42,7 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
   };
   const loadTransactionAndSetInitialInput = async () => {
     const transaction = await transactionAPI.getTransaction(
+      TransactionStore.accountObjId,
       transactionObjId as string,
     );
     const { date, memo, client, price, method, category } = transaction;
