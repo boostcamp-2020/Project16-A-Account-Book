@@ -51,7 +51,11 @@ export const MainSample = () => {
   const AccountDateComponent = (
     <>
       <FilterBar />
-      <AccountDate date={new Date()} transactionList={testTransactionList} />
+      <AccountDate
+        date={new Date()}
+        transactionList={testTransactionList}
+        onClick={() => {}}
+      />
     </>
   );
   const NavBarComponent = <NavBar />;

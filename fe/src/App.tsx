@@ -10,11 +10,13 @@ import AccountListPage from 'pages/AccountListPage';
 import CalendarPage from 'pages/CalendarPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
+import StatisticsDetailPage from 'pages/StatisticsDetailPage';
 import useAccountInfo from 'hooks/useAccountInfo';
 import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
 import CreateTransactionPage from './pages/CreateTransactionPage';
+import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
 
 const TransactionRouter = () => {
@@ -29,6 +31,14 @@ const TransactionRouter = () => {
             <Route
               path={`${url}/:owner/:title/create`}
               component={CreateTransactionPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/update`}
+              component={UpdateTransactionPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/statistics/detail`}
+              component={StatisticsDetailPage}
             />
             <Route
               path={`${url}/:owner/:title/statistics`}

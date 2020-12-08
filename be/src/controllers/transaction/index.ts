@@ -18,6 +18,7 @@ const getTransaction = async (ctx: Koa.Context) => {
   const { transactionObjId } = ctx.params;
   try {
     const transaction = await service.getTransaction(transactionObjId);
+    ctx.status = 200;
     ctx.body = transaction;
   } catch (e) {
     throw invalidTransactionError;
@@ -37,4 +38,16 @@ const post = async (ctx: Koa.Context) => {
   ctx.res.end();
 };
 
-export default { getTransactionList, post, getTransaction };
+const updateTransaction = async (ctx: Koa.Context) => {
+  const { transaction } = ctx.request.body;
+  const { transactionObjId } = ctx.params;
+  try {
+    await service.updateTransaction(transactionObjId, transaction);
+    ctx.status = 200;
+    ctx.res.end();
+  } catch (e) {
+    throw invalidTransactionError;
+  }
+};
+
+export default { getTransactionList, post, getTransaction, updateTransaction };

@@ -4,6 +4,7 @@ import * as S from './style';
 export interface Props {
   date: Date;
   transactionList: any[];
+  onClick: any;
 }
 
 interface accType {
@@ -11,13 +12,19 @@ interface accType {
   totalPrice: number;
 }
 
-const reduceTransactionList = (acc: accType, transEl: any) => {
-  acc.transList.push(<S.AccountTransaction key={transEl.id} trans={transEl} />);
-  acc.totalPrice += transEl.price;
-  return acc;
-};
+const TransactionList = ({ date, transactionList, onClick }: Props) => {
+  const reduceTransactionList = (acc: accType, transEl: any) => {
+    acc.transList.push(
+      <S.AccountTransaction
+        key={transEl.id}
+        trans={transEl}
+        onClick={onClick}
+      />,
+    );
+    acc.totalPrice += transEl.price;
+    return acc;
+  };
 
-const TransactionList = ({ date, transactionList }: Props) => {
   const { transList, totalPrice } = transactionList.reduce(
     reduceTransactionList,
     {
