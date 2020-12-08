@@ -15,7 +15,7 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
     transactionObjId as string,
   );
   const history = useHistory();
-  const { title } = useParams<{ title: string }>();
+  const { title, owner } = useParams<{ title: string; owner: string }>();
 
   const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
@@ -39,7 +39,7 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
       transactionObjId as string,
       transactionState,
     );
-    history.push(`/transactions/${title}`);
+    history.push(`/transactions/${owner}/${title}`);
   };
   const Main = (
     <TransactionForm

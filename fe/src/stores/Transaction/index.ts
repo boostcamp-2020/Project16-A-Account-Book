@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
 import { categoryType } from 'stores/Category';
@@ -28,12 +28,21 @@ const oneMonthDate = date.getOneMonthRange(
   String(new Date().getFullYear()),
   String(new Date().getMonth() + 1),
 );
+// const oneMonthDate = date.getOneMonthRange(
+//   String(new Date().getFullYear()),
+//   String(new Date().getMonth() + 1),
+// );
+console.log('oneMonthDate : ', oneMonthDate);
 
 const initialState: ITransactionStore = {
   transactions: testAccountDateList,
+  // dates: {
+  //   startDate: oneMonthDate.startDate,
+  //   endDate: oneMonthDate.endDate,
+  // },
   dates: {
-    startDate: oneMonthDate.startDate,
-    endDate: oneMonthDate.endDate,
+    startDate: new Date('2020-10-01'),
+    endDate: new Date('2021-06-01'),
   },
   filter: {
     methods: [],
@@ -61,9 +70,10 @@ export const TransactionStore = makeAutoObservable({
   dates: initialState.dates,
   filter: initialState.filter,
   state: state.PENDING,
-  accountObjId: '',
+  accountObjId: '-1',
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
+    // sessionStorage.setItem('account', objId);
   },
   setFilter(
     startDate: Date,
@@ -108,5 +118,8 @@ export const TransactionStore = makeAutoObservable({
         this.state = state.ERROR;
       });
     }
+  },
+  getAccountId() {
+    return toJS(this.accountObjId);
   },
 });

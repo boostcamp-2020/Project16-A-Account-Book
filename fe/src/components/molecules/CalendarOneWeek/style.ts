@@ -1,15 +1,15 @@
 import styled, { css } from 'styled-components';
 
 import PriceTagComponent from 'components/atoms/PriceTag';
-import CalenderOneDate from 'components/molecules/CalenderOneDate';
+import CalendarOneDate from 'components/molecules/CalendarOneDate';
 
-export const CalenderOneWeek = styled.div`
+export const CalendarOneWeek = styled.div`
   margin-top: 0.5em;
   width: 100%;
   display: flex;
   flex-direction: column;
 `;
-export const OneDate = styled(CalenderOneDate)`
+export const OneDate = styled(CalendarOneDate)`
   width: 70%;
 `;
 export const DateWrap = styled.div`

@@ -10,7 +10,7 @@ export interface Props extends OneDateType {
   onClick?: () => void;
 }
 
-const CalenderOneDate = ({
+const CalendarOneDate = ({
   date,
   income,
   expense,
@@ -18,15 +18,15 @@ const CalenderOneDate = ({
   ...props
 }: Props): React.ReactElement => {
   return (
-    <S.CalenderOneDate onClick={onClick} {...props}>
+    <S.CalendarOneDate onClick={onClick} {...props}>
       <S.DateText>{date}</S.DateText>
       <S.PriceTextWrap>
         <S.IncomeText>{income}</S.IncomeText>
         <S.ExpenseText>{expense}</S.ExpenseText>
       </S.PriceTextWrap>
       <S.EmptyArea />
-    </S.CalenderOneDate>
+    </S.CalendarOneDate>
   );
 };
 
-export default CalenderOneDate;
+export default CalendarOneDate;

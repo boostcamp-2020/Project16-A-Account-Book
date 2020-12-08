@@ -1,10 +1,10 @@
 import React from 'react';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
-import CalenderOneWeek from '.';
+import CalendarOneWeek from '.';
 
 export default {
-  title: 'molecules / CalenderOneWeek',
-  component: CalenderOneWeek,
+  title: 'molecules / CalendarOneWeek',
+  component: CalendarOneWeek,
 };
 
 const oneDateList = [
@@ -47,7 +47,7 @@ const oneDateList = [
 export const Default = () => {
   return (
     <GlobalThemeProvider>
-      <CalenderOneWeek oneDateList={oneDateList} />
+      <CalendarOneWeek oneDateList={oneDateList} />
     </GlobalThemeProvider>
   );
 };
@@ -68,7 +68,7 @@ const start1Data = [
 export const Start1 = () => {
   return (
     <GlobalThemeProvider>
-      <CalenderOneWeek oneDateList={start1Data} />
+      <CalendarOneWeek oneDateList={start1Data} />
     </GlobalThemeProvider>
   );
 };
@@ -89,7 +89,7 @@ const start29Data = [
 export const Start29 = () => {
   return (
     <GlobalThemeProvider>
-      <CalenderOneWeek oneDateList={start29Data} />
+      <CalendarOneWeek oneDateList={start29Data} />
     </GlobalThemeProvider>
   );
 };

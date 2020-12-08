@@ -11,12 +11,12 @@ export default {
   getOneMonthRange: (year: string, month: string) => {
     if (month === '12') {
       return {
-        startDate: new Date(`${year}-${month}`),
+        startDate: new Date(`${year}-${month}-1`),
         endDate: new Date(`${Number(year) + 1}-${1}`),
       };
     }
     return {
-      startDate: new Date(`${year}-${month}`),
+      startDate: new Date(`${year}-${month}-1`),
       endDate: new Date(`${year}-${Number(month) + 1}`),
     };
   },

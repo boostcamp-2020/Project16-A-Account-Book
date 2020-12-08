@@ -33,15 +33,15 @@ const makeOneDayBlockList = (isSundayStart: boolean) => {
   );
 };
 
-const CalenderOneDate = ({
+const CalendarOneDate = ({
   isSundayStart = true,
   ...props
 }: Props): React.ReactElement => {
   return (
-    <S.CalenderDayBar {...props}>
+    <S.CalendarDayBar {...props}>
       {makeOneDayBlockList(isSundayStart)}
-    </S.CalenderDayBar>
+    </S.CalendarDayBar>
   );
 };
 
-export default CalenderOneDate;
+export default CalendarOneDate;

@@ -1,10 +1,10 @@
 import React from 'react';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
-import Calender from '.';
+import Calendar from '.';
 
 export default {
-  title: 'Organisms / Calender',
-  component: Calender,
+  title: 'Organisms / Calendar',
+  component: Calendar,
 };
 
 const testAccountDateList = {
@@ -93,7 +93,11 @@ const testAccountDateList = {
 export const SundayStart = () => {
   return (
     <GlobalThemeProvider>
-      <Calender isSundayStart transactions={testAccountDateList} />
+      <Calendar
+        isSundayStart
+        selectedDate={new Date('2020-11')}
+        transactions={testAccountDateList}
+      />
     </GlobalThemeProvider>
   );
 };
@@ -101,7 +105,19 @@ export const SundayStart = () => {
 export const MondayStart = () => {
   return (
     <GlobalThemeProvider>
-      <Calender isSundayStart={false} transactions={testAccountDateList} />
+      <Calendar
+        isSundayStart={false}
+        selectedDate={new Date('2020-11')}
+        transactions={testAccountDateList}
+      />
+    </GlobalThemeProvider>
+  );
+};
+
+export const Empty = () => {
+  return (
+    <GlobalThemeProvider>
+      <Calendar isSundayStart selectedDate={new Date('2020-11')} />
     </GlobalThemeProvider>
   );
 };

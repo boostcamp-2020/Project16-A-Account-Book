@@ -13,4 +13,6 @@ export default {
   method: (accountObjId: string) => `/api/methods/${accountObjId}`,
   statistics: (accountObjId: string) =>
     `/api/categories/statistics/${accountObjId}`,
+  accountInfo: (owner: string, title: string) =>
+    `/api/accounts/info?title=${title}&owner=${owner}`,
 };

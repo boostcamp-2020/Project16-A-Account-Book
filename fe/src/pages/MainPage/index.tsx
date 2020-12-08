@@ -9,11 +9,12 @@ import Header from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
+import NoData from 'components/organisms/NoData';
 import TransactionDateList from './TransactionDateList';
 
 const MainPage = () => {
   const history = useHistory();
-  const { title } = useParams<{ title: string }>();
+  const { title, owner } = useParams<{ title: string; owner: string }>();
 
   useEffect(() => {
     TransactionStore.loadTransactions();
@@ -27,7 +28,9 @@ const MainPage = () => {
   );
 
   const onClickHandler = (id: string) => {
-    history.push(`/transactions/${title}/update?transactionObjId=${id}`);
+    history.push(
+      `/transactions/${owner}/${title}/update?transactionObjId=${id}`,
+    );
   };
 
   const Contents = (
@@ -41,11 +44,17 @@ const MainPage = () => {
   );
 
   if (toJS(TransactionStore.transactions).length === 0) {
+    const ContentsComponent = (
+      <>
+        <FilterBar />
+        <NoData />
+      </>
+    );
     return (
       <Template
         HeaderBar={<Header />}
         SubHeaderBar={SubHeaderBar}
-        Contents={<FilterBar />}
+        Contents={ContentsComponent}
         NavBar={<NavBarComponent />}
       />
     );

@@ -13,7 +13,7 @@ const classifications = ['지출', '수입'];
 const CreateTransacionPage = () => {
   const [transactionState, setInputState] = useTransactionInput();
   const history = useHistory();
-  const { title } = useParams<any>();
+  const { title, owner } = useParams<{ title: string; owner: string }>();
 
   const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
@@ -37,7 +37,7 @@ const CreateTransacionPage = () => {
       TransactionStore.accountObjId,
       transactionState,
     );
-    history.push(`/transactions/${title}`);
+    history.push(`/transactions/${owner}/${title}`);
   };
   const Main = (
     <TransactionForm
