@@ -50,7 +50,7 @@ const categoryConverter = (input: string): string => {
       return 'NOP';
   }
 };
-export const categoryCovertBig2Samll = (input: string): string => {
+export const categoryCovertBig2Small = (input: string): string => {
   switch (input) {
     case categoryType.EXPENSE:
     case 'expense':

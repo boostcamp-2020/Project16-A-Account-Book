@@ -2,7 +2,7 @@ import React from 'react';
 import AccountDate from 'components/organisms/AccountDate';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
-import { categoryCovertBig2Samll } from 'stores/Category';
+import { categoryCovertBig2Small } from 'stores/Category';
 
 import dateUtils from 'utils/date';
 
@@ -15,7 +15,7 @@ const convertTransactionDBTypetoTransactionType = (input: any[]) => {
     if (TransactionStore.isFiltered) {
       const { methods, categories } = TransactionStore.getFilter();
       const { type } = category;
-      const key = categoryCovertBig2Samll(type);
+      const key = categoryCovertBig2Small(type);
       if (!methods.find((x: string) => x === method._id)) return acc;
       if (categories[key].disabled) return acc;
       if (!categories[key].list.find((x: string) => x === category._id))

@@ -3,7 +3,7 @@ import useVisible from 'hooks/useVisible';
 import { MethodStore } from 'stores/Method';
 import { CategoryStore, categoryType } from 'stores/Category';
 import { TransactionStore } from 'stores/Transaction';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 import dateUtils from 'utils/date';
 import * as S from './style';
 import TopFilter from './TopFilter';
