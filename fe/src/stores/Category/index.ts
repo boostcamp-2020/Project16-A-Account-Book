@@ -39,10 +39,12 @@ export const CategoryStore = makeAutoObservable({
 const categoryConverter = (input: string): string => {
   switch (input) {
     case '지출':
+    case 'expense':
     case categoryType.EXPENSE:
       return categoryType.EXPENSE;
 
     case '수입':
+    case 'income':
     case categoryType.INCOME:
       return categoryType.INCOME;
 

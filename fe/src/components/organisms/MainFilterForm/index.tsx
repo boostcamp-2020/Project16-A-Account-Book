@@ -21,6 +21,8 @@ import {
   DatePickerList,
 } from './SubComponents';
 
+const SELECT_ALL_TYPE = 'ALL';
+
 const MainFilterForm = () => {
   const [state, dispatch] = useReducer(reducer, {
     dates: TransactionStore.getOriginDates(),
@@ -72,6 +74,16 @@ const MainFilterForm = () => {
   };
 
   const onClickCategory = ({ type, _id }: { type: string; _id: string }) => {
+    if (_id === SELECT_ALL_TYPE) {
+      const fetchedCategories = CategoryStore.getCategories(type);
+      const c =
+        categories[type].list.length === fetchedCategories.length
+          ? []
+          : fetchedCategories.map((cat) => cat._id);
+
+      dispatch(actions.setAllCategories(type, c));
+      return;
+    }
     dispatch(actions.setCategory(type, _id));
   };
 
@@ -79,6 +91,15 @@ const MainFilterForm = () => {
     dispatch(actions.setCategoryDisable(type));
 
   const onClickMethod = ({ _id }: { _id: string }) => {
+    if (_id === SELECT_ALL_TYPE) {
+      const m =
+        methods.length === MethodStore.getMethods().length
+          ? []
+          : MethodStore.getMethods().map((method) => method._id);
+      dispatch(actions.setAllMethod(m));
+      return;
+    }
+
     dispatch(actions.setMethod(_id));
   };
   const onCancel = () => {
@@ -122,7 +143,7 @@ const MainFilterForm = () => {
           dataList={MethodStore.getMethods()}
           onClick={onClickMethod}
           checkList={methods}
-          title="수입 카테고리"
+          title="결제수단"
         />
       </TopFilter>
       {visible && (
@@ -134,7 +155,7 @@ const MainFilterForm = () => {
         </S.Label>
 
         <CategoryFilterList
-          filterTitle="수입"
+          filterTitle="지출"
           disabled={expense.disabled}
           onClick={() => onClickCategoryDisable(convert(categoryType.EXPENSE))}
         >
@@ -143,12 +164,13 @@ const MainFilterForm = () => {
             dataList={CategoryStore.getCategories(categoryType.EXPENSE)}
             onClick={onClickCategory}
             checkList={expense.list}
-            title="수입 카테고리"
+            title="지출 카테고리"
             type={convert(categoryType.EXPENSE)}
           />
         </CategoryFilterList>
+
         <CategoryFilterList
-          filterTitle="지출"
+          filterTitle="수입"
           disabled={income.disabled}
           onClick={() => onClickCategoryDisable(convert(categoryType.INCOME))}
         >
@@ -157,7 +179,7 @@ const MainFilterForm = () => {
             onClick={onClickCategory}
             disabled={income.disabled}
             checkList={income.list}
-            title="지출 카테고리"
+            title="수입 카테고리"
             type={convert(categoryType.INCOME)}
           />
         </CategoryFilterList>

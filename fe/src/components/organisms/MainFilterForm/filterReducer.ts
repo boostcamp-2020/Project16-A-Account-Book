@@ -2,6 +2,8 @@ const setDates = 'SET_DATES';
 const setMethod = 'SET_METHOD';
 const setCategory = 'SET_CATEGORY';
 const setCategoryDisable = 'SET_CATEGORY_DISABLE';
+const setAllMethod = 'SET_ALL_METHOD';
+const setAllCategories = 'SET_ALL_CATEGORIES';
 
 export const actions = {
   setDates(startDate: Date | null, endDate: Date | null) {
@@ -37,6 +39,23 @@ export const actions = {
       type: setCategoryDisable,
       payload: {
         type,
+      },
+    };
+  },
+  setAllMethod(objectIds: string[]) {
+    return {
+      type: setAllMethod,
+      payload: {
+        methods: objectIds,
+      },
+    };
+  },
+  setAllCategories(type: string, objectIds: string[]) {
+    return {
+      type: setAllCategories,
+      payload: {
+        type,
+        categories: objectIds,
       },
     };
   },
@@ -108,6 +127,26 @@ export const reducer = (state: any, action: any) => {
           [type]: {
             ...target,
             disabled: !target.disabled,
+          },
+        },
+      };
+    }
+    case setAllMethod: {
+      const { methods } = action.payload;
+      return {
+        ...state,
+        methods,
+      };
+    }
+    case setAllCategories: {
+      const { type, categories } = action.payload;
+      return {
+        ...state,
+        categories: {
+          ...state.categories,
+          [type]: {
+            ...state.categories[type],
+            list: categories,
           },
         },
       };
