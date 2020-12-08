@@ -83,7 +83,7 @@ const getOneDateList = (transactions: any) =>
     },
   );
 
-const Calender = ({
+const Calendar = ({
   isSundayStart,
   transactions = {},
   selectedDate,
@@ -101,11 +101,11 @@ const Calender = ({
     });
 
     return (
-      <S.Calender {...props}>
+      <S.Calendar {...props}>
         <S.DayBar isSundayStart={isSundayStart} />
         {oneWeekComponentList}
         <S.CenterMonth>{nowMonth + 1}</S.CenterMonth>
-      </S.Calender>
+      </S.Calendar>
     );
   }
   const { oneDateList } = getOneDateList(transactions);
@@ -117,12 +117,12 @@ const Calender = ({
   });
 
   return (
-    <S.Calender {...props}>
+    <S.Calendar {...props}>
       <S.DayBar isSundayStart={isSundayStart} />
       {oneWeekComponentList}
       <S.CenterMonth>{nowMonth + 1}</S.CenterMonth>
-    </S.Calender>
+    </S.Calendar>
   );
 };
 
-export default Calender;
+export default Calendar;

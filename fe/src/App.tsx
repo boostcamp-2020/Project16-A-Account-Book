@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import AccountListPage from 'pages/AccountListPage';
-import CalenderPage from 'pages/CalenderPage';
+import CalendarPage from 'pages/CalendarPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
 import useAccountInfo from 'hooks/useAccountInfo';
@@ -35,8 +35,8 @@ const TransactionRouter = () => {
               component={StatisticsPage}
             />
             <Route
-              path={`${url}/:owner/:title/calender`}
-              component={CalenderPage}
+              path={`${url}/:owner/:title/calendar`}
+              component={CalendarPage}
             />
             <Route
               path={`${url}/:owner/:title/category`}

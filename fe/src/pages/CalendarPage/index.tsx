@@ -5,7 +5,7 @@ import { TransactionStore } from 'stores/Transaction';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
-import CalenderBind from 'components/organisms/CalenderBind';
+import CalenderBind from 'components/organisms/CalendarBind';
 import NavBarComponent from 'components/organisms/NavBar';
 import NoData from 'components/organisms/NoData';
 

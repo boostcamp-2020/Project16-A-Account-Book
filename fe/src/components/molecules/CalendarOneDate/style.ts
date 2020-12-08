@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Button from 'components/atoms/Button';
 
-export const CalenderOneDate = styled(Button)`
+export const CalendarOneDate = styled(Button)`
   background-color: ${({ theme }) => theme.color.white};
   border: none;
   width: 14.5%;

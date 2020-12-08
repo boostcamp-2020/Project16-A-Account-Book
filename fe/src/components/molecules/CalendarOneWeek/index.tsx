@@ -1,5 +1,5 @@
 import React from 'react';
-import { OneDateType } from '../CalenderOneDate';
+import { OneDateType } from '../CalendarOneDate';
 import * as S from './style';
 
 export interface Props {
@@ -12,7 +12,7 @@ interface accProps {
   expense: number;
 }
 
-const CalenderOneDate = ({
+const CalendarOneDate = ({
   oneDateList,
   ...props
 }: Props): React.ReactElement => {
@@ -57,14 +57,14 @@ const CalenderOneDate = ({
   }
 
   return (
-    <S.CalenderOneWeek {...props}>
+    <S.CalendarOneWeek {...props}>
       <S.PriceWrap>
         <S.IncomePriceTag value={res.income} />
         <S.ExpensePriceTag value={res.expense} />
       </S.PriceWrap>
       <S.DateWrap>{res.dateComponentList}</S.DateWrap>
-    </S.CalenderOneWeek>
+    </S.CalendarOneWeek>
   );
 };
 
-export default CalenderOneDate;
+export default CalendarOneDate;

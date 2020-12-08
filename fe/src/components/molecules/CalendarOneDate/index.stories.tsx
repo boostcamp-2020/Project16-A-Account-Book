@@ -1,18 +1,18 @@
 import React from 'react';
 
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
-import CalenderOneDate from '.';
+import CalendarOneDate from '.';
 
 export default {
-  title: 'molecules / CalenderOneDate',
-  component: CalenderOneDate,
+  title: 'molecules / CalendarOneDate',
+  component: CalendarOneDate,
 };
 
 export const Default = () => {
-  const onClick = () => alert('calender button clicked');
+  const onClick = () => alert('calendar button clicked');
   return (
     <GlobalThemeProvider>
-      <CalenderOneDate
+      <CalendarOneDate
         date={7}
         income={20000}
         expense={30000}
@@ -23,10 +23,10 @@ export const Default = () => {
 };
 
 export const Empty = () => {
-  const onClick = () => alert('calender button clicked');
+  const onClick = () => alert('calendar button clicked');
   return (
     <GlobalThemeProvider>
-      <CalenderOneDate onClick={onClick} />
+      <CalendarOneDate onClick={onClick} />
     </GlobalThemeProvider>
   );
 };

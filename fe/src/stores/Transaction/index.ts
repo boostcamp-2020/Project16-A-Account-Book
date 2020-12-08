@@ -28,12 +28,21 @@ const oneMonthDate = date.getOneMonthRange(
   String(new Date().getFullYear()),
   String(new Date().getMonth() + 1),
 );
+// const oneMonthDate = date.getOneMonthRange(
+//   String(new Date().getFullYear()),
+//   String(new Date().getMonth() + 1),
+// );
+console.log('oneMonthDate : ', oneMonthDate);
 
 const initialState: ITransactionStore = {
   transactions: testAccountDateList,
+  // dates: {
+  //   startDate: oneMonthDate.startDate,
+  //   endDate: oneMonthDate.endDate,
+  // },
   dates: {
-    startDate: oneMonthDate.startDate,
-    endDate: oneMonthDate.endDate,
+    startDate: new Date('2020-10-01'),
+    endDate: new Date('2021-06-01'),
   },
   filter: {
     methods: [],
@@ -64,6 +73,7 @@ export const TransactionStore = makeAutoObservable({
   accountObjId: '-1',
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
+    // sessionStorage.setItem('account', objId);
   },
   setFilter(
     startDate: Date,
