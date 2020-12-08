@@ -27,6 +27,15 @@ export async function findByPkAndGetTransCategory(
   return accountInfo.transactions;
 }
 
+export async function findByPkList(this: any, accountObjIdList: string[]) {
+  const accounts = accountObjIdList.map(async (el: string) => {
+    const result = this.findById(String(el)).exec();
+    return result;
+  });
+  const result = await Promise.all(accounts);
+  return result;
+}
+
 export class NotVaildException {
   message: string;
 
