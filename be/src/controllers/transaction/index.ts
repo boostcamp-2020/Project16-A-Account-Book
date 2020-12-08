@@ -5,13 +5,16 @@ import * as service from 'services/transaction';
 const getTransactionList = async (ctx: Koa.Context) => {
   const { startDate, endDate } = ctx.query;
   const { accountObjId } = ctx.params;
-  const res = await service.getTransactionList({
+  const transactionList = await service.getTransactionList({
     startDate,
     endDate,
     accountObjId,
   });
-  ctx.status = res.length === 0 ? 204 : 200;
-  ctx.body = res;
+  const groupedByDateTransactionList = service.sortAndGroupByDate(
+    transactionList,
+  );
+  ctx.status = transactionList.length === 0 ? 204 : 200;
+  ctx.body = groupedByDateTransactionList;
 };
 
 const getTransaction = async (ctx: Koa.Context) => {
