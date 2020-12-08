@@ -70,6 +70,12 @@ export const getGithubAccessToken = async (code: string) => {
     });
     await Promise.all([newAccount.save(), user.save()]);
   }
-  const token = jwt.sign(id, jwtConfig.jwtSecret);
+  const token = jwt.sign(
+    {
+      id,
+    },
+    jwtConfig.jwtSecret,
+    { expiresIn: jwtConfig.jwtExpires },
+  );
   return { token, user };
 };

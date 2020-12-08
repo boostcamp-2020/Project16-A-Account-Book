@@ -3,6 +3,7 @@ import FormTransactionTemplate from 'components/templates/FormTransaction';
 import TransactionForm from 'components/organisms/TransactionForm';
 import useTransactionInput from 'hooks/useTransactionInput';
 import transactionAPI from 'apis/transaction';
+import { TransactionStore } from 'stores/Transaction';
 import { useHistory, useParams } from 'react-router-dom';
 import isCanSubmit from 'utils/isCanSubmit';
 import queryString from 'query-string';
@@ -36,6 +37,7 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
       return;
     }
     await transactionAPI.updateTransaction(
+      TransactionStore.accountObjId,
       transactionObjId as string,
       transactionState,
     );
