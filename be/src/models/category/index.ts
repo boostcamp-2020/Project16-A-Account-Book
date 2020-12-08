@@ -4,6 +4,7 @@ import { createDefaultCategory } from './static';
 export const categoryType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
+  UNCLASSIFIED: 'UNCLASSIFIED',
 };
 
 export interface ICategory {
