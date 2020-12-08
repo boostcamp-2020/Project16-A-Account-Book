@@ -27,26 +27,28 @@ export const authorization = async (
     if (!user) {
       throw unAuthroziedError;
     }
-    ctx.user = user;
-    next();
+    ctx.request.body.user = user;
+    await next();
   } catch (e) {
     throw unAuthroziedError;
   }
 };
 
-export const verifyAccountAccess = (
+export const verifyAccountAccess = async (
   ctx: Koa.Context,
   next: () => Promise<any>,
 ) => {
   const { accountObjId } = ctx.params;
-  if (!ctx.user) {
+  const { user } = ctx.request.body;
+
+  if (!user) {
     throw unAuthroziedError;
   }
-  const userHasAccountId = ctx.user.accounts.some(
+  const userHasAccountId = user.accounts.some(
     (account: string) => account === accountObjId,
   );
   if (!userHasAccountId) {
     throw invalidAccessError;
   }
-  next();
+  await next();
 };

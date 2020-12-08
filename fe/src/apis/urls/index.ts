@@ -1,18 +1,24 @@
 export default {
-  transaction: (id: string) => `/api/transactions/${id}`,
+  transaction: (accountObjId: string) => `/api/${accountObjId}/transactions/`,
+
   transactionDetail: (transactionObjId: string) =>
-    `/api/transactions/${transactionObjId}/detail`,
+    `/api/${transactionObjId}/transactions/detail`,
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
+
   userTitle: '/api/user/titleByAccountId?accountId=',
   category: (accountObjId: string) => {
-    return `/api/categories/${accountObjId}`;
+    return `/api/${accountObjId}/categories/`;
   },
-  postCategory: 'api/categories',
+  postCategory: '/api/categories',
+
   account: '/api/accounts',
-  method: (accountObjId: string) => `/api/methods/${accountObjId}`,
+
+  method: (accountObjId: string) => `/api/${accountObjId}/methods/`,
+
   statistics: (accountObjId: string) =>
-    `/api/categories/statistics/${accountObjId}`,
+    `/api/${accountObjId}/categories/statistics/`,
+
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
 };
