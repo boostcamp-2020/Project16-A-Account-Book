@@ -1,8 +1,8 @@
 import { AccountModel } from 'models/account';
 import { NotVaildException } from 'models/account/static';
 
-export const getAccounts = async () => {
-  const res = await AccountModel.find().select('_id title owner').exec();
+export const getAccounts = async (accounts: Array<string>) => {
+  const res = await AccountModel.findByPkList(accounts);
   return res;
 };
 
