@@ -26,7 +26,10 @@ export const getTransactionList = async ({
   })
     .populate({
       path: 'transactions',
-      match: { date: { $gte: startDate, $lt: endDate } },
+      match: {
+        date: { $gte: startDate, $lt: endDate },
+        isDeleted: { $eq: false },
+      },
       populate: { path: 'category method' },
     })
     .exec();
