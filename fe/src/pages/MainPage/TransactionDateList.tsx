@@ -16,12 +16,13 @@ const TransactionDateList = ({
   onClick: any;
 }) => {
   const { startDate, endDate } = TransactionStore.getOriginDates();
-  const start = new Date(dateUtils.dateFormatter(startDate)).getTime();
-  const end = new Date(dateUtils.dateFormatter(endDate)).getTime();
+  const start = dateUtils.getStandardDate(startDate).getTime();
+  const end = dateUtils.getStandardDate(endDate).getTime();
 
   const mapFunc = (item: TransactionDBKeyValue) => {
     const [date, transactions] = item;
-    const targetDate = new Date(date).getTime();
+    const targetDate = dateUtils.getStandardDate(new Date(date)).getTime();
+
     if (TransactionStore.isFiltered && (targetDate < start || targetDate > end))
       return '';
     const filteredTransactionList = convertTransactionDBTypetoTransactionType(

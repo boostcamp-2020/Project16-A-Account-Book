@@ -1,7 +1,11 @@
 import React, { useRef, useReducer, useEffect } from 'react';
 import useVisible from 'hooks/useVisible';
 import { MethodStore } from 'stores/Method';
-import { CategoryStore, categoryType } from 'stores/Category';
+import {
+  CategoryStore,
+  categoryType,
+  categoryConvertBig2Small as convert,
+} from 'stores/Category';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 import dateUtils from 'utils/date';
@@ -16,11 +20,6 @@ import {
   Modal,
   DatePickerList,
 } from './SubComponents';
-
-const types = {
-  INCOME: 'income',
-  expense: 'expense',
-};
 
 const MainFilterForm = () => {
   const [state, dispatch] = useReducer(reducer, {
@@ -82,7 +81,7 @@ const MainFilterForm = () => {
   const onClickMethod = ({ _id }: { _id: string }) => {
     dispatch(actions.setMethod(_id));
   };
-  const onCancle = () => {
+  const onCancel = () => {
     document.body.click();
   };
 
@@ -94,7 +93,7 @@ const MainFilterForm = () => {
     };
     sessionStorage.setItem('filter', JSON.stringify(convertTarget));
 
-    TransactionStore.setFilter(dates.startDate, increasedEndDate);
+    TransactionStore.setFilter(dates.startDate, increasedEndDate, state);
     TransactionStore.isFiltered = true;
     document.body.click();
   };
@@ -137,7 +136,7 @@ const MainFilterForm = () => {
         <CategoryFilterList
           filterTitle="수입"
           disabled={expense.disabled}
-          onClick={() => onClickCategoryDisable(types.expense)}
+          onClick={() => onClickCategoryDisable(convert(categoryType.EXPENSE))}
         >
           <Dropdown
             disabled={expense.disabled}
@@ -145,13 +144,13 @@ const MainFilterForm = () => {
             onClick={onClickCategory}
             checkList={expense.list}
             title="수입 카테고리"
-            type={types.expense}
+            type={convert(categoryType.EXPENSE)}
           />
         </CategoryFilterList>
         <CategoryFilterList
           filterTitle="지출"
           disabled={income.disabled}
-          onClick={() => onClickCategoryDisable(types.INCOME)}
+          onClick={() => onClickCategoryDisable(convert(categoryType.INCOME))}
         >
           <Dropdown
             dataList={CategoryStore.getCategories(categoryType.INCOME)}
@@ -159,14 +158,14 @@ const MainFilterForm = () => {
             disabled={income.disabled}
             checkList={income.list}
             title="지출 카테고리"
-            type={types.INCOME}
+            type={convert(categoryType.INCOME)}
           />
         </CategoryFilterList>
       </S.Box>
       <div className="buttons">
         <S.BottomButton type="button" onClick={onApplyHandler} value="확인" />
 
-        <S.BottomButton type="button" onClick={onCancle} value="취소" />
+        <S.BottomButton type="button" onClick={onCancel} value="취소" />
       </div>
     </S.Container>
   );

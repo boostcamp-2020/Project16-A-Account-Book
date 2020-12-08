@@ -57,7 +57,7 @@ export const reducer = (state: any, action: any) => {
     }
     case setMethod: {
       const { method } = action.payload;
-      const exist = state.methods.find((item: string) => item === method);
+      const exist = state.methods.some((item: string) => item === method);
       if (exist) {
         return {
           ...state,
@@ -73,7 +73,7 @@ export const reducer = (state: any, action: any) => {
       const { type, category } = action.payload;
       const target = state.categories[type];
       if (!target) return state;
-      const exist = target.list.find((item: string) => item === category);
+      const exist = target.list.some((item: string) => item === category);
       if (exist) {
         return {
           ...state,

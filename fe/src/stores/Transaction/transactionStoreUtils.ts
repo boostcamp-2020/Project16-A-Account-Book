@@ -1,7 +1,7 @@
 import math from 'utils/math';
 import { IDateTotalprice, TransactionDBType } from 'types';
 import { TransactionStore } from 'stores/Transaction';
-import { categoryCovertBig2Small } from 'stores/Category';
+import { categoryConvertBig2Small } from 'stores/Category';
 
 export const initTotalPrice = {
   income: 0,
@@ -35,11 +35,12 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
     const { _id, category, method, ...other } = cur;
     if (TransactionStore.isFiltered) {
       const { methods, categories } = TransactionStore.getFilter();
+
       const { type } = category;
-      const key = categoryCovertBig2Small(type);
-      if (!methods.find((x: string) => x === method._id)) return acc;
+      const key = categoryConvertBig2Small(type);
+      if (!methods.some((x: string) => x === method._id)) return acc;
       if (categories[key].disabled) return acc;
-      if (!categories[key].list.find((x: string) => x === category._id))
+      if (!categories[key].list.some((x: string) => x === category._id))
         return acc;
     }
     return [
