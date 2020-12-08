@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import Template from 'components/templates/MainTemplate';
@@ -14,21 +13,20 @@ const onClickHandler = (
   history: any,
   accountObjId: string,
   accountTitle: string,
+  accountOwner: string,
 ) => () => {
   TransactionStore.setAccountObjId(accountObjId);
-  history.push(`/transactions/${accountTitle}`);
+  history.push(`/transactions/${accountOwner}/${accountTitle}`);
 };
 
 const MainPage = () => {
   const history = useHistory();
-  const List = toJS(AccountStore.accountList).map((el) => {
+  const List = AccountStore.getAccountList().map((el) => {
     return (
       <Account
-        // eslint-disable-next-line no-underscore-dangle
         key={el._id}
         account={{ ...el, icon: AccountSvg }}
-        // eslint-disable-next-line no-underscore-dangle
-        onClick={onClickHandler(history, el._id, el.title)}
+        onClick={onClickHandler(history, el._id, el.title, el.owner)}
       />
     );
   });
