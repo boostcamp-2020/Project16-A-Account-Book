@@ -35,14 +35,12 @@ const oneMonthDate = date.getOneMonthRange(
   String(new Date().getMonth() + 1),
 );
 
-console.log('oneMonthDate : ', oneMonthDate);
-
 const initialState: ITransactionStore = {
   transactions: testAccountDateList,
 
   dates: {
-    startDate: new Date('2020-10-01'),
-    endDate: new Date('2021-06-01'),
+    startDate: oneMonthDate.startDate,
+    endDate: oneMonthDate.endDate,
   },
   isCalendarModalOpen: false,
   modalData: {
@@ -98,7 +96,7 @@ export const TransactionStore = makeAutoObservable({
   filter: fetchFilter(),
   isFiltered: !!window.sessionStorage.getItem('filter'),
   state: state.PENDING,
-  accountObjId: '-1',
+  accountObjId: '',
   isCalendarModalOpen: initialState.isCalendarModalOpen,
   modalData: initialState.modalData,
 

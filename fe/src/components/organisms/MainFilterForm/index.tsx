@@ -6,70 +6,20 @@ import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 import dateUtils from 'utils/date';
 import * as S from './style';
-import TopFilter from './TopFilter';
-import CategoryFilterList from './CategoryFilterList';
 import DateRange from '../../molecules/DateRange';
 import DropdownHeader from '../../molecules/DropdownHeader';
 import Dropdown from '../../molecules/Dropdown';
-import DataPicker, { IDatePicker } from '../../molecules/DatePicker';
 import { reducer, actions } from './filterReducer';
+import {
+  TopFilter,
+  CategoryFilterList,
+  Modal,
+  DatePickerList,
+} from './SubComponents';
 
 const types = {
   INCOME: 'income',
   expense: 'expense',
-};
-const Buttons = ({
-  onClick,
-  onClickFix,
-}: {
-  onClick: any;
-  onClickFix: any;
-}) => {
-  return (
-    <S.DateFilterContainer>
-      <S.DateFilterButton
-        onClick={() => {
-          onClickFix(1);
-        }}
-      >
-        오늘
-      </S.DateFilterButton>
-      <S.DateFilterButton
-        onClick={() => {
-          onClickFix(2);
-        }}
-      >
-        이번주
-      </S.DateFilterButton>
-      <S.DateFilterButton
-        onClick={() => {
-          onClickFix(3);
-        }}
-      >
-        이번달
-      </S.DateFilterButton>
-      <S.DateFilterButton
-        onClick={() => {
-          onClickFix(4);
-        }}
-      >
-        올 해
-      </S.DateFilterButton>
-      <S.DateFilterButton onClick={onClick}>기간 설정</S.DateFilterButton>
-    </S.DateFilterContainer>
-  );
-};
-interface IModal extends IDatePicker {
-  ref: any;
-}
-const Modal = ({ dates, onChange, ref }: IModal) => {
-  return (
-    <S.Model>
-      <div ref={ref}>
-        <DataPicker dates={dates} onChange={onChange} />
-      </div>
-    </S.Model>
-  );
 };
 
 const MainFilterForm = () => {
@@ -81,30 +31,30 @@ const MainFilterForm = () => {
   const { dates, categories, methods } = state;
   const { income, expense } = categories;
   const container = useRef<HTMLDivElement>(null);
+  const [visible, toggleVisible] = useVisible(container);
+
   useEffect(() => {
     CategoryStore.loadCategories();
     MethodStore.loadMethods();
   }, []);
 
-  const [visible, toggleVisible] = useVisible(container);
-
   const onClickDateFix = (type: number) => {
     switch (type) {
-      case 1: {
+      case 0: {
         dispatch(actions.setDates(new Date(), new Date()));
         break;
       }
-      case 2: {
+      case 1: {
         const d = dateUtils.getOneWeekRange(new Date(), false);
         dispatch(actions.setDates(d.startDate, d.endDate));
         break;
       }
-      case 3: {
+      case 2: {
         const d = dateUtils.getMonthRange(new Date());
         dispatch(actions.setDates(d.startDate, d.endDate));
         break;
       }
-      case 4: {
+      case 3: {
         const d = dateUtils.getOneYearRange(new Date());
         dispatch(actions.setDates(d.startDate, d.endDate));
         break;
@@ -137,11 +87,14 @@ const MainFilterForm = () => {
   };
 
   const onApplyHandler = () => {
-    window.sessionStorage.setItem('filter', JSON.stringify(state));
-    TransactionStore.setFilter(dates.startDate, dates.endDate, {
-      categories,
-      methods,
-    });
+    const increasedEndDate = dateUtils.increaseOneDate(dates.endDate);
+    const convertTarget = {
+      ...state,
+      dates: { startDate: dates.startDate, endDate: increasedEndDate },
+    };
+    sessionStorage.setItem('filter', JSON.stringify(convertTarget));
+
+    TransactionStore.setFilter(dates.startDate, increasedEndDate);
     TransactionStore.isFiltered = true;
     document.body.click();
   };
@@ -150,7 +103,10 @@ const MainFilterForm = () => {
       <TopFilter filterTitle="기간">
         <S.DateContainer>
           <DropdownHeader title="기간">
-            <Buttons onClick={toggleVisible} onClickFix={onClickDateFix} />
+            <DatePickerList
+              onClick={toggleVisible}
+              onClickFix={onClickDateFix}
+            />
           </DropdownHeader>
           <button
             type="button"

@@ -1,5 +1,7 @@
 import math from 'utils/math';
 import { IDateTotalprice, TransactionDBType } from 'types';
+import { TransactionStore } from 'stores/Transaction';
+import { categoryCovertBig2Small } from 'stores/Category';
 
 export const initTotalPrice = {
   income: 0,
@@ -29,15 +31,27 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
   if (typeof input === 'string') {
     return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
   }
-  return input.map((el) => {
-    const { _id, category, method, ...other } = el;
-    return {
-      ...other,
-      id: _id,
-      category: category.title,
-      method: method.title,
-    };
-  });
+  return input.reduce((acc, cur) => {
+    const { _id, category, method, ...other } = cur;
+    if (TransactionStore.isFiltered) {
+      const { methods, categories } = TransactionStore.getFilter();
+      const { type } = category;
+      const key = categoryCovertBig2Small(type);
+      if (!methods.find((x: string) => x === method._id)) return acc;
+      if (categories[key].disabled) return acc;
+      if (!categories[key].list.find((x: string) => x === category._id))
+        return acc;
+    }
+    return [
+      ...acc,
+      {
+        ...other,
+        id: _id,
+        category: category.title,
+        method: method.title,
+      },
+    ];
+  }, []);
 };
 
 export const calTotalPrices = (list: any) => {

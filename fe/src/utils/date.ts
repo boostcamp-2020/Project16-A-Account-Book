@@ -55,4 +55,12 @@ export default {
       endDate: new Date(endDate.valueOf() - day),
     };
   },
+  getStandardDate: (date = new Date()) => {
+    return dayjs(date).hour(0).minute(0).second(0).millisecond(0).toDate();
+  },
+  increaseOneDate: (date = new Date()) => {
+    return dayjs(date)
+      .date(date.getDate() + 1)
+      .toDate();
+  },
 };
