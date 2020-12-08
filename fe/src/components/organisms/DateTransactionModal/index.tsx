@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { TransactionStore } from 'stores/Transaction';
 import TransactionList from 'components/organisms/TransactionList';
 import { useHistory, useParams } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
 import * as S from './style';
 
 export interface Props {
@@ -50,4 +49,4 @@ const DateTransactionModal = ({
   );
 };
 
-export default observer(DateTransactionModal);
+export default DateTransactionModal;
