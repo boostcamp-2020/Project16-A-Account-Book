@@ -7,6 +7,7 @@ import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import CalenderBind from 'components/organisms/CalenderBind';
 import NavBarComponent from 'components/organisms/NavBar';
+import NoData from 'components/organisms/NoData';
 
 const CalenderPage = () => {
   useEffect(() => {
@@ -19,13 +20,19 @@ const CalenderPage = () => {
       total={TransactionStore.totalPrices}
     />
   );
+  const selectedDate = {
+    startDate: toJS(TransactionStore.dates.startDate),
+    endDate: toJS(TransactionStore.dates.endDate),
+  };
 
   if (toJS(TransactionStore.transactions).length === 0) {
+    const ContentsComponent = <NoData />;
+
     return (
       <Template
         HeaderBar={<Header />}
         SubHeaderBar={SubHeaderBar}
-        Contents={<CalenderBind isSundayStart transactions={[]} />}
+        Contents={ContentsComponent}
         NavBar={<NavBarComponent />}
       />
     );
@@ -36,6 +43,7 @@ const CalenderPage = () => {
       <CalenderBind
         isSundayStart
         transactions={toJS(TransactionStore.transactions)}
+        selectedDate={selectedDate}
       />
     </>
   );

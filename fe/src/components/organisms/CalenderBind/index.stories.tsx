@@ -97,51 +97,7 @@ const testAccountDateList = {
       __v: 0,
     },
   ],
-  '2020-11-12': [
-    {
-      excludeFromBudget: false,
-      _id: 'aaa',
-      client: '삼겹살',
-      date: '2020-11-12T00:00:00.000Z',
-      memo: '1일메모',
-      method: {
-        _id: 'naver',
-        title: '네이버페이',
-        __v: 0,
-      },
-      category: {
-        _id: 'incomeid',
-        type: 'INCOME',
-        title: '식사',
-        color: '#102e94',
-        __v: 0,
-      },
-      price: 10000,
-      __v: 0,
-    },
 
-    {
-      excludeFromBudget: false,
-      _id: 'bbb',
-      client: '삼겹살d',
-      date: '2020-11-12T00:20:00.000Z',
-      memo: '1일메모',
-      method: {
-        _id: 'naver',
-        title: '네이버페이',
-        __v: 0,
-      },
-      category: {
-        _id: 'incomeid',
-        type: 'EXPENSE',
-        title: '식사',
-        color: '#102e94',
-        __v: 0,
-      },
-      price: 10000,
-      __v: 0,
-    },
-  ],
   '2020-12-12': [
     {
       excludeFromBudget: false,
@@ -164,7 +120,6 @@ const testAccountDateList = {
       price: 10000,
       __v: 0,
     },
-
     {
       excludeFromBudget: false,
       _id: 'bbb',
@@ -187,12 +142,109 @@ const testAccountDateList = {
       __v: 0,
     },
   ],
+  '2021-2-12': [
+    {
+      excludeFromBudget: false,
+      _id: 'aaa',
+      client: '삼겹살',
+      date: '2021-02-12T00:01111.000Z',
+      memo: '1일메모',
+      method: {
+        _id: 'naver',
+        title: '네이버페이',
+        __v: 0,
+      },
+      category: {
+        _id: 'incomeid',
+        type: 'INCOME',
+        title: '식사',
+        color: '#102e94',
+        __v: 0,
+      },
+      price: 10000,
+      __v: 0,
+    },
+
+    {
+      excludeFromBudget: false,
+      _id: 'bbb',
+      client: '삼겹살d',
+      date: '2021-02-12T00:21:00.000Z',
+      memo: '1일메모',
+      method: {
+        _id: 'naver',
+        title: '네이버페이',
+        __v: 0,
+      },
+      category: {
+        _id: 'incomeid',
+        type: 'EXPENSE',
+        title: '식사',
+        color: '#102e94',
+        __v: 0,
+      },
+      price: 10000,
+      __v: 0,
+    },
+  ],
+  '2021-2-13': [
+    {
+      excludeFromBudget: false,
+      _id: 'aaa',
+      client: '삼겹살',
+      date: '2021-02-13T00:01111.000Z',
+      memo: '1일메모',
+      method: {
+        _id: 'naver',
+        title: '네이버페이',
+        __v: 0,
+      },
+      category: {
+        _id: 'incomeid',
+        type: 'INCOME',
+        title: '식사',
+        color: '#102e94',
+        __v: 0,
+      },
+      price: 10000,
+      __v: 0,
+    },
+
+    {
+      excludeFromBudget: false,
+      _id: 'bbb',
+      client: '삼겹살d',
+      date: '2021-02-13T00:21:00.000Z',
+      memo: '1일메모',
+      method: {
+        _id: 'naver',
+        title: '네이버페이',
+        __v: 0,
+      },
+      category: {
+        _id: 'incomeid',
+        type: 'EXPENSE',
+        title: '식사',
+        color: '#102e94',
+        __v: 0,
+      },
+      price: 10000,
+      __v: 0,
+    },
+  ],
 };
 
 export const SundayStart = () => {
   return (
     <GlobalThemeProvider>
-      <CalenderBind isSundayStart transactions={testAccountDateList} />
+      <CalenderBind
+        isSundayStart
+        transactions={testAccountDateList}
+        selectedDate={{
+          startDate: new Date('2020-10-01'),
+          endDate: new Date('2021-06-30'),
+        }}
+      />
     </GlobalThemeProvider>
   );
 };
@@ -200,7 +252,14 @@ export const SundayStart = () => {
 export const MondayStart = () => {
   return (
     <GlobalThemeProvider>
-      <CalenderBind isSundayStart={false} transactions={testAccountDateList} />
+      <CalenderBind
+        isSundayStart={false}
+        transactions={testAccountDateList}
+        selectedDate={{
+          startDate: new Date('2020-10-01'),
+          endDate: new Date('2021-06-30'),
+        }}
+      />
     </GlobalThemeProvider>
   );
 };
