@@ -28,4 +28,7 @@ export default {
       transaction,
     });
   },
+  deleteTransaction(accountObjId: string, transactionObjId: string) {
+    return axios.delete(url.transactionDelete(accountObjId, transactionObjId));
+  },
 };
