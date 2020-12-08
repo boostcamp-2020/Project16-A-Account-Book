@@ -1,8 +1,10 @@
 export default {
   transaction: (accountObjId: string) => `/api/${accountObjId}/transactions/`,
+  transactionUpdate: (accountObjId: string, transactionObjid: string) =>
+    `/api/${accountObjId}/transactions/update/${transactionObjid}`,
 
-  transactionDetail: (transactionObjId: string) =>
-    `/api/${transactionObjId}/transactions/detail`,
+  transactionDetail: (accountObjId: string, transactionObjId: string) =>
+    `/api/${accountObjId}/transactions/detail/${transactionObjId}`,
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
 
