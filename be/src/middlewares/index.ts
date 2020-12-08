@@ -28,10 +28,11 @@ export const authorization = async (
       throw unAuthroziedError;
     }
     ctx.request.body.user = user;
-    await next();
   } catch (e) {
     throw unAuthroziedError;
   }
+
+  await next();
 };
 
 export const verifyAccountAccess = async (
@@ -40,12 +41,11 @@ export const verifyAccountAccess = async (
 ) => {
   const { accountObjId } = ctx.params;
   const { user } = ctx.request.body;
-
   if (!user) {
     throw unAuthroziedError;
   }
   const userHasAccountId = user.accounts.some(
-    (account: string) => account === accountObjId,
+    (account: object) => String(account) === accountObjId,
   );
   if (!userHasAccountId) {
     throw invalidAccessError;
