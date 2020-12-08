@@ -97,7 +97,13 @@ const Calendar = ({
       defaultStartDay,
     );
     const oneWeekComponentList = oneWeekListData.map((el) => {
-      return <S.OneWeek key={el[0].date} oneDateList={el} />;
+      return (
+        <S.OneWeek
+          key={el[0].date}
+          oneDateList={el}
+          selectedDate={selectedDate}
+        />
+      );
     });
 
     return (
@@ -113,7 +119,13 @@ const Calendar = ({
   const oneWeekListData = getOneWeekListData(oneDateList, defaultStartDay);
 
   const oneWeekComponentList = oneWeekListData.map((el) => {
-    return <S.OneWeek key={el[0].date} oneDateList={el} />;
+    return (
+      <S.OneWeek
+        key={el[0].date}
+        oneDateList={el}
+        selectedDate={selectedDate}
+      />
+    );
   });
 
   return (

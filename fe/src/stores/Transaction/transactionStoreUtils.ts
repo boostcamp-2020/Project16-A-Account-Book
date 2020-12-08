@@ -25,6 +25,21 @@ const TransactionsReduce = (
   return oneDayPrice;
 };
 
+export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
+  if (typeof input === 'string') {
+    return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
+  }
+  return input.map((el) => {
+    const { _id, category, method, ...other } = el;
+    return {
+      ...other,
+      id: _id,
+      category: category.title,
+      method: method.title,
+    };
+  });
+};
+
 export const calTotalPrices = (list: any) => {
   return Object.values<any[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {

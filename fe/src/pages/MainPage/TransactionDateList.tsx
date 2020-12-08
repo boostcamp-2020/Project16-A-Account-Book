@@ -1,20 +1,6 @@
 import React from 'react';
-import AccountDate from 'components/organisms/AccountDate';
-
-const convertTransactionDBTypetoTransactionType = (input: any[]) => {
-  if (typeof input === 'string') {
-    return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
-  }
-  return input.map((el) => {
-    const { _id, category, method, ...other } = el;
-    return {
-      ...other,
-      id: _id,
-      category: category.title,
-      method: method.title,
-    };
-  });
-};
+import AccountDate from 'components/organisms/TransactionList';
+import { convertTransactionDBTypetoTransactionType } from 'stores/Transaction/transactionStoreUtils';
 
 type TransactionDBKeyValue = [date: string, transactions: any];
 

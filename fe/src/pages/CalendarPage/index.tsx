@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
@@ -8,11 +8,25 @@ import MonthInfo from 'components/organisms/MonthInfoHeader';
 import CalenderBind from 'components/organisms/CalendarBind';
 import NavBarComponent from 'components/organisms/NavBar';
 import NoData from 'components/organisms/NoData';
+import DateTransactionModal from 'components/organisms/DateTransactionModal';
 
 const CalenderPage = () => {
+  const dateModal = useRef<HTMLDivElement>();
+  let loaded = false;
+
   useEffect(() => {
-    TransactionStore.loadTransactions();
-  }, []);
+    if (!loaded) {
+      TransactionStore.loadTransactions();
+      loaded = true;
+    }
+    if (dateModal.current) {
+      if (TransactionStore.isCalendarModalOpen) {
+        dateModal.current.classList.add('visible');
+      } else {
+        dateModal.current.classList.remove('visible');
+      }
+    }
+  }, [TransactionStore.isCalendarModalOpen]);
 
   const SubHeaderBar = (
     <MonthInfo
@@ -25,7 +39,7 @@ const CalenderPage = () => {
     endDate: toJS(TransactionStore.dates.endDate),
   };
 
-  if (toJS(TransactionStore.transactions).length === 0) {
+  if (Object.keys(toJS(TransactionStore.transactions)).length === 0) {
     const ContentsComponent = <NoData />;
 
     return (
@@ -40,6 +54,7 @@ const CalenderPage = () => {
 
   const Contents = (
     <>
+      <DateTransactionModal ref={dateModal} />
       <CalenderBind
         isSundayStart
         transactions={toJS(TransactionStore.transactions)}
