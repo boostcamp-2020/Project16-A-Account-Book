@@ -59,6 +59,7 @@ export const getGithubAccessToken = async (code: string) => {
     const methods = await MethodModel.createDefaultMethod();
     const newAccount = new AccountModel({
       title: login,
+      owner: login,
       categories,
       methods,
     });
