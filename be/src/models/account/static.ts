@@ -28,7 +28,7 @@ export async function findByPkAndGetTransCategory(
 }
 
 export async function findByPkList(this: any, accountObjIdList: string[]) {
-  const accounts = accountObjIdList.map(async (el: string) => {
+  const accounts = accountObjIdList.map((el: string) => {
     const result = this.findById(String(el)).exec();
     return result;
   });
