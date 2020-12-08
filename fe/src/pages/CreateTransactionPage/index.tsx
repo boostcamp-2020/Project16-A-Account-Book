@@ -5,7 +5,7 @@ import useTransactionInput from 'hooks/useTransactionInput';
 import transactionAPI from 'apis/transaction';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import isCanSubmit from 'utils/isCanSubmit';
 
 const classifications = ['지출', '수입'];
@@ -13,7 +13,6 @@ const classifications = ['지출', '수입'];
 const CreateTransacionPage = () => {
   const [transactionState, setInputState] = useTransactionInput();
   const history = useHistory();
-  const { title, owner } = useParams<{ title: string; owner: string }>();
 
   const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
@@ -37,7 +36,7 @@ const CreateTransacionPage = () => {
       TransactionStore.accountObjId,
       transactionState,
     );
-    history.push(`/transactions/${owner}/${title}`);
+    history.goBack();
   };
   const Main = (
     <TransactionForm
