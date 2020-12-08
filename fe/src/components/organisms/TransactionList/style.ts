@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import DateMoneyHeader from 'components/molecules/DateMoneyHeader';
 import Transaction from 'components/molecules/Transaction';
 
-export const AccountDate = styled.div`
+export const TransactionList = styled.div`
   margin-top: 1.4em;
 `;
 

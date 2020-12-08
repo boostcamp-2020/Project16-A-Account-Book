@@ -47,7 +47,10 @@ const oneDateList = [
 export const Default = () => {
   return (
     <GlobalThemeProvider>
-      <CalendarOneWeek oneDateList={oneDateList} />
+      <CalendarOneWeek
+        oneDateList={oneDateList}
+        selectedDate={new Date('2020-11-01')}
+      />
     </GlobalThemeProvider>
   );
 };
@@ -68,7 +71,10 @@ const start1Data = [
 export const Start1 = () => {
   return (
     <GlobalThemeProvider>
-      <CalendarOneWeek oneDateList={start1Data} />
+      <CalendarOneWeek
+        oneDateList={start1Data}
+        selectedDate={new Date('2020-11-01')}
+      />
     </GlobalThemeProvider>
   );
 };
@@ -89,7 +95,10 @@ const start29Data = [
 export const Start29 = () => {
   return (
     <GlobalThemeProvider>
-      <CalendarOneWeek oneDateList={start29Data} />
+      <CalendarOneWeek
+        oneDateList={start29Data}
+        selectedDate={new Date('2020-11-01')}
+      />
     </GlobalThemeProvider>
   );
 };

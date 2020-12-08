@@ -12,7 +12,7 @@ interface accType {
   totalPrice: number;
 }
 
-const AccountDate = ({ date, transactionList, onClick }: Props) => {
+const TransactionList = ({ date, transactionList, onClick }: Props) => {
   const reduceTransactionList = (acc: accType, transEl: any) => {
     acc.transList.push(
       <S.AccountTransaction
@@ -34,11 +34,11 @@ const AccountDate = ({ date, transactionList, onClick }: Props) => {
   );
 
   return (
-    <S.AccountDate>
+    <S.TransactionList>
       <S.Header date={date} totalPayment={totalPrice} />
       {transList}
-    </S.AccountDate>
+    </S.TransactionList>
   );
 };
 
-export default AccountDate;
+export default TransactionList;

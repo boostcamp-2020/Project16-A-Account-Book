@@ -2,14 +2,14 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import locksvg from 'assets/svg/lock.svg';
-import AccountDate from '.';
+import TransactionList from '.';
 
 export default {
-  title: 'organisms/AccountDate',
-  component: AccountDate,
+  title: 'organisms/TransactionList',
+  component: TransactionList,
 };
 
-export const AccountDateSample = () => {
+export const TransactionListSample = () => {
   const date = new Date();
 
   const testTransactionList: any[] = [
@@ -42,7 +42,7 @@ export const AccountDateSample = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AccountDate
+      <TransactionList
         date={date}
         transactionList={testTransactionList}
         onClick={() => {}}
