@@ -42,15 +42,11 @@ export const TransactionListSample = () => {
 
   return (
     <ThemeProvider theme={theme}>
-<<<<<<< HEAD:fe/src/components/organisms/TransactionList/index.stories.tsx
-      <TransactionList date={date} transactionList={testTransactionList} />
-=======
-      <AccountDate
+      <TransactionList
         date={date}
         transactionList={testTransactionList}
         onClick={() => {}}
       />
->>>>>>> f7eeed82f18652e1866eba578799b86ed30d89a9:fe/src/components/organisms/AccountDate/index.stories.tsx
     </ThemeProvider>
   );
 };
