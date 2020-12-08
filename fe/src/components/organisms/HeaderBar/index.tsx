@@ -3,17 +3,22 @@ import { Link } from 'react-router-dom';
 import { TransactionStore } from 'stores/Transaction';
 import * as S from './style';
 
-export interface Props {}
+export interface Props {
+  title?: string;
+}
 
 const onClickHandler = () => {
   TransactionStore.setAccountObjId('');
 };
 
-const HeaderBar = ({ ...props }: Props): React.ReactElement => {
+const HeaderBar = ({
+  title = 'N석봉',
+  ...props
+}: Props): React.ReactElement => {
   return (
     <S.HeaderBar {...props}>
       <Link to="/accounts" onClick={onClickHandler}>
-        N석봉
+        {title}
       </Link>
     </S.HeaderBar>
   );
