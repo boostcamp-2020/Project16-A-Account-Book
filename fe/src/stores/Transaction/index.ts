@@ -30,13 +30,6 @@ export interface ITransactionStore {
   };
 }
 
-const oneMonthDate = date.getOneMonthRange(
-  String(new Date().getFullYear()),
-  String(new Date().getMonth() + 1),
-);
-
-console.log('oneMonthDate : ', oneMonthDate);
-
 const initialState: ITransactionStore = {
   transactions: testAccountDateList,
 
