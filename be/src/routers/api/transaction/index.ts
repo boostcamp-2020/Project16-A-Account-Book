@@ -8,7 +8,7 @@ router.put(
   '/update/:transactionObjId',
   transactionController.updateTransaction,
 );
-
+router.delete(':transactionObjId', transactionController.deleteTransaction);
 router.get('/', transactionController.getTransactionList);
 router.post('/', transactionController.post);
 export default router;
