@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountDate from 'components/organisms/TranssactionList';
+import AccountDate from 'components/organisms/TransactionList';
 import { convertTransactionDBTypetoTransactionType } from 'stores/Transaction/transactionStoreUtils';
 
 type TransactionDBKeyValue = [date: string, transactions: any];

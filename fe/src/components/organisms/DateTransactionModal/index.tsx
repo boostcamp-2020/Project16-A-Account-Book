@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef } from 'react';
 import { TransactionStore } from 'stores/Transaction';
-import TransactionList from 'components/organisms/TranssactionList';
+import TransactionList from 'components/organisms/TransactionList';
 import * as S from './style';
 
 export interface Props {}
