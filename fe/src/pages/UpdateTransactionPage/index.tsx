@@ -43,11 +43,21 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
     );
     history.goBack();
   };
+
+  const onDeleteHandler = async (event: any) => {
+    event.preventDefault();
+    await transactionAPI.deleteTransaction(
+      TransactionStore.accountObjId,
+      transactionObjId as string,
+    );
+    history.goBack();
+  };
   const Main = (
     <TransactionForm
       InputFieldProps={inputFieldProps}
       onSubmit={onSubmitHandler}
       isUpdate
+      onDelete={onDeleteHandler}
     />
   );
 
