@@ -32,8 +32,7 @@ export async function findByPkList(this: any, accountObjIdList: string[]) {
     const result = this.findById(String(el)).exec();
     return result;
   });
-  const result = await Promise.all(accounts);
-  return result;
+  return Promise.all(accounts);
 }
 
 export class NotVaildException {
