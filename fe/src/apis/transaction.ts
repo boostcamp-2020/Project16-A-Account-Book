@@ -5,8 +5,11 @@ import axios from './axios';
 import url from './urls';
 
 export default {
-  getTransaction(transactionObjId: string): Promise<TransactionDBType> {
-    return axios.get(url.transactionDetail(transactionObjId));
+  getTransaction(
+    accountObjId: string,
+    transactionObjId: string,
+  ): Promise<TransactionDBType> {
+    return axios.get(url.transactionDetail(accountObjId, transactionObjId));
   },
   getTransactionList(accountObjId: string, query: object) {
     return axios.get(
@@ -16,7 +19,13 @@ export default {
   saveTransaction(accountObjId: string, transaction: TransactionItem) {
     return axios.post(url.transaction(accountObjId), { transaction });
   },
-  updateTransaction(transactionObjId: string, transaction: TransactionItem) {
-    return axios.put(url.transaction(transactionObjId), { transaction });
+  updateTransaction(
+    accountObjId: string,
+    transactionObjId: string,
+    transaction: TransactionItem,
+  ) {
+    return axios.put(url.transactionUpdate(accountObjId, transactionObjId), {
+      transaction,
+    });
   },
 };
