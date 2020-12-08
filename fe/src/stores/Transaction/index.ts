@@ -120,7 +120,7 @@ export const TransactionStore = makeAutoObservable({
       // 로딩관련 글씨를 보여주면 좋을 듯
       return { income: 0, expense: 0 };
     }
-    return calTotalPrices(this.transactions);
+    return calTotalPrices(toJS(this.transactions));
   },
   async loadTransactions() {
     this.state = state.PENDING;
