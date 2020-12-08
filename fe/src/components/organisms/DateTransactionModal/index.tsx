@@ -29,6 +29,7 @@ const DateTransactionModal = forwardRef(
           <TransactionList
             date={TransactionStore.modalData.date}
             transactionList={TransactionStore.modalData.transactionList}
+            onClick={() => {}}
           />
         </S.Content>
       </>
