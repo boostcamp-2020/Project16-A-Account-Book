@@ -7,9 +7,7 @@ const useAccountInfo = () => {
   const accountObjId = TransactionStore.getAccountId();
   const location = useLocation();
   const history = useHistory();
-  const [loading, setLoading] = useState<boolean>(
-    accountObjId ? accountObjId === '-1' : false,
-  );
+  const [loading, setLoading] = useState<boolean>(accountObjId === '');
   const getAccountInfo = async () => {
     const reg = /(\/transactions\/)(([^/])*)?\/(([^/])*)?/;
     const result = reg.exec(location.pathname);
