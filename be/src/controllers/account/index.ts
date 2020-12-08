@@ -2,7 +2,7 @@ import Koa from 'koa';
 import * as accountService from 'services/account';
 
 export const get = async (ctx: Koa.Context) => {
-  const res = await accountService.getAccounts();
+  const res = await accountService.getAccounts(ctx.request.body.user.accounts);
   ctx.status = 200;
   ctx.response.body = res;
 };
