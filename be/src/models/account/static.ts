@@ -46,7 +46,10 @@ export async function findByPkAndGetTransCategory(
   return accountInfo.transactions;
 }
 
-export async function findByPkList(this: any, accountObjIdList: string[]) {
+export async function findCategoryListByUser(
+  this: any,
+  accountObjIdList: string[],
+) {
   const accounts = accountObjIdList.map((el: string) => {
     const result = this.findById(String(el)).exec();
     return result;
