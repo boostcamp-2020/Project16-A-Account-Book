@@ -10,21 +10,14 @@ export const initTotalPrice = {
 
 const sumAllPricesByType = (
   summedPriceByType: { income: number; expense: number },
-  transaction: any,
+  transaction: TransactionDBType,
 ) => {
-  if (transaction.category.type === categoryType.INCOME) {
-    return {
-      ...summedPriceByType,
-      income: summedPriceByType.income + transaction.price,
-    };
-  }
-  if (transaction.category.type === categoryType.EXPENSE) {
-    return {
-      ...summedPriceByType,
-      expense: summedPriceByType.expense + transaction.price,
-    };
-  }
-  return summedPriceByType;
+  const type =
+    transaction.category.type === categoryType.INCOME ? 'income' : 'expense';
+  return {
+    ...summedPriceByType,
+    [type]: summedPriceByType[type] + transaction.price,
+  };
 };
 
 export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
