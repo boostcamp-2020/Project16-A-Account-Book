@@ -23,5 +23,6 @@ export default {
 
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
-  deleteCategory: 'api/categories/delete',
+  deleteCategory: (accountObjId: string, categoryObjId: string) =>
+    `/api/${accountObjId}/categories/${categoryObjId}`,
 };
