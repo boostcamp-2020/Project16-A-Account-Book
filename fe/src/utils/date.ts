@@ -24,6 +24,8 @@ export default {
   },
   getNextDate: (date: Date | string) =>
     dayjs(date).add(1, 'day').format('YYYY-MM-DD'),
+  subTractDate: (date: any, value = 1, format = 'YYYY-MM-DD') =>
+    dayjs(date).subtract(value, 'day').format(format),
   getOneWeekRange: (date: Date, standard?: boolean) => {
     const now = dayjs(date);
     const day = 1000 * 60 * 60 * 24;
