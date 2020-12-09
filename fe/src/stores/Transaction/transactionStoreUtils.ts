@@ -8,16 +8,15 @@ export const initTotalPrice = {
   expense: 0,
 };
 
-const sumAllPricesByType = (
-  summedPriceByType: { income: number; expense: number },
-  transaction: TransactionDBType,
-) => {
-  const type =
-    transaction.category.type === categoryType.INCOME ? 'income' : 'expense';
-  return {
-    ...summedPriceByType,
-    [type]: summedPriceByType[type] + transaction.price,
-  };
+export const sumAllPricesByType = (transactions: TransactionDBType[]) => {
+  return transactions.reduce((summedPriceByType, transaction) => {
+    const type =
+      transaction.category.type === categoryType.INCOME ? 'income' : 'expense';
+    return {
+      ...summedPriceByType,
+      [type]: summedPriceByType[type] + transaction.price,
+    };
+  }, initTotalPrice);
 };
 
 export const isNotMatchedWithFilterInfo = (transaction: TransactionDBType) => {
@@ -64,10 +63,7 @@ export const calTotalPrices = (list: {
 }) => {
   return Object.values<TransactionDBType[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
-      const summedPrices = transactions.reduce(
-        sumAllPricesByType,
-        initTotalPrice,
-      );
+      const summedPrices = sumAllPricesByType(transactions);
       return {
         income: acc.income + summedPrices.income,
         expense: acc.expense + summedPrices.expense,
