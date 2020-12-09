@@ -3,7 +3,7 @@ import {
   getCategories,
   postCategory,
   getCategoryStatistics,
-  putCategory,
+  updateCategory,
   deleteOneCategory,
 } from 'services/category';
 
@@ -36,7 +36,7 @@ const post = async (ctx: Context) => {
 const put = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
   const { objId, type, title, color } = ctx.request.body;
-  const res = await putCategory(objId, type, title, color, accountObjId);
+  const res = await updateCategory(objId, type, title, color, accountObjId);
   ctx.status = res.success ? 201 : 200;
   ctx.body = res;
 };
