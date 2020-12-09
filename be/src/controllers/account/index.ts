@@ -1,3 +1,4 @@
+import { kStringMaxLength } from 'buffer';
 import Koa from 'koa';
 import * as accountService from 'services/account';
 
@@ -6,13 +7,13 @@ export const get = async (ctx: Koa.Context) => {
     ctx.request.body.user._id,
   );
 
-  if (!res || !res.accounts) {
+  if (!res) {
     ctx.status = 204;
     ctx.response.body = [];
     return;
   }
   ctx.status = 200;
-  ctx.response.body = res.accounts;
+  ctx.response.body = res;
 };
 
 export const getThisAccountInfo = async (ctx: Koa.Context) => {
@@ -21,4 +22,14 @@ export const getThisAccountInfo = async (ctx: Koa.Context) => {
   ctx.status = 200;
   ctx.body = account;
 };
-export default { get, getThisAccountInfo };
+
+export const postAccountUser = async (ctx: Koa.Context) => {
+  const { accountObjId } = ctx.params;
+  const { userObjId } = ctx.request.body;
+  await accountService.addUserInAccount(accountObjId, userObjId);
+
+  ctx.status = 200;
+  ctx.body = { message: 'success' };
+};
+
+export default { get, getThisAccountInfo, postAccountUser };
