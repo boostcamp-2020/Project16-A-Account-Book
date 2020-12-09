@@ -7,6 +7,8 @@ import {
   calTotalPrices,
   convertTransactionDBTypetoTransactionType,
   calTotalPriceByDateAndType,
+  isNotMatchedWithFilterInfo,
+  sumAllPricesByType,
 } from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
@@ -26,7 +28,6 @@ export interface ITransactionStore {
   isCalendarModalOpen: boolean;
   modalDate: Date;
 }
-
 
 const oneMonthDate = date.getOneMonthRange(
   String(new Date().getFullYear()),
@@ -151,13 +152,29 @@ export const TransactionStore = makeAutoObservable({
   get totalExpensePriceByDate() {
     return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
   },
-  get totalPrices() {
-    if (this.state === state.PENDING) {
-      // TODO PENDING 일 때 0,0을 보여주면 잠시 깜빡거림
-      // 로딩관련 글씨를 보여주면 좋을 듯
+  get totalPrices(): { income: number; expense: number } {
+    if (this.state !== state.DONE) {
       return { income: 0, expense: 0 };
     }
-    return calTotalPrices(this.transactions);
+    if (this.isFiltered) {
+      return sumAllPricesByType(this.filteredTransactionList);
+    }
+    return calTotalPrices(this.getTransactionList());
+  },
+  get filteredTransactionList(): types.TransactionDBType[] {
+    if (!this.isFiltered) return [];
+    const { startDate, endDate } = this.getOriginDates();
+
+    const transactionList = Object.values<types.TransactionDBType[]>(
+      this.getTransactionList(),
+    ).reduce((appendedList, list) => [...appendedList, ...list], []);
+
+    const filteredTransactionList = transactionList.filter(
+      (transaction: types.TransactionDBType) =>
+        date.isDateInDateRange(transaction.date, startDate, endDate) &&
+        !isNotMatchedWithFilterInfo(transaction),
+    );
+    return filteredTransactionList;
   },
   getTransactionList() {
     return toJS(this.transactions);
