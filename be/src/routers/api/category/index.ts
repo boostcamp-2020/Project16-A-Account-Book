@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import koaCompose from 'koa-compose';
 import categoryController from 'controllers/category';
-import { verifyAccountAccess, isUnclassifide } from 'middlewares';
+import { isUnclassifide } from 'middlewares';
 
 const router = new Router();
 

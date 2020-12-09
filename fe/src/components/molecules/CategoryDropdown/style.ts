@@ -19,11 +19,9 @@ export const DropdownItem = styled.div`
 export const DropdownBodyWrap = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
   background-color: white;
   width: inherit;
-  z-index: 10;
-  border: 1px solid ${({ theme }) => theme.color.subText};
+  border-bottom: 1px solid ${({ theme }) => theme.color.subText};
   padding: 0.3em;
   top: 1.3rem;
   left: 0;
@@ -36,4 +34,13 @@ export const CategoryEditButton = styled(EditButton)`
 
 export const TitleSpan = styled.span`
   width: 90%;
+`;
+
+export const ColorBox = styled.div`
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  margin-right: 1em;
+  background-color: ${({ color }) => color};
+  border: 1px solid #ddd;
 `;

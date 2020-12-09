@@ -29,11 +29,12 @@ const CategoryDropdown = ({
               isClicked={isClicked}
               onClick={(e: MouseEvent) => {
                 e.preventDefault();
-                dropDownItemClicked(data._id);
+                dropDownItemClicked({ ...data });
               }}
               type="button"
               value="수정"
             />
+            <S.ColorBox color={data.color}> </S.ColorBox>
             <S.TitleSpan key={data.objectId}>{data.title}</S.TitleSpan>
             <S.CategoryEditButton
               key={data._id}
