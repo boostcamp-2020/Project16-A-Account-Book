@@ -25,7 +25,7 @@ const CategoryDropdown = ({
         (data: any): React.ReactElement => (
           <S.DropdownItem value={data} key={data._id} {...props}>
             <S.CategoryEditButton
-              key={data._id}
+              key={`category-edit-${data._id}`}
               isClicked={isClicked}
               onClick={(e: MouseEvent) => {
                 e.preventDefault();
@@ -35,7 +35,9 @@ const CategoryDropdown = ({
               value="수정"
             />
             <S.ColorBox color={data.color}> </S.ColorBox>
-            <S.TitleSpan key={data.objectId}>{data.title}</S.TitleSpan>
+            <div className="title-container">
+              <span key={data.objectId}>{data.title}</span>
+            </div>
             <S.CategoryEditButton
               key={data._id}
               isClicked={isClicked}
