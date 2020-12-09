@@ -3,7 +3,6 @@ import TransactionList from 'components/organisms/TransactionList';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 import { convertTransactionDBTypetoTransactionType } from 'stores/Transaction/transactionStoreUtils';
-
 import dateUtils from 'utils/date';
 
 type TransactionDBKeyValue = [date: string, transactions: any];
@@ -16,15 +15,16 @@ const TransactionDateList = ({
   onClick: any;
 }) => {
   const { startDate, endDate } = TransactionStore.getOriginDates();
-  const start = dateUtils.getStandardDate(startDate).getTime();
-  const end = dateUtils.getStandardDate(endDate).getTime();
 
   const mapFunc = (item: TransactionDBKeyValue) => {
     const [date, transactions] = item;
-    const targetDate = dateUtils.getStandardDate(new Date(date)).getTime();
 
-    if (TransactionStore.isFiltered && (targetDate < start || targetDate > end))
+    if (
+      TransactionStore.isFiltered &&
+      !dateUtils.isDateInDateRange(new Date(date), startDate, endDate)
+    )
       return '';
+
     const filteredTransactionList = convertTransactionDBTypetoTransactionType(
       transactions,
     );
