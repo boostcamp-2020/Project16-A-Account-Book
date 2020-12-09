@@ -24,12 +24,11 @@ export const addUserInAccount = async (
   accountObjId: string,
   userObjId: string,
 ) => {
-  const selectedUserModel = await UserModel.findById(userObjId);
-
-  const result = await AccountModel.update(
-    { _id: accountObjId },
-    { $addToSet: { users: selectedUserModel } },
+  const result = await AccountModel.findByPkAndPushUser(
+    userObjId,
+    accountObjId,
   );
+
   if (result.ok && result.nModified === 0) {
     return { success: true, message: '중복된 유저 입력' };
   }

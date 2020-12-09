@@ -1,4 +1,5 @@
 import { AccountModel, IAccountModel } from '.';
+import { UserModel } from '../user';
 
 export async function findAllTransactionExceptDeleted(
   this: any,
@@ -27,6 +28,20 @@ export async function findAccountByUserId(this: any, userId: string) {
     });
   });
   return userAccountList;
+}
+
+export async function findByPkAndPushUser(
+  this: any,
+  userObjId: string,
+  accountObjId: string,
+) {
+  const selectedUserModel = await UserModel.findById(userObjId);
+
+  const result = await AccountModel.update(
+    { _id: accountObjId },
+    { $addToSet: { users: selectedUserModel } },
+  );
+  return result;
 }
 
 export async function findByPkAndPushTransaction(
