@@ -127,7 +127,7 @@ export const postCategory = async (
   }
 };
 
-export const putCategory = async (
+export const updateCategory = async (
   objId: string,
   type: string,
   title: string,
