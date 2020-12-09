@@ -46,17 +46,6 @@ export async function findByPkAndGetTransCategory(
   return accountInfo.transactions;
 }
 
-export async function findCategoryListByUser(
-  this: any,
-  accountObjIdList: string[],
-) {
-  const accounts = accountObjIdList.map((el: string) => {
-    const result = this.findById(String(el)).exec();
-    return result;
-  });
-  return Promise.all(accounts);
-}
-
 export class NotVaildException {
   message: string;
 
