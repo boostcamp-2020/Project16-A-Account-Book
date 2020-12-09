@@ -1,4 +1,23 @@
-import { IAccountDocument, IAccountModel } from '.';
+import { IAccountModel } from '.';
+
+export async function findAllTransactionExceptDeleted(
+  this: any,
+  accountObjId: string,
+  startDate: string,
+  endDate: string,
+) {
+  const accountDocument = await this.findById(accountObjId, 'transactions')
+    .populate({
+      path: 'transactions',
+      match: {
+        date: { $gte: startDate, $lt: endDate },
+        isDeleted: { $eq: false },
+      },
+      populate: { path: 'category method' },
+    })
+    .exec();
+  return accountDocument.transactions;
+}
 
 export async function findByPkAndPushTransaction(
   this: any,
