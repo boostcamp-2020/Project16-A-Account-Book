@@ -54,7 +54,7 @@ const CalenderPage = () => {
 
   const Contents = (
     <>
-      <DateTransactionModal ref={dateModal} />
+      <DateTransactionModal refs={dateModal} />
       <CalenderBind
         isSundayStart
         transactions={toJS(TransactionStore.transactions)}

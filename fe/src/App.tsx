@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   useRouteMatch,
+  Redirect,
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import AccountListPage from 'pages/AccountListPage';
@@ -18,6 +19,7 @@ import MainPage from './pages/MainPage';
 import CreateTransactionPage from './pages/CreateTransactionPage';
 import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
@@ -91,9 +93,17 @@ const App = () => {
     <GlobalThemeProvider>
       <Router>
         <Switch>
+          <Route
+            exact
+            path="/"
+            component={() => {
+              return <Redirect to="/accounts" />;
+            }}
+          />
           <Route path="/login" component={LoginRouter} />
           <Route path="/accounts" component={AccountRouter} />
           <Route path="/transactions" component={TransactionRouter} />
+          <Route path="/" component={NotFoundPage} />
         </Switch>
       </Router>
     </GlobalThemeProvider>

@@ -10,7 +10,7 @@ export interface Props {
 const DateMoneyHeader = ({ date, totalPayment, ...props }: Props) => {
   return (
     <DateMoneyHeaderStyle {...props}>
-      <ReducedDate date={date} parseString="dz" />
+      <ReducedDate date={date} parseString="ymdz" />
       <PriceTag value={totalPayment} bold />
     </DateMoneyHeaderStyle>
   );

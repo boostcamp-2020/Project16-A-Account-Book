@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import FilterListInterface from './FilterListInterface';
-import * as S from './style';
-import CheckBox from '../../molecules/Checkbox';
+import * as S from '../style';
+import CheckBox from '../../../molecules/Checkbox';
 
 const TopFilter = ({
   filterTitle,

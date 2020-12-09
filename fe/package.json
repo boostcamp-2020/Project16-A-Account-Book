@@ -14,7 +14,6 @@
     "axios": "^0.21.0",
     "dayjs": "^1.9.6",
     "mobx": "^6.0.4",
-    "mobx-react": "^7.0.5",
     "mobx-react-lite": "^3.1.6",
     "polished": "^4.0.4",
     "query-string": "^6.13.7",

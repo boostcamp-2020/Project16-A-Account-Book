@@ -7,6 +7,7 @@ export const CalendarOneDate = styled(Button)`
   width: 14.5%;
   height: 5rem;
   text-align: left;
+  background-color: transparent;
 `;
 
 export const DateText = styled.div`
