@@ -7,6 +7,7 @@ import { TransactionStore } from 'stores/Transaction';
 import { useHistory } from 'react-router-dom';
 import isCanSubmit from 'utils/isCanSubmit';
 import queryString from 'query-string';
+import Header from 'components/organisms/HeaderBar';
 
 const classifications = ['지출', '수입'];
 
@@ -42,15 +43,29 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
     );
     history.goBack();
   };
+
+  const onDeleteHandler = async (event: any) => {
+    event.preventDefault();
+    await transactionAPI.deleteTransaction(
+      TransactionStore.accountObjId,
+      transactionObjId as string,
+    );
+    history.goBack();
+  };
   const Main = (
     <TransactionForm
       InputFieldProps={inputFieldProps}
       onSubmit={onSubmitHandler}
+      isUpdate
+      onDelete={onDeleteHandler}
     />
   );
 
   return (
-    <FormTransactionTemplate header={<div>트랜잭션 수정</div>} main={Main} />
+    <FormTransactionTemplate
+      header={<Header title="거래내역 수정" />}
+      main={Main}
+    />
   );
 };
 

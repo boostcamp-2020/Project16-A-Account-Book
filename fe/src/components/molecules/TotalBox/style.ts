@@ -6,7 +6,7 @@ const TotalBoxContainer = styled.div`
   font-size: ${({ theme }) => theme.fontSize.sm};
   .total-box__title {
     margin-right: 0.4rem;
-    color: ${({ theme }) => theme.color.subText};
+    color: ${({ theme }) => theme.color.black};
   }
   & + & {
     margin-top: 0.5rem;

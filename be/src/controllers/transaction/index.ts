@@ -5,13 +5,16 @@ import * as service from 'services/transaction';
 const getTransactionList = async (ctx: Koa.Context) => {
   const { startDate, endDate } = ctx.query;
   const { accountObjId } = ctx.params;
-  const res = await service.getTransactionList({
+  const transactionList = await service.getTransactionList({
     startDate,
     endDate,
     accountObjId,
   });
-  ctx.status = res.length === 0 ? 204 : 200;
-  ctx.body = res;
+  const groupedByDateTransactionList = service.sortAndGroupByDate(
+    transactionList,
+  );
+  ctx.status = transactionList.length === 0 ? 204 : 200;
+  ctx.body = groupedByDateTransactionList;
 };
 
 const getTransaction = async (ctx: Koa.Context) => {
@@ -50,4 +53,21 @@ const updateTransaction = async (ctx: Koa.Context) => {
   }
 };
 
-export default { getTransactionList, post, getTransaction, updateTransaction };
+const deleteTransaction = async (ctx: Koa.Context) => {
+  const { transactionObjId } = ctx.params;
+  try {
+    await service.deleteTransaction(transactionObjId);
+    ctx.status = 200;
+    ctx.res.end();
+  } catch (e) {
+    throw invalidTransactionError;
+  }
+};
+
+export default {
+  deleteTransaction,
+  getTransactionList,
+  post,
+  getTransaction,
+  updateTransaction,
+};

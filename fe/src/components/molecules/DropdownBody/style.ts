@@ -1,19 +1,7 @@
 import styled from 'styled-components';
-import Button from 'components/atoms/Button';
 
 export const CheckBoxContainer = styled.div`
   margin-left: auto;
-`;
-export const DropdownItem = styled(Button)`
-  border: none;
-  padding: 0.5rem;
-  & + & {
-    border-top: 1px solid ${({ theme }) => theme.color.subText};
-  }
-
-  background: transparent;
-  display: flex;
-  color: ${({ theme }) => theme.color.black};
 `;
 
 export const DropdownBodyWrap = styled.div`
@@ -27,4 +15,16 @@ export const DropdownBodyWrap = styled.div`
   padding: 0.3em;
   top: 1.3rem;
   left: 0;
+  .dropdown-item + .dropdown-item {
+    border-top: 1px solid ${({ theme }) => theme.color.subText};
+  }
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    border: none;
+    padding: 0.5rem;
+    background: transparent;
+    display: flex;
+    color: ${({ theme }) => theme.color.black};
+  }
 `;
