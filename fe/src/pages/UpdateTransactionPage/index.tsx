@@ -4,9 +4,10 @@ import TransactionForm from 'components/organisms/TransactionForm';
 import useTransactionInput from 'hooks/useTransactionInput';
 import transactionAPI from 'apis/transaction';
 import { TransactionStore } from 'stores/Transaction';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import isCanSubmit from 'utils/isCanSubmit';
 import queryString from 'query-string';
+import Header from 'components/organisms/HeaderBar';
 
 const classifications = ['지출', '수입'];
 
@@ -16,7 +17,6 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
     transactionObjId as string,
   );
   const history = useHistory();
-  const { title, owner } = useParams<{ title: string; owner: string }>();
 
   const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
@@ -41,17 +41,31 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
       transactionObjId as string,
       transactionState,
     );
-    history.push(`/transactions/${owner}/${title}`);
+    history.goBack();
+  };
+
+  const onDeleteHandler = async (event: any) => {
+    event.preventDefault();
+    await transactionAPI.deleteTransaction(
+      TransactionStore.accountObjId,
+      transactionObjId as string,
+    );
+    history.goBack();
   };
   const Main = (
     <TransactionForm
       InputFieldProps={inputFieldProps}
       onSubmit={onSubmitHandler}
+      isUpdate
+      onDelete={onDeleteHandler}
     />
   );
 
   return (
-    <FormTransactionTemplate header={<div>트랜잭션 수정</div>} main={Main} />
+    <FormTransactionTemplate
+      header={<Header title="거래내역 수정" />}
+      main={Main}
+    />
   );
 };
 

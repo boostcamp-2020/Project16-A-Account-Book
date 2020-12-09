@@ -53,4 +53,21 @@ const updateTransaction = async (ctx: Koa.Context) => {
   }
 };
 
-export default { getTransactionList, post, getTransaction, updateTransaction };
+const deleteTransaction = async (ctx: Koa.Context) => {
+  const { transactionObjId } = ctx.params;
+  try {
+    await service.deleteTransaction(transactionObjId);
+    ctx.status = 200;
+    ctx.res.end();
+  } catch (e) {
+    throw invalidTransactionError;
+  }
+};
+
+export default {
+  deleteTransaction,
+  getTransactionList,
+  post,
+  getTransaction,
+  updateTransaction,
+};

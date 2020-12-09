@@ -5,15 +5,15 @@ import useTransactionInput from 'hooks/useTransactionInput';
 import transactionAPI from 'apis/transaction';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import isCanSubmit from 'utils/isCanSubmit';
+import Header from 'components/organisms/HeaderBar';
 
 const classifications = ['지출', '수입'];
 
 const CreateTransacionPage = () => {
   const [transactionState, setInputState] = useTransactionInput();
   const history = useHistory();
-  const { title, owner } = useParams<{ title: string; owner: string }>();
 
   const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
@@ -37,7 +37,7 @@ const CreateTransacionPage = () => {
       TransactionStore.accountObjId,
       transactionState,
     );
-    history.push(`/transactions/${owner}/${title}`);
+    history.goBack();
   };
   const Main = (
     <TransactionForm
@@ -47,7 +47,10 @@ const CreateTransacionPage = () => {
   );
 
   return (
-    <FormTransactionTemplate header={<div>트랜잭션 생성</div>} main={Main} />
+    <FormTransactionTemplate
+      header={<Header title="거래내역 추가" />}
+      main={Main}
+    />
   );
 };
 

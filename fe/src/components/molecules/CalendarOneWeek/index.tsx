@@ -33,7 +33,7 @@ const CalendarOneDate = ({
           expense={el.expense}
           onClick={() => {
             TransactionStore.setModalVisible(true);
-            TransactionStore.setModalData(
+            TransactionStore.setModalClickDate(
               getDateString(selectedDate, el.date!),
             );
           }}

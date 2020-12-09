@@ -7,6 +7,7 @@ import IconStyle from './style';
 export interface Props {
   icon: string;
   size?: string;
+  className?: string;
 }
 
 export const iconTypes = {
@@ -15,8 +16,21 @@ export const iconTypes = {
   naver: naverSvg,
 };
 
-const Icon = ({ icon, size = 'md', ...props }: Props): React.ReactElement => {
-  return <IconStyle src={icon} alt="icon" size={size} {...props} />;
+const Icon = ({
+  icon,
+  size = 'md',
+  className,
+  ...props
+}: Props): React.ReactElement => {
+  return (
+    <IconStyle
+      src={icon}
+      alt="icon"
+      size={size}
+      {...props}
+      className={className}
+    />
+  );
 };
 
 export default Icon;
