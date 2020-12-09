@@ -50,8 +50,8 @@ const put = async (ctx: Context) => {
 };
 
 const deleteCategory = async (ctx: Context) => {
-  const { objId } = ctx.request.body;
-  const res = await deleteOneCategory(objId);
+  const { category } = ctx.params;
+  const res = await deleteOneCategory(category);
   if (res.success) {
     ctx.status = 200;
     ctx.body = res;
