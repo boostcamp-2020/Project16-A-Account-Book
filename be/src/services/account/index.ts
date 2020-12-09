@@ -69,6 +69,16 @@ export const updateAccountByUserAndAccountInfo = async (
   await Promise.all([updateAccount.save()]);
 };
 
+export const deleteAccountByAccountInfo = async (accountObjId: String) => {
+  const deleteAccount = await AccountModel.findOneAndDelete({
+    _id: accountObjId,
+  });
+
+  if (!deleteAccount) {
+    throw accountNoChange;
+  }
+};
+
 export const addUserInAccount = async (
   accountObjId: string,
   userObjId: string,
