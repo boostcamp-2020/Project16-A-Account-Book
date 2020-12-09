@@ -18,7 +18,6 @@ const visibleHandler = (contentRef: React.RefObject<HTMLDivElement>) => (
   TransactionStore.setModalVisible(false);
 };
 
-
 const DateTransactionModal = ({
   refs,
   ...props
