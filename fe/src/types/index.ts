@@ -41,7 +41,7 @@ export interface ICheckMethod extends IMethod {
 }
 export interface IFilterCategory {
   disabled: boolean;
-  list: ICheckCategory[];
+  list: Array<string>;
 }
 
 export interface ICategoryStatistics extends Omit<ICategory, '__v' | 'type'> {

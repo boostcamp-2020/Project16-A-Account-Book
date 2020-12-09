@@ -18,7 +18,7 @@ const MainPage = () => {
 
   useEffect(() => {
     TransactionStore.loadTransactions();
-  }, []);
+  }, [TransactionStore.dates]);
 
   const SubHeaderBar = (
     <MonthInfo
@@ -37,7 +37,7 @@ const MainPage = () => {
     <div>
       <FilterBar />
       <TransactionDateList
-        list={toJS(TransactionStore.transactions)}
+        list={TransactionStore.getTransactionList()}
         onClick={onClickHandler}
       />
     </div>
