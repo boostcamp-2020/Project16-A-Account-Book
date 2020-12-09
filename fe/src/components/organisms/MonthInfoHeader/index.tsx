@@ -3,6 +3,7 @@ import TotalBox from 'components/molecules/TotalBox';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import dateUtils from 'utils/date';
+import DateRange from 'components/molecules/DateRange';
 import { MonthInfoHeaderContainer, MonthButton } from './style';
 
 interface MonthInfoHeaderInterface {
@@ -25,13 +26,7 @@ const MonthInfoHeader = ({
 }: MonthInfoHeaderInterface) => {
   return (
     <MonthInfoHeaderContainer>
-      <MonthButton onClick={() => {}} size="xl" border>
-        <>
-          {`시작 날짜 : ${date.startDate}`}
-          {`끝 날짜 : ${date.endDate}`}
-        </>
-      </MonthButton>
-
+      <DateRange dates={date} />
       <div>
         <TotalBox title="수입" total={total.income} />
         <TotalBox title="지출" total={total.expense} />
