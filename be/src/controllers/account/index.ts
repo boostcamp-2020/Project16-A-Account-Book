@@ -1,4 +1,3 @@
-import { kStringMaxLength } from 'buffer';
 import Koa from 'koa';
 import * as accountService from 'services/account';
 
