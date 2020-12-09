@@ -4,38 +4,65 @@ import {
   Switch,
   Route,
   useRouteMatch,
+  Redirect,
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import AccountListPage from 'pages/AccountListPage';
-import CalenderPage from 'pages/CalenderPage';
+import CalendarPage from 'pages/CalendarPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
 import StatisticsDetailPage from 'pages/StatisticsDetailPage';
+import useAccountInfo from 'hooks/useAccountInfo';
 import LoginPage from './pages/LoginPage';
 import OauthCallbackPage from './pages/OauthCallbackPage';
 import MainPage from './pages/MainPage';
 import CreateTransactionPage from './pages/CreateTransactionPage';
+import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
+import NotFoundPage from './pages/NotFoundPage';
+import ChattingPage from './pages/ChattingPage';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
+  const [loading] = useAccountInfo();
   return (
     <>
       <AuthCheck />
-      <Switch>
-        <Route
-          path={`${url}/:title/create`}
-          component={CreateTransactionPage}
-        />
-        <Route
-          path={`${url}/:title/statistics/detail`}
-          component={StatisticsDetailPage}
-        />
-        <Route path={`${url}/:title/statistics`} component={StatisticsPage} />
-        <Route path={`${url}/:title/calender`} component={CalenderPage} />
-        <Route path={`${url}/:title/category`} component={CategoryPage} />
-        <Route path={`${url}/:title`} component={MainPage} />
-      </Switch>
+      {!loading && (
+        <>
+          <Switch>
+            <Route
+              path={`${url}/:owner/:title/create`}
+              component={CreateTransactionPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/update`}
+              component={UpdateTransactionPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/statistics/detail`}
+              component={StatisticsDetailPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/statistics`}
+              component={StatisticsPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/calendar`}
+              component={CalendarPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/category`}
+              component={CategoryPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/chatting`}
+              component={ChattingPage}
+            />
+            <Route path={`${url}/:owner/:title`} component={MainPage} />
+          </Switch>
+        </>
+      )}
     </>
   );
 };
@@ -71,9 +98,17 @@ const App = () => {
     <GlobalThemeProvider>
       <Router>
         <Switch>
+          <Route
+            exact
+            path="/"
+            component={() => {
+              return <Redirect to="/accounts" />;
+            }}
+          />
           <Route path="/login" component={LoginRouter} />
           <Route path="/accounts" component={AccountRouter} />
           <Route path="/transactions" component={TransactionRouter} />
+          <Route path="/" component={NotFoundPage} />
         </Switch>
       </Router>
     </GlobalThemeProvider>

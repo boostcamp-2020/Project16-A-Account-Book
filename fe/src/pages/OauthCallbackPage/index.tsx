@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import loadingImg from 'assets/svg/loading.svg';
-import { TransactionStore } from 'stores/Transaction';
 import auth from 'apis/auth';
-import user from 'apis/user';
 import qs from 'query-string';
 import Container from './style';
 
@@ -18,18 +16,9 @@ function OauthCallbackPage({
   useEffect(() => {
     const getToken = async () => {
       if (code == null) return;
-      const result: any = await auth.getAccessToken(code);
+      await auth.getAccessToken(code);
       setIsLoading(false);
-      const { accounts } = result;
-      const accountObjId = accounts[0];
-      const titleResult: any = await user.getTitleById(accountObjId);
-      const { title } = titleResult;
-      sessionStorage.setItem(
-        'account',
-        JSON.stringify({ id: accountObjId, title }),
-      );
-      TransactionStore.setAccountObjId(accountObjId);
-      history.push(`/transactions/${title}`);
+      history.push('/accounts');
     };
     getToken();
   }, []);

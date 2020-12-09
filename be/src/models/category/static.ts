@@ -28,8 +28,14 @@ export async function createDefaultCategory(
     });
     return acc;
   };
+  const unclassified = {
+    title: '미분류',
+    color: '#000000',
+    type: categoryType.UNCLASSIFIED,
+  };
   const categories = expense.reduce(reducer(categoryType.EXPENSE), []);
   income.reduce(reducer(categoryType.INCOME), categories);
+  categories.push(unclassified);
   return this.insertMany(categories);
 }
 

@@ -26,6 +26,7 @@ const color = {
 
   lightBorder: '#e6e6e6',
   green: '#20C997',
+  transparentBackground: 'rgba(0, 0, 0, 0.1)',
 };
 
 const theme = {

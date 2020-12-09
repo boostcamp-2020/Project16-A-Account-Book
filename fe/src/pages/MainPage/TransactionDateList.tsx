@@ -1,33 +1,40 @@
 import React from 'react';
-import AccountDate from 'components/organisms/AccountDate';
+import TransactionList from 'components/organisms/TransactionList';
+import { TransactionStore } from 'stores/Transaction';
+import { observer } from 'mobx-react-lite';
+import { convertTransactionDBTypetoTransactionType } from 'stores/Transaction/transactionStoreUtils';
 
-const convertTransactionDBTypetoTransactionType = (input: any[]) => {
-  if (typeof input === 'string') {
-    return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
-  }
-  return input.map((el) => {
-    const { _id, category, method, ...other } = el;
-    return {
-      ...other,
-      id: _id,
-      category: category.title,
-      method: method.title,
-    };
-  });
-};
+import dateUtils from 'utils/date';
 
 type TransactionDBKeyValue = [date: string, transactions: any];
 
-const TransactionDateList = ({ list }: { list: any }) => {
+const TransactionDateList = ({
+  list,
+  onClick,
+}: {
+  list: any;
+  onClick: any;
+}) => {
+  const { startDate, endDate } = TransactionStore.getOriginDates();
+  const start = dateUtils.getStandardDate(startDate).getTime();
+  const end = dateUtils.getStandardDate(endDate).getTime();
+
   const mapFunc = (item: TransactionDBKeyValue) => {
     const [date, transactions] = item;
+    const targetDate = dateUtils.getStandardDate(new Date(date)).getTime();
+
+    if (TransactionStore.isFiltered && (targetDate < start || targetDate > end))
+      return '';
+    const filteredTransactionList = convertTransactionDBTypetoTransactionType(
+      transactions,
+    );
+    if (filteredTransactionList.length === 0) return '';
     return (
-      <AccountDate
+      <TransactionList
         key={date}
         date={new Date(date)}
-        transactionList={convertTransactionDBTypetoTransactionType(
-          transactions as [],
-        )}
+        onClick={onClick}
+        transactionList={filteredTransactionList}
       />
     );
   };
@@ -35,4 +42,4 @@ const TransactionDateList = ({ list }: { list: any }) => {
   return <>{Object.entries(list).map(mapFunc)}</>;
 };
 
-export default TransactionDateList;
+export default observer(TransactionDateList);

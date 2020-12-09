@@ -59,6 +59,7 @@ export const getGithubAccessToken = async (code: string) => {
     const methods = await MethodModel.createDefaultMethod();
     const newAccount = new AccountModel({
       title: login,
+      owner: login,
       categories,
       methods,
     });
@@ -69,6 +70,12 @@ export const getGithubAccessToken = async (code: string) => {
     });
     await Promise.all([newAccount.save(), user.save()]);
   }
-  const token = jwt.sign(id, jwtConfig.jwtSecret);
+  const token = jwt.sign(
+    {
+      id,
+    },
+    jwtConfig.jwtSecret,
+    { expiresIn: jwtConfig.jwtExpires },
+  );
   return { token, user };
 };

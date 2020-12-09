@@ -1,6 +1,6 @@
 import { Schema, Types, model, Document } from 'mongoose';
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
   timezone: {
     type: String,
     default: 'Asia/Seoul',
@@ -9,7 +9,10 @@ const UserSchema = new Schema({
     type: String,
     default: 'sunday',
   },
-  nickname: String,
+  nickname: {
+    type: String,
+    required: true,
+  },
   id: {
     type: String,
   },
@@ -35,6 +38,7 @@ export interface IUserDocument extends Document {
   id?: String;
   password?: String;
   salt?: String;
+  nickname: String;
 }
 
 export const UserModel = model<IUserDocument>('users', UserSchema);
