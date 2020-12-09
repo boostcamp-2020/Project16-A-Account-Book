@@ -27,6 +27,7 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-compose": "^4.1.0",
     "koa-router": "^10.0.0",
     "mongoose": "~5.10.15",
     "passport-local-mongoose": "^6.0.1",
