@@ -58,7 +58,6 @@ function CategoryPage(): React.ReactElement {
   const selectedRef = useRef<string>('');
 
   const editButtonHandler = () => setIsClicked(!isClicked);
-
   useEffect(() => {
     MethodStore.loadMethods();
     CategoryStore.loadCategories();
@@ -79,27 +78,28 @@ function CategoryPage(): React.ReactElement {
     selectedRef.current = objId;
     setDeleteVisible(true);
   };
-
-  const deleteConfirm = async () => {
-    await categoryAPI.deleteCategory(
-      TransactionStore.accountObjId,
-      selectedRef.current,
-    );
-    selectedRef.current = '';
-    CategoryStore.loadCategories();
-    setDeleteVisible(false);
-  };
-  const confirm = async () => {
-    const apiFuc = type === 'METHOD' ? methodConfirm : categoryConfirm;
+  const loadStore = () => {
     const loadFuc =
       type === 'METHOD'
         ? MethodStore.loadMethods.bind(MethodStore)
         : CategoryStore.loadCategories.bind(CategoryStore);
+    loadFuc();
+  };
+  const removeConfirm = async () => {
+    const apiFuc =
+      type === 'METHOD' ? methodAPI.removeMethod : categoryAPI.deleteCategory;
+    await apiFuc(TransactionStore.accountObjId, selectedRef.current);
+    loadStore();
+    setDeleteVisible(false);
+  };
+
+  const confirm = async () => {
+    const apiFuc = type === 'METHOD' ? methodConfirm : categoryConfirm;
     const result: any = await apiFuc();
     if (result.error) {
       alert(result.error);
     } else {
-      loadFuc();
+      loadStore();
       selectedRef.current = '';
       onCancle(setVisible)();
     }
@@ -156,7 +156,7 @@ function CategoryPage(): React.ReactElement {
   const DC = (
     <D
       deleteCancel={onCancle(setDeleteVisible)}
-      deleteConfirm={deleteConfirm}
+      deleteConfirm={removeConfirm}
     />
   );
   const bodyContent = (
