@@ -17,4 +17,4 @@ const LabelWrap = ({ htmlFor, title, children }: Props): React.ReactElement => {
   );
 };
 
-export default LabelWrap;
+export default React.memo(LabelWrap);
