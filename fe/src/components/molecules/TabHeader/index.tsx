@@ -14,9 +14,6 @@ const TabHeader = ({ onClickHandler }: Props) => {
       <S.TabButton value="INCOME" onClick={onClickHandler}>
         수입
       </S.TabButton>
-      <S.TabButton value="이체" onClick={onClickHandler}>
-        이체
-      </S.TabButton>
     </S.TabUI>
   );
 };

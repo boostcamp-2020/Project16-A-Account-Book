@@ -7,9 +7,8 @@ export interface ModalProps extends S.ModalProps {
 
 const Modal = ({ visible, content }: ModalProps) => {
   return (
-    <S.ModalContainer>
-      <S.ModalOverlay visible={visible} />
-      <S.ModalWrapper visible={visible}>
+    <S.ModalContainer visible={visible}>
+      <S.ModalWrapper>
         <S.ModalInner>{content}</S.ModalInner>
       </S.ModalWrapper>
     </S.ModalContainer>

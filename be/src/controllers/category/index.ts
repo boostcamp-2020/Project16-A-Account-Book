@@ -26,8 +26,10 @@ const getStatisticsInfo = async (ctx: Context) => {
 };
 
 const post = async (ctx: Context) => {
-  const { type, title, color, accountObjId } = ctx.request.body;
+  const { accountObjId } = ctx.params;
+  const { type, title, color } = ctx.request.body;
   const res = await postCategory(type, title, color, accountObjId);
+
   if (res.success) {
     ctx.status = 200;
     ctx.body = res;

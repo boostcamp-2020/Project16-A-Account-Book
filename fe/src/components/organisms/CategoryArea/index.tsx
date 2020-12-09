@@ -36,14 +36,14 @@ const CategoryArea = ({
         />
       </S.EditButtonArea>
       <S.DropDownContainer>
-        <S.CustomDropDownBody>
+        <div>
           <CategoryDropdown
             dataList={dataList}
             dropDownItemClicked={dropDownItemClicked}
             isClicked={isClicked}
             deleteClicked={deleteClicked}
           />
-        </S.CustomDropDownBody>
+        </div>
       </S.DropDownContainer>
       <S.TabBottomArea>
         <S.StyledButton icon={PlusIcon} onClick={onPlusButtonClick} />

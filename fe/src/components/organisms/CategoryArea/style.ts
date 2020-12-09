@@ -1,20 +1,12 @@
 import styled from 'styled-components';
 import IconButton from 'components/molecules/IconButton';
 
-export const CustomDropDownBody = styled.div`
-  position: relative;
-  width: 98%;
-  height: 25rem;
-  overflow-y: auto;
-`;
-
 export const CustomEditButton = styled.input`
-  width: 5%;
   font-size: ${({ theme }) => theme.fontSize.xs};
   background: none;
   border: none;
   color: ${({ theme }) => theme.color.selectedBlue};
-  margin-right: 1rem;
+  margin-right: 0.8rem;
   padding: 0%;
 `;
 
@@ -31,21 +23,24 @@ export const TabUIContainer = styled.div`
 `;
 
 export const DropDownContainer = styled.div`
+  height: calc(100% - 6.7rem);
   width: 100%;
+  overflow-y: auto;
 `;
 
 export const EditButtonArea = styled.div`
-  width: 100%;
+  padding: 0.8rem;
   display: flex;
   justify-content: flex-end;
-  padding: 1% 0;
   background-color: ${({ theme }) => theme.color.grayBackground};
 `;
 
 export const TabBottomArea = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
+  position: fixed;
+  bottom: 5rem;
+  right: 0.5rem;
 `;
 
-export const CategoryAreaContainer = styled.div``;
+export const CategoryAreaContainer = styled.div`
+  height: inherit;
+`;
