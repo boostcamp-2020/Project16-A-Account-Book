@@ -15,10 +15,9 @@ const TransactionDateList = ({
   onClick: any;
 }) => {
   const { startDate, endDate } = TransactionStore.getOriginDates();
-
   const mapFunc = (item: TransactionDBKeyValue) => {
     const [date, transactions] = item;
-
+    // const transactionList = TransactionStore.isFiltered? TransactionStore.getTransactions():
     if (
       TransactionStore.isFiltered &&
       !dateUtils.isDateInDateRange(new Date(date), startDate, endDate)

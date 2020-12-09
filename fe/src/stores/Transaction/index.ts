@@ -159,14 +159,14 @@ export const TransactionStore = makeAutoObservable({
     if (this.isFiltered) {
       return sumAllPricesByType(this.filteredTransactionList);
     }
-    return calTotalPrices(this.getTransactionList());
+    return calTotalPrices(this.getTransactions());
   },
   get filteredTransactionList(): types.TransactionDBType[] {
     if (!this.isFiltered) return [];
     const { startDate, endDate } = this.getOriginDates();
 
     const transactionList = Object.values<types.TransactionDBType[]>(
-      this.getTransactionList(),
+      this.getTransactions(),
     ).reduce((appendedList, list) => [...appendedList, ...list], []);
 
     const filteredTransactionList = transactionList.filter(
@@ -176,7 +176,7 @@ export const TransactionStore = makeAutoObservable({
     );
     return filteredTransactionList;
   },
-  getTransactionList() {
+  getTransactions() {
     return toJS(this.transactions);
   },
   async loadTransactions() {

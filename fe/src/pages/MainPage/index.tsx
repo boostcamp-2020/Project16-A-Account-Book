@@ -32,7 +32,7 @@ const MainPage = () => {
     <div>
       <FilterBar />
       <TransactionDateList
-        list={TransactionStore.getTransactionList()}
+        list={TransactionStore.getTransactions()}
         onClick={onClickHandler}
       />
     </div>
