@@ -1,5 +1,6 @@
 import { ITransaction } from 'models/transaction';
 import { Schema, Types, model, Document, Model } from 'mongoose';
+import { IUserDocument, UserSchema } from '../user';
 
 import {
   findByPkAndPushTransaction,
@@ -13,6 +14,8 @@ export interface IAccount {
   transactions?: string[] | ITransaction[];
   categories?: string[];
   methods?: string[];
+  ownerName?: string;
+  users: Types.DocumentArray<IUserDocument>;
 }
 
 export interface AccountDocument extends Document {
@@ -20,6 +23,8 @@ export interface AccountDocument extends Document {
   transactions?: [String];
   categories?: [String];
   methods?: [String];
+  ownerName?: string;
+  users: Types.DocumentArray<IUserDocument>;
 }
 
 export interface IAccountDocument extends IAccount, Document {}
@@ -64,7 +69,8 @@ export const AccountSchema = new Schema({
       ref: 'methods',
     },
   ],
-  owner: String,
+  ownerName: String,
+  users: [UserSchema],
 });
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
