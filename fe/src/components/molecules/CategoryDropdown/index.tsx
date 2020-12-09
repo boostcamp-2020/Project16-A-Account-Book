@@ -23,8 +23,8 @@ const CategoryDropdown = ({
     <S.DropdownBodyWrap>
       {dataList.map(
         (data: any): React.ReactElement => (
-          <S.DropdownItem value={data} key={data._id} {...props}>
-            <div className="flex-container">
+          <S.DropdownItem key={data._id} {...props}>
+            <div className="flex-container modify-button">
               <S.CategoryEditButton
                 key={`category-edit-${data._id}`}
                 isClicked={isClicked}

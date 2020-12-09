@@ -31,12 +31,17 @@ export const DropdownBodyWrap = styled.div`
   }
   .title-container {
     margin-right: auto;
+    height: 1.5em;
+  }
+  .modify-button {
+    margin-right: 0.5em;
   }
 `;
 
 export const CategoryEditButton = styled(EditButton)`
   font-size: ${({ theme }) => theme.fontSize.sm};
   width: 5%;
+  margin-right: 0.5em;
 `;
 
 export const ColorBox = styled.div`
@@ -46,7 +51,4 @@ export const ColorBox = styled.div`
   margin-right: 1em;
   background-color: ${({ color }) => color};
   border: 1px solid #ddd;
-  .flex-container + & {
-    margin-left: 0.5em;
-  }
 `;
