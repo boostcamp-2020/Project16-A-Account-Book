@@ -20,21 +20,32 @@ const sumAllPricesByType = (
   };
 };
 
-export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
-  if (typeof input === 'string') {
-    return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
+export const isNotMatchedWithFilterInfo = (transaction: TransactionDBType) => {
+  const {
+    methods: methodFilterIds,
+    categories: caregoryFilterIds,
+  } = TransactionStore.getFilter();
+  const { category, method } = transaction;
+  const type = categoryConvertBig2Small(category.type);
+  if (caregoryFilterIds[type].disabled) {
+    return true;
   }
-  return input.reduce((acc, cur) => {
-    const { _id, category, method, ...other } = cur;
-    if (TransactionStore.isFiltered) {
-      const { methods, categories } = TransactionStore.getFilter();
-
-      const { type } = category;
-      const key = categoryConvertBig2Small(type);
-      if (!methods.some((x: string) => x === method._id)) return acc;
-      if (categories[key].disabled) return acc;
-      if (!categories[key].list.some((x: string) => x === category._id))
-        return acc;
+  if (!caregoryFilterIds[type].list.some((id: string) => id === category._id)) {
+    return true;
+  }
+  if (!methodFilterIds.some((id: string) => id === method._id)) {
+    return true;
+  }
+  return false;
+};
+export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
+  return input.reduce((acc, transaction) => {
+    const { _id, category, method, ...other } = transaction;
+    if (
+      TransactionStore.isFiltered &&
+      isNotMatchedWithFilterInfo(transaction)
+    ) {
+      return acc;
     }
     return [
       ...acc,
@@ -53,15 +64,16 @@ export const calTotalPrices = (list: {
 }) => {
   return Object.values<TransactionDBType[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
-      const res = transactions.reduce(sumAllPricesByType, {
-        ...initTotalPrice,
-      });
+      const summedPrices = transactions.reduce(
+        sumAllPricesByType,
+        initTotalPrice,
+      );
       return {
-        income: acc.income + res.income,
-        expense: acc.expense + res.expense,
+        income: acc.income + summedPrices.income,
+        expense: acc.expense + summedPrices.expense,
       };
     },
-    { ...initTotalPrice },
+    initTotalPrice,
   );
 };
 
