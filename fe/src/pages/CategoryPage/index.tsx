@@ -34,7 +34,7 @@ function CategoryPage(): React.ReactElement {
   const [selected, setSelected] = useState<string>('');
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
 
-  const editButtonHandler = async () => {
+  const editButtonHandler = () => {
     if (isClicked) {
       setIsClicked(false);
     } else {
@@ -70,7 +70,7 @@ function CategoryPage(): React.ReactElement {
     setVisible(true);
   };
 
-  const deleteClicked = async (objId: string) => {
+  const deleteClicked = (objId: string) => {
     setSelected(objId);
     setDeleteVisible(true);
   };
@@ -102,11 +102,12 @@ function CategoryPage(): React.ReactElement {
       );
       setSelected('');
     }
-    if (result.success) CategoryStore.loadCategories();
-    else {
+    if (result.success) {
+      CategoryStore.loadCategories();
+      newCategoryCancel();
+    } else {
       alert(result.error);
     }
-    newCategoryCancel();
   };
 
   const deleteCancel = () => {
