@@ -24,30 +24,34 @@ const CategoryDropdown = ({
       {dataList.map(
         (data: any): React.ReactElement => (
           <S.DropdownItem value={data} key={data._id} {...props}>
-            <S.CategoryEditButton
-              key={`category-edit-${data._id}`}
-              isClicked={isClicked}
-              onClick={(e: MouseEvent) => {
-                e.preventDefault();
-                dropDownItemClicked({ ...data });
-              }}
-              type="button"
-              value="수정"
-            />
+            <div className="flex-container">
+              <S.CategoryEditButton
+                key={`category-edit-${data._id}`}
+                isClicked={isClicked}
+                onClick={(e: MouseEvent) => {
+                  e.preventDefault();
+                  dropDownItemClicked({ ...data });
+                }}
+                type="button"
+                value="수정"
+              />
+            </div>
             <S.ColorBox color={data.color}> </S.ColorBox>
-            <div className="title-container">
+            <div className="title-container flex-container">
               <span key={data.objectId}>{data.title}</span>
             </div>
-            <S.CategoryEditButton
-              key={data._id}
-              isClicked={isClicked}
-              onClick={(e: MouseEvent) => {
-                e.preventDefault();
-                deleteClicked(data._id);
-              }}
-              type="button"
-              value="삭제"
-            />
+            <div className="flex-container">
+              <S.CategoryEditButton
+                key={data._id}
+                isClicked={isClicked}
+                onClick={(e: MouseEvent) => {
+                  e.preventDefault();
+                  deleteClicked(data._id);
+                }}
+                type="button"
+                value="삭제"
+              />
+            </div>
           </S.DropdownItem>
         ),
       )}

@@ -25,9 +25,11 @@ export const DropdownBodyWrap = styled.div`
   padding: 0.3em;
   top: 1.3rem;
   left: 0;
-  .title-container {
+  .flex-container {
     display: flex;
     align-items: center;
+  }
+  .title-container {
     margin-right: auto;
   }
 `;
@@ -44,4 +46,7 @@ export const ColorBox = styled.div`
   margin-right: 1em;
   background-color: ${({ color }) => color};
   border: 1px solid #ddd;
+  .flex-container + & {
+    margin-left: 0.5em;
+  }
 `;
