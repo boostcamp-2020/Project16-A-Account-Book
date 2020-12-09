@@ -36,7 +36,7 @@ const CategoryDropdown = ({
                 value="수정"
               />
             </div>
-            <S.ColorBox color={data.color}> </S.ColorBox>
+            {!!data.color && <S.ColorBox color={data.color}> </S.ColorBox>}
             <div className="title-container flex-container">
               <span key={data.objectId}>{data.title}</span>
             </div>

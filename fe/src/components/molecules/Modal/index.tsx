@@ -15,4 +15,4 @@ const Modal = ({ visible, content }: ModalProps) => {
   );
 };
 
-export default Modal;
+export default React.memo(Modal);
