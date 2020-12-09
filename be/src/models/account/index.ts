@@ -4,7 +4,6 @@ import { Schema, Types, model, Document, Model } from 'mongoose';
 import {
   findByPkAndPushTransaction,
   findByPkAndGetTransCategory,
-  findByPkList,
   findByTitleAndOwner,
   findAllTransactionExceptDeleted,
 } from './static';
@@ -35,7 +34,6 @@ export interface IAccountModel extends Model<IAccountDocument> {
     startDate: string,
     endDate: string,
   ): Promise<any>;
-  findByPkList(accountObjIdList: string[]): Promise<any>;
   findByTitleAndOwner(title: string, owner: string): Promise<IAccountDocument>;
   findAllTransactionExceptDeleted(
     accountObjId: string,
@@ -71,7 +69,7 @@ export const AccountSchema = new Schema({
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
-AccountSchema.statics.findByPkList = findByPkList;
+// AccountSchema.statics.findByPkList = findByPkList;
 AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
 
