@@ -3,12 +3,13 @@ import { NotVaildException } from 'models/account/static';
 import { UserModel } from 'models/user';
 
 export const getAccountsByUserId = async (userId: string) => {
-  // const res = AccountModel.find(userId, { account: true }).populate({
-  //   path: 'accounts',
-  //   select: '_id title owner',
-  // });
-  const res = AccountModel.find();
-  return res;
+  const res = await AccountModel.find();
+  const filtered = res.filter((el: any) => {
+    return el.users.some((el2: any) => {
+      return String(el2._id) === String(userId);
+    });
+  });
+  return filtered;
 };
 
 export const getAccountByTitleAndOwner = async (
