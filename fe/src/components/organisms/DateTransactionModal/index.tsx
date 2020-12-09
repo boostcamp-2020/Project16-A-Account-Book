@@ -1,11 +1,14 @@
-import React, { useRef, forwardRef } from 'react';
+import React, { useRef } from 'react';
 import { TransactionStore } from 'stores/Transaction';
 import TransactionList from 'components/organisms/TransactionList';
+import { useHistory, useParams } from 'react-router-dom';
 import * as S from './style';
 
-export interface Props {}
+export interface Props {
+  refs: any;
+}
 
-const onClickHandler = (contentRef: React.RefObject<HTMLDivElement>) => (
+const visibleHandler = (contentRef: React.RefObject<HTMLDivElement>) => (
   e: React.MouseEvent<HTMLDivElement>,
 ) => {
   e.preventDefault();
@@ -15,27 +18,35 @@ const onClickHandler = (contentRef: React.RefObject<HTMLDivElement>) => (
   TransactionStore.setModalVisible(false);
 };
 
-const DateTransactionModal = forwardRef(
-  ({ ...props }: Props, ref: any): React.ReactElement => {
-    const contentRef = useRef<HTMLDivElement>(null);
-    return (
-      <>
-        <S.DateTransactionModal
-          onClick={onClickHandler(contentRef)}
-          ref={ref}
-          {...props}
-        />
-        <S.Content ref={contentRef}>
-          <TransactionList
-            date={TransactionStore.modalData.date}
-            onClick={() => {}}
-            transactionList={TransactionStore.modalData.transactionList}
-            onClick={() => {}}
-          />
-        </S.Content>
-      </>
+const DateTransactionModal = ({
+  refs,
+  ...props
+}: Props): React.ReactElement => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const history = useHistory();
+  const { title, owner } = useParams<{ title: string; owner: string }>();
+
+  const onClickHandler = (id: string) => {
+    history.push(
+      `/transactions/${owner}/${title}/update?transactionObjId=${id}`,
     );
-  },
-);
+  };
+  return (
+    <>
+      <S.DateTransactionModal
+        onClick={visibleHandler(contentRef)}
+        ref={refs}
+        {...props}
+      />
+      <S.Content ref={contentRef}>
+        <TransactionList
+          date={TransactionStore.modalClickDate}
+          transactionList={TransactionStore.clickedModalTransactionList}
+          onClick={onClickHandler}
+        />
+      </S.Content>
+    </>
+  );
+};
 
 export default DateTransactionModal;

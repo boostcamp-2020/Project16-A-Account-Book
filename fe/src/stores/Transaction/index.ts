@@ -24,10 +24,7 @@ export interface ITransactionStore {
     };
   };
   isCalendarModalOpen: boolean;
-  modalData: {
-    date: Date;
-    transactionList: Array<any>;
-  };
+  modalDate: Date;
 }
 
 const oneMonthDate = date.getOneMonthRange(
@@ -43,10 +40,7 @@ const initialState: ITransactionStore = {
     endDate: oneMonthDate.endDate,
   },
   isCalendarModalOpen: false,
-  modalData: {
-    date: new Date(),
-    transactionList: [] as any,
-  },
+  modalDate: new Date(),
   filter: {
     methods: [],
     categories: {
@@ -98,7 +92,7 @@ export const TransactionStore = makeAutoObservable({
   state: state.PENDING,
   accountObjId: '',
   isCalendarModalOpen: initialState.isCalendarModalOpen,
-  modalData: initialState.modalData,
+  modalClickDate: initialState.modalDate,
 
   setAccountObjId(objId: string) {
     this.accountObjId = objId;
@@ -131,13 +125,22 @@ export const TransactionStore = makeAutoObservable({
   setModalVisible(modalState: boolean) {
     this.isCalendarModalOpen = modalState;
   },
-  setModalData(dateString: string) {
-    const res = toJS(this.transactions)[dateString];
-    if (!res) return;
-    this.modalData.transactionList = convertTransactionDBTypetoTransactionType(
-      res,
-    );
+
+  setModalClickDate(dateString: string) {
+    this.modalClickDate = new Date(dateString);
   },
+
+  get clickedModalTransactionList() {
+    const dateString = date.dateCustomFormatter(
+      this.modalClickDate,
+      'YYYY-M-D',
+    );
+    const res = toJS(this.transactions[dateString]);
+
+    if (!res) return [];
+    return convertTransactionDBTypetoTransactionType(res);
+  },
+
   getDates() {
     return {
       startDate: date.dateFormatter(this.dates.startDate),
