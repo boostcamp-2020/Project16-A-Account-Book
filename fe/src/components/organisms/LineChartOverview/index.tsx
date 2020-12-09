@@ -6,8 +6,7 @@ import { IDateTotalprice } from 'types';
 import dateUtils from 'utils/date';
 import * as S from './style';
 
-const checkDataIfScarce = (dataList: IDateTotalprice[]) =>
-  dataList.length === 1;
+const checkDataIfScarce = (dataList: IDateTotalprice[]) => dataList.length <= 1;
 const checkAllZeroPrice = (dataList: IDateTotalprice[]) =>
   dataList.every((data) => data.totalPrice === 0);
 
@@ -34,20 +33,20 @@ const WarningMessage = <div>데이터가 충분하지 않습니다 😢 </div>;
 const LineChartOverview = (): React.ReactElement => {
   const dataLoaded = TransactionStore.state === state.DONE;
   const dataList = TransactionStore.totalExpensePriceByDate;
-  const unSuitableForRendering =
-    checkDataIfScarce(dataList) || checkAllZeroPrice(dataList);
+  const suitableForRendering =
+    !checkDataIfScarce(dataList) && !checkAllZeroPrice(dataList);
   return (
     <div>
       <S.StatisticsTitle>지출 추이</S.StatisticsTitle>
-      {dataLoaded && unSuitableForRendering ? (
-        WarningMessage
-      ) : (
+      {dataLoaded && suitableForRendering ? (
         <LineChart
           width={250}
           height={100}
           data={formalizeDate(dataList)}
           horizontalGuides={Math.min(dataList.length, 5)}
         />
+      ) : (
+        WarningMessage
       )}
     </div>
   );
