@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Button from 'components/atoms/Button';
+import Input from 'components/atoms/Input';
 
 export const Container = styled.section`
   position: absolute;
@@ -16,6 +17,12 @@ export const Container = styled.section`
     outline: none;
     padding: 0;
     margin: 0;
+  }
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+    margin-top: 1rem;
   }
 `;
 export const Label = styled.div`
@@ -68,6 +75,11 @@ export const DateFilterButton = styled(Button)`
   & + & {
     border-top: 1px solid ${({ theme }) => theme.color.subText};
   }
+`;
+
+export const BottomButton = styled(Input)`
+  border: none;
+  background: ${({ theme }) => theme.color.brandColor};
 `;
 
 export const Model = styled.div`

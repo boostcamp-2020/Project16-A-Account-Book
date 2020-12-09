@@ -1,6 +1,6 @@
 import React from 'react';
 import FilterListInterface from './FilterListInterface';
-import * as S from './style';
+import * as S from '../style';
 
 const TopFilter = ({ filterTitle, children }: FilterListInterface) => {
   return (

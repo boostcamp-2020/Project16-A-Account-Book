@@ -16,6 +16,9 @@ const GlobalStyle = createGlobalStyle`
     button{
       font-family :  Bmeuljiro,sans-serif !important;
     }
+    input{
+      font-family :  Bmeuljiro,sans-serif !important;
+    }
     box-sizing: border-box;
   }
 

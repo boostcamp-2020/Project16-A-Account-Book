@@ -1,6 +1,7 @@
 import { TransactionModel, ITransaction } from 'models/transaction';
 import { AccountModel } from 'models/account';
 import { getCompFuncByKey } from 'libs/utils';
+import { ITotalPrice } from 'services/category/index.type';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
   const year = transaction.date.getFullYear();
@@ -21,35 +22,21 @@ export const getTransactionList = async ({
   endDate: string;
   accountObjId: string;
 }) => {
-  const res = await AccountModel.findOne({
-    _id: accountObjId,
-  })
-    .populate({
-      path: 'transactions',
-      match: {
-        date: { $gte: startDate, $lt: endDate },
-        isDeleted: { $eq: false },
-      },
-      populate: { path: 'category method' },
-    })
-    .exec();
+  const transactionList = await AccountModel.findAllTransactionExceptDeleted(
+    accountObjId,
+    startDate,
+    endDate,
+  );
+  return transactionList;
+};
 
-  if (!res) {
-    return [];
-  }
-
-  const trans = res.transactions;
-  if (!trans || trans.length === 0) {
-    return [];
-  }
-
-  trans.sort(getCompFuncByKey('date'));
-
-  const result = (trans as ITransaction[]).reduce(
+export const sortAndGroupByDate = (transactionList: ITransaction[]) => {
+  transactionList.sort(getCompFuncByKey('date'));
+  const groupedByDateTransactionList = transactionList.reduce(
     oneMonthTransactionsReducer,
     {},
   );
-  return result;
+  return groupedByDateTransactionList;
 };
 
 export const saveAndAddToAccount = async (
