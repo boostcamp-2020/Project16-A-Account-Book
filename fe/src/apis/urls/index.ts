@@ -20,7 +20,7 @@ export default {
 
   statistics: (accountObjId: string) =>
     `/api/${accountObjId}/categories/statistics/`,
-
+  categories: (accountObjId: string) => `/api/${accountObjId}/categories`,
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
   deleteCategory: (accountObjId: string, categoryObjId: string) =>

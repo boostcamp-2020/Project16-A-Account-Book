@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import CategoryTemplate from 'components/templates/CategoryTemplate';
 import Header from 'components/organisms/Header';
-import backArrow from 'assets/svg/backArrow.svg';
-import IconButton from 'components/molecules/IconButton';
 import CategoryArea from 'components/organisms/CategoryArea';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { CategoryStore, categoryType } from 'stores/Category';
 import { TransactionStore } from 'stores/Transaction';
 import Modal from 'components/molecules/Modal';
 import Input from 'components/atoms/Input';
-import Button from 'components/atoms/Button';
 import LabelWrap from 'components/molecules/LabelWrap';
-import axios from 'apis/axios';
 import categoryAPI from 'apis/category';
-import url from 'apis/urls';
-
+import { getRandomColor } from 'utils/random';
+import NavBarComponent from 'components/organisms/NavBar';
 import * as S from './style';
 
 export interface MatchParams {
@@ -68,8 +63,9 @@ function CategoryPage(): React.ReactElement {
     setColor(value);
   };
 
-  const dropDownItemClicked = (objId: string) => {
-    setSelected(objId);
+  const dropDownItemClicked = (data: any) => {
+    setSelected(data._id);
+    setColor(data.color);
     setVisible(true);
   };
 
@@ -86,26 +82,21 @@ function CategoryPage(): React.ReactElement {
   };
 
   const newCategoryConfirm = async () => {
-    if (!selected) {
-      await axios.post(url.defaultCategory, {
-        type,
-        title: newCategory,
-        color,
-        accountObjId: TransactionStore.accountObjId,
-      });
-      CategoryStore.loadCategories();
-      setVisible(false);
-    } else {
-      await axios.put(url.defaultCategory, {
-        objId: selected,
-        type,
-        title: newCategory,
-        color,
-      });
+    const body = {
+      type,
+      title: newCategory,
+      color,
+      objId: selected,
+    };
+    if (!selected)
+      await categoryAPI.postCategory(TransactionStore.accountObjId, body);
+    else {
+      await categoryAPI.putCategory(TransactionStore.accountObjId, body);
       setSelected('');
-      CategoryStore.loadCategories();
-      setVisible(false);
     }
+
+    CategoryStore.loadCategories();
+    newCategoryCancel();
   };
 
   const deleteCancel = () => {
@@ -117,6 +108,8 @@ function CategoryPage(): React.ReactElement {
   };
 
   const onPlusButtonClick = () => {
+    setColor(getRandomColor());
+
     setVisible(true);
   };
 
@@ -126,8 +119,6 @@ function CategoryPage(): React.ReactElement {
 
   const headerContent = <Header />;
 
-  const homeButton = <IconButton icon={backArrow} />;
-
   const deleteModalContent = (
     <S.ContantsWrapper>
       <S.ContentWrapper>
@@ -135,32 +126,42 @@ function CategoryPage(): React.ReactElement {
       </S.ContentWrapper>
       <S.ContentWrapper>
         <Input type="button" onClick={deleteConfirm} value="확인" />
-        <Button onClick={deleteCancel}>취소</Button>
+        <Input type="button" onClick={deleteCancel} value="취소" />
       </S.ContentWrapper>
     </S.ContantsWrapper>
   );
 
   const modalContent = (
     <S.ContantsWrapper>
-      <S.ContentWrapper>
-        <LabelWrap htmlFor="memo" title={type}>
-          <Input onChangeHandler={newCategoryNameHandler} />
+      <div className="input-container">
+        <LabelWrap htmlFor="input-category" title={type}>
+          <Input
+            onChangeHandler={newCategoryNameHandler}
+            id="input-category"
+            type="text"
+          />
         </LabelWrap>
-        <LabelWrap htmlFor="memo" title="color">
-          <Input type="color" onClick={newColorHandler} />
+        <LabelWrap htmlFor="color-picker" title="color">
+          <Input
+            type="color"
+            onClick={newColorHandler}
+            value={color}
+            id="color-picker"
+          />
         </LabelWrap>
-      </S.ContentWrapper>
+      </div>
+
       <S.ContentWrapper>
         <Input type="button" onClick={newCategoryConfirm} value="확인" />
-        <Button onClick={newCategoryCancel}>취소</Button>
+        <Input type="button" onClick={newCategoryCancel} value="취소" />
       </S.ContentWrapper>
     </S.ContantsWrapper>
   );
 
   const bodyContent = (
-    <S.PageContainer>
+    <>
       <CategoryArea
-        dataList={toJS(CategoryStore.getCategories(type))}
+        dataList={CategoryStore.getCategories(type)}
         onClickHandler={TabClickHandler}
         onPlusButtonClick={onPlusButtonClick}
         dropDownItemClicked={dropDownItemClicked}
@@ -170,15 +171,15 @@ function CategoryPage(): React.ReactElement {
       />
       <Modal visible={visible} content={modalContent} />
       <Modal visible={deleteVisible} content={deleteModalContent} />
-    </S.PageContainer>
+    </>
   );
 
   return (
     <CategoryTemplate
       headerContent={headerContent}
-      homeButton={homeButton}
       title="카테고리 설정"
       bodyContent={bodyContent}
+      NavBar={<NavBarComponent />}
     />
   );
 }
