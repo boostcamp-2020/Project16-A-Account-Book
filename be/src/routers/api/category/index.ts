@@ -1,6 +1,7 @@
 import Router from 'koa-router';
+import koaCompose from 'koa-compose';
 import categoryController from 'controllers/category';
-import { verifyAccountAccess } from 'middlewares';
+import { verifyAccountAccess, isUnclassifide } from 'middlewares';
 
 const router = new Router();
 
@@ -10,6 +11,9 @@ router.use('/', verifyAccountAccess);
 router.get('/', categoryController.get);
 router.post('/', categoryController.post);
 router.put('/', categoryController.put);
-router.put('/delete', categoryController.deleteCategory);
+router.put(
+  '/delete',
+  koaCompose([isUnclassifide, categoryController.deleteCategory]),
+);
 
 export default router;
