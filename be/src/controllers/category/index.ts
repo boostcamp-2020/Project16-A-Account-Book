@@ -50,15 +50,10 @@ const put = async (ctx: Context) => {
 };
 
 const deleteCategory = async (ctx: Context) => {
-  const { category } = ctx.params;
-  const res = await deleteOneCategory(category);
-  if (res.success) {
-    ctx.status = 200;
-    ctx.body = res;
-  } else {
-    ctx.status = 401;
-    ctx.body = res;
-  }
+  const { accountObjId, category } = ctx.params;
+  await deleteOneCategory(accountObjId, category);
+  ctx.status = 204;
+  ctx.res.end();
 };
 
 export default { getStatisticsInfo, get, post, put, deleteCategory };
