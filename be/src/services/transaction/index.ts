@@ -26,7 +26,10 @@ export const getTransactionList = async ({
   })
     .populate({
       path: 'transactions',
-      match: { date: { $gte: startDate, $lt: endDate } },
+      match: {
+        date: { $gte: startDate, $lt: endDate },
+        isDeleted: { $eq: false },
+      },
       populate: { path: 'category method' },
     })
     .exec();
@@ -76,4 +79,11 @@ export const updateTransaction = async (
 ) => {
   const conditions = { _id: transactionObjId, isDeleted: false };
   return TransactionModel.findOneAndUpdate(conditions, transaction).exec();
+};
+
+export const deleteTransaction = async (transactionObjId: string) => {
+  const conditions = { _id: transactionObjId, isDeleted: false };
+  return TransactionModel.findOneAndUpdate(conditions, {
+    isDeleted: true,
+  }).exec();
 };

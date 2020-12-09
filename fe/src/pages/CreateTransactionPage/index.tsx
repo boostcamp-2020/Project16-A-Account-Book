@@ -7,6 +7,7 @@ import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
 import isCanSubmit from 'utils/isCanSubmit';
+import Header from 'components/organisms/HeaderBar';
 
 const classifications = ['지출', '수입'];
 
@@ -46,7 +47,10 @@ const CreateTransacionPage = () => {
   );
 
   return (
-    <FormTransactionTemplate header={<div>트랜잭션 생성</div>} main={Main} />
+    <FormTransactionTemplate
+      header={<Header title="거래내역 추가" />}
+      main={Main}
+    />
   );
 };
 
