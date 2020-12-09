@@ -22,7 +22,7 @@ const formalizeDate = (dataList: IDateTotalprice[]) => {
     dataList[dataList.length - 1].date,
     YEAR_FORMAT,
   );
-  const FORMAT = yearOfFirstData !== yearOfLastData ? 'YY/MM/DD' : 'MM/DD';
+  const FORMAT = yearOfFirstData !== yearOfLastData ? 'YY.MM.DD' : 'MM.DD';
   return dataList.map((data) => ({
     ...data,
     date: dateUtils.dateCustomFormatter(data.date, FORMAT),
