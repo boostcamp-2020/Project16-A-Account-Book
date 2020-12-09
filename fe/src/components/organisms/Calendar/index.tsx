@@ -90,7 +90,11 @@ const Calendar = ({
   ...props
 }: Props): React.ReactElement => {
   const defaultStartDay = isSundayStart ? 0 : 1;
+  const nowYear = selectedDate.getFullYear();
   const nowMonth = selectedDate.getMonth();
+  const nowYearDate = `${nowYear % 100} / ${nowMonth + 1}`;
+  const nowDate = `${nowMonth + 1}`;
+
   if (JSON.stringify(transactions) === '{}') {
     const oneWeekListData = getOneWeekListData(
       [{ date: date.dateFormatter(selectedDate) }],
@@ -110,7 +114,9 @@ const Calendar = ({
       <S.Calendar {...props}>
         <S.DayBar isSundayStart={isSundayStart} />
         {oneWeekComponentList}
-        <S.CenterMonth>{nowMonth + 1}</S.CenterMonth>
+        <S.CenterMonth>
+          {nowYear === new Date().getFullYear() ? nowDate : nowYearDate}
+        </S.CenterMonth>
       </S.Calendar>
     );
   }
@@ -132,7 +138,9 @@ const Calendar = ({
     <S.Calendar {...props}>
       <S.DayBar isSundayStart={isSundayStart} />
       {oneWeekComponentList}
-      <S.CenterMonth>{nowMonth + 1}</S.CenterMonth>
+      <S.CenterMonth>
+        {nowYear === new Date().getFullYear() ? nowDate : nowYearDate}
+      </S.CenterMonth>
     </S.Calendar>
   );
 };
