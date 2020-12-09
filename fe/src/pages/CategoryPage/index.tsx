@@ -88,14 +88,24 @@ function CategoryPage(): React.ReactElement {
       color,
       objId: selected,
     };
-    if (!selected)
-      await categoryAPI.postCategory(TransactionStore.accountObjId, body);
-    else {
-      await categoryAPI.putCategory(TransactionStore.accountObjId, body);
+    let result: any;
+    if (!selected) {
+      result = await categoryAPI.postCategory(
+        TransactionStore.accountObjId,
+        body,
+      );
+    } else {
+      result = await categoryAPI.putCategory(
+        TransactionStore.accountObjId,
+        body,
+      );
       setSelected('');
     }
 
-    CategoryStore.loadCategories();
+    if (result.success) CategoryStore.loadCategories();
+    else {
+      alert(result.error);
+    }
     newCategoryCancel();
   };
 
