@@ -22,3 +22,8 @@ export const UserHasNoAccount = {
   status: 400,
   message: 'user가 가지고 있는 account가 없습니다.',
 };
+
+export const accountNoChange = {
+  status: 400,
+  message: 'account Update 중 에러가 발생했습니다.',
+};
