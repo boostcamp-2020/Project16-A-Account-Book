@@ -11,6 +11,7 @@ const router = new Router();
 router.use('/auth', authRouter.routes());
 
 router.use(authorization);
+router.use('/accounts', accountRouter.routes());
 router.use('/user', userRouter.routes());
 router.use('/accounts', accountRouter.routes());
 
