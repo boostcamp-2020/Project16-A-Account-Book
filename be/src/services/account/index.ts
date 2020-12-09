@@ -1,15 +1,13 @@
 import { AccountModel } from 'models/account';
 import { NotVaildException } from 'models/account/static';
+import { UserHasNoAccount } from 'libs/error';
 import { UserModel } from 'models/user';
 
 export const getAccountsByUserId = async (userId: string) => {
-  const res = await AccountModel.find();
-  const filtered = res.filter((el: any) => {
-    return el.users.some((el2: any) => {
-      return String(el2._id) === String(userId);
-    });
-  });
-  return filtered;
+  const res = await AccountModel.findAccountByUserId(userId);
+
+  if (!res) throw UserHasNoAccount;
+  return res;
 };
 
 export const getAccountByTitleAndOwner = async (
