@@ -96,7 +96,7 @@ export async function findByTitleAndOwner(
   return this.findOne({ title, owner }, { _id: true }).exec();
 }
 
-export async function findUnclassified(
+export async function findUnclassifiedCategory(
   this: IAccountModel,
   accountObjId: string,
 ) {
