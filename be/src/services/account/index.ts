@@ -7,7 +7,7 @@ export const getAccounts = async (accounts: Array<string>) => {
 };
 
 export const getAccountsByUserId = async (userId: string) => {
-  const res = UserModel.findById(userId).populate({
+  const res = UserModel.findById(userId, { account: true }).populate({
     path: 'accounts',
     select: '_id title owner',
   });
