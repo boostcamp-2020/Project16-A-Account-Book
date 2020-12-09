@@ -1,7 +1,6 @@
 import { AccountModel } from 'models/account';
 import { NotVaildException } from 'models/account/static';
 import { UserHasNoAccount } from 'libs/error';
-import { UserModel } from 'models/user';
 
 export const getAccountsByUserId = async (userId: string) => {
   const res = await AccountModel.findAccountByUserId(userId);
