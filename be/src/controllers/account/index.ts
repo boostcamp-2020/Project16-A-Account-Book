@@ -28,9 +28,15 @@ export const postAccount = async (ctx: Koa.Context) => {
 export const putAccount = async (ctx: Koa.Context) => {
   await accountService.updateAccountByUserAndAccountInfo(
     ctx.request.body.title,
-    ctx.request.body.accountObjId,
+    ctx.params.accountObjId,
     ctx.request.body.userObjIdList,
   );
+  ctx.status = 200;
+  ctx.response.body = { success: true };
+};
+
+export const deleteAccount = async (ctx: Koa.Context) => {
+  await accountService.deleteAccountByAccountInfo(ctx.params.accountObjId);
   ctx.status = 200;
   ctx.response.body = { success: true };
 };
@@ -55,6 +61,7 @@ export default {
   get,
   postAccount,
   putAccount,
+  deleteAccount,
   getThisAccountInfo,
   postAccountUser,
 };
