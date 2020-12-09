@@ -29,14 +29,8 @@ const post = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
   const { type, title, color } = ctx.request.body;
   const res = await postCategory(type, title, color, accountObjId);
-
-  if (res.success) {
-    ctx.status = 200;
-    ctx.body = res;
-  } else {
-    ctx.status = 401;
-    ctx.body = res;
-  }
+  ctx.status = res.success ? 201 : 200;
+  ctx.body = res;
 };
 
 const put = async (ctx: Context) => {
