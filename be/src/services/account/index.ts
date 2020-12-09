@@ -2,10 +2,6 @@ import { AccountModel } from 'models/account';
 import { NotVaildException } from 'models/account/static';
 import { UserModel } from 'models/user';
 
-export const getAccounts = async (accounts: Array<string>) => {
-  return AccountModel.find(accounts);
-};
-
 export const getAccountsByUserId = async (userId: string) => {
   const res = UserModel.findById(userId, { account: true }).populate({
     path: 'accounts',
