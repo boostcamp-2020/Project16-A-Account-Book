@@ -132,8 +132,25 @@ export const putCategory = async (
   type: string,
   title: string,
   color: string,
+  accountObjId: string,
 ) => {
-  return CategoryModel.update({ _id: objId }, { $set: { type, title, color } });
+  const exist: any = await AccountModel.findById(accountObjId, {
+    categories: true,
+  }).populate({
+    path: 'categories',
+    match: { type, title },
+    select: '_id',
+  });
+  if (exist.categories.length === 0) {
+    await CategoryModel.update(
+      { _id: objId },
+      { $set: { type, title, color } },
+    );
+    return {
+      success: true,
+    };
+  }
+  return { success: false, error: '중복되는 카테고리가 존재합니다' };
 };
 
 export const deleteOneCategory = async (
