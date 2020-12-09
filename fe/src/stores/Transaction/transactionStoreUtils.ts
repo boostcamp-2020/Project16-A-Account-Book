@@ -41,12 +41,6 @@ export const isNotMatchedWithFilterInfo = (transaction: TransactionDBType) => {
 export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
   return input.reduce((acc, transaction) => {
     const { _id, category, method, ...other } = transaction;
-    if (
-      TransactionStore.isFiltered &&
-      isNotMatchedWithFilterInfo(transaction)
-    ) {
-      return acc;
-    }
     return [
       ...acc,
       {
