@@ -160,10 +160,11 @@ export const deleteOneCategory = async (
   const unclassifiedCategory = await AccountModel.findUnclassifiedCategory(
     accountObjId,
   );
+
   return Promise.all([
     TransactionModel.updateMany(
       { category: objId },
-      { category: unclassifiedCategory._id },
+      { category: unclassifiedCategory },
     ).exec(),
     CategoryModel.deleteOne({ _id: objId }),
   ]);

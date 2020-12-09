@@ -1,5 +1,6 @@
 import { Context } from 'koa';
-import { getMethods, createMethod } from 'services/method';
+import { AccountModel } from 'models/account';
+import { getMethods, createMethod, removeMethod } from 'services/method';
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
@@ -13,6 +14,17 @@ const post = async (ctx: Context) => {
   const { title } = ctx.request.body;
   const method = await createMethod(accountObjId, title);
   ctx.status = 201;
-  ctx.body = method;
+  ctx.body = {
+    success: true,
+    method,
+  };
 };
-export default { get, post };
+
+const del = async (ctx: Context) => {
+  const { accountObjId, methodObjId } = ctx.params;
+  await removeMethod(accountObjId, methodObjId);
+
+  ctx.status = 204;
+  ctx.res.end();
+};
+export default { get, post, del };
