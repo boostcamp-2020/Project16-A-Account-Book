@@ -69,7 +69,7 @@ export const isUnclassifide = async (
   ctx: Koa.Context,
   next: () => Promise<any>,
 ) => {
-  const { category } = ctx.query;
+  const { category } = ctx.params;
   const cat = await CategoryModel.findById(category);
   if (!cat || cat.type === categoryType.UNCLASSIFIED) {
     throw invalidCategory;
