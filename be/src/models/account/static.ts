@@ -1,3 +1,4 @@
+import { categoryType } from 'models/category';
 import { AccountModel, IAccountModel } from '.';
 import { UserModel } from '../user';
 
@@ -93,4 +94,19 @@ export async function findByTitleAndOwner(
   if (!title || !owner) throw new NotVaildException();
 
   return this.findOne({ title, owner }, { _id: true }).exec();
+}
+
+export async function findUnclassified(
+  this: IAccountModel,
+  accountObjId: string,
+) {
+  const res: any = await this.findById(accountObjId, { categories: true })
+    .populate({
+      path: 'categories',
+      match: { type: categoryType.UNCLASSIFIED },
+      select: '_id',
+    })
+    .exec();
+
+  return res.categories[0]._id;
 }
