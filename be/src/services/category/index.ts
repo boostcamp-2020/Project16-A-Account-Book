@@ -157,7 +157,7 @@ export const deleteOneCategory = async (
   accountObjId: string,
   objId: string,
 ) => {
-  const unclassifiedCategory = await AccountModel.findUnclassified(
+  const unclassifiedCategory = await AccountModel.findUnclassifiedCategory(
     accountObjId,
   );
   return Promise.all([

@@ -6,7 +6,7 @@ import {
   findByPkAndGetTransCategory,
   findByTitleAndOwner,
   findAllTransactionExceptDeleted,
-  findUnclassified,
+  findUnclassifiedCategory,
 } from './static';
 
 export interface IAccount {
@@ -41,7 +41,7 @@ export interface IAccountModel extends Model<IAccountDocument> {
     startDate: string,
     endDate: string,
   ): Promise<any>;
-  findUnclassified(accountObjId: string): Promise<any>;
+  findUnclassifiedCategory(accountObjId: string): Promise<any>;
 }
 
 export const AccountSchema = new Schema({
@@ -73,7 +73,7 @@ AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
 AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
-AccountSchema.statics.findUnclassified = findUnclassified;
+AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
 
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
