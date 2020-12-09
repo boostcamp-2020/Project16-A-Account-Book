@@ -1,6 +1,9 @@
 import { AccountModel } from 'models/account';
+import { CategoryModel } from 'models/category';
+import { MethodModel } from 'models/method';
 import { NotVaildException } from 'models/account/static';
 import { UserHasNoAccount } from 'libs/error';
+import { IUserDocument } from 'models/user';
 
 export const getAccountsByUserId = async (userId: string) => {
   const res = await AccountModel.findAccountByUserId(userId);
@@ -17,6 +20,24 @@ export const getAccountByTitleAndOwner = async (
 
   if (!account) throw new NotVaildException();
   return account;
+};
+
+export const addAccountByUserAndAccountInfo = async (
+  user: IUserDocument,
+  title: any,
+  userObjIdList: String[],
+) => {
+  const categories = await CategoryModel.createDefaultCategory();
+  const methods = await MethodModel.createDefaultMethod();
+  const newAccount = new AccountModel({
+    title,
+    ownerName: user.nickname,
+    categories,
+    methods,
+    users: [user],
+  });
+
+  await Promise.all([newAccount.save()]);
 };
 
 export const addUserInAccount = async (
