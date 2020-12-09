@@ -5,7 +5,6 @@ export const get = async (ctx: Koa.Context) => {
   const res = await accountService.getAccountsByUserId(
     ctx.request.body.user._id,
   );
-  console.log('res : ', res);
 
   if (!res || !res.accounts) {
     ctx.status = 204;
