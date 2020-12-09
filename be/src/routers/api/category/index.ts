@@ -11,8 +11,8 @@ router.use('/', verifyAccountAccess);
 router.get('/', categoryController.get);
 router.post('/', categoryController.post);
 router.put('/', categoryController.put);
-router.put(
-  '/delete',
+router.delete(
+  '/:category',
   koaCompose([isUnclassifide, categoryController.deleteCategory]),
 );
 
