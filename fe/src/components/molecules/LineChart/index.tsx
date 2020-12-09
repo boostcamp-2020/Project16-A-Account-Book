@@ -42,7 +42,7 @@ const LineChart = ({
   const xAxisPos = {
     x: {
       start: paddingWidth,
-      end: chartWidth + paddingWidth / 2,
+      end: chartWidth + paddingWidth,
     },
     y: height - paddingHeight,
   };
