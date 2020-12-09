@@ -1,7 +1,8 @@
 import math from 'utils/math';
-import { IDateTotalprice, TransactionDBType } from 'types';
+import { IDateTotalprice, TransactionDBType, IDateTransactionObj } from 'types';
 import { TransactionStore } from 'stores/Transaction';
 import { categoryConvertBig2Small, categoryType } from 'stores/Category';
+import dateUtil from 'utils/date';
 
 export const initTotalPrice = {
   income: 0,
@@ -58,9 +59,7 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
   }, []);
 };
 
-export const calTotalPrices = (list: {
-  [key: string]: TransactionDBType[];
-}) => {
+export const calTotalPrices = (list: IDateTransactionObj) => {
   return Object.values<TransactionDBType[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
       const summedPrices = sumAllPricesByType(transactions);
@@ -88,4 +87,16 @@ export const calTotalPriceByDateAndType = (
     [],
   );
   return totalPriceByDateList;
+};
+
+export const filterList = (
+  transactionList: TransactionDBType[],
+): TransactionDBType[] => {
+  const { startDate, endDate } = TransactionStore.getOriginDates();
+
+  return transactionList.filter(
+    (transaction: TransactionDBType) =>
+      dateUtil.isDateInDateRange(transaction.date, startDate, endDate) &&
+      !isNotMatchedWithFilterInfo(transaction),
+  );
 };

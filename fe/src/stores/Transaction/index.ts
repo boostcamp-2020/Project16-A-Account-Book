@@ -7,8 +7,8 @@ import {
   calTotalPrices,
   convertTransactionDBTypetoTransactionType,
   calTotalPriceByDateAndType,
-  isNotMatchedWithFilterInfo,
   sumAllPricesByType,
+  filterList,
 } from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
@@ -163,18 +163,12 @@ export const TransactionStore = makeAutoObservable({
   },
   get filteredTransactionList(): types.TransactionDBType[] {
     if (!this.isFiltered) return [];
-    const { startDate, endDate } = this.getOriginDates();
 
     const transactionList = Object.values<types.TransactionDBType[]>(
       this.getTransactions(),
     ).reduce((appendedList, list) => [...appendedList, ...list], []);
 
-    const filteredTransactionList = transactionList.filter(
-      (transaction: types.TransactionDBType) =>
-        date.isDateInDateRange(transaction.date, startDate, endDate) &&
-        !isNotMatchedWithFilterInfo(transaction),
-    );
-    return filteredTransactionList;
+    return filterList(transactionList);
   },
   getTransactions() {
     return toJS(this.transactions);
