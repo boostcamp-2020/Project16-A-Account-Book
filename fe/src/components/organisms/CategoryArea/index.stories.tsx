@@ -13,11 +13,6 @@ const dropDownItemClicked = () => {
   console.log('dropdown item clicked');
 };
 
-const defaultClickHandler = () => {
-  const a = [];
-  a.push(1);
-};
-
 const onPlusButtonClick = () => {
   console.log('plus button clicked');
 };
@@ -27,7 +22,7 @@ export const defaultTabHeader = () => {
     <ThemeProvider theme={theme}>
       <CategoryArea
         dataList={dataList}
-        onClickHandler={defaultClickHandler}
+        onClickHandler={() => {}}
         onPlusButtonClick={onPlusButtonClick}
         dropDownItemClicked={dropDownItemClicked}
         isClicked={false}

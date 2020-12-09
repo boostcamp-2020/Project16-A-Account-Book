@@ -133,15 +133,7 @@ export const putCategory = async (
   title: string,
   color: string,
 ) => {
-  try {
-    await CategoryModel.update(
-      { _id: objId },
-      { $set: { type, title, color } },
-    );
-    return { success: true };
-  } catch (e) {
-    return { success: false };
-  }
+  return CategoryModel.update({ _id: objId }, { $set: { type, title, color } });
 };
 
 export const deleteOneCategory = async (

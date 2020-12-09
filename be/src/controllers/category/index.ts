@@ -39,14 +39,9 @@ const post = async (ctx: Context) => {
 
 const put = async (ctx: Context) => {
   const { objId, type, title, color } = ctx.request.body;
-  const res = await putCategory(objId, type, title, color);
-  if (res.success) {
-    ctx.status = 200;
-    ctx.body = res;
-  } else {
-    ctx.status = 401;
-    ctx.body = res;
-  }
+  await putCategory(objId, type, title, color);
+  ctx.status = 204;
+  ctx.res.end();
 };
 
 const deleteCategory = async (ctx: Context) => {
