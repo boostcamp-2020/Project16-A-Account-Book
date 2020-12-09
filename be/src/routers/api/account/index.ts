@@ -6,6 +6,7 @@ const router = new Router();
 router.get('/info', accountController.getThisAccountInfo);
 router.get('/', accountController.get);
 router.post('/', accountController.postAccount);
+router.put('/', accountController.putAccount);
 router.post('/user', accountController.postAccountUser);
 
 export default router;
