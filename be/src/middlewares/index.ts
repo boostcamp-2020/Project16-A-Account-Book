@@ -4,10 +4,12 @@ import { jwtConfig } from 'config';
 import {
   unAuthroziedError,
   invalidAccessError,
+  invalidCategory,
   accountHasNoUserError,
 } from 'libs/error';
 import { UserModel } from 'models/user';
 import { AccountModel } from 'models/account';
+import { CategoryModel, categoryType } from 'models/category';
 
 interface IDecodedData {
   id: string | number;
@@ -59,6 +61,18 @@ export const verifyAccountAccess = async (
 
   if (!accountHasUserId) {
     throw invalidAccessError;
+  }
+  await next();
+};
+
+export const isUnclassifide = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { category } = ctx.query;
+  const cat = await CategoryModel.findById(category);
+  if (!cat || cat.type === categoryType.UNCLASSIFIED) {
+    throw invalidCategory;
   }
   await next();
 };
