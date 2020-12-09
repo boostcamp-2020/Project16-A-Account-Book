@@ -12,7 +12,7 @@ export default {
   removeMethod(accountObjId: string, methodObjId: string) {
     return axios.delete(urls.methodDeleteOrUpdate(accountObjId, methodObjId));
   },
-  updateMethod(accountObjId: string, methodObjId: string, body: object) {
+  updateMethod(accountObjId: string, body: object, methodObjId: string) {
     return axios.put(
       urls.methodDeleteOrUpdate(accountObjId, methodObjId),
       body,

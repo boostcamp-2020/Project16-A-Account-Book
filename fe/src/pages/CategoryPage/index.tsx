@@ -10,6 +10,7 @@ import Modal from 'components/molecules/Modal';
 import Input from 'components/atoms/Input';
 import LabelWrap from 'components/molecules/LabelWrap';
 import categoryAPI from 'apis/category';
+import methodAPI from 'apis/method';
 import NavBarComponent from 'components/organisms/NavBar';
 import { getRandomColor } from 'utils/random';
 import * as S from './style';
@@ -88,8 +89,31 @@ function CategoryPage(): React.ReactElement {
     CategoryStore.loadCategories();
     setDeleteVisible(false);
   };
-
-  const newCategoryConfirm = async () => {
+  const confirm = async () => {
+    const apiFuc = type === 'METHOD' ? methodConfirm : categoryConfirm;
+    const loadFuc =
+      type === 'METHOD'
+        ? MethodStore.loadMethods.bind(MethodStore)
+        : CategoryStore.loadCategories.bind(CategoryStore);
+    const result: any = await apiFuc();
+    if (result.error) {
+      alert(result.error);
+    } else {
+      loadFuc();
+      selectedRef.current = '';
+      onCancle(setVisible)();
+    }
+  };
+  const methodConfirm = async () => {
+    const body = {
+      title: inputRef.current.value,
+    };
+    const func = selectedRef.current
+      ? methodAPI.updateMethod
+      : methodAPI.createMethod;
+    return func(TransactionStore.accountObjId, body, selectedRef.current);
+  };
+  const categoryConfirm = async () => {
     const body = {
       type,
       title: inputRef.current.value,
@@ -99,14 +123,7 @@ function CategoryPage(): React.ReactElement {
     const fuc = selectedRef.current
       ? categoryAPI.putCategory
       : categoryAPI.postCategory;
-    const result: any = await fuc(TransactionStore.accountObjId, body);
-    if (!result.error) {
-      CategoryStore.loadCategories();
-      selectedRef.current = '';
-      onCancle(setVisible)();
-    } else {
-      alert(result.error);
-    }
+    return fuc(TransactionStore.accountObjId, body);
   };
 
   const onCancle = (fnc: any) => () => {
@@ -131,7 +148,7 @@ function CategoryPage(): React.ReactElement {
       </div>
 
       <S.ContentWrapper>
-        <Input type="button" onClick={newCategoryConfirm} value="확인" />
+        <Input type="button" onClick={confirm} value="확인" />
         <Input type="button" onClick={onCancle(setVisible)} value="취소" />
       </S.ContentWrapper>
     </S.ContantsWrapper>
