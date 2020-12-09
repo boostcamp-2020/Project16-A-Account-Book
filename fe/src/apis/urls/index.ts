@@ -17,6 +17,8 @@ export default {
   account: '/api/accounts',
 
   method: (accountObjId: string) => `/api/${accountObjId}/methods/`,
+  methodDeleteOrUpdate: (accountObjId: string, methodObjId: string) =>
+    `/api/${accountObjId}/methods/${methodObjId}`,
 
   statistics: (accountObjId: string) =>
     `/api/${accountObjId}/categories/statistics/`,
