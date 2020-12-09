@@ -20,12 +20,7 @@ const MainPage = () => {
     TransactionStore.loadTransactions();
   }, [TransactionStore.dates]);
 
-  const SubHeaderBar = (
-    <MonthInfo
-      month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={TransactionStore.totalPrices}
-    />
-  );
+  const SubHeaderBar = <MonthInfo />;
 
   const onClickHandler = (id: string) => {
     history.push(
