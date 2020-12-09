@@ -16,3 +16,9 @@ export const invalidCategory = {
   status: 403,
   message: '해당 카테고리에 접근 할 수 없습니다',
 };
+
+export const removeUnclassifiedMethod = {
+  status: 200,
+  error: '제거할 수 없는 항목 입니다',
+  success: false,
+};

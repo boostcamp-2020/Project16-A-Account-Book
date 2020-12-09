@@ -1,5 +1,7 @@
 import { AccountModel } from 'models/account';
 import { MethodModel } from 'models/method';
+import { TransactionModel } from 'models/transaction';
+import { removeUnclassifiedMethod } from 'libs/error';
 
 export const getMethods = async (accountObjId: string) => {
   const res = await AccountModel.findOne(
@@ -19,4 +21,22 @@ export const createMethod = async (accountObjId: string, title: string) => {
   return AccountModel.findByIdAndUpdate(accountObjId, {
     $push: { methods: method._id },
   });
+};
+
+export const removeMethod = async (
+  accountObjId: string,
+  methodObjId: string,
+) => {
+  const unclassifiedMethod = await AccountModel.findUnclassifiedMethod(
+    accountObjId,
+  );
+  if (String(unclassifiedMethod) === methodObjId)
+    throw removeUnclassifiedMethod;
+  return Promise.all([
+    TransactionModel.updateMany(
+      { method: methodObjId },
+      { method: unclassifiedMethod },
+    ).exec(),
+    MethodModel.deleteOne({ _id: methodObjId }),
+  ]);
 };
