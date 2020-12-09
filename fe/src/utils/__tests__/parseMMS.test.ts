@@ -1,4 +1,4 @@
-import solution from '../parseMMS';
+import { solution } from '../parseMMS';
 
 test('solution', () => {
   expect(

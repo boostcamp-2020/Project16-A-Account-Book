@@ -23,4 +23,5 @@ export default {
 
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
+  mms: '/api/mms',
 };

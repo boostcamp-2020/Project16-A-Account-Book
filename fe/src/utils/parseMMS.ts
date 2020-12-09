@@ -1,4 +1,4 @@
-interface ParsedSMS {
+export interface ParsedSMS {
   cardname: string;
   amount: number;
   date: string;
@@ -9,7 +9,7 @@ interface ParsedSMS {
 }
 
 // 팀에서 서비스에 맞게 추가. 현재는 각 서비스에 있는 결제 수단을 모두 넣은  것.
-const paymentList = [
+export const paymentList = [
   '신한',
   '국민',
   'KB',
@@ -34,7 +34,7 @@ const paymentList = [
 //   KG: 'KG이니시스',
 // };
 
-const solution = (sms: string) => {
+export const solution = (sms: string) => {
   const newData: ParsedSMS = {
     cardname: '',
     amount: 0,
@@ -97,4 +97,4 @@ const parseSMS = (string: string) => {
     .filter((e) => e);
 };
 
-export default solution;
+export default {};

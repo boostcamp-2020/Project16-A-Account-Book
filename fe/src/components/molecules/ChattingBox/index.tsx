@@ -20,11 +20,11 @@ const ChattingBox = ({ dataList }: ChattingBoxProps): React.ReactElement => {
         {dataList.map(
           (data: DataProps): React.ReactElement =>
             data.type === myMessage ? (
-              <S.MyMessage>
+              <S.MyMessage key={dataList.indexOf(data)}>
                 <Corpus type={data.type} chat={data.chat} />
               </S.MyMessage>
             ) : (
-              <S.ServerMessage>
+              <S.ServerMessage key={dataList.indexOf(data)}>
                 <Corpus type={data.type} chat={data.chat} />
               </S.ServerMessage>
             ),
