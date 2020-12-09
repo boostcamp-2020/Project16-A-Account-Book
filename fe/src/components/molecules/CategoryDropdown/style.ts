@@ -25,15 +25,16 @@ export const DropdownBodyWrap = styled.div`
   padding: 0.3em;
   top: 1.3rem;
   left: 0;
+  .title-container {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+  }
 `;
 
 export const CategoryEditButton = styled(EditButton)`
   font-size: ${({ theme }) => theme.fontSize.sm};
   width: 5%;
-`;
-
-export const TitleSpan = styled.span`
-  width: 90%;
 `;
 
 export const ColorBox = styled.div`
