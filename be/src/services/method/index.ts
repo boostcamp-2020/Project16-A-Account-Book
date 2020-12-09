@@ -40,3 +40,7 @@ export const removeMethod = async (
     MethodModel.deleteOne({ _id: methodObjId }),
   ]);
 };
+
+export const updateMethod = async (methodObjId: string, title: string) => {
+  return MethodModel.updateOne({ _id: methodObjId }, { title });
+};

@@ -1,6 +1,12 @@
 import { Context } from 'koa';
 import { AccountModel } from 'models/account';
-import { getMethods, createMethod, removeMethod } from 'services/method';
+import { invaildMethod, updateUnclassifiedMethod } from 'libs/error';
+import {
+  getMethods,
+  createMethod,
+  removeMethod,
+  updateMethod,
+} from 'services/method';
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
@@ -27,4 +33,23 @@ const del = async (ctx: Context) => {
   ctx.status = 204;
   ctx.res.end();
 };
-export default { get, post, del };
+
+const put = async (ctx: Context) => {
+  const { methodObjId, accountObjId } = ctx.params;
+  const { title }: { title: string | null | undefined } = ctx.request.body;
+  if (!title || title.trim() === '' || title.trim() === '미분류')
+    throw invaildMethod;
+  const unclassifiedMethod = await AccountModel.findUnclassifiedMethod(
+    accountObjId,
+  );
+  const target = title.trim();
+  if (String(unclassifiedMethod) === methodObjId)
+    throw updateUnclassifiedMethod;
+
+  await updateMethod(methodObjId, target);
+  ctx.status = 201;
+  ctx.body = {
+    success: true,
+  };
+};
+export default { get, post, del, put };
