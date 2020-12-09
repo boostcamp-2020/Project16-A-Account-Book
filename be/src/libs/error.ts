@@ -11,3 +11,8 @@ export const invalidAccessError = {
   status: 403,
   message: '해당 가계부에 접근 권한이 없습니다',
 };
+
+export const invalidCategory = {
+  status: 403,
+  message: '해당 카테고리에 접근 할 수 없습니다',
+};
