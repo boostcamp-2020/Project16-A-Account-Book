@@ -32,3 +32,8 @@ export const removeUnclassifiedMethod = {
   error: '제거할 수 없는 항목 입니다',
   success: false,
 };
+export const updateUnclassifiedMethod = {
+  status: 200,
+  error: '수정할 수 없는 항목 입니다',
+  success: false,
+};
