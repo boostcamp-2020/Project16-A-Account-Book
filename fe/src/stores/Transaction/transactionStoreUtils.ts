@@ -1,30 +1,30 @@
 import math from 'utils/math';
 import { IDateTotalprice, TransactionDBType } from 'types';
 import { TransactionStore } from 'stores/Transaction';
-import { categoryConvertBig2Small } from 'stores/Category';
+import { categoryConvertBig2Small, categoryType } from 'stores/Category';
 
 export const initTotalPrice = {
   income: 0,
   expense: 0,
 };
 
-const TransactionsReduce = (
-  oneDayPrice: { income: number; expense: number },
+const sumAllPricesByType = (
+  summedPriceByType: { income: number; expense: number },
   transaction: any,
 ) => {
-  if (transaction.category.type === 'INCOME') {
+  if (transaction.category.type === categoryType.INCOME) {
     return {
-      ...oneDayPrice,
-      income: oneDayPrice.income + transaction.price,
+      ...summedPriceByType,
+      income: summedPriceByType.income + transaction.price,
     };
   }
-  if (transaction.category.type === 'EXPENSE') {
+  if (transaction.category.type === categoryType.EXPENSE) {
     return {
-      ...oneDayPrice,
-      expense: oneDayPrice.expense + transaction.price,
+      ...summedPriceByType,
+      expense: summedPriceByType.expense + transaction.price,
     };
   }
-  return oneDayPrice;
+  return summedPriceByType;
 };
 
 export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
@@ -55,13 +55,12 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
   }, []);
 };
 
-export const calTotalPrices = (list: any) => {
-  return Object.values<any[]>(list).reduce(
+export const calTotalPrices = (list: {
+  [key: string]: TransactionDBType[];
+}) => {
+  return Object.values<TransactionDBType[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
-      if (typeof transactions === 'string') {
-        return acc;
-      }
-      const res = transactions.reduce(TransactionsReduce, {
+      const res = transactions.reduce(sumAllPricesByType, {
         ...initTotalPrice,
       });
       return {
