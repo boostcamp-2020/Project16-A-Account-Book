@@ -1,8 +1,16 @@
 import { AccountModel } from 'models/account';
 import { NotVaildException } from 'models/account/static';
+import { UserModel } from 'models/user';
 
 export const getAccounts = async (accounts: Array<string>) => {
-  const res = await AccountModel.findByPkList(accounts);
+  return AccountModel.find(accounts);
+};
+
+export const getAccountsByUserId = async (userId: string) => {
+  const res = UserModel.findById(userId).populate({
+    path: 'accounts',
+    select: '_id title owner',
+  });
   return res;
 };
 
