@@ -1,4 +1,4 @@
-import { IAccountModel } from '.';
+import { AccountModel, IAccountModel } from '.';
 
 export async function findAllTransactionExceptDeleted(
   this: any,
@@ -17,6 +17,16 @@ export async function findAllTransactionExceptDeleted(
     })
     .exec();
   return accountDocument.transactions;
+}
+
+export async function findAccountByUserId(this: any, userId: string) {
+  const res = await AccountModel.find();
+  const userAccountList = res.filter((account: any) => {
+    return account.users.some((user: any) => {
+      return String(user._id) === String(userId);
+    });
+  });
+  return userAccountList;
 }
 
 export async function findByPkAndPushTransaction(
