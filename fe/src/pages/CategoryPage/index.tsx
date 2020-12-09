@@ -142,7 +142,11 @@ function CategoryPage(): React.ReactElement {
         <LabelWrap htmlFor="input-category" title={type}>
           <Input id="input-category" type="text" inputRef={inputRef} />
         </LabelWrap>
-        <LabelWrap htmlFor="color-picker" title="color">
+        <LabelWrap
+          htmlFor="color-picker"
+          title="color"
+          visible={type !== 'METHOD'}
+        >
           <Input id="color-picker" type="color" inputRef={colorPicker} />
         </LabelWrap>
       </div>
