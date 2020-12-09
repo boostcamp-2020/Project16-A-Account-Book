@@ -124,7 +124,9 @@ const LineChart = ({
           const y = getYpos(ratio) + FONT_SIZE / 2;
           return (
             <text key={`label-y-${y}`} x={x} y={y} style={labelStyle}>
-              {utils.moneyFormatter(maximumYFromData * (index / PARTS))}
+              {utils.moneyFormatter(
+                Math.round(maximumYFromData * (index / PARTS)),
+              )}
             </text>
           );
         })}
