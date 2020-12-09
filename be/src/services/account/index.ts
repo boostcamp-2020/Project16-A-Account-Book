@@ -2,8 +2,9 @@ import { AccountModel } from 'models/account';
 import { CategoryModel } from 'models/category';
 import { MethodModel } from 'models/method';
 import { NotVaildException } from 'models/account/static';
-import { UserHasNoAccount } from 'libs/error';
-import { IUserDocument } from 'models/user';
+import { UserHasNoAccount, accountNoChange } from 'libs/error';
+import { IUserDocument, UserModel } from 'models/user';
+import { Types } from 'mongoose';
 
 export const getAccountsByUserId = async (userId: string) => {
   const res = await AccountModel.findAccountByUserId(userId);
@@ -27,6 +28,10 @@ export const addAccountByUserAndAccountInfo = async (
   title: any,
   userObjIdList: String[],
 ) => {
+  const rawUserList = userObjIdList.map(async (userObjId: String) => {
+    return UserModel.findById(userObjId);
+  });
+  const userList = await Promise.all(rawUserList);
   const categories = await CategoryModel.createDefaultCategory();
   const methods = await MethodModel.createDefaultMethod();
   const newAccount = new AccountModel({
@@ -34,10 +39,34 @@ export const addAccountByUserAndAccountInfo = async (
     ownerName: user.nickname,
     categories,
     methods,
-    users: [user],
+    users: [...userList],
   });
 
   await Promise.all([newAccount.save()]);
+};
+
+export const updateAccountByUserAndAccountInfo = async (
+  title: any,
+  accountObjId: String,
+  userObjIdList: String[],
+) => {
+  const rawUserList = userObjIdList.map(async (userObjId: String) => {
+    return UserModel.findById(userObjId);
+  });
+  const userList = await Promise.all(rawUserList);
+
+  const updateAccount = await AccountModel.findOneAndUpdate(
+    { _id: accountObjId },
+    {
+      title,
+      users: [...userList] as Types.DocumentArray<IUserDocument>,
+    },
+  );
+
+  if (!updateAccount) {
+    throw accountNoChange;
+  }
+  await Promise.all([updateAccount.save()]);
 };
 
 export const addUserInAccount = async (
