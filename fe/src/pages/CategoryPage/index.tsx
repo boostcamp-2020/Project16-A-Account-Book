@@ -100,7 +100,7 @@ function CategoryPage(): React.ReactElement {
       ? categoryAPI.putCategory
       : categoryAPI.postCategory;
     const result: any = await fuc(TransactionStore.accountObjId, body);
-    if (result.success) {
+    if (!result.error) {
       CategoryStore.loadCategories();
       selectedRef.current = '';
       onCancle(setVisible)();
