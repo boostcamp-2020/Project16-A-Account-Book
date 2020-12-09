@@ -7,13 +7,13 @@ export const Icon = styled(IconComponent)`
   right: ${({ rightMargin }: any) => {
     return rightMargin;
   }}rem;
-  top: 0;
   transition: 0.5s;
 `;
 
 export const Wrap = styled.div`
   position: relative;
   display: flex;
+  align-items: center;
   width: 100%;
   height: 100%;
   :hover {
