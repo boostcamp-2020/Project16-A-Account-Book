@@ -34,10 +34,11 @@ const post = async (ctx: Context) => {
 };
 
 const put = async (ctx: Context) => {
+  const { accountObjId } = ctx.params;
   const { objId, type, title, color } = ctx.request.body;
-  await putCategory(objId, type, title, color);
-  ctx.status = 204;
-  ctx.res.end();
+  const res = await putCategory(objId, type, title, color, accountObjId);
+  ctx.status = res.success ? 201 : 200;
+  ctx.body = res;
 };
 
 const deleteCategory = async (ctx: Context) => {

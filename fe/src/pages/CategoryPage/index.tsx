@@ -66,6 +66,7 @@ function CategoryPage(): React.ReactElement {
   const dropDownItemClicked = (data: any) => {
     setSelected(data._id);
     setColor(data.color);
+    setNewCategory(data.title);
     setVisible(true);
   };
 
@@ -101,7 +102,6 @@ function CategoryPage(): React.ReactElement {
       );
       setSelected('');
     }
-
     if (result.success) CategoryStore.loadCategories();
     else {
       alert(result.error);
@@ -110,16 +110,18 @@ function CategoryPage(): React.ReactElement {
   };
 
   const deleteCancel = () => {
+    setNewCategory('');
     setDeleteVisible(false);
   };
 
   const newCategoryCancel = () => {
+    setNewCategory('');
     setVisible(false);
   };
 
   const onPlusButtonClick = () => {
     setColor(getRandomColor());
-
+    setNewCategory('');
     setVisible(true);
   };
 
@@ -149,6 +151,7 @@ function CategoryPage(): React.ReactElement {
             onChangeHandler={newCategoryNameHandler}
             id="input-category"
             type="text"
+            value={newCategory}
           />
         </LabelWrap>
         <LabelWrap htmlFor="color-picker" title="color">
