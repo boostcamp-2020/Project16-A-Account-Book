@@ -6,7 +6,7 @@ const myMessage = 'mine';
 
 export interface DataProps {
   type: string;
-  value: string;
+  chat: string;
 }
 
 export interface ChattingBoxProps {
@@ -21,11 +21,11 @@ const ChattingBox = ({ dataList }: ChattingBoxProps): React.ReactElement => {
           (data: DataProps): React.ReactElement =>
             data.type === myMessage ? (
               <S.MyMessage>
-                <Corpus type={data.type} chat={data.value} />
+                <Corpus type={data.type} chat={data.chat} />
               </S.MyMessage>
             ) : (
               <S.ServerMessage>
-                <Corpus type={data.type} chat={data.value} />
+                <Corpus type={data.type} chat={data.chat} />
               </S.ServerMessage>
             ),
         )}

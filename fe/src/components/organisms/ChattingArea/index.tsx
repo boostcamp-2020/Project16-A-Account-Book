@@ -6,12 +6,14 @@ export interface ChattingAreaProps {
   onChangeHandler: any;
   onSubmitHandler: any;
   dataList: DataProps[];
+  chatValue: string;
 }
 
 const ChattingArea = ({
   onChangeHandler,
   onSubmitHandler,
   dataList,
+  chatValue,
 }: ChattingAreaProps) => {
   return (
     <S.ChattingArea>
@@ -21,6 +23,7 @@ const ChattingArea = ({
           disabled={false}
           placeholder="chat your message"
           onChangeHandler={onChangeHandler}
+          value={chatValue}
         />
         <S.ChattingBtn
           onClick={onSubmitHandler}

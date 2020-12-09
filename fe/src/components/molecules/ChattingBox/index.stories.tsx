@@ -10,16 +10,16 @@ export default {
 const dataList = [
   {
     type: 'mine',
-    value: '채팅을 보내보자',
+    chat: '채팅을 보내보자',
   },
   {
     type: 'mine',
-    value:
+    chat:
       '[Web발신] 신한카드승인\n윤*주\n19,500원체크\n12/03 12:49\n국민뼈감자탕',
   },
   {
     type: 'account',
-    value: '적용되었습니다',
+    chat: '적용되었습니다',
   },
 ];
 
