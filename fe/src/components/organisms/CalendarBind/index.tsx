@@ -1,4 +1,6 @@
 import React from 'react';
+import dayjs from 'dayjs';
+
 import * as S from './style';
 
 interface Props {
@@ -54,7 +56,14 @@ const CalendarBind = ({
   let nowYearMonthKey = '';
   let nowTransactions: any = {};
   let nowSelectedDate = dateToYearMonth(selectedDate.startDate);
-  const endDateString = dateToYearMonth(selectedDate.endDate);
+  let endDateString = dateToYearMonth(selectedDate.endDate);
+
+  if (
+    dayjs(selectedDate.startDate).format('YYYY-MM') ===
+    dayjs(selectedDate.endDate).format('YYYY-MM')
+  ) {
+    endDateString = nextMonth(endDateString);
+  }
   Object.entries(transactions).forEach((el) => {
     const [key, value] = el;
     const [year, month] = key.split('-');
@@ -97,18 +106,18 @@ const CalendarBind = ({
     }
     nowTransactions[key] = value;
   });
+
   if (JSON.stringify(nowTransactions) !== '{}') {
     Calendars.push({ transactions: { ...nowTransactions }, nowYearMonthKey });
     nowSelectedDate = nextMonth(nowSelectedDate);
     nowTransactions = {};
   }
+
   while (endDateString !== nowSelectedDate && nowSelectedDate !== 'end') {
-    if (nowSelectedDate === 'end') {
+    if (nowSelectedDate === 'end' || endDateString === nowSelectedDate) {
       break;
     }
-    if (endDateString === nowSelectedDate) {
-      break;
-    }
+
     Calendars.push({ nowYearMonthKey: `${nowSelectedDate}` });
     nowSelectedDate = nextMonth(nowSelectedDate);
   }
