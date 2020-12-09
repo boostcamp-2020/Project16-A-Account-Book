@@ -7,6 +7,7 @@ import {
   findByPkAndGetTransCategory,
   findByTitleAndOwner,
   findAllTransactionExceptDeleted,
+  findAccountByUserId,
 } from './static';
 
 export interface IAccount {
@@ -45,6 +46,7 @@ export interface IAccountModel extends Model<IAccountDocument> {
     startDate: string,
     endDate: string,
   ): Promise<any>;
+  findAccountByUserId(userId: string): Promise<any>;
 }
 
 export const AccountSchema = new Schema({
@@ -77,7 +79,7 @@ AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
 AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
-
+AccountSchema.statics.findAccountByUserId = findAccountByUserId;
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
   AccountSchema,
