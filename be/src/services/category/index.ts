@@ -1,6 +1,6 @@
 import { AccountModel } from 'models/account';
 import { CategoryModel, categoryType } from 'models/category';
-
+import { TransactionModel } from 'models/transaction';
 import { getCompFuncByKey } from 'libs/utils';
 import { ITotalPrice, ICategoryStatistics, IStatistics } from './index.type';
 
@@ -144,13 +144,20 @@ export const putCategory = async (
   }
 };
 
-export const deleteOneCategory = async (objId: string) => {
-  try {
-    await CategoryModel.update({ _id: objId }, { $set: { isDeleted: false } });
-    return { success: true };
-  } catch (e) {
-    return { success: false };
-  }
+export const deleteOneCategory = async (
+  accountObjId: string,
+  objId: string,
+) => {
+  const unclassifiedCategory = await AccountModel.findUnclassified(
+    accountObjId,
+  );
+  return Promise.all([
+    TransactionModel.updateMany(
+      { category: objId },
+      { category: unclassifiedCategory._id },
+    ).exec(),
+    CategoryModel.deleteOne({ _id: objId }),
+  ]);
 };
 
 export default {};

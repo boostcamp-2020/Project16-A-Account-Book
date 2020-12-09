@@ -1,3 +1,4 @@
+import { categoryType } from 'models/category';
 import { IAccountModel } from '.';
 
 export async function findAllTransactionExceptDeleted(
@@ -68,4 +69,19 @@ export async function findByTitleAndOwner(
   if (!title || !owner) throw new NotVaildException();
 
   return this.findOne({ title, owner }, { _id: true }).exec();
+}
+
+export async function findUnclassified(
+  this: IAccountModel,
+  accountObjId: string,
+) {
+  const res: any = await this.findById(accountObjId, { categories: true })
+    .populate({
+      path: 'categories',
+      match: { type: categoryType.UNCLASSIFIED },
+      select: '_id',
+    })
+    .exec();
+
+  return res.categories[0]._id;
 }
