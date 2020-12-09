@@ -1,4 +1,5 @@
 import { AccountModel } from 'models/account';
+import { MethodModel } from 'models/method';
 
 export const getMethods = async (accountObjId: string) => {
   const res = await AccountModel.findOne(
@@ -9,4 +10,13 @@ export const getMethods = async (accountObjId: string) => {
     .exec();
   return res?.methods;
 };
-export default {};
+
+export const createMethod = async (accountObjId: string, title: string) => {
+  const method = new MethodModel({
+    title,
+  });
+  method.save();
+  return AccountModel.findByIdAndUpdate(accountObjId, {
+    $push: { methods: method._id },
+  });
+};
