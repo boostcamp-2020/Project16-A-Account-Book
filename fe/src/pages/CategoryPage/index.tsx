@@ -13,6 +13,7 @@ import Input from 'components/atoms/Input';
 import Button from 'components/atoms/Button';
 import LabelWrap from 'components/molecules/LabelWrap';
 import axios from 'apis/axios';
+import categoryAPI from 'apis/category';
 import url from 'apis/urls';
 
 import * as S from './style';
@@ -78,7 +79,7 @@ function CategoryPage(): React.ReactElement {
   };
 
   const deleteConfirm = async () => {
-    await axios.put(url.defaultCategory, { objId: selected });
+    await categoryAPI.deleteCategory(TransactionStore.accountObjId, selected);
     setSelected('');
     CategoryStore.loadCategories();
     setDeleteVisible(false);
