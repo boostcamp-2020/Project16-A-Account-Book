@@ -11,4 +11,7 @@ export default {
       `${url.statistics(accountObjId)}${makeQueryString(query)}`,
     );
   },
+  deleteCategory(accountObjId: string, categoryObjId: string) {
+    return axios.delete(url.deleteCategory(accountObjId, categoryObjId));
+  },
 };
