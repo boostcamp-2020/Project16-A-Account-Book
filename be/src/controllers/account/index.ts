@@ -25,6 +25,16 @@ export const postAccount = async (ctx: Koa.Context) => {
   ctx.response.body = { success: true };
 };
 
+export const putAccount = async (ctx: Koa.Context) => {
+  await accountService.updateAccountByUserAndAccountInfo(
+    ctx.request.body.title,
+    ctx.request.body.accountObjId,
+    ctx.request.body.userObjIdList,
+  );
+  ctx.status = 200;
+  ctx.response.body = { success: true };
+};
+
 export const getThisAccountInfo = async (ctx: Koa.Context) => {
   const { title, owner } = ctx.query;
   const account = await accountService.getAccountByTitleAndOwner(title, owner);
@@ -41,4 +51,10 @@ export const postAccountUser = async (ctx: Koa.Context) => {
   ctx.body = { message: 'success' };
 };
 
-export default { get, postAccount, getThisAccountInfo, postAccountUser };
+export default {
+  get,
+  postAccount,
+  putAccount,
+  getThisAccountInfo,
+  postAccountUser,
+};
