@@ -69,7 +69,6 @@ export const AccountSchema = new Schema({
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
-// AccountSchema.statics.findByPkList = findByPkList;
 AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
 
