@@ -36,8 +36,6 @@ const HeaderBar = ({
     e.stopPropagation();
     toggleModal();
   };
-  console.log(visible);
-
   return (
     <S.HeaderBar {...props}>
       <div className="content">
