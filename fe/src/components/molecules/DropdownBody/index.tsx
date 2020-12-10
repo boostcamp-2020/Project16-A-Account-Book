@@ -37,7 +37,7 @@ const DropdownBody = ({
         (data: any): React.ReactElement => (
           <div
             onClick={() => onClick({ ...data, ...props, type })}
-            key={data.objectId}
+            key={data._id}
             className="dropdown-item"
           >
             <span>{data.title}</span>
