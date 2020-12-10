@@ -22,7 +22,7 @@ export const Button = styled(Input)`
 
 export const Container = styled.div`
   display: flex;
-  padding: 0.3em;
+  padding: 0.5em 0.3em;
   width: 100%;
   align-items: center;
 
@@ -51,6 +51,6 @@ export const Container = styled.div`
     height: 100%;
   }
   & + & {
-    border-bottom: 1px solid ${({ theme }) => theme.color.subText};
+    border-top: 1px solid ${({ theme }) => theme.color.subText};
   }
 `;

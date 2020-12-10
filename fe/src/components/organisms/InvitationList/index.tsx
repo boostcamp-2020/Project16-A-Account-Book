@@ -4,10 +4,11 @@ import Container from './style';
 
 export interface Prop {
   list: any[];
+  onClick?: any;
 }
-const InvitationList = ({ list }: Prop) => {
+const InvitationList = ({ list, onClick }: Prop) => {
   const invitations = list.map((l) => {
-    return <InvitationItem {...l} />;
+    return <InvitationItem {...l} onClick={onClick} />;
   });
   return <Container>{invitations}</Container>;
 };
