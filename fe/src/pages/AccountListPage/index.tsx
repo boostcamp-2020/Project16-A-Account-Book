@@ -37,7 +37,7 @@ const settingClickHandler = (history: any, account: any) => (e: any) => {
   AccountStore.setAccountUpdateTitle(account.title);
 };
 
-const newAccountClickHandler = (history: any, userId: String) => (e: any) => {
+const newAccountClickHandler = (history: any, userId: String) => () => {
   history.push({
     pathname: `/accounts/update`,
     state: {
