@@ -22,8 +22,9 @@ export const Button = styled(Input)`
 
 export const Container = styled.div`
   display: flex;
+  margin: auto;
   padding: 0.5em 0.3em;
-  width: 100%;
+  width: calc(100% - 1em);
   align-items: center;
 
   .profile__container {
