@@ -27,4 +27,6 @@ export default {
     `/api/accounts/info?title=${title}&owner=${owner}`,
   deleteCategory: (accountObjId: string, categoryObjId: string) =>
     `/api/${accountObjId}/categories/${categoryObjId}`,
+
+  getUserInvitation: () => `/api/user/accounts`,
 };

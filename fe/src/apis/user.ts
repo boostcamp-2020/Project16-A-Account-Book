@@ -5,4 +5,7 @@ export default {
   getTitleById(accountObjId: string) {
     return axios.get(`${urls.userTitle}${accountObjId}`);
   },
+  getUserInvitation() {
+    return axios.get(urls.getUserInvitation());
+  },
 };
