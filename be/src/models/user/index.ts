@@ -16,12 +16,6 @@ export const UserSchema = new Schema({
   id: {
     type: String,
   },
-  password: {
-    type: String,
-  },
-  salt: {
-    type: String,
-  },
   profileUrl: {
     type: String,
   },
