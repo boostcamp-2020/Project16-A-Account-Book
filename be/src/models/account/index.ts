@@ -9,7 +9,6 @@ import {
   findAllTransactionExceptDeleted,
   findAccountByUserId,
   findByPkAndPushUser,
-  findUnclassified,
   findUnclassifiedCategory,
   findUnclassifiedMethod,
 } from './static';
@@ -52,7 +51,6 @@ export interface IAccountModel extends Model<IAccountDocument> {
   ): Promise<any>;
   findAccountByUserId(userId: string): Promise<any>;
   findByPkAndPushUser(userObjId: string, accountObjId: string): Promise<any>;
-  findUnclassified(accountObjId: string): Promise<any>;
   findUnclassifiedCategory(accountObjId: string): Promise<any>;
   findUnclassifiedMethod(accountObjId: string): Promise<any>;
 }
@@ -89,7 +87,6 @@ AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
 AccountSchema.statics.findAccountByUserId = findAccountByUserId;
 AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
-AccountSchema.statics.findUnclassified = findUnclassified;
 AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
 AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 
