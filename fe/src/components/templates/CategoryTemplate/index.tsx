@@ -4,25 +4,23 @@ import * as S from './style';
 
 interface Props {
   headerContent: React.ReactNode;
-  homeButton: React.ReactNode;
   title: React.ReactNode;
   bodyContent: React.ReactNode;
+  NavBar: React.ReactNode;
 }
 
 function CategoryTemplate({
   headerContent,
-  homeButton,
   title,
   bodyContent,
+  NavBar,
 }: Props): React.ReactElement {
   return (
     <S.CategoryContainer>
       <S.CategoryHeader>{headerContent}</S.CategoryHeader>
-      <S.CategoryTitle>
-        {homeButton}
-        {title}
-      </S.CategoryTitle>
+      <S.CategoryTitle>{title}</S.CategoryTitle>
       <S.CategoryBody>{bodyContent}</S.CategoryBody>
+      <S.Nav>{NavBar}</S.Nav>
     </S.CategoryContainer>
   );
 }

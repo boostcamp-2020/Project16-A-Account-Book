@@ -9,9 +9,8 @@ export default {
 
 const dataList = ['random', 'values'];
 
-const defaultClickHandler = () => {
-  const a = [];
-  a.push(1);
+const dropDownItemClicked = () => {
+  console.log('dropdown item clicked');
 };
 
 const onPlusButtonClick = () => {
@@ -23,8 +22,16 @@ export const defaultTabHeader = () => {
     <ThemeProvider theme={theme}>
       <CategoryArea
         dataList={dataList}
-        onClickHandler={defaultClickHandler}
+        onClickHandler={() => {}}
         onPlusButtonClick={onPlusButtonClick}
+        dropDownItemClicked={dropDownItemClicked}
+        isClicked={false}
+        editButtonHandler={() => {
+          console.log('hi');
+        }}
+        deleteClicked={() => {
+          console.log('deleted');
+        }}
       />
     </ThemeProvider>
   );
