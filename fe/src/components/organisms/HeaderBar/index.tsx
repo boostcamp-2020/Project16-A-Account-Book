@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TransactionStore } from 'stores/Transaction';
+import bell from 'assets/svg/bell.svg';
 import * as S from './style';
 
 export interface Props {
@@ -17,9 +18,12 @@ const HeaderBar = ({
 }: Props): React.ReactElement => {
   return (
     <S.HeaderBar {...props}>
-      <Link to="/accounts" onClick={onClickHandler}>
-        {title}
-      </Link>
+      <div className="content">
+        <Link to="/accounts" onClick={onClickHandler}>
+          {title}
+        </Link>
+        <S.Icon icon={bell} />
+      </div>
     </S.HeaderBar>
   );
 };
