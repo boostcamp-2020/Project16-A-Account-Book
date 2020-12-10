@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 export const UserSchema = new Schema({
   timezone: {
@@ -19,6 +19,15 @@ export const UserSchema = new Schema({
   profileUrl: {
     type: String,
   },
+  invitations: [
+    {
+      host: String,
+      accountObjId: {
+        type: Types.ObjectId,
+        ref: 'accounts',
+      },
+    },
+  ],
 });
 
 export interface IUserDocument extends Document {
