@@ -43,3 +43,9 @@ export const invaildMethod = {
   status: 400,
   message: '잘못된 자원으로 접근하였습니다',
 };
+
+export const accountNoChange = {
+  status: 400,
+  message: 'account Update 중 에러가 발생했습니다.',
+};
+
