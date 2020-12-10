@@ -1,6 +1,5 @@
 import { ITransaction } from 'models/transaction';
 import { Schema, Types, model, Document, Model } from 'mongoose';
-import { UserSchema } from '../user';
 
 import {
   findByPkAndPushTransaction,
