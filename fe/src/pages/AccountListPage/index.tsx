@@ -42,6 +42,7 @@ const newAccountClickHandler = (history: any, userId: String) => (e: any) => {
     pathname: `/accounts/update`,
     state: {
       account: {
+        title: '',
         users: [{ _id: userId }],
       },
       isNewAccount: true,
