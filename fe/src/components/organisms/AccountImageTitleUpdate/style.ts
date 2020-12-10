@@ -35,12 +35,12 @@ export const Icon = styled(IconComponent)`
   border-radius: 2rem;
   width: 2rem;
   height: 2rem;
-  margin: 2em 0;
+  margin: 2em 0 0.5em 0;
 `;
 
 export const UploadBtn = styled(ButtonComponent)`
   width: 4rem;
-  height: 1.5rem;
+  height: 1.2rem;
   background-color: ${({ theme }) => theme.color.brandColor};
   text-align: center;
   font-size: 0.8rem;
