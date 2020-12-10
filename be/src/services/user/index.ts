@@ -1,4 +1,4 @@
-import { AccountModel } from 'models/account';
+import { AccountModel, IAccountDocument } from 'models/account';
 import { IUserDocument } from 'models/user';
 
 export const titleByAccountId = async (accountId: String) => {
@@ -11,9 +11,10 @@ export const titleByAccountId = async (accountId: String) => {
 };
 
 export const getInvitation = async (user: IUserDocument) => {
-  const account = user.invitations?.map((invitation) => invitation.accounts);
-  return AccountModel.find({ _id: { $in: account } }).select(
-    '_id title ownerName',
+  const account: any = user.invitations?.map((invitation) =>
+    AccountModel.findById(invitation.accounts).select('title _id ownerName'),
   );
+  const results = await Promise.all(account);
+  return results;
 };
 export default titleByAccountId;
