@@ -21,15 +21,19 @@ export const UserSchema = new Schema({
   },
   invitations: [
     {
-      host: String,
-      accountObjId: {
+      accounts: {
         type: Types.ObjectId,
         ref: 'accounts',
       },
+      host: String,
     },
   ],
 });
 
+export interface IInvitation {
+  host: string;
+  accounts: string;
+}
 export interface IUserDocument extends Document {
   timezone?: String;
   startOfWeek?: String;
@@ -38,6 +42,7 @@ export interface IUserDocument extends Document {
   salt?: String;
   nickname: String;
   profileUrl?: String;
+  invitations?: Array<IInvitation>;
 }
 
 export const UserModel = model<IUserDocument>('users', UserSchema);
