@@ -21,20 +21,27 @@ const submitHandler = (
 ) => () => {
   const title = AccountStore.accountUpdateTitle;
   if (isNewAccount) {
-    axios.post(url.account, {
-      title,
-      userObjIdList,
-    });
+    axios
+      .post(url.account, {
+        title,
+        userObjIdList,
+      })
+      .then(() => {
+        AccountStore.loadAccounts();
+      });
   } else {
     if (accountObjId === '') {
       console.error('accountObjId 를 넣어주세요');
     }
-    axios.put(url.accountUpdate(accountObjId), {
-      title,
-      userObjIdList,
-    });
+    axios
+      .put(url.accountUpdate(accountObjId), {
+        title,
+        userObjIdList,
+      })
+      .then(() => {
+        AccountStore.loadAccounts();
+      });
   }
-
   history.goBack();
 };
 
