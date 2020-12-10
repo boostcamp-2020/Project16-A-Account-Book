@@ -26,11 +26,11 @@ export const MonthInfoHeaderContainer = styled.section`
   display: grid;
   grid-template-columns: 3fr 5fr 1fr;
   margin: 0.3rem 0.1rem;
+  border: 0.4rem solid ${({ theme }) => theme.color.brandColor};
   border-radius: 10px;
   padding: 0 0.5rem;
   min-height: 4rem;
   justify-content: center;
   align-items: center;
-  background: ${({ theme }) => theme.color.brandColor};
+  background: ${({ theme }) => theme.color.white};
 `;
-export default {};
