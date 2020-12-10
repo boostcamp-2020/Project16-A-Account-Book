@@ -1,6 +1,7 @@
 import React from 'react';
 import { AccountStore } from 'stores/Account';
 import { observer } from 'mobx-react-lite';
+import emptyImg from 'assets/svg/account.svg';
 import * as S from './style';
 
 export interface Props {
@@ -13,7 +14,7 @@ const AccountImageTitleUpdate = ({ account, title, ...props }: Props) => {
   return (
     <S.AccountImageTitleUpdate {...props}>
       <div className="imageWrap">
-        <S.Icon icon={account.icon} />
+        <S.Icon icon={account.icon || emptyImg} />
         <S.UploadBtn>업로드</S.UploadBtn>
       </div>
       <div className="textWrap">
