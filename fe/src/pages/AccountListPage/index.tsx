@@ -24,6 +24,16 @@ const onClickHandler = (
   history.push(`/transactions/${accountOwner}/${accountTitle}`);
 };
 
+const settingClickHandler = (history: any, account: any) => (e: any) => {
+  e.stopPropagation();
+  history.push({
+    pathname: `/accounts/update`,
+    state: {
+      account,
+    },
+  });
+};
+
 const MainPage = () => {
   const history = useHistory();
   const List = AccountStore.getAccountList().map((el) => {
@@ -32,6 +42,7 @@ const MainPage = () => {
         key={el._id}
         account={{ ...el, icon: AccountSvg }}
         onClick={onClickHandler(history, el._id, el.title, el.ownerName)}
+        onSettingClick={settingClickHandler(history, el)}
       />
     );
   });
