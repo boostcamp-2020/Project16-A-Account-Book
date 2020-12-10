@@ -9,8 +9,9 @@ import {
   updateUnclassifiedMethod,
 } from 'libs/error';
 import { UserModel } from 'models/user';
-import { AccountModel } from 'models/account';
 import { CategoryModel, categoryType } from 'models/category';
+
+import { AccountModel } from 'models/account';
 
 interface IDecodedData {
   id: string | number;
