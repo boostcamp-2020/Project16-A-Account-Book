@@ -1,18 +1,13 @@
 import React from 'react';
+import { AccountStore } from 'stores/Account';
 import * as S from './style';
 
 export interface Props {
   account: any;
   title?: String;
-  setTitle?: React.Dispatch<React.SetStateAction<String>>;
 }
 
-const AccountImageTitleUpdate = ({
-  account,
-  title,
-  setTitle = () => {},
-  ...props
-}: Props) => {
+const AccountImageTitleUpdate = ({ account, title, ...props }: Props) => {
   const text = '가계부 이름';
   return (
     <S.AccountImageTitleUpdate {...props}>
@@ -26,7 +21,7 @@ const AccountImageTitleUpdate = ({
           placeholder="가계부 제목을 입력하세요"
           value={title}
           onChangeHandler={(e: any) => {
-            setTitle(e.target.value);
+            AccountStore.setAccountUpdateTitle(e.target.value);
           }}
         />
       </div>
