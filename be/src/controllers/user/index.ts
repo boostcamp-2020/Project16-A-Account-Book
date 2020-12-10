@@ -8,4 +8,13 @@ export const titleByAccountId = async (ctx: Koa.Context) => {
   ctx.response.body = title;
 };
 
-export default titleByAccountId;
+export const getUserList = async (ctx: Koa.Context) => {
+  const userList = await userService.getUserList();
+  ctx.status = 200;
+  ctx.body = userList;
+};
+
+export const getUserByAccessToken = async (ctx: Koa.Context) => {
+  ctx.status = 200;
+  ctx.body = ctx.request.body.user;
+};
