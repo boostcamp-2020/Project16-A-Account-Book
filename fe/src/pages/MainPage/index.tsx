@@ -1,58 +1,46 @@
 import React, { useEffect } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
+import { useHistory, useParams } from 'react-router-dom';
+
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
-import { calTotalPrices } from 'stores/Transaction/transactionStoreUtils';
-import date from 'utils/date';
+import NoData from 'components/organisms/NoData';
 import TransactionDateList from './TransactionDateList';
 
-const { start, end } = date.getOneMonthRange(
-  String(new Date().getFullYear()),
-  String(new Date().getMonth() + 1),
-);
-
 const MainPage = () => {
-  useEffect(() => {
-    TransactionStore.setFilter(new Date(start), new Date(end), null);
-    TransactionStore.loadTransactions();
-  }, []);
+  const history = useHistory();
+  const { title, owner } = useParams<{ title: string; owner: string }>();
+  const transactions = TransactionStore.getTransactions();
 
-  const SubHeaderBar = (
-    <MonthInfo
-      month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={calTotalPrices(toJS(TransactionStore.transactions))}
-    />
-  );
+  useEffect(() => {
+    TransactionStore.loadTransactions();
+  }, [TransactionStore.dates]);
+
+  const onClickHandler = (id: string) => {
+    history.push(
+      `/transactions/${owner}/${title}/update?transactionObjId=${id}`,
+    );
+  };
 
   const Contents = (
-    <div>
+    <>
       <FilterBar />
-      <TransactionDateList list={toJS(TransactionStore.transactions)} />
-    </div>
+      {transactions.length === 0 ? (
+        <NoData />
+      ) : (
+        <TransactionDateList list={transactions} onClick={onClickHandler} />
+      )}
+    </>
   );
 
-  if (
-    'message' in TransactionStore.transactions &&
-    toJS(TransactionStore.transactions.message) === 'nodata'
-  ) {
-    return (
-      <Template
-        HeaderBar={<Header />}
-        SubHeaderBar={SubHeaderBar}
-        Contents={<FilterBar />}
-        NavBar={<NavBarComponent />}
-      />
-    );
-  }
   return (
     <Template
       HeaderBar={<Header />}
-      SubHeaderBar={SubHeaderBar}
+      SubHeaderBar={<MonthInfo />}
       Contents={Contents}
       NavBar={<NavBarComponent />}
     />

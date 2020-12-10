@@ -1,6 +1,7 @@
 import { TransactionModel, ITransaction } from 'models/transaction';
 import { AccountModel } from 'models/account';
-import { categoryType } from 'models/category';
+import { getCompFuncByKey } from 'libs/utils';
+import { ITotalPrice } from 'services/category/index.type';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
   const year = transaction.date.getFullYear();
@@ -12,19 +13,7 @@ const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
     : { ...acc, [key]: [transaction] };
 };
 
-const sumPricesByType = (transactions: Array<any>) => {
-  const initTotalPrice = { income: 0, expense: 0 };
-  const totalPrice = transactions.reduce((sumPrice, transaction) => {
-    if (transaction.category.type === categoryType.EXPENSE) {
-      return { ...sumPrice, expense: sumPrice.expense + transaction.price };
-    }
-    return { ...sumPrice, income: sumPrice.income + transaction.price };
-  }, initTotalPrice);
-  return totalPrice;
-};
-
-const sumPricesByCategory = (transactions: Array<any>) => {};
-export const getTransaction = async ({
+export const getTransactionList = async ({
   startDate,
   endDate,
   accountObjId,
@@ -33,34 +22,21 @@ export const getTransaction = async ({
   endDate: string;
   accountObjId: string;
 }) => {
-  const res = await AccountModel.findOne({
-    _id: accountObjId,
-  })
-    .populate({
-      path: 'transactions',
-      match: { date: { $gte: startDate, $lt: endDate } },
-      populate: { path: 'category method' },
-    })
-    .exec();
+  const transactionList = await AccountModel.findAllTransactionExceptDeleted(
+    accountObjId,
+    startDate,
+    endDate,
+  );
+  return transactionList;
+};
 
-  if (!res) {
-    return { message: 'nodata' };
-  }
-
-  const trans = await res.transactions;
-  if (!trans || trans.length === 0) {
-    return { message: 'nodata' };
-  }
-
-  trans.sort((firstEl: any, secondEl: any) => {
-    return firstEl.date - secondEl.date;
-  });
-
-  const result = (trans as ITransaction[]).reduce(
+export const sortAndGroupByDate = (transactionList: ITransaction[]) => {
+  transactionList.sort(getCompFuncByKey('date'));
+  const groupedByDateTransactionList = transactionList.reduce(
     oneMonthTransactionsReducer,
     {},
   );
-  return result;
+  return groupedByDateTransactionList;
 };
 
 export const saveAndAddToAccount = async (
@@ -73,17 +49,28 @@ export const saveAndAddToAccount = async (
     transcationObjId,
   );
 };
-export const getCategoryStatistics = async (
-  accountObjId: string,
-  startDate: string,
-  endDate: string,
-) => {
-  const transactions = await AccountModel.findByPkAndGetTransCategory(
-    accountObjId,
-    startDate,
-    endDate,
+
+export const getTransaction = async (transactionObjId: string) => {
+  const transaction = await TransactionModel.findByPkAndPopulateAll(
+    transactionObjId,
   );
-  const totalPrice = sumPricesByType(transactions);
-  const categories = sumPricesByCategory(transactions);
-  return { totalPrice };
+  if (!transaction) {
+    throw new Error();
+  }
+  return transaction;
+};
+
+export const updateTransaction = async (
+  transactionObjId: string,
+  transaction: ITransaction,
+) => {
+  const conditions = { _id: transactionObjId, isDeleted: false };
+  return TransactionModel.findOneAndUpdate(conditions, transaction).exec();
+};
+
+export const deleteTransaction = async (transactionObjId: string) => {
+  const conditions = { _id: transactionObjId, isDeleted: false };
+  return TransactionModel.findOneAndUpdate(conditions, {
+    isDeleted: true,
+  }).exec();
 };

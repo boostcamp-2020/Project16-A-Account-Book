@@ -20,6 +20,7 @@ export const hostConfig = {
 
 export const jwtConfig = {
   jwtSecret: process.env.JWT_SECRET || 'jwt_secret',
+  jwtExpires: process.env.EXPIRES_IN,
 };
 
 export const githubConfig = {

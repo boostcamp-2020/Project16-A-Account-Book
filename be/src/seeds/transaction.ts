@@ -34,6 +34,7 @@ export const up = ({ methods, categories }: TransactionType) => {
           start: 1000,
           end: 300000,
         });
+        const isDeleted = index % 5 === 0;
         transactionList.push({
           client,
           date,
@@ -41,6 +42,7 @@ export const up = ({ methods, categories }: TransactionType) => {
           method,
           category,
           price,
+          isDeleted,
         });
         return transactionList;
       }, []);

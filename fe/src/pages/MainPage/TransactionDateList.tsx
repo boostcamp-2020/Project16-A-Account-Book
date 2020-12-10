@@ -1,38 +1,44 @@
 import React from 'react';
-import AccountDate from 'components/organisms/AccountDate';
+import TransactionList from 'components/organisms/TransactionList';
+import { TransactionStore } from 'stores/Transaction';
+import {
+  filterList,
+  convertTransactionDBTypetoTransactionType,
+} from 'stores/Transaction/transactionStoreUtils';
+import { observer } from 'mobx-react-lite';
+import * as types from 'types';
 
-const convertTransactionDBTypetoTransactionType = (input: any[]) => {
-  if (typeof input === 'string') {
-    return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
-  }
-  return input.map((el) => {
-    const { _id, category, method, ...other } = el;
-    return {
-      ...other,
-      id: _id,
-      category: category.title,
-      method: method.title,
-    };
-  });
-};
-
-type TransactionDBKeyValue = [date: string, transactions: any];
-
-const TransactionDateList = ({ list }: { list: any }) => {
-  const mapFunc = (item: TransactionDBKeyValue) => {
-    const [date, transactions] = item;
+const TransactionDateList = ({
+  list,
+  onClick,
+}: {
+  list: types.IDateTransactionObj;
+  onClick: any;
+}) => {
+  const getTransactionListComponent = ([date, transactions]: [
+    string,
+    types.TransactionDBType[],
+  ]) => {
+    const transactionList = TransactionStore.isFiltered
+      ? filterList(transactions)
+      : transactions;
+    if (transactionList.length === 0) {
+      return <></>;
+    }
+    const formattedTransactionList = convertTransactionDBTypetoTransactionType(
+      transactionList,
+    );
     return (
-      <AccountDate
+      <TransactionList
         key={date}
         date={new Date(date)}
-        transactionList={convertTransactionDBTypetoTransactionType(
-          transactions as [],
-        )}
+        onClick={onClick}
+        transactionList={formattedTransactionList}
       />
     );
   };
 
-  return <>{Object.entries(list).map(mapFunc)}</>;
+  return <>{Object.entries(list).map(getTransactionListComponent)}</>;
 };
 
-export default TransactionDateList;
+export default observer(TransactionDateList);

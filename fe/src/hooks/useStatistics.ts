@@ -14,13 +14,16 @@ const initState = {
 
 const useStatistics = (): IStatistics => {
   const [statistics, setStatistics] = useState(initState);
+
   const loadAndSetStatistics = async () => {
-    const loadedStatistics: any = await api.getStatistics(
+    TransactionStore.loadTransactions();
+    const loadedStatistics: any = await api.getCategoryStatistics(
       TransactionStore.accountObjId,
       TransactionStore.getDates(),
     );
     setStatistics(loadedStatistics);
   };
+
   useEffect(() => {
     loadAndSetStatistics();
   }, []);

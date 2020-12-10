@@ -1,19 +1,38 @@
 import Koa from 'koa';
-import { getTransaction, saveAndAddToAccount } from 'services/transaction';
+import { invalidTransactionError } from 'libs/error';
+import * as service from 'services/transaction';
 
-const get = async (ctx: Koa.Context) => {
+const getTransactionList = async (ctx: Koa.Context) => {
   const { startDate, endDate } = ctx.query;
   const { accountObjId } = ctx.params;
-  const res = await getTransaction({ startDate, endDate, accountObjId });
-  ctx.status = 200;
-  ctx.body = res;
+  const transactionList = await service.getTransactionList({
+    startDate,
+    endDate,
+    accountObjId,
+  });
+  const groupedByDateTransactionList = service.sortAndGroupByDate(
+    transactionList,
+  );
+  ctx.status = transactionList.length === 0 ? 204 : 200;
+  ctx.body = groupedByDateTransactionList;
+};
+
+const getTransaction = async (ctx: Koa.Context) => {
+  const { transactionObjId } = ctx.params;
+  try {
+    const transaction = await service.getTransaction(transactionObjId);
+    ctx.status = 200;
+    ctx.body = transaction;
+  } catch (e) {
+    throw invalidTransactionError;
+  }
 };
 
 const post = async (ctx: Koa.Context) => {
   const { transaction } = ctx.request.body;
   const { accountObjId } = ctx.params;
   try {
-    await saveAndAddToAccount(transaction, accountObjId);
+    await service.saveAndAddToAccount(transaction, accountObjId);
   } catch (e) {
     e.status = 400;
     throw e;
@@ -22,4 +41,33 @@ const post = async (ctx: Koa.Context) => {
   ctx.res.end();
 };
 
-export default { get, post };
+const updateTransaction = async (ctx: Koa.Context) => {
+  const { transaction } = ctx.request.body;
+  const { transactionObjId } = ctx.params;
+  try {
+    await service.updateTransaction(transactionObjId, transaction);
+    ctx.status = 200;
+    ctx.res.end();
+  } catch (e) {
+    throw invalidTransactionError;
+  }
+};
+
+const deleteTransaction = async (ctx: Koa.Context) => {
+  const { transactionObjId } = ctx.params;
+  try {
+    await service.deleteTransaction(transactionObjId);
+    ctx.status = 200;
+    ctx.res.end();
+  } catch (e) {
+    throw invalidTransactionError;
+  }
+};
+
+export default {
+  deleteTransaction,
+  getTransactionList,
+  post,
+  getTransaction,
+  updateTransaction,
+};

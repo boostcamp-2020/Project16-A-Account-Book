@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import { withKnobs } from '@storybook/addon-knobs';
 import MonthInfoHeader from 'components/organisms/MonthInfoHeader';
-import AccountDate from 'components/organisms/AccountDate';
+import AccountDate from 'components/organisms/TransactionList';
 import HeaderBar from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';
 import NavBar from 'components/organisms/NavBar';
@@ -46,12 +46,22 @@ export const MainSample = () => {
   ];
 
   const MonthInfoHeaderComponent = (
-    <MonthInfoHeader month={11} total={{ income: 20000, expense: 40000 }} />
+    <MonthInfoHeader
+      date={{
+        startDate: '2020-12-01',
+        endDate: '2021-11-11',
+      }}
+      total={{ income: 20000, expense: 40000 }}
+    />
   );
   const AccountDateComponent = (
     <>
       <FilterBar />
-      <AccountDate date={new Date()} transactionList={testTransactionList} />
+      <AccountDate
+        date={new Date()}
+        transactionList={testTransactionList}
+        onClick={() => {}}
+      />
     </>
   );
   const NavBarComponent = <NavBar />;

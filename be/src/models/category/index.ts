@@ -4,6 +4,7 @@ import { createDefaultCategory } from './static';
 export const categoryType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
+  UNCLASSIFIED: 'UNCLASSIFIED',
 };
 
 export interface ICategory {
@@ -30,6 +31,10 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
     validate: (color: string) => color.length === 7,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
   },
 });
 

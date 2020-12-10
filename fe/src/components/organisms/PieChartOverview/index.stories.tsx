@@ -25,7 +25,7 @@ export const DefaultPieChartOverview = () => {
   ];
   return (
     <GlobalThemeProvider>
-      <PieChartOverview categories={categories} />
+      <PieChartOverview categories={categories} onClick={() => {}} />
     </GlobalThemeProvider>
   );
 };
