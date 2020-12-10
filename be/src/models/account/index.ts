@@ -11,8 +11,6 @@ import {
   findUnclassifiedMethod,
   findAccountByUserId,
   findByPkAndPushUser,
-  findUnclassifiedCategory,
-  findUnclassifiedMethod,
 } from './static';
 
 export interface IAccount {
@@ -55,8 +53,6 @@ export interface IAccountModel extends Model<IAccountDocument> {
   findUnclassifiedMethod(accountObjId: string): Promise<any>;
   findAccountByUserId(userId: string): Promise<any>;
   findByPkAndPushUser(userObjId: string, accountObjId: string): Promise<any>;
-  findUnclassifiedCategory(accountObjId: string): Promise<any>;
-  findUnclassifiedMethod(accountObjId: string): Promise<any>;
 }
 
 export const AccountSchema = new Schema({
@@ -94,8 +90,6 @@ AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 
 AccountSchema.statics.findAccountByUserId = findAccountByUserId;
 AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
-AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
-AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
