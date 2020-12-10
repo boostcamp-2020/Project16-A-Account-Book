@@ -63,7 +63,7 @@ const AccountListPage = () => {
   const List = AccountStore.getAccountList().map((el) => {
     return (
       <Account
-        key={el._id}
+        key={String(el._id) + String(el.title)}
         account={{ ...el, icon: AccountSvg }}
         onClick={onClickHandler(history, el._id, el.title, el.ownerName)}
         onSettingClick={settingClickHandler(history, el)}
