@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-newline */
 import React, { useRef, useReducer, useEffect } from 'react';
 import useVisible from 'hooks/useVisible';
 import { MethodStore } from 'stores/Method';
@@ -30,7 +31,7 @@ const MainFilterForm = () => {
   });
 
   const { dates, categories, methods } = state;
-  const { income, expense } = categories;
+  const { income, expense, unclassified } = categories;
   const container = useRef<HTMLDivElement>(null);
   const [visible, toggleVisible] = useVisible(container);
 
@@ -183,6 +184,13 @@ const MainFilterForm = () => {
             type={convert(categoryType.INCOME)}
           />
         </CategoryFilterList>
+        <CategoryFilterList
+          filterTitle="미분류"
+          disabled={unclassified.disabled}
+          onClick={() =>
+            onClickCategoryDisable(convert(categoryType.UNCLASSIFIED))
+          }
+        />
       </S.Box>
       <div className="buttons">
         <S.BottomButton type="button" onClick={onApplyHandler} value="확인" />

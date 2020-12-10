@@ -67,7 +67,7 @@ export const categoryConvertBig2Small = (input: string): string => {
       return 'income';
 
     default:
-      return categoryType.UNCLASSIFIED;
+      return 'unclassified';
   }
 };
 export default {};
