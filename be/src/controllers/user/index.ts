@@ -13,3 +13,8 @@ export const getUserList = async (ctx: Koa.Context) => {
   ctx.status = 200;
   ctx.body = userList;
 };
+
+export const getUserByAccessToken = async (ctx: Koa.Context) => {
+  ctx.status = 200;
+  ctx.body = ctx.request.body.user;
+};
