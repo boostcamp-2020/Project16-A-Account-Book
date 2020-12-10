@@ -85,11 +85,10 @@ AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
 AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
-AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
-AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
-
 AccountSchema.statics.findAccountByUserId = findAccountByUserId;
 AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
+AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
+AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
