@@ -22,10 +22,10 @@ const AccountSubmitButtonList = ({
   const deleteText = isOwner ? '삭제' : '나가기';
   return (
     <S.AccountSubmitButtonList {...props}>
-      <S.Button onClick={onSubmitClick}>{submitText}</S.Button>
-      <S.Button onClick={onCancelClick}>취소</S.Button>
+      <S.Button type="button" value={submitText} onClick={onSubmitClick} />
+      <S.Button type="button" value="취소" onClick={onCancelClick} />
       {!isNewAccount && (
-        <S.Button onClick={onDeleteClick}>{deleteText}</S.Button>
+        <S.Button type="button" value={deleteText} onClick={onDeleteClick} />
       )}
     </S.AccountSubmitButtonList>
   );

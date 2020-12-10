@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import ButtonComponent from 'components/atoms/Button';
+import Input from 'components/atoms/Input';
 
-export const Button = styled(ButtonComponent)`
+export const Button = styled(Input)`
   height: 3rem;
   margin-right: 1rem;
 `;
