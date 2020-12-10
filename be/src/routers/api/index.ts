@@ -13,7 +13,6 @@ router.use('/auth', authRouter.routes());
 router.use(authorization);
 router.use('/accounts', accountRouter.routes());
 router.use('/user', userRouter.routes());
-router.use('/accounts', accountRouter.routes());
 
 router.use('/:accountObjId', verifyAccountAccess);
 router.use('/:accountObjId/accounts', accountRouter.routes());
