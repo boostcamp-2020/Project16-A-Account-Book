@@ -36,12 +36,12 @@ const MainFilterForm = () => {
   const [visible, toggleVisible] = useVisible(container);
   const selectAll = (type: string) => {
     const fetchedCategories = CategoryStore.getCategories(type);
-    const c =
+    const selectedCategoryIdList =
       categories[type].list.length === fetchedCategories.length
         ? []
         : fetchedCategories.map((cat) => cat._id);
 
-    dispatch(actions.setAllCategories(type, c));
+    dispatch(actions.setAllCategories(type, selectedCategoryIdList));
   };
   const getDataList = async () => {
     await Promise.all([
@@ -50,8 +50,10 @@ const MainFilterForm = () => {
     ]);
     if (!TransactionStore.isFiltered) {
       Object.values(categoryType).forEach((cat) => selectAll(convert(cat)));
-      const m = MethodStore.getMethods().map((method) => method._id);
-      dispatch(actions.setAllMethod(m));
+      const selectedMethodList = MethodStore.getMethods().map(
+        (method) => method._id,
+      );
+      dispatch(actions.setAllMethod(selectedMethodList));
     }
   };
   useEffect(() => {

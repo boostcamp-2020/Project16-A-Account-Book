@@ -22,8 +22,9 @@ export const Button = styled(Input)`
 
 export const Container = styled.div`
   display: flex;
-  padding: 0.3em;
-  width: 100%;
+  margin: auto;
+  padding: 0.5em 0.3em;
+  width: calc(100% - 1em);
   align-items: center;
 
   .profile__container {
@@ -51,6 +52,6 @@ export const Container = styled.div`
     height: 100%;
   }
   & + & {
-    border-bottom: 1px solid ${({ theme }) => theme.color.subText};
+    border-top: 1px solid ${({ theme }) => theme.color.subText};
   }
 `;
