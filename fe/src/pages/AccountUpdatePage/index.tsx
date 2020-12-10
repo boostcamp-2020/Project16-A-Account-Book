@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import AccountTitleImageUpdate from 'components/organisms/AccountImageTitleUpdate';
@@ -12,42 +12,11 @@ import { observer } from 'mobx-react-lite';
 import axios from 'apis/axios';
 import url from 'apis/urls';
 import { AccountStore } from 'stores/Account';
+import { toJS } from 'mobx';
 
 interface Props {
   location?: any;
 }
-
-const submitHandler = (
-  history: any,
-  isNewAccount: boolean,
-  accountObjId = '',
-  userObjIdList: Array<String>,
-) => () => {
-  const title = AccountStore.accountUpdateTitle;
-  if (isNewAccount) {
-    axios
-      .post(url.account, {
-        title,
-        userObjIdList,
-      })
-      .then(() => {
-        AccountStore.loadAccounts();
-      });
-  } else {
-    if (accountObjId === '') {
-      console.error('accountObjId 를 넣어주세요');
-    }
-    axios
-      .put(url.accountUpdate(accountObjId), {
-        title,
-        userObjIdList,
-      })
-      .then(() => {
-        AccountStore.loadAccounts();
-      });
-  }
-  history.goBack();
-};
 
 const deleteHandler = (
   history: any,
@@ -69,6 +38,12 @@ const AccountUpdatePage = ({ location }: Props) => {
     account.users,
   );
 
+  const userObjIdList = account.users.map((user: any) => {
+    return user._id;
+  });
+  useEffect(() => {
+    AccountStore.setUserObjIdList([...userObjIdList, ...checkedUserIdList]);
+  }, [checkedUserIdList]);
   const onSelectUser = (user: IUser) => {
     const selectedId = user._id;
     if (selectedId === 'ALL') {
@@ -83,9 +58,28 @@ const AccountUpdatePage = ({ location }: Props) => {
       );
     }
   };
-  const userObjIdList = account.users.map((user: any) => {
-    return user._id;
-  });
+
+  const submitHandler = async () => {
+    const title = AccountStore.accountUpdateTitle;
+    if (isNewAccount) {
+      await axios.post(url.account, {
+        title,
+        userObjIdList: [
+          '5fd2194ac439c6a94e94fac6',
+          ...toJS(AccountStore.userObjIdList),
+        ],
+      });
+      AccountStore.loadAccounts();
+    } else {
+      await axios.put(url.accountUpdate(account._id), {
+        title,
+        userObjIdList: toJS(AccountStore.userObjIdList),
+      });
+      AccountStore.loadAccounts();
+    }
+    history.goBack();
+  };
+
   const isOwner = true;
   AccountStore.setAccountUpdateTitle(account.title);
 
@@ -102,12 +96,7 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const Footer = (
     <AccountSubmitButtonList
-      onSubmitClick={submitHandler(
-        history,
-        isNewAccount,
-        account._id,
-        userObjIdList,
-      )}
+      onSubmitClick={submitHandler}
       onCancelClick={() => history.goBack()}
       onDeleteClick={deleteHandler(history, isOwner, account._id)}
       isOwner={isOwner}
