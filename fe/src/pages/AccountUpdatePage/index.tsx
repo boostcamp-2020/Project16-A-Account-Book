@@ -64,10 +64,7 @@ const AccountUpdatePage = ({ location }: Props) => {
     if (isNewAccount) {
       await axios.post(url.account, {
         title,
-        userObjIdList: [
-          '5fd2194ac439c6a94e94fac6',
-          ...toJS(AccountStore.userObjIdList),
-        ],
+        userObjIdList: [...toJS(AccountStore.userObjIdList)],
       });
       AccountStore.loadAccounts();
     } else {
