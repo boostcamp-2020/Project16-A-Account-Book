@@ -3,6 +3,7 @@ import IconComponent from 'components/atoms/Icons';
 import ProfileImgList from 'components/molecules/ProfileImgList';
 
 export const Account = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   height: 3rem;
@@ -12,6 +13,10 @@ export const Account = styled.div`
   padding: 0 1rem;
   :hover {
     cursor: pointer;
+  }
+
+  .text {
+    width: 65%;
   }
 
   .settingIcon {
@@ -29,4 +34,6 @@ export const Setting = styled(IconComponent)`
   margin-right: 1rem;
 `;
 
-export const ProfileList = styled(ProfileImgList)``;
+export const ProfileList = styled(ProfileImgList)`
+  width: 12rem;
+`;

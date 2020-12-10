@@ -24,7 +24,7 @@ const Account = ({
   return (
     <S.Account onClick={onClick} {...props}>
       <S.Icon icon={account.icon} />
-      <div>{text}</div>
+      <div className="text">{text}</div>
       <S.ProfileList profileImgList={profileUrls} />
       <img
         alt="settingIcon"

@@ -15,7 +15,7 @@ export default {
   },
   defaultCategory: 'api/categories',
   account: '/api/accounts',
-
+  postCategory: '/api/categories',
   method: (accountObjId: string) => `/api/${accountObjId}/methods/`,
   methodDeleteOrUpdate: (accountObjId: string, methodObjId: string) =>
     `/api/${accountObjId}/methods/${methodObjId}`,
@@ -23,6 +23,7 @@ export default {
   statistics: (accountObjId: string) =>
     `/api/${accountObjId}/categories/statistics/`,
   categories: (accountObjId: string) => `/api/${accountObjId}/categories`,
+  accountUpdate: (accountObjId: string) => `/api/${accountObjId}/accounts`,
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
   deleteCategory: (accountObjId: string, categoryObjId: string) =>
