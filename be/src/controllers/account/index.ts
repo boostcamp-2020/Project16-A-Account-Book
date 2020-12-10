@@ -8,7 +8,6 @@ export const get = async (ctx: Koa.Context) => {
 
   if (!res) {
     ctx.status = 204;
-    ctx.response.body = [];
     return;
   }
   ctx.status = 200;
@@ -21,7 +20,7 @@ export const postAccount = async (ctx: Koa.Context) => {
     ctx.request.body.title,
     ctx.request.body.userObjIdList,
   );
-  ctx.status = 200;
+  ctx.status = 201;
   ctx.response.body = { success: true };
 };
 
