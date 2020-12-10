@@ -14,28 +14,17 @@ type accountItem = {
 export interface Account {
   accountList: Array<accountItem>;
   state: string;
-  accountUpdateTitle: string;
-  userObjIdList: string[];
 }
 
 const initialState: Account = {
   accountList: [],
   state: state.PENDING,
-  accountUpdateTitle: '',
-  userObjIdList: [],
 };
 
 export const AccountStore = makeAutoObservable({
   accountList: initialState.accountList,
   state: initialState.state,
-  accountUpdateTitle: initialState.accountUpdateTitle,
-  userObjIdList: initialState.userObjIdList,
-  setAccountUpdateTitle(accountUpdateTitle: string) {
-    this.accountUpdateTitle = accountUpdateTitle;
-  },
-  setUserObjIdList(newUserObjIdList: string[]) {
-    this.userObjIdList = newUserObjIdList;
-  },
+
   getAccountList() {
     return toJS(this.accountList);
   },
