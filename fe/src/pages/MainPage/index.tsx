@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import { useHistory, useParams } from 'react-router-dom';
@@ -15,17 +14,11 @@ import TransactionDateList from './TransactionDateList';
 const MainPage = () => {
   const history = useHistory();
   const { title, owner } = useParams<{ title: string; owner: string }>();
+  const transactions = TransactionStore.getTransactions();
 
   useEffect(() => {
     TransactionStore.loadTransactions();
   }, [TransactionStore.dates]);
-
-  const SubHeaderBar = (
-    <MonthInfo
-      month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={TransactionStore.totalPrices}
-    />
-  );
 
   const onClickHandler = (id: string) => {
     history.push(
@@ -34,35 +27,20 @@ const MainPage = () => {
   };
 
   const Contents = (
-    <div>
+    <>
       <FilterBar />
-      <TransactionDateList
-        list={TransactionStore.getTransactionList()}
-        onClick={onClickHandler}
-      />
-    </div>
+      {transactions.length === 0 ? (
+        <NoData />
+      ) : (
+        <TransactionDateList list={transactions} onClick={onClickHandler} />
+      )}
+    </>
   );
 
-  if (toJS(TransactionStore.transactions).length === 0) {
-    const ContentsComponent = (
-      <>
-        <FilterBar />
-        <NoData />
-      </>
-    );
-    return (
-      <Template
-        HeaderBar={<Header />}
-        SubHeaderBar={SubHeaderBar}
-        Contents={ContentsComponent}
-        NavBar={<NavBarComponent />}
-      />
-    );
-  }
   return (
     <Template
       HeaderBar={<Header />}
-      SubHeaderBar={SubHeaderBar}
+      SubHeaderBar={<MonthInfo />}
       Contents={Contents}
       NavBar={<NavBarComponent />}
     />

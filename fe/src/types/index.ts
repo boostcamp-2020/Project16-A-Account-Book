@@ -18,7 +18,9 @@ export interface TransactionDBType {
   };
   price: number;
 }
-
+export interface IDateTransactionObj {
+  [date: string]: TransactionDBType[];
+}
 export interface IMethod {
   _id: string;
   title: string;
