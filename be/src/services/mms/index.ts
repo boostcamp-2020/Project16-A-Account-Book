@@ -13,22 +13,24 @@ export interface ParsedSMS {
   isDeposit: Boolean;
 }
 
-export const postMms = async (accountObjId: string, mmsObj: ParsedSMS) => {
-  const method = await MethodModel.findOne({ title: mmsObj.cardname });
+export const postMms = async (
+  accountObjId: string,
+  mmsObj: ParsedSMS,
+  client: string,
+) => {
+  let method = await MethodModel.findOne({ title: mmsObj.cardname });
   if (!method) {
-    const newMethod = await MethodModel.create({ title: mmsObj.cardname });
-    newMethod.save();
+    method = await MethodModel.create({ title: mmsObj.cardname });
   }
-  const category = await CategoryModel.findOne({ title: '미등록' });
+  const category = await CategoryModel.findOne({ title: '미분류' });
   if (category != null) {
     const newTransaction = await TransactionModel.create({
-      client: mmsObj.cardname,
-      method: mmsObj.cardname,
+      client,
+      method: method._id,
       category: category._id,
       date: new Date(mmsObj.date),
       price: mmsObj.amount,
     });
-    newTransaction.save();
     await AccountModel.update(
       { _id: accountObjId },
       { $push: { transactions: newTransaction._id } },

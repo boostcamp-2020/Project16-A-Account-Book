@@ -12,7 +12,11 @@ export interface ParsedSMS {
 }
 
 export default {
-  async processChatting(accountObjId: string, mmsObj: ParsedSMS): Promise<any> {
-    return axios.post(`${url.mms}`, { accountObjId, mmsObj });
+  async processChatting(
+    accountObjId: string,
+    mmsObj: ParsedSMS,
+    client: string,
+  ): Promise<any> {
+    return axios.post(`${url.mms}`, { accountObjId, mmsObj, client });
   },
 };

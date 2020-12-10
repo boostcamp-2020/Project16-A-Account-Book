@@ -2,9 +2,9 @@ import { Context } from 'koa';
 import { postMms } from 'services/mms';
 
 const post = async (ctx: Context) => {
-  const { accountObjId, mmsObj } = ctx.request.body;
+  const { accountObjId, mmsObj, client } = ctx.request.body;
   try {
-    const newMms = await postMms(accountObjId, mmsObj);
+    const newMms = await postMms(accountObjId, mmsObj, client);
     ctx.status = 200;
     ctx.body = newMms;
   } catch (e) {
