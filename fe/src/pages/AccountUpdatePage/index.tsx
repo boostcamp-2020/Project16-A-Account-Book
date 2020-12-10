@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import AccountTitleImageUpdate from 'components/organisms/AccountImageTitleUpdate';
@@ -12,7 +12,6 @@ import { observer } from 'mobx-react-lite';
 import axios from 'apis/axios';
 import url from 'apis/urls';
 import { AccountStore } from 'stores/Account';
-import { toJS } from 'mobx';
 
 interface Props {
   location?: any;
@@ -34,16 +33,15 @@ const deleteHandler = (
 const AccountUpdatePage = ({ location }: Props) => {
   const history = useHistory();
   const { account, isNewAccount } = location.state;
+  const alreadyInvitedUserIdList = account.users.map((user: any) => user._id);
   const [userList, checkedUserIdList, setCheckedUserIdList] = useInviteUser(
-    account.users,
+    alreadyInvitedUserIdList,
   );
-
-  const userObjIdList = account.users.map((user: any) => {
-    return user._id;
-  });
+  const titleInputRef = useRef<any>();
   useEffect(() => {
-    AccountStore.setUserObjIdList([...userObjIdList, ...checkedUserIdList]);
-  }, [checkedUserIdList]);
+    titleInputRef.current.value = account.title;
+  }, []);
+
   const onSelectUser = (user: IUser) => {
     const selectedId = user._id;
     if (selectedId === 'ALL') {
@@ -60,17 +58,18 @@ const AccountUpdatePage = ({ location }: Props) => {
   };
 
   const submitHandler = async () => {
-    const title = AccountStore.accountUpdateTitle;
+    const title = titleInputRef.current.value;
+    const userObjIdList = [...alreadyInvitedUserIdList, ...checkedUserIdList];
     if (isNewAccount) {
       await axios.post(url.account, {
         title,
-        userObjIdList: [...toJS(AccountStore.userObjIdList)],
+        userObjIdList,
       });
       AccountStore.loadAccounts();
     } else {
       await axios.put(url.accountUpdate(account._id), {
         title,
-        userObjIdList: toJS(AccountStore.userObjIdList),
+        userObjIdList,
       });
       AccountStore.loadAccounts();
     }
@@ -78,11 +77,10 @@ const AccountUpdatePage = ({ location }: Props) => {
   };
 
   const isOwner = true;
-  AccountStore.setAccountUpdateTitle(account.title);
 
   const Contents = (
     <>
-      <AccountTitleImageUpdate account={account} />
+      <AccountTitleImageUpdate account={account} inputRef={titleInputRef} />
       <InviteUser
         dataList={userList}
         onClick={onSelectUser}
