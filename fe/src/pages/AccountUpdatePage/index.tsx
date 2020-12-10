@@ -18,7 +18,6 @@ const submitHandler = (
   isNewAccount: boolean,
   accountObjId = '',
   userObjIdList: Array<String>,
-  AccountStoreReload: any,
 ) => () => {
   const title = AccountStore.accountUpdateTitle;
   if (isNewAccount) {
@@ -35,7 +34,6 @@ const submitHandler = (
       userObjIdList,
     });
   }
-  AccountStoreReload();
 
   history.goBack();
 };
@@ -44,14 +42,12 @@ const deleteHandler = (
   history: any,
   isOwner: boolean,
   accountObjId: string,
-  AccountStoreReload: any,
 ) => () => {
   if (isOwner) {
     axios.delete(url.accountUpdate(accountObjId));
   } else {
     // TODO: 해당 user만 account users목록에서 빼는 api호출
   }
-  AccountStoreReload();
   history.goBack();
 };
 
@@ -62,16 +58,11 @@ const AccountUpdatePage = ({ location }: Props) => {
     return user._id;
   });
   const isOwner = true;
-  if (AccountStore.accountUpdateTitle === '') {
-    AccountStore.setAccountUpdateTitle('새 가계부를 입력하세요');
-  }
+  AccountStore.setAccountUpdateTitle(account.title);
 
   const Contents = (
     <>
-      <AccountTitleImageUpdate
-        account={account}
-        title={AccountStore.accountUpdateTitle}
-      />
+      <AccountTitleImageUpdate account={account} />
     </>
   );
 
@@ -82,15 +73,9 @@ const AccountUpdatePage = ({ location }: Props) => {
         isNewAccount,
         account._id,
         userObjIdList,
-        AccountStore.loadAccounts.bind(AccountStore),
       )}
       onCancelClick={() => history.goBack()}
-      onDeleteClick={deleteHandler(
-        history,
-        isOwner,
-        account._id,
-        AccountStore.loadAccounts.bind(AccountStore),
-      )}
+      onDeleteClick={deleteHandler(history, isOwner, account._id)}
       isOwner={isOwner}
       isNewAccount={isNewAccount}
     />
