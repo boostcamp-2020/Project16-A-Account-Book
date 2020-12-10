@@ -33,8 +33,10 @@ const WarningMessage = <div>데이터가 충분하지 않습니다 😢 </div>;
 const LineChartOverview = (): React.ReactElement => {
   const dataLoaded = TransactionStore.state === state.DONE;
   const dataList = TransactionStore.totalExpensePriceByDate;
-  const suitableForRendering =
-    !checkDataIfScarce(dataList) && !checkAllZeroPrice(dataList);
+  const suitableForRendering = !(
+    checkDataIfScarce(dataList) && checkAllZeroPrice(dataList)
+  );
+
   return (
     <div>
       <S.StatisticsTitle>지출 추이</S.StatisticsTitle>

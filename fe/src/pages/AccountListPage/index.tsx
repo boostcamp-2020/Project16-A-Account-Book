@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
-import NavBarComponent from 'components/organisms/NavBar';
 import { AccountStore } from 'stores/Account';
 import Account from 'components/organisms/Account';
 import { useHistory } from 'react-router-dom';
@@ -32,7 +31,7 @@ const MainPage = () => {
       <Account
         key={el._id}
         account={{ ...el, icon: AccountSvg }}
-        onClick={onClickHandler(history, el._id, el.title, el.owner)}
+        onClick={onClickHandler(history, el._id, el.title, el.ownerName)}
       />
     );
   });
@@ -42,13 +41,7 @@ const MainPage = () => {
     AccountStore.loadTransactions();
   }, []);
 
-  return (
-    <Template
-      HeaderBar={<Header />}
-      Contents={Contents}
-      NavBar={<NavBarComponent />}
-    />
-  );
+  return <Template HeaderBar={<Header />} Contents={Contents} />;
 };
 
 export default observer(MainPage);

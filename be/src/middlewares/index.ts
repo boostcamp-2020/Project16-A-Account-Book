@@ -1,8 +1,13 @@
 import Koa from 'koa';
 import jwt from 'jsonwebtoken';
 import { jwtConfig } from 'config';
-import { unAuthroziedError, invalidAccessError } from 'libs/error';
+import {
+  unAuthroziedError,
+  invalidAccessError,
+  accountHasNoUserError,
+} from 'libs/error';
 import { UserModel } from 'models/user';
+import { AccountModel } from 'models/account';
 
 interface IDecodedData {
   id: string | number;
@@ -44,10 +49,15 @@ export const verifyAccountAccess = async (
   if (!user) {
     throw unAuthroziedError;
   }
-  const userHasAccountId = user.accounts.some(
-    (account: object) => String(account) === accountObjId,
-  );
-  if (!userHasAccountId) {
+  const selectedAccount = await AccountModel.findById(accountObjId);
+  if (!selectedAccount) {
+    throw accountHasNoUserError;
+  }
+  const accountHasUserId = selectedAccount.users.some((el: any) => {
+    return String(el._id) === String(user._id);
+  });
+
+  if (!accountHasUserId) {
     throw invalidAccessError;
   }
   await next();
