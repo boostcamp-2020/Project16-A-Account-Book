@@ -38,7 +38,10 @@ export async function findByPkAndGetTransCategory(
   const accountInfo = await this.findById(accountObjId, 'transactions')
     .populate({
       path: 'transactions',
-      match: { date: { $gte: startDate, $lt: endDate } },
+      match: {
+        date: { $gte: startDate, $lt: endDate },
+        isDeleted: { $eq: false },
+      },
       select: 'price category date',
       populate: { path: 'category', select: 'type color title' },
     })

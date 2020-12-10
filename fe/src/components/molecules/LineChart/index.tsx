@@ -42,7 +42,7 @@ const LineChart = ({
   const xAxisPos = {
     x: {
       start: paddingWidth,
-      end: chartWidth + paddingWidth / 2,
+      end: chartWidth + paddingWidth,
     },
     y: height - paddingHeight,
   };
@@ -98,16 +98,26 @@ const LineChart = ({
   };
 
   const LabelsXAxis = () => {
-    const y = height - paddingHeight + FONT_SIZE * 2;
+    const y = yAxisPos.y.end + FONT_SIZE * 2;
+    const dateLength = data[0].date.length;
+    const labelLength = (FONT_SIZE + dateLength) * 1.5;
+    let lastPrintedX = 0;
     return (
       <>
         {data.map((element, index) => {
           const ratio = index / maximumXFromData;
           const x = getXpos(ratio) - FONT_SIZE;
+          const printTarget = x >= lastPrintedX;
+          if (printTarget) {
+            lastPrintedX = Math.ceil(x + labelLength);
+          }
+
           return (
-            <text key={`label-x-${x}`} x={x} y={y} style={labelStyle}>
-              {element.date}
-            </text>
+            printTarget && (
+              <text key={`label-x-${x}`} x={x} y={y} style={labelStyle}>
+                {element.date}
+              </text>
+            )
           );
         })}
       </>
@@ -124,7 +134,9 @@ const LineChart = ({
           const y = getYpos(ratio) + FONT_SIZE / 2;
           return (
             <text key={`label-y-${y}`} x={x} y={y} style={labelStyle}>
-              {utils.moneyFormatter(maximumYFromData * (index / PARTS))}
+              {utils.moneyFormatter(
+                Math.round(maximumYFromData * (index / PARTS)),
+              )}
             </text>
           );
         })}
