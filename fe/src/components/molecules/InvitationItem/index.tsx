@@ -15,8 +15,6 @@ const InvitationItem = ({
   accountProfile,
   onClick,
 }: Prop) => {
-  console.log(accountObjId);
-
   return (
     <S.Container>
       <div className="profile__container">
@@ -37,10 +35,19 @@ const InvitationItem = ({
           <S.Button
             type="button"
             value="수락"
+            data-id={accountObjId}
+            data-approve="true"
             onClick={onClick}
             bg="brandColor"
           />
-          <S.Button type="button" value="거절" onClick={onClick} bg="red" />
+          <S.Button
+            type="button"
+            value="거절"
+            data-id={accountObjId}
+            data-approve="false"
+            onClick={onClick}
+            bg="red"
+          />
         </div>
       </div>
     </S.Container>
