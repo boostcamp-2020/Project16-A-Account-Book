@@ -93,7 +93,7 @@ export async function findByTitleAndOwner(
 ) {
   if (!title || !owner) throw new NotVaildException();
 
-  return this.findOne({ title, owner }, { _id: true }).exec();
+  return this.findOne({ title, ownerName: owner }, { _id: true }).exec();
 }
 
 export async function findUnclassifiedCategory(

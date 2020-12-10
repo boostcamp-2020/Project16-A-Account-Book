@@ -90,6 +90,7 @@ AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 
 AccountSchema.statics.findAccountByUserId = findAccountByUserId;
 AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
+
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
   AccountSchema,

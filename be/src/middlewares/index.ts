@@ -6,6 +6,7 @@ import {
   invalidAccessError,
   invalidCategory,
   accountHasNoUserError,
+  updateUnclassifiedMethod,
 } from 'libs/error';
 import { UserModel } from 'models/user';
 import { CategoryModel, categoryType } from 'models/category';
@@ -75,5 +76,15 @@ export const isUnclassifide = async (
   if (!cat || cat.type === categoryType.UNCLASSIFIED) {
     throw invalidCategory;
   }
+  await next();
+};
+
+export const titleIsUnclassified = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { title } = ctx.request.body;
+  if (!title || title.trim() === '' || title.trim() === '미분류')
+    throw updateUnclassifiedMethod;
   await next();
 };
