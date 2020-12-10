@@ -1,5 +1,6 @@
 import React from 'react';
 import { AccountStore } from 'stores/Account';
+import { observer } from 'mobx-react-lite';
 import * as S from './style';
 
 export interface Props {
@@ -19,7 +20,7 @@ const AccountImageTitleUpdate = ({ account, title, ...props }: Props) => {
         <div className="title">{text}</div>
         <S.TitleInput
           placeholder="가계부 제목을 입력하세요"
-          value={title}
+          value={AccountStore.accountUpdateTitle}
           onChangeHandler={(e: any) => {
             AccountStore.setAccountUpdateTitle(e.target.value);
           }}
@@ -29,4 +30,4 @@ const AccountImageTitleUpdate = ({ account, title, ...props }: Props) => {
   );
 };
 
-export default AccountImageTitleUpdate;
+export default observer(AccountImageTitleUpdate);
