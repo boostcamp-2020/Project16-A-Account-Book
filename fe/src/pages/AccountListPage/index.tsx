@@ -8,7 +8,6 @@ import Account from 'components/organisms/Account';
 import { useHistory } from 'react-router-dom';
 import AccountSvg from 'assets/svg/account.svg';
 import Button from 'components/atoms/Button';
-import { toJS } from 'mobx';
 
 const onClickHandler = (
   history: any,
@@ -55,7 +54,7 @@ const AccountListPage = () => {
 
   // TODO: userId = userStore.getId();
   const userId = '5fd1e9de70764ed89f715080';
-  const List = toJS(AccountStore.accountList).map((el) => {
+  const List = AccountStore.getAccountList().map((el) => {
     return (
       <Account
         key={el._id}
