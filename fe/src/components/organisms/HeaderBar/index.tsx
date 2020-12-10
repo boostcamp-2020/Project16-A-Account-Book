@@ -10,17 +10,7 @@ import InvitationList from '../InvitationList';
 export interface Props {
   title?: string;
 }
-const src = 'https://avatars3.githubusercontent.com/u/44409642?s=88&v=4';
 
-const dummy = [
-  { title: 'one', owner: '주인', accountProfile: src },
-  { title: 'two', owner: '주인1', accountProfile: src },
-  { title: 'three', owner: '주인2', accountProfile: src },
-  { title: 'four', owner: '주인3', accountProfile: src },
-  { title: 'four', owner: '주인3', accountProfile: src },
-  { title: 'four', owner: '주인3', accountProfile: src },
-  { title: 'four', owner: '주인3', accountProfile: src },
-];
 const onClickHandler = () => {
   TransactionStore.setAccountObjId('');
 };
@@ -48,7 +38,7 @@ const HeaderBar = ({
         <>
           <Modal>
             <div ref={ref}>
-              <InvitationList list={dummy} onClick={() => {}} />
+              <InvitationList onClick={() => {}} />
             </div>
           </Modal>
         </>

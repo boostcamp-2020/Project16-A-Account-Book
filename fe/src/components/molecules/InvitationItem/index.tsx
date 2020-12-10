@@ -1,15 +1,22 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import { IInvitaion } from 'components/organisms/InvitationList';
 import * as S from './style';
 
-export interface Prop {
-  owner: string;
-  title: string;
-  accountProfile: string;
+export interface Prop extends IInvitaion {
   onClick?: any;
 }
 
-const InvitationItem = ({ owner, title, accountProfile, onClick }: Prop) => {
+const InvitationItem = ({
+  accountObjId,
+  host,
+  ownerName,
+  title,
+  accountProfile,
+  onClick,
+}: Prop) => {
+  console.log(accountObjId);
+
   return (
     <S.Container>
       <div className="profile__container">
@@ -17,9 +24,12 @@ const InvitationItem = ({ owner, title, accountProfile, onClick }: Prop) => {
       </div>
       <div className="content">
         <div className="text__container">
-          <p>{owner}님께서</p>
+          <p>{host}님께서</p>
           <p>
-            <strong>{title}</strong>에&nbsp;초대하였습니다.
+            <strong>
+              {ownerName}/{title}
+            </strong>
+            에&nbsp;초대하였습니다.
           </p>
         </div>
 
