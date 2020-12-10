@@ -15,13 +15,12 @@ export default {
   },
   postCategory: '/api/categories',
 
-  account: '/api/accounts',
-
   method: (accountObjId: string) => `/api/${accountObjId}/methods/`,
 
   statistics: (accountObjId: string) =>
     `/api/${accountObjId}/categories/statistics/`,
-
+  account: '/api/accounts',
+  accountUpdate: (accountObjId: string) => `/api/${accountObjId}/accounts`,
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
 };
