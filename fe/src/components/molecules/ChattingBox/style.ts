@@ -7,7 +7,7 @@ export const ChattingBox = styled.div`
 
 export const ChattingArea = styled.div`
   width: 98%;
-  height: 30rem;
+  height: 28rem;
   overflow-y: auto;
 `;
 

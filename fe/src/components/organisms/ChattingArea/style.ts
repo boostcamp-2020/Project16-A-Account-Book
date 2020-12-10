@@ -16,7 +16,7 @@ export const ChattingBottom = styled.div`
 
 export const ChatBox = styled(ChattingBox)`
   width: 100%;
-  height: 30rem;
+  height: 40rem;
 `;
 
 export const ChattingInput = styled(Input)`

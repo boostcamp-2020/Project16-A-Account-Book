@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChattingTemplate from 'components/templates/ChattingTemplate';
+import MainTemplate from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import ChattingArea from 'components/organisms/ChattingArea';
 import NavBar from 'components/organisms/NavBar';
@@ -81,10 +81,11 @@ const ChattingPage = () => {
     />
   );
   return (
-    <ChattingTemplate
-      headerContent={<Header />}
-      bodyContent={ChattingContent}
-      bottomContent={<NavBar />}
+    <MainTemplate
+      HeaderBar={<Header />}
+      SubHeaderBar={<div />}
+      Contents={ChattingContent}
+      NavBar={<NavBar />}
     />
   );
 };
