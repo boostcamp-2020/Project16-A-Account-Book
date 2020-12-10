@@ -20,6 +20,18 @@ const nextMonth = (dateString: string) => {
   return `${year}-${Number(month) + 1}`;
 };
 
+const checkLoopEnd = (compDateString: any, endDateString: any) => {
+  const [nowYear, nowMonth] = compDateString.split('-');
+  const [endYear, endMonth] = endDateString.split('-');
+  if (nowYear > endYear) {
+    return true;
+  }
+  if (nowYear === endYear && nowMonth >= endMonth) {
+    return true;
+  }
+  return false;
+};
+
 const pushEmptyCalendar = (
   yearMonthKey: string,
   nowSelectedDate: string,
@@ -33,7 +45,7 @@ const pushEmptyCalendar = (
     JSON.stringify(nowTransactions) === '{}'
   ) {
     if (endDateString === localNowSelectedDate) {
-      return 'end';
+      return '1970-1-1';
     }
     Calendars.push({ nowYearMonthKey: `${localNowSelectedDate}` });
     localNowSelectedDate = nextMonth(localNowSelectedDate);
@@ -77,7 +89,7 @@ const CalendarBind = ({
       Calendars,
     );
 
-    if (nowSelectedDate === 'end') {
+    if (checkLoopEnd(nowYearMonthKey, endDateString)) {
       return;
     }
 
@@ -113,8 +125,14 @@ const CalendarBind = ({
     nowTransactions = {};
   }
 
-  while (endDateString !== nowSelectedDate && nowSelectedDate !== 'end') {
-    if (nowSelectedDate === 'end' || endDateString === nowSelectedDate) {
+  while (
+    endDateString !== nowSelectedDate &&
+    !checkLoopEnd(nowYearMonthKey, endDateString)
+  ) {
+    if (
+      checkLoopEnd(nowYearMonthKey, endDateString) ||
+      endDateString === nowSelectedDate
+    ) {
       break;
     }
 

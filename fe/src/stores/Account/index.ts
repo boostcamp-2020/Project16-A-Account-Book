@@ -9,7 +9,7 @@ const state = {
 type accountItem = {
   _id: string;
   title: string;
-  owner: string;
+  ownerName: string;
 };
 export interface Account {
   accountList: Array<accountItem>;

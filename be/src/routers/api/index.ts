@@ -15,6 +15,7 @@ router.use('/accounts', accountRouter.routes());
 router.use('/user', userRouter.routes());
 
 router.use('/:accountObjId', verifyAccountAccess);
+router.use('/:accountObjId/accounts', accountRouter.routes());
 router.use('/:accountObjId/categories', categoryRouter.routes());
 router.use('/:accountObjId/transactions', transactionRouter.routes());
 router.use('/:accountObjId/methods', methodRouter.routes());

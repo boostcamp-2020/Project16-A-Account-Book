@@ -33,12 +33,7 @@ export const totalSeed = async () => {
       });
       return acc;
     }, []);
-  await accountSeed.up(accountsList).then(async (docs: any) => {
-    for (let i = 0; i < users.length; i += 1) {
-      users[i].accounts = docs[i]._id;
-      await users[i].save();
-    }
-  });
+  await accountSeed.up(accountsList);
 };
 
 export default {};

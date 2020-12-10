@@ -1,4 +1,4 @@
-import { Schema, Types, model, Document } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 export const UserSchema = new Schema({
   timezone: {
@@ -22,23 +22,19 @@ export const UserSchema = new Schema({
   salt: {
     type: String,
   },
-  accounts: [
-    {
-      type: Types.ObjectId,
-      required: true,
-      ref: 'accounts',
-    },
-  ],
+  profileUrl: {
+    type: String,
+  },
 });
 
 export interface IUserDocument extends Document {
-  accounts: Types.ObjectId[];
   timezone?: String;
   startOfWeek?: String;
   id?: String;
   password?: String;
   salt?: String;
   nickname: String;
+  profileUrl?: String;
 }
 
 export const UserModel = model<IUserDocument>('users', UserSchema);

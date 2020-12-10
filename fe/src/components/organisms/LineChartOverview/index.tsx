@@ -36,6 +36,7 @@ const LineChartOverview = (): React.ReactElement => {
   const suitableForRendering = !(
     checkDataIfScarce(dataList) && checkAllZeroPrice(dataList)
   );
+
   return (
     <div>
       <S.StatisticsTitle>지출 추이</S.StatisticsTitle>

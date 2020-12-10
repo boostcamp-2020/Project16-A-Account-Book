@@ -1,48 +1,46 @@
 import math from 'utils/math';
-import { IDateTotalprice, TransactionDBType } from 'types';
+import { IDateTotalprice, TransactionDBType, IDateTransactionObj } from 'types';
 import { TransactionStore } from 'stores/Transaction';
-import { categoryConvertBig2Small } from 'stores/Category';
+import { categoryConvertBig2Small, categoryType } from 'stores/Category';
+import dateUtil from 'utils/date';
 
 export const initTotalPrice = {
   income: 0,
   expense: 0,
 };
 
-const TransactionsReduce = (
-  oneDayPrice: { income: number; expense: number },
-  transaction: any,
-) => {
-  if (transaction.category.type === 'INCOME') {
+export const sumAllPricesByType = (transactions: TransactionDBType[]) => {
+  return transactions.reduce((summedPriceByType, transaction) => {
+    const type =
+      transaction.category.type === categoryType.INCOME ? 'income' : 'expense';
     return {
-      ...oneDayPrice,
-      income: oneDayPrice.income + transaction.price,
+      ...summedPriceByType,
+      [type]: summedPriceByType[type] + transaction.price,
     };
-  }
-  if (transaction.category.type === 'EXPENSE') {
-    return {
-      ...oneDayPrice,
-      expense: oneDayPrice.expense + transaction.price,
-    };
-  }
-  return oneDayPrice;
+  }, initTotalPrice);
 };
 
-export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
-  if (typeof input === 'string') {
-    return [{ id: 'noId', category: 'nocategory', method: 'nomethod' }];
+export const isNotMatchedWithFilterInfo = (transaction: TransactionDBType) => {
+  const {
+    methods: methodFilterIds,
+    categories: caregoryFilterIds,
+  } = TransactionStore.getFilter();
+  const { category, method } = transaction;
+  const type = categoryConvertBig2Small(category.type);
+  if (caregoryFilterIds[type].disabled) {
+    return true;
   }
-  return input.reduce((acc, cur) => {
-    const { _id, category, method, ...other } = cur;
-    if (TransactionStore.isFiltered) {
-      const { methods, categories } = TransactionStore.getFilter();
-
-      const { type } = category;
-      const key = categoryConvertBig2Small(type);
-      if (!methods.some((x: string) => x === method._id)) return acc;
-      if (categories[key].disabled) return acc;
-      if (!categories[key].list.some((x: string) => x === category._id))
-        return acc;
-    }
+  if (!caregoryFilterIds[type].list.some((id: string) => id === category._id)) {
+    return true;
+  }
+  if (!methodFilterIds.some((id: string) => id === method._id)) {
+    return true;
+  }
+  return false;
+};
+export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
+  return input.reduce((acc, transaction) => {
+    const { _id, category, method, ...other } = transaction;
     return [
       ...acc,
       {
@@ -55,21 +53,16 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
   }, []);
 };
 
-export const calTotalPrices = (list: any) => {
-  return Object.values<any[]>(list).reduce(
+export const calTotalPrices = (list: IDateTransactionObj) => {
+  return Object.values<TransactionDBType[]>(list).reduce(
     (acc: { income: number; expense: number }, transactions) => {
-      if (typeof transactions === 'string') {
-        return acc;
-      }
-      const res = transactions.reduce(TransactionsReduce, {
-        ...initTotalPrice,
-      });
+      const summedPrices = sumAllPricesByType(transactions);
       return {
-        income: acc.income + res.income,
-        expense: acc.expense + res.expense,
+        income: acc.income + summedPrices.income,
+        expense: acc.expense + summedPrices.expense,
       };
     },
-    { ...initTotalPrice },
+    initTotalPrice,
   );
 };
 
@@ -88,4 +81,16 @@ export const calTotalPriceByDateAndType = (
     [],
   );
   return totalPriceByDateList;
+};
+
+export const filterList = (
+  transactionList: TransactionDBType[],
+): TransactionDBType[] => {
+  const { startDate, endDate } = TransactionStore.getOriginDates();
+
+  return transactionList.filter(
+    (transaction: TransactionDBType) =>
+      dateUtil.isDateInDateRange(transaction.date, startDate, endDate) &&
+      !isNotMatchedWithFilterInfo(transaction),
+  );
 };

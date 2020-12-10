@@ -7,10 +7,15 @@ export interface Props {
 }
 
 const Account = ({ account, onClick = () => {}, ...props }: Props) => {
+  const text = `${account.ownerName}/${account.title}`;
+  const profileUrls = account.users.map((user: any) => {
+    return user.profileUrl;
+  });
   return (
     <S.Account onClick={onClick} {...props}>
       <S.Icon icon={account.icon} />
-      <div>{account.title}</div>
+      <div>{text}</div>
+      <S.ProfileList profileImgList={profileUrls} />
     </S.Account>
   );
 };
