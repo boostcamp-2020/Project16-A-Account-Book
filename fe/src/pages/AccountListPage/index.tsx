@@ -7,6 +7,8 @@ import { AccountStore } from 'stores/Account';
 import Account from 'components/organisms/Account';
 import { useHistory } from 'react-router-dom';
 import AccountSvg from 'assets/svg/account.svg';
+import Button from 'components/atoms/Button';
+import { toJS } from 'mobx';
 
 const onClickHandler = (
   history: any,
@@ -30,13 +32,30 @@ const settingClickHandler = (history: any, account: any) => (e: any) => {
     pathname: `/accounts/update`,
     state: {
       account,
+      isNewAccount: false,
     },
   });
 };
 
-const MainPage = () => {
+const newAccountClickHandler = (history: any, userId: String) => (e: any) => {
+  e.stopPropagation();
+  history.push({
+    pathname: `/accounts/update`,
+    state: {
+      account: {
+        users: [{ _id: userId }],
+      },
+      isNewAccount: true,
+    },
+  });
+};
+
+const AccountListPage = () => {
   const history = useHistory();
-  const List = AccountStore.getAccountList().map((el) => {
+
+  // TODO: userId = userStore.getId();
+  const userId = '5fd1e9de70764ed89f715080';
+  const List = toJS(AccountStore.accountList).map((el) => {
     return (
       <Account
         key={el._id}
@@ -48,11 +67,21 @@ const MainPage = () => {
   });
   const Contents = <>{List}</>;
 
+  const newAccountBtn = (
+    <Button onClick={newAccountClickHandler(history, userId)}>새 가계부</Button>
+  );
+
   useEffect(() => {
-    AccountStore.loadTransactions();
+    AccountStore.loadAccounts();
   }, []);
 
-  return <Template HeaderBar={<Header />} Contents={Contents} />;
+  return (
+    <Template
+      HeaderBar={<Header />}
+      Contents={Contents}
+      NavBar={newAccountBtn}
+    />
+  );
 };
 
-export default observer(MainPage);
+export default observer(AccountListPage);
