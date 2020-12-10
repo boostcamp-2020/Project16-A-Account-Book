@@ -9,7 +9,7 @@ export default {
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
 
-  userTitle: '/api/user/titleByAccountId?accountId=',
+  userTitle: '/api/users/titleByAccountId?accountId=',
   category: (accountObjId: string) => {
     return `/api/${accountObjId}/categories/`;
   },
