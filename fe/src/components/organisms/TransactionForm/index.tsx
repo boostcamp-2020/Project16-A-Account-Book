@@ -1,9 +1,7 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import TransactionInputField, {
   Props as TransactionInputFieldProps,
 } from 'components/organisms/TransactionInputField';
-// import IconButton from 'components/molecules/IconButton';
 import trashSvg from 'assets/svg/trash.svg';
 import * as S from './style';
 

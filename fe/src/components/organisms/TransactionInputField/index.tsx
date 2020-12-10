@@ -78,11 +78,14 @@ const TransactionInputField = ({
       </LabelWrap>
       <LabelWrap htmlFor={METHOD} title="결제수단">
         <select name={METHOD} id={METHOD} onChange={formHandler}>
-          {methods.map((method) => (
-            <option key={method._id} value={method._id}>
-              {method.title}
-            </option>
-          ))}
+          {methods.map((method) => {
+            if (method.title === '미분류') return <></>;
+            return (
+              <option key={method._id} value={method._id}>
+                {method.title}
+              </option>
+            );
+          })}
         </select>
       </LabelWrap>
       <LabelWrap htmlFor={DATE} title="날짜">
