@@ -37,6 +37,8 @@ const AccountUpdatePage = ({ location }: Props) => {
   const [userList, checkedUserIdList, setCheckedUserIdList] = useInviteUser(
     alreadyInvitedUserIdList,
   );
+  const isOwner =
+    sessionStorage.getItem('userObjId') === alreadyInvitedUserIdList[0];
   const titleInputRef = useRef<any>();
   useEffect(() => {
     titleInputRef.current.value = account.title;
@@ -75,8 +77,6 @@ const AccountUpdatePage = ({ location }: Props) => {
     }
     history.goBack();
   };
-
-  const isOwner = true;
 
   const Contents = (
     <>
