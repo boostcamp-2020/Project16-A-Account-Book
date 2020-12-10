@@ -9,6 +9,8 @@ import {
   updateUnclassifiedMethod,
 } from 'libs/error';
 import { UserModel } from 'models/user';
+import { CategoryModel, categoryType } from 'models/category';
+
 import { AccountModel } from 'models/account';
 import { CategoryModel, categoryType } from 'models/category';
 
