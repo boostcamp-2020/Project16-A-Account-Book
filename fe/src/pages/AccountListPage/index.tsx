@@ -53,8 +53,12 @@ const newAccountClickHandler = (history: any, userId: String) => (e: any) => {
 const AccountListPage = () => {
   const history = useHistory();
 
-  // TODO: userId = userStore.getId();
-  const userId = '5fd1e9de70764ed89f715080';
+  const userId = sessionStorage.getItem('userObjId');
+  useEffect(() => {}, [sessionStorage.getItem('userObjId')]);
+  if (!userId) {
+    return <></>;
+  }
+
   const List = AccountStore.getAccountList().map((el) => {
     return (
       <Account
@@ -68,13 +72,14 @@ const AccountListPage = () => {
   const Contents = <>{List}</>;
 
   const newAccountBtn = (
-    <Button onClick={newAccountClickHandler(history, userId)}>새 가계부</Button>
+    <Button onClick={newAccountClickHandler(history, userId!)}>
+      새 가계부
+    </Button>
   );
 
   useEffect(() => {
     AccountStore.loadAccounts();
   }, []);
-
   return (
     <Template
       HeaderBar={<Header />}
