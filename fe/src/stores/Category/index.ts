@@ -6,12 +6,14 @@ import { TransactionStore } from '../Transaction';
 export const categoryType = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
+  UNCLASSIFIED: 'UNCLASSIFIED',
 };
 
 export const CategoryStore = makeAutoObservable({
   categoryList: {
     expense: [],
     income: [],
+    unclassified: [],
   },
 
   getCategories(type: string): ICategory[] {
@@ -29,9 +31,11 @@ export const CategoryStore = makeAutoObservable({
     const categories: any = await CategoryAPI.getCategories(
       TransactionStore.accountObjId,
     );
+
     runInAction(() => {
       this.categoryList.expense = categories.EXPENSE || [];
       this.categoryList.income = categories.INCOME || [];
+      this.categoryList.unclassified = categories.UNCLASSIFIED || [];
     });
   },
 });
@@ -49,7 +53,7 @@ const categoryConverter = (input: string): string => {
       return categoryType.INCOME;
 
     default:
-      return 'NOP';
+      return categoryType.UNCLASSIFIED;
   }
 };
 export const categoryConvertBig2Small = (input: string): string => {
@@ -63,7 +67,7 @@ export const categoryConvertBig2Small = (input: string): string => {
       return 'income';
 
     default:
-      return 'NOP';
+      return categoryType.UNCLASSIFIED;
   }
 };
 export default {};
