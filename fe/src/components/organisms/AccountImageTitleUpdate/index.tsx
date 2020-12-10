@@ -15,7 +15,10 @@ const AccountImageTitleUpdate = ({ account, ...props }: Props) => {
       </div>
       <div className="textWrap">
         <div className="title">{text}</div>
-        <S.TitleInput placeholder="가계부 제목을 입력하세요" />
+        <S.TitleInput
+          placeholder="가계부 제목을 입력하세요"
+          value={account.title}
+        />
       </div>
     </S.AccountImageTitleUpdate>
   );
