@@ -3,9 +3,16 @@ import * as S from './style';
 
 export interface Props {
   account: any;
+  title?: String;
+  setTitle?: React.Dispatch<React.SetStateAction<String>>;
 }
 
-const AccountImageTitleUpdate = ({ account, ...props }: Props) => {
+const AccountImageTitleUpdate = ({
+  account,
+  title,
+  setTitle = () => {},
+  ...props
+}: Props) => {
   const text = '가계부 이름';
   return (
     <S.AccountImageTitleUpdate {...props}>
@@ -17,7 +24,10 @@ const AccountImageTitleUpdate = ({ account, ...props }: Props) => {
         <div className="title">{text}</div>
         <S.TitleInput
           placeholder="가계부 제목을 입력하세요"
-          value={account.title}
+          value={title}
+          onChangeHandler={(e: any) => {
+            setTitle(e.target.value);
+          }}
         />
       </div>
     </S.AccountImageTitleUpdate>
