@@ -27,7 +27,6 @@ export interface ITransactionStore {
   modalDate: Date;
 }
 
-
 const oneMonthDate = date.getOneMonthRange(
   String(new Date().getFullYear()),
   String(new Date().getMonth() + 1),
@@ -157,7 +156,7 @@ export const TransactionStore = makeAutoObservable({
       // 로딩관련 글씨를 보여주면 좋을 듯
       return { income: 0, expense: 0 };
     }
-    return calTotalPrices(this.transactions);
+    return calTotalPrices(toJS(this.transactions));
   },
   getTransactionList() {
     return toJS(this.transactions);
