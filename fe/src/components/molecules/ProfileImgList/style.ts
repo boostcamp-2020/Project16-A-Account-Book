@@ -3,31 +3,20 @@ import IconComponent from 'components/atoms/MoveIcon';
 
 export const Icon = styled(IconComponent)`
   border-radius: 2rem;
-  position: absolute;
-  right: ${({ rightMargin }: any) => {
-    return rightMargin;
-  }}rem;
+  margin-right: -1rem;
   transition: 0.5s;
 `;
 
 export const Wrap = styled.div`
   position: relative;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   width: 100%;
   height: 100%;
   :hover {
-    & > :nth-child(2) {
-      right: 2.5rem;
-    }
-    & > :nth-child(3) {
-      right: 5rem;
-    }
-    & > :nth-child(4) {
-      right: 7.5rem;
-    }
-    & > :nth-child(5) {
-      right: 10rem;
+    & > ${Icon}:not(:first-child) {
+      margin-right: 0rem;
     }
   }
 `;
