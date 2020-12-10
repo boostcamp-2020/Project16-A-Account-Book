@@ -5,7 +5,7 @@ export interface Props {
   HeaderBar: ReactElement;
   SubHeaderBar?: ReactElement;
   Contents: ReactElement;
-  NavBar: ReactElement;
+  NavBar?: ReactElement;
 }
 
 const MainTemplate = ({
@@ -22,7 +22,7 @@ const MainTemplate = ({
         {SubHeaderBar}
         <S.Content>{Contents}</S.Content>
       </S.ContentArea>
-      <S.Nav>{NavBar}</S.Nav>
+      {NavBar && <S.Nav>{NavBar}</S.Nav>}
     </S.Container>
   );
 };

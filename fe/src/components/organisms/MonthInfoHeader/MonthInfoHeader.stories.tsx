@@ -10,14 +10,17 @@ export default {
 };
 
 export const monthInfoHeader = () => {
-  const month = 11;
+  const date = {
+    startDate: '2020-12-01',
+    endDate: '2021-11-11',
+  };
   const total = {
     income: 1000,
     expense: 987654321,
   };
   return (
     <ThemeProvider theme={theme}>
-      <MonthInfoHeader month={month} total={total} />
+      <MonthInfoHeader date={date} total={total} />
     </ThemeProvider>
   );
 };

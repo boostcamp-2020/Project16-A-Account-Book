@@ -7,6 +7,8 @@ import {
   calTotalPrices,
   convertTransactionDBTypetoTransactionType,
   calTotalPriceByDateAndType,
+  sumAllPricesByType,
+  filterList,
 } from 'stores/Transaction/transactionStoreUtils';
 import { testAccountDateList } from './testData';
 
@@ -150,15 +152,25 @@ export const TransactionStore = makeAutoObservable({
   get totalExpensePriceByDate() {
     return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
   },
-  get totalPrices() {
-    if (this.state === state.PENDING) {
-      // TODO PENDING 일 때 0,0을 보여주면 잠시 깜빡거림
-      // 로딩관련 글씨를 보여주면 좋을 듯
+  get totalPrices(): { income: number; expense: number } {
+    if (this.state !== state.DONE) {
       return { income: 0, expense: 0 };
     }
-    return calTotalPrices(this.transactions);
+    if (this.isFiltered) {
+      return sumAllPricesByType(this.filteredTransactionList);
+    }
+    return calTotalPrices(this.getTransactions());
   },
-  getTransactionList() {
+  get filteredTransactionList(): types.TransactionDBType[] {
+    if (!this.isFiltered) return [];
+
+    const transactionList = Object.values<types.TransactionDBType[]>(
+      this.getTransactions(),
+    ).reduce((appendedList, list) => [...appendedList, ...list], []);
+
+    return filterList(transactionList);
+  },
+  getTransactions() {
     return toJS(this.transactions);
   },
   async loadTransactions() {

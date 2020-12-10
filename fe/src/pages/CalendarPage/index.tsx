@@ -28,12 +28,7 @@ const CalenderPage = () => {
     }
   }, [TransactionStore.isCalendarModalOpen]);
 
-  const SubHeaderBar = (
-    <MonthInfo
-      month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={TransactionStore.totalPrices}
-    />
-  );
+  const SubHeaderBar = <MonthInfo />;
   const selectedDate = {
     startDate: toJS(TransactionStore.dates.startDate),
     endDate: toJS(TransactionStore.dates.endDate),

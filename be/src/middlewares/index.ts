@@ -5,9 +5,12 @@ import {
   unAuthroziedError,
   invalidAccessError,
   invalidCategory,
+  accountHasNoUserError,
 } from 'libs/error';
 import { UserModel } from 'models/user';
 import { CategoryModel, categoryType } from 'models/category';
+
+import { AccountModel } from 'models/account';
 
 interface IDecodedData {
   id: string | number;
@@ -49,10 +52,15 @@ export const verifyAccountAccess = async (
   if (!user) {
     throw unAuthroziedError;
   }
-  const userHasAccountId = user.accounts.some(
-    (account: object) => String(account) === accountObjId,
-  );
-  if (!userHasAccountId) {
+  const selectedAccount = await AccountModel.findById(accountObjId);
+  if (!selectedAccount) {
+    throw accountHasNoUserError;
+  }
+  const accountHasUserId = selectedAccount.users.some((el: any) => {
+    return String(el._id) === String(user._id);
+  });
+
+  if (!accountHasUserId) {
     throw invalidAccessError;
   }
   await next();

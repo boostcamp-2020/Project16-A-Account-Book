@@ -1,5 +1,6 @@
 import { categoryType } from 'models/category';
-import { IAccountModel } from '.';
+import { AccountModel, IAccountModel } from '.';
+import { UserModel } from '../user';
 
 export async function findAllTransactionExceptDeleted(
   this: any,
@@ -18,6 +19,30 @@ export async function findAllTransactionExceptDeleted(
     })
     .exec();
   return accountDocument.transactions;
+}
+
+export async function findAccountByUserId(this: any, userId: string) {
+  const res = await AccountModel.find();
+  const userAccountList = res.filter((account: any) => {
+    return account.users.some((user: any) => {
+      return String(user._id) === String(userId);
+    });
+  });
+  return userAccountList;
+}
+
+export async function findByPkAndPushUser(
+  this: any,
+  userObjId: string,
+  accountObjId: string,
+) {
+  const selectedUserModel = await UserModel.findById(userObjId);
+
+  const result = await AccountModel.update(
+    { _id: accountObjId },
+    { $addToSet: { users: selectedUserModel } },
+  );
+  return result;
 }
 
 export async function findByPkAndPushTransaction(
@@ -39,7 +64,10 @@ export async function findByPkAndGetTransCategory(
   const accountInfo = await this.findById(accountObjId, 'transactions')
     .populate({
       path: 'transactions',
-      match: { date: { $gte: startDate, $lt: endDate } },
+      match: {
+        date: { $gte: startDate, $lt: endDate },
+        isDeleted: { $eq: false },
+      },
       select: 'price category date',
       populate: { path: 'category', select: 'type color title' },
     })

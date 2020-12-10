@@ -1,8 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { toJS } from 'mobx';
-import { observer } from 'mobx-react-lite';
-import { TransactionStore } from 'stores/Transaction';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
@@ -17,12 +14,7 @@ const StatisticsPage = ({ location }: { location: any }) => {
   const moveToStatisticDetailPage = () =>
     history.push(`${location.pathname}/detail`);
 
-  const SubHeaderBar = (
-    <MonthInfo
-      month={toJS(TransactionStore.dates.startDate.getMonth() + 1)}
-      total={TransactionStore.totalPrices}
-    />
-  );
+  const SubHeaderBar = <MonthInfo />;
 
   const Contents = (
     <>
@@ -44,4 +36,4 @@ const StatisticsPage = ({ location }: { location: any }) => {
   );
 };
 
-export default observer(StatisticsPage);
+export default StatisticsPage;
