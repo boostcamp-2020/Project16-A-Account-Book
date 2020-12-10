@@ -8,7 +8,7 @@ export default {
     `/api/${accountObjId}/transactions/detail/${transactionObjId}`,
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
-
+  user: `/api/users`,
   userTitle: '/api/users/titleByAccountId?accountId=',
   category: (accountObjId: string) => {
     return `/api/${accountObjId}/categories/`;
