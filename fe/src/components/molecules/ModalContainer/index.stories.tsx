@@ -11,7 +11,7 @@ export default {
 
 export const modalContainer = () => {
   const justify = select('justify', ['left', 'right', 'center'], 'center');
-  const align = select('align', ['left', 'right', 'center'], 'center');
+  const align = select('align', ['up', 'down', 'center'], 'center');
   return (
     <GlobalThemeProvider>
       <ModalContainer justify={justify} align={align}>

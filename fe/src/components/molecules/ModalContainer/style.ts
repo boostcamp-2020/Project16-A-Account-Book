@@ -7,8 +7,10 @@ export type Prop = {
 };
 const positionConverter = (type: string) => {
   switch (type) {
+    case 'up':
     case 'left':
       return 'flex-start';
+    case 'down':
     case 'right':
       return 'flex-end';
     default:

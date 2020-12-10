@@ -3,7 +3,7 @@ import Container from './style';
 
 export interface Prop {
   justify?: 'left' | 'right' | 'center';
-  align?: 'left' | 'right' | 'center';
+  align?: 'up' | 'down' | 'center';
   children?: React.ReactElement | React.ReactElement[] | string;
 }
 const ModalContainer = ({
