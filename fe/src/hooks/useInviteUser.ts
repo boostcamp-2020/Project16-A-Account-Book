@@ -22,13 +22,13 @@ const useInviteUser = (
 
   const loadAndSetUserList = async () => {
     const loadedUserList = await userAPI.getUserList();
-    setUserList(loadedUserList);
-    deleteInvitedUser();
+    const uninvitedUserList = deleteInvitedUser(loadedUserList);
+    setUserList(uninvitedUserList);
   };
 
-  const deleteInvitedUser = () => {
-    setUserList((initialUserList: IUser[]) =>
-      initialUserList.filter((user) => !alreadyInvitedUser.includes(user._id)),
+  const deleteInvitedUser = (loadedUserList: IUser[]) => {
+    return loadedUserList.filter(
+      (user) => !alreadyInvitedUser.includes(user._id),
     );
   };
 
