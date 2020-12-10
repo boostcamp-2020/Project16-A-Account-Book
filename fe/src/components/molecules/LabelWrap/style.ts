@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const LabelWrap = styled.div`
-  display: flex;
+  display: ${({ visible }: { visible: boolean }) =>
+    visible ? 'flex' : 'none'};
   align-items: center;
 `;
 

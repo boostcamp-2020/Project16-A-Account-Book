@@ -10,6 +10,7 @@ export interface Props {
   placeholder?: string;
   value?: any;
   type?: string;
+  inputRef?: any;
 }
 
 const Input = ({
@@ -21,6 +22,7 @@ const Input = ({
   type,
   name,
   id,
+  inputRef,
   ...props
 }: Props): React.ReactElement => {
   return (
@@ -33,9 +35,10 @@ const Input = ({
       onClick={onClick}
       value={value}
       disabled={disabled}
+      ref={inputRef}
       {...props}
     />
   );
 };
 
-export default Input;
+export default React.memo(Input);

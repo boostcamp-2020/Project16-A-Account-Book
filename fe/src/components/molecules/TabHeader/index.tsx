@@ -14,11 +14,11 @@ const TabHeader = ({ onClickHandler }: Props) => {
       <S.TabButton value="INCOME" onClick={onClickHandler}>
         수입
       </S.TabButton>
-      <S.TabButton value="이체" onClick={onClickHandler}>
-        이체
+      <S.TabButton value="METHOD" onClick={onClickHandler}>
+        결재수단
       </S.TabButton>
     </S.TabUI>
   );
 };
 
-export default TabHeader;
+export default React.memo(TabHeader);
