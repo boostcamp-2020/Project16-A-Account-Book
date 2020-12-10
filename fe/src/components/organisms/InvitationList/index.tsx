@@ -7,8 +7,8 @@ export interface Prop {
   onClick?: any;
 }
 const InvitationList = ({ list, onClick }: Prop) => {
-  const invitations = list.map((l) => {
-    return <InvitationItem {...l} onClick={onClick} />;
+  const invitations = list.map((invitation) => {
+    return <InvitationItem {...invitation} onClick={onClick} />;
   });
   return <Container>{invitations}</Container>;
 };
