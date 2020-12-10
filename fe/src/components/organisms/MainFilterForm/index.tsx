@@ -34,10 +34,28 @@ const MainFilterForm = () => {
   const { income, expense, unclassified } = categories;
   const container = useRef<HTMLDivElement>(null);
   const [visible, toggleVisible] = useVisible(container);
+  const selectAll = (type: string) => {
+    const fetchedCategories = CategoryStore.getCategories(type);
+    const c =
+      categories[type].list.length === fetchedCategories.length
+        ? []
+        : fetchedCategories.map((cat) => cat._id);
 
+    dispatch(actions.setAllCategories(type, c));
+  };
+  const getDataList = async () => {
+    await Promise.all([
+      CategoryStore.loadCategories(),
+      MethodStore.loadMethods(),
+    ]);
+    if (!TransactionStore.isFiltered) {
+      Object.values(categoryType).forEach((cat) => selectAll(convert(cat)));
+      const m = MethodStore.getMethods().map((method) => method._id);
+      dispatch(actions.setAllMethod(m));
+    }
+  };
   useEffect(() => {
-    CategoryStore.loadCategories();
-    MethodStore.loadMethods();
+    getDataList();
   }, []);
 
   const onClickDateFix = (type: number) => {
@@ -76,13 +94,7 @@ const MainFilterForm = () => {
 
   const onClickCategory = ({ type, _id }: { type: string; _id: string }) => {
     if (_id === SELECT_ALL_TYPE) {
-      const fetchedCategories = CategoryStore.getCategories(type);
-      const c =
-        categories[type].list.length === fetchedCategories.length
-          ? []
-          : fetchedCategories.map((cat) => cat._id);
-
-      dispatch(actions.setAllCategories(type, c));
+      selectAll(type);
       return;
     }
     dispatch(actions.setCategory(type, _id));
@@ -106,7 +118,6 @@ const MainFilterForm = () => {
   const onCancel = () => {
     document.body.click();
   };
-
   const onApplyHandler = () => {
     const increasedEndDate = dateUtils.increaseOneDate(dates.endDate);
     const convertTarget = {
@@ -114,7 +125,6 @@ const MainFilterForm = () => {
       dates: { startDate: dates.startDate, endDate: increasedEndDate },
     };
     sessionStorage.setItem('filter', JSON.stringify(convertTarget));
-
     TransactionStore.setFilter(dates.startDate, increasedEndDate, state);
     TransactionStore.isFiltered = true;
     document.body.click();

@@ -17,6 +17,7 @@ export const MethodStore = makeAutoObservable({
     runInAction(() => {
       this.methodList = methods;
     });
+    return Promise.resolve();
   },
 });
 

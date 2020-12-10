@@ -24,7 +24,7 @@ export const CategoryStore = makeAutoObservable({
     if (convertedType === categoryType.INCOME) {
       return toJS(this.categoryList.income);
     }
-    return [];
+    return toJS(this.categoryList.unclassified);
   },
 
   async loadCategories() {
@@ -37,6 +37,7 @@ export const CategoryStore = makeAutoObservable({
       this.categoryList.income = categories.INCOME || [];
       this.categoryList.unclassified = categories.UNCLASSIFIED || [];
     });
+    return Promise.resolve();
   },
 });
 
