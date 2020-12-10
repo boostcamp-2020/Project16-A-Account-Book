@@ -13,9 +13,19 @@ export const Account = styled.div`
   :hover {
     cursor: pointer;
   }
+
+  .settingIcon {
+    width: 2rem;
+    height: 2rem;
+    z-index: 1;
+  }
 `;
 
 export const Icon = styled(IconComponent)`
+  margin-right: 1rem;
+`;
+
+export const Setting = styled(IconComponent)`
   margin-right: 1rem;
 `;
 
