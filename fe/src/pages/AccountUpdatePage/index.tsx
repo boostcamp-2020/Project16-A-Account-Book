@@ -9,8 +9,7 @@ import { IUser } from 'types';
 import AccountSubmitButtonList from 'components/organisms/AccountSubmitButtonList';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import axios from 'apis/axios';
-import url from 'apis/urls';
+import accountAPI from 'apis/account';
 import { AccountStore } from 'stores/Account';
 
 interface Props {
@@ -21,12 +20,13 @@ const deleteHandler = (
   history: any,
   isOwner: boolean,
   accountObjId: string,
-) => () => {
+) => async () => {
   if (isOwner) {
-    axios.delete(url.accountUpdate(accountObjId));
+    await accountAPI.deleteAccount(accountObjId);
   } else {
     // TODO: 해당 user만 account users목록에서 빼는 api호출
   }
+  AccountStore.loadAccounts();
   history.goBack();
 };
 
@@ -39,7 +39,7 @@ const AccountUpdatePage = ({ location }: Props) => {
   );
   const isOwner =
     sessionStorage.getItem('userObjId') === alreadyInvitedUserIdList[0];
-  const titleInputRef = useRef<any>();
+  const titleInputRef = useRef<any>('');
   useEffect(() => {
     titleInputRef.current.value = account.title;
   }, []);
@@ -63,16 +63,10 @@ const AccountUpdatePage = ({ location }: Props) => {
     const title = titleInputRef.current.value;
     const userObjIdList = [...alreadyInvitedUserIdList, ...checkedUserIdList];
     if (isNewAccount) {
-      await axios.post(url.account, {
-        title,
-        userObjIdList,
-      });
+      await accountAPI.createAccount(title, userObjIdList);
       AccountStore.loadAccounts();
     } else {
-      await axios.put(url.accountUpdate(account._id), {
-        title,
-        userObjIdList,
-      });
+      await accountAPI.updateAccount(account._id, title, userObjIdList);
       AccountStore.loadAccounts();
     }
     history.goBack();
