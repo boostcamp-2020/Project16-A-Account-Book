@@ -3,6 +3,7 @@ import Icon from 'components/atoms/Icons';
 import PriceTag from 'components/atoms/PriceTag';
 
 export const TransactionStyle = styled.div`
+  margin-top: 0.4em;
   width: 100%;
   display: flex;
   align-items: center;
