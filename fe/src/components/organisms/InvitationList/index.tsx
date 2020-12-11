@@ -25,7 +25,12 @@ const InvitationList = ({ onClick }: Prop) => {
   const invitations = invitationList.map((invitation) => {
     return <InvitationItem {...invitation} onClick={onClick} />;
   });
-  return <Container>{invitations}</Container>;
+  return (
+    <Container>
+      <h2>초대내역</h2>
+      {invitations}
+    </Container>
+  );
 };
 
 export default InvitationList;

@@ -1,10 +1,18 @@
 import React from 'react';
 import LabelWrap from 'components/molecules/LabelWrap';
+import ReactDatePicker, {
+  registerLocale,
+  setDefaultLocale,
+} from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import ko from 'date-fns/locale/ko';
 import { MethodStore } from 'stores/Method';
 import { CategoryStore } from 'stores/Category';
 import { observer } from 'mobx-react-lite';
 import * as S from './style';
 
+registerLocale('ko', ko);
+setDefaultLocale('ko');
 const CLASSIFICATION = 'classification';
 const CATEGORY = 'category';
 const MEMO = 'memo';
@@ -89,11 +97,14 @@ const TransactionInputField = ({
         </select>
       </LabelWrap>
       <LabelWrap htmlFor={DATE} title="날짜">
-        <S.Input
-          name={DATE}
-          type="date"
-          value={date}
-          onChangeHandler={formHandler}
+        <ReactDatePicker
+          selected={new Date(date)}
+          onChange={(d) => formHandler({ target: { name: DATE, value: d } })}
+          className="my-react-picker"
+          locale={ko}
+          dateFormat="yyyy-MM-dd"
+          popperPlacement="auto"
+          popperModifiers={{ preventOverflow: { enabled: true } }}
         />
       </LabelWrap>
       <LabelWrap htmlFor={MEMO} title="메모">
