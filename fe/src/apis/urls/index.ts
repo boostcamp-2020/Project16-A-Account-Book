@@ -30,5 +30,5 @@ export default {
   deleteCategory: (accountObjId: string, categoryObjId: string) =>
     `/api/${accountObjId}/categories/${categoryObjId}`,
 
-  getUserInvitation: () => `/api/user/accounts`,
+  getUserInvitation: () => `/api/users/accounts`,
 };
