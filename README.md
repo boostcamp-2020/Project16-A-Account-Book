@@ -40,6 +40,13 @@
     yarn 
     yarn dev
     ```
+    or
+    ```jsx
+    cd be
+    npm install 
+    npm run dev
+    ```
+    
 
 2. 프론트엔드
 
@@ -47,6 +54,12 @@
     cd fe
     yarn
     yarn start
+    ```
+    or
+    ```jsx
+    cd fe
+    npm install 
+    npm run start
     ```
 
 3. [localhost:3000](http://localhost:3000) 페이지 열기
