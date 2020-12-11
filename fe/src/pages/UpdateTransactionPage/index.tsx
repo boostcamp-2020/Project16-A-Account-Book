@@ -5,7 +5,7 @@ import useTransactionInput from 'hooks/useTransactionInput';
 import transactionAPI from 'apis/transaction';
 import { TransactionStore } from 'stores/Transaction';
 import { useHistory } from 'react-router-dom';
-import isCanSubmit from 'utils/isCanSubmit';
+import { transactionValidator } from 'utils/validator';
 import queryString from 'query-string';
 import Header from 'components/organisms/HeaderBar';
 
@@ -30,7 +30,7 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
   };
 
   const onSubmitHandler = async () => {
-    const flag = isCanSubmit(transactionState);
+    const flag = transactionValidator(transactionState);
 
     if (!flag) {
       alert('🙀입력을 확인하세요!🙀');
