@@ -35,6 +35,16 @@ export interface ICategory {
   __v?: number;
 }
 
+export interface IUser {
+  _id: string;
+  timezone: string;
+  startOfWeek: string;
+  id: string;
+  nickname: string;
+  profileUrl: string;
+  __v: number;
+}
+
 export interface ICheckCategory extends ICategory {
   checked: boolean;
 }

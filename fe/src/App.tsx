@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import AccountListPage from 'pages/AccountListPage';
+import AccountUpdatePage from 'pages/AccountUpdatePage';
 import CalendarPage from 'pages/CalendarPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
@@ -88,7 +89,10 @@ const AccountRouter = () => {
   return (
     <>
       <AuthCheck />
-      <Route path={`${url}`} component={AccountListPage} />
+      <Switch>
+        <Route path={`${url}/update`} component={AccountUpdatePage} />
+        <Route path={`${url}`} component={AccountListPage} />
+      </Switch>
     </>
   );
 };

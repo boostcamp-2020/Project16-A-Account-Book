@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { Props as ButtonProps } from 'components/atoms/Button';
+import ProileName from 'components/molecules/ProfileName';
 import * as S from './style';
 import CheckBox from '../Checkbox';
 
@@ -37,10 +38,14 @@ const DropdownBody = ({
         (data: any): React.ReactElement => (
           <div
             onClick={() => onClick({ ...data, ...props, type })}
-            key={data.objectId}
+            key={data._id}
             className="dropdown-item"
           >
-            <span>{data.title}</span>
+            {data.title ? (
+              data.title
+            ) : (
+              <ProileName imgUrl={data.profileUrl} name={data.nickname} />
+            )}
             <S.CheckBoxContainer>
               <CheckBox
                 checked={!!checkList?.find((x: string) => x === data._id)}

@@ -8,14 +8,15 @@ export default {
     `/api/${accountObjId}/transactions/detail/${transactionObjId}`,
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
-
-  userTitle: '/api/user/titleByAccountId?accountId=',
+  user: `/api/users`,
+  userInfo: `/api/users/userInfo`,
+  userTitle: '/api/users/titleByAccountId?accountId=',
   category: (accountObjId: string) => {
     return `/api/${accountObjId}/categories/`;
   },
   defaultCategory: 'api/categories',
   account: '/api/accounts',
-
+  postCategory: '/api/categories',
   method: (accountObjId: string) => `/api/${accountObjId}/methods/`,
   methodDeleteOrUpdate: (accountObjId: string, methodObjId: string) =>
     `/api/${accountObjId}/methods/${methodObjId}`,
@@ -23,6 +24,7 @@ export default {
   statistics: (accountObjId: string) =>
     `/api/${accountObjId}/categories/statistics/`,
   categories: (accountObjId: string) => `/api/${accountObjId}/categories`,
+  accountUpdate: (accountObjId: string) => `/api/${accountObjId}/accounts`,
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
   mms: '/api/mms',
