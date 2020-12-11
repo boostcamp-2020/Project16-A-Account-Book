@@ -28,9 +28,13 @@ export const postMms = async (
       client,
       method: method._id,
       category: category._id,
-      date: new Date(mmsObj.date),
+      date: new Date(`${mmsObj.date} ${mmsObj.time}`),
       price: mmsObj.amount,
+      memo: '문자로 추가',
+      excludeFromBudget: false,
+      isDeleted: false,
     });
+    console.log(newTransaction);
     await AccountModel.updateOne(
       { _id: accountObjId },
       { $push: { transactions: newTransaction._id } },
