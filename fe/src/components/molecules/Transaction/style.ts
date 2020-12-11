@@ -3,9 +3,15 @@ import Icon from 'components/atoms/Icons';
 import PriceTag from 'components/atoms/PriceTag';
 
 export const TransactionStyle = styled.div`
+  box-sizing: border-box;
+  padding: 0.4em;
   width: 100%;
   display: flex;
   align-items: center;
+  :hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.color.transparentBrandColor};
+  }
 `;
 
 export const Text = styled.div`

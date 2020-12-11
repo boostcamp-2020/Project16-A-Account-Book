@@ -47,7 +47,7 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     )[0];
     setTransaction((prevState) => ({
       ...prevState,
-      cateogry: initialCategory._id,
+      category: initialCategory._id,
     }));
   };
 
