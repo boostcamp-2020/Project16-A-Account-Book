@@ -1,5 +1,5 @@
 import { UserModel, IUserDocument } from 'models/user';
-import { AccountModel } from 'models/account';
+import { AccountModel, IAccountDocument } from 'models/account';
 
 export const titleByAccountId = async (accountId: String) => {
   const account = await AccountModel.findOne(
@@ -23,4 +23,5 @@ export const getInvitation = async (user: IUserDocument) => {
   const results = await Promise.all(account);
   return results;
 };
+
 export default titleByAccountId;

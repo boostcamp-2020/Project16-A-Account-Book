@@ -34,7 +34,6 @@ const settingClickHandler = (history: any, account: any) => (e: any) => {
       isNewAccount: false,
     },
   });
-  AccountStore.setAccountUpdateTitle(account.title);
 };
 
 const newAccountClickHandler = (history: any, userId: String) => () => {
@@ -48,14 +47,12 @@ const newAccountClickHandler = (history: any, userId: String) => () => {
       isNewAccount: true,
     },
   });
-  AccountStore.setAccountUpdateTitle('');
 };
 
 const AccountListPage = () => {
   const history = useHistory();
 
   const userId = sessionStorage.getItem('userObjId');
-  useEffect(() => {}, [sessionStorage.getItem('userObjId')]);
   if (!userId) {
     return <></>;
   }

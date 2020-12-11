@@ -29,4 +29,5 @@ export const getInvitation = async (ctx: Context) => {
   }));
   ctx.body = invitations;
 };
+
 export default titleByAccountId;
