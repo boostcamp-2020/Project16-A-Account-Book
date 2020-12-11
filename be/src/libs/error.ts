@@ -18,9 +18,30 @@ export const invalidAccessError = {
   message: '해당 가계부에 접근 권한이 없습니다',
 };
 
+export const updateUnclassifiedMethod = {
+  status: 200,
+  error: '수정할 수 없는 항목 입니다',
+  success: false,
+};
+
 export const UserHasNoAccount = {
   status: 400,
   message: 'user가 가지고 있는 account가 없습니다.',
+};
+export const invalidCategory = {
+  status: 403,
+  message: '해당 카테고리에 접근 할 수 없습니다',
+};
+
+export const removeUnclassifiedMethod = {
+  status: 200,
+  error: '제거할 수 없는 항목 입니다',
+  success: false,
+};
+
+export const invaildMethod = {
+  status: 400,
+  message: '잘못된 자원으로 접근하였습니다',
 };
 
 export const accountNoChange = {

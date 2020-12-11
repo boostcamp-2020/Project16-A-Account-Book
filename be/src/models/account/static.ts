@@ -1,3 +1,4 @@
+import { categoryType } from 'models/category';
 import { AccountModel, IAccountModel } from '.';
 import { UserModel } from '../user';
 
@@ -92,5 +93,34 @@ export async function findByTitleAndOwner(
 ) {
   if (!title || !owner) throw new NotVaildException();
 
-  return this.findOne({ title, owner }, { _id: true }).exec();
+  return this.findOne({ title, ownerName: owner }, { _id: true }).exec();
+}
+
+export async function findUnclassifiedMethod(
+  this: IAccountModel,
+  accountObjId: string,
+) {
+  const res: any = await this.findById(accountObjId, { methods: true })
+    .populate({
+      path: 'methods',
+      match: { title: '미분류' },
+      select: '_id',
+    })
+    .exec();
+  return res.methods[0]._id;
+}
+
+export async function findUnclassifiedCategory(
+  this: IAccountModel,
+  accountObjId: string,
+) {
+  const res: any = await this.findById(accountObjId, { categories: true })
+    .populate({
+      path: 'categories',
+      match: { type: categoryType.UNCLASSIFIED },
+      select: '_id',
+    })
+    .exec();
+
+  return res.categories[0]._id;
 }

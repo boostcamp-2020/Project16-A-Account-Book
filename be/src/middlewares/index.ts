@@ -4,9 +4,12 @@ import { jwtConfig } from 'config';
 import {
   unAuthroziedError,
   invalidAccessError,
+  invalidCategory,
   accountHasNoUserError,
+  updateUnclassifiedMethod,
 } from 'libs/error';
 import { UserModel } from 'models/user';
+import { CategoryModel, categoryType } from 'models/category';
 import { AccountModel } from 'models/account';
 
 interface IDecodedData {
@@ -60,5 +63,27 @@ export const verifyAccountAccess = async (
   if (!accountHasUserId) {
     throw invalidAccessError;
   }
+  await next();
+};
+
+export const isUnclassifide = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { category } = ctx.params;
+  const cat = await CategoryModel.findById(category);
+  if (!cat || cat.type === categoryType.UNCLASSIFIED) {
+    throw invalidCategory;
+  }
+  await next();
+};
+
+export const titleIsUnclassified = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { title } = ctx.request.body;
+  if (!title || title.trim() === '' || title.trim() === '미분류')
+    throw updateUnclassifiedMethod;
   await next();
 };

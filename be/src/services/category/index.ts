@@ -1,6 +1,6 @@
 import { AccountModel } from 'models/account';
 import { CategoryModel, categoryType } from 'models/category';
-
+import { TransactionModel } from 'models/transaction';
 import { getCompFuncByKey } from 'libs/utils';
 import { ITotalPrice, ICategoryStatistics, IStatistics } from './index.type';
 
@@ -115,12 +115,59 @@ export const postCategory = async (
     title,
     color,
   });
-  await newCategory.save();
-  await AccountModel.update(
-    { _id: accountObjId },
-    { $push: { categories: newCategory._id } },
+  try {
+    await newCategory.save();
+    await AccountModel.update(
+      { _id: accountObjId },
+      { $push: { categories: newCategory._id } },
+    );
+    return { success: true, newCategory };
+  } catch (e) {
+    return { success: false, message: e };
+  }
+};
+
+export const updateCategory = async (
+  objId: string,
+  type: string,
+  title: string,
+  color: string,
+  accountObjId: string,
+) => {
+  const exist: any = await AccountModel.findById(accountObjId, {
+    categories: true,
+  }).populate({
+    path: 'categories',
+    match: { type, title },
+    select: '_id',
+  });
+  if (exist.categories.length === 0) {
+    await CategoryModel.update(
+      { _id: objId },
+      { $set: { type, title, color } },
+    );
+    return {
+      success: true,
+    };
+  }
+  return { success: false, error: '중복되는 카테고리가 존재합니다' };
+};
+
+export const deleteOneCategory = async (
+  accountObjId: string,
+  objId: string,
+) => {
+  const unclassifiedCategory = await AccountModel.findUnclassifiedCategory(
+    accountObjId,
   );
-  return { success: true, newCategory };
+
+  return Promise.all([
+    TransactionModel.updateMany(
+      { category: objId },
+      { category: unclassifiedCategory },
+    ).exec(),
+    CategoryModel.deleteOne({ _id: objId }),
+  ]);
 };
 
 export default {};
