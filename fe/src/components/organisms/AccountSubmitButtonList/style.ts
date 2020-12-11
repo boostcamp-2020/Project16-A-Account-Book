@@ -9,7 +9,7 @@ export const Button = styled(Input)`
 export const AccountSubmitButtonList = styled.div`
   width: 100%;
   display: flex;
-  & > ${Button}:first-child {
+  ${Button}:first-child {
     margin-left: 1rem;
   }
 `;

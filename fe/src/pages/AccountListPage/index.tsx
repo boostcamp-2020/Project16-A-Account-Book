@@ -34,10 +34,10 @@ const settingClickHandler = (history: any, account: any) => (e: any) => {
       isNewAccount: false,
     },
   });
+  AccountStore.setAccountUpdateTitle(account.title);
 };
 
-const newAccountClickHandler = (history: any, userId: String) => (e: any) => {
-  e.stopPropagation();
+const newAccountClickHandler = (history: any, userId: String) => () => {
   history.push({
     pathname: `/accounts/update`,
     state: {
@@ -48,13 +48,13 @@ const newAccountClickHandler = (history: any, userId: String) => (e: any) => {
       isNewAccount: true,
     },
   });
+  AccountStore.setAccountUpdateTitle('');
 };
 
 const AccountListPage = () => {
   const history = useHistory();
 
   const userId = sessionStorage.getItem('userObjId');
-  useEffect(() => {}, [sessionStorage.getItem('userObjId')]);
   if (!userId) {
     return <></>;
   }
@@ -62,7 +62,7 @@ const AccountListPage = () => {
   const List = AccountStore.getAccountList().map((el) => {
     return (
       <Account
-        key={el._id}
+        key={String(el._id) + String(el.title)}
         account={{ ...el, icon: AccountSvg }}
         onClick={onClickHandler(history, el._id, el.title, el.ownerName)}
         onSettingClick={settingClickHandler(history, el)}
