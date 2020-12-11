@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import CategoryTemplate from 'components/templates/CategoryTemplate';
-import Header from 'components/organisms/Header';
+import Header from 'components/organisms/HeaderBar';
 import CategoryArea from 'components/organisms/CategoryArea';
 import { observer } from 'mobx-react-lite';
 import { CategoryStore, categoryType } from 'stores/Category';

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import { useHistory, useParams } from 'react-router-dom';
-
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import FilterBar from 'components/organisms/FilterBar';

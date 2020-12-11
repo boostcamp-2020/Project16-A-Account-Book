@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 import ChattingBox from 'components/molecules/ChattingBox';
 import Input from 'components/atoms/Input';
-import Button from 'components/atoms/Button';
 
 export const ChattingArea = styled.div`
   width: 100%;
-  margin: 0;
   padding: 1%;
-  border: 1px solid #2cbe4e;
+  border: 0.1rem solid ${({ theme }) => theme.color.brandColor};
 `;
 
 export const ChattingBottom = styled.div`
@@ -17,17 +15,21 @@ export const ChattingBottom = styled.div`
 `;
 
 export const ChatBox = styled(ChattingBox)`
-  height: 30rem;
+  width: 100%;
+  height: 40rem;
 `;
 
 export const ChattingInput = styled(Input)`
-  width: 70%;
+  width: 90%;
   font-size: ${({ theme }) => theme.fontSize.sm};
   padding: 1%;
-  border: 0;
+  border: 0.1rem solid ${({ theme }) => theme.color.brandColor};
+  margin-right: 1%;
 `;
 
-export const ChattingBtn = styled(Button)`
-  width: 20%;
-  padding: 4%;
+export const ChattingBtn = styled(Input)`
+  width: 10%;
+  padding: 0.8%;
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  border: 0.1rem solid ${({ theme }) => theme.color.brandColor};
 `;
