@@ -31,12 +31,32 @@
 
 <center><img src="https://user-images.githubusercontent.com/44409642/99674728-c9ecfc80-2ab9-11eb-8039-06b9ebdc5e38.png"/></center>
 
+
 ## ⚙️ 프로젝트 구동 방법
 
-1. 백엔드
+우선 Repository clone한 후, Project16-A-Account-Book 폴더에 들어간다.
+1. 몽고디비 설치 후 데이터베이스 생성
+2. 백엔드
 - 백엔드 환경 변수 설정
   - be 폴더 바로 밑에 .env 파일 생성
   - .env-template 안에 있는 내용 작성
+  - .env 예시 (민감한 정보는 삭제하였습니다)
+```
+DB_USER=test
+DB_PASSWORD=
+DB_HOST=cluster0.3v1lt.mongodb.net
+DB_DATABASE=account?retryWrites=true&w=majority
+DB_PORT=
+JWT_SECRET=
+GITHUB_ID=
+GITHUB_SECRET=
+HOST=http://localhost
+BE_PORT=4000
+FE_PORT=3000
+EXPIRES_IN=24h
+```
+
+
 
 - 실행
 
@@ -51,12 +71,17 @@
     npm install 
     npm run dev
     ```
-    
 
-2. 프론트엔드
+3. 프론트엔드
 - 프론트엔드 환경 변수 설정
    - fe 폴더 바로 밑에 .env.development 파일 생성
-   - .env-template에 있는 내용 작성
+   - .env_sample에 있는 내용 작성
+   - .env 예시
+```
+REACT_APP_API_URL=http://localhost
+REACT_APP_API_PORT=4000
+```
+
 - 실행
     ```jsx
     cd fe
