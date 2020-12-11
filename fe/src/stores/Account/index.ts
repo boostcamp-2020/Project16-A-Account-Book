@@ -10,6 +10,7 @@ type accountItem = {
   _id: string;
   title: string;
   ownerName: string;
+  imageUrl?: string;
 };
 export interface Account {
   accountList: Array<accountItem>;

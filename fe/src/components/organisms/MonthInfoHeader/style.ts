@@ -24,6 +24,7 @@ export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
 
 export const MonthInfoHeaderContainer = styled.section`
   display: grid;
+  z-index: -1;
   grid-template-columns: 3fr 5fr 1fr;
   margin: 0.3rem 0.1rem;
   border: 0.4rem solid ${({ theme }) => theme.color.brandColor};

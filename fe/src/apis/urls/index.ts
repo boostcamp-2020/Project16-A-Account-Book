@@ -30,4 +30,6 @@ export default {
   mms: '/api/mms',
   deleteCategory: (accountObjId: string, categoryObjId: string) =>
     `/api/${accountObjId}/categories/${categoryObjId}`,
+
+  getUserInvitation: () => `/api/users/accounts`,
 };
