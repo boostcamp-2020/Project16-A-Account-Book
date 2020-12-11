@@ -55,7 +55,6 @@ const AccountListPage = () => {
   const history = useHistory();
 
   const userId = sessionStorage.getItem('userObjId');
-  useEffect(() => {}, [sessionStorage.getItem('userObjId')]);
   if (!userId) {
     return <></>;
   }
