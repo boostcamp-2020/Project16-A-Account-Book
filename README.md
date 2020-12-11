@@ -34,6 +34,11 @@
 ## ⚙️ 프로젝트 구동 방법
 
 1. 백엔드
+- 백엔드 환경 변수 설정
+  - be 폴더 바로 밑에 .env 파일 생성
+  - .env-template 안에 있는 내용 작성
+
+- 실행
 
     ```jsx
     cd be
@@ -49,7 +54,10 @@
     
 
 2. 프론트엔드
-
+- 프론트엔드 환경 변수 설정
+   - fe 폴더 바로 밑에 .env.development 파일 생성
+   - .env-template에 있는 내용 작성
+- 실행
     ```jsx
     cd fe
     yarn
@@ -62,4 +70,4 @@
     npm run start
     ```
 
-3. [localhost:3000](http://localhost:3000) 페이지 열기
+3. localhost:BE_PORT 페이지 열기
