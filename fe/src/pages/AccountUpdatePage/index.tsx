@@ -78,7 +78,6 @@ const AccountUpdatePage = ({ location }: Props) => {
   };
 
   const isOwner = true;
-  AccountStore.setAccountUpdateTitle(account.title);
 
   const Contents = (
     <>
