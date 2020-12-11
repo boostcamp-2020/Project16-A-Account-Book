@@ -18,10 +18,9 @@ export const Form = styled.form`
 `;
 
 export const IconButton = styled(IconBtn)`
-  flex: 1 1 10%;
+  flex: 1 1 30%;
   height: 100%;
   border: 1px solid ${({ theme }) => theme.color.brandColor};
-  margin-right: 1rem;
   border-radius: 0.5rem;
 `;
 

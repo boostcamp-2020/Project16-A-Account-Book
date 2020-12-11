@@ -26,7 +26,10 @@ const SELECT_ALL_TYPE = 'ALL';
 
 const MainFilterForm = () => {
   const [state, dispatch] = useReducer(reducer, {
-    dates: TransactionStore.getOriginDates(),
+    dates: {
+      startDate: TransactionStore.getOriginDates().startDate,
+      endDate: dateUtils.subTractDate(TransactionStore.getDates().endDate),
+    },
     ...TransactionStore.getFilter(),
   });
 
