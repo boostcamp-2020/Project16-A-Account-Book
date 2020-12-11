@@ -34,7 +34,6 @@ const settingClickHandler = (history: any, account: any) => (e: any) => {
       isNewAccount: false,
     },
   });
-  AccountStore.setAccountUpdateTitle(account.title);
 };
 
 const newAccountClickHandler = (history: any, userId: String) => () => {
@@ -48,7 +47,6 @@ const newAccountClickHandler = (history: any, userId: String) => () => {
       isNewAccount: true,
     },
   });
-  AccountStore.setAccountUpdateTitle('');
 };
 
 const AccountListPage = () => {
