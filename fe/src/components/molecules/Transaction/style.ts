@@ -7,6 +7,10 @@ export const TransactionStyle = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  :hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.color.transparentBrandColor};
+  }
 `;
 
 export const Text = styled.div`
