@@ -30,3 +30,23 @@
 ## 📌 기술 스택
 
 <center><img src="https://user-images.githubusercontent.com/44409642/99674728-c9ecfc80-2ab9-11eb-8039-06b9ebdc5e38.png"/></center>
+
+## ⚙️ 프로젝트 구동 방법
+
+1. 백엔드
+
+    ```jsx
+    cd be
+    yarn 
+    yarn dev
+    ```
+
+2. 프론트엔드
+
+    ```jsx
+    cd fe
+    yarn
+    yarn start
+    ```
+
+3. [localhost:3000](http://localhost:3000) 페이지 열기
