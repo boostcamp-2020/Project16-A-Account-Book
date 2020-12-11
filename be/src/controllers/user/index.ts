@@ -18,3 +18,15 @@ export const getUserByAccessToken = async (ctx: Koa.Context) => {
   ctx.status = 200;
   ctx.body = ctx.request.body.user;
 };
+export const getInvitation = async (ctx: Koa.Context) => {
+  const { user } = ctx.request.body;
+  const accounts = await userService.getInvitation(user);
+  const invitations = accounts.map((account: any, idx) => ({
+    accountObjId: account._id,
+    title: account.title,
+    ownerName: account.ownerName,
+    host: user.invitations[idx].host,
+  }));
+  ctx.body = invitations;
+};
+export default titleByAccountId;
