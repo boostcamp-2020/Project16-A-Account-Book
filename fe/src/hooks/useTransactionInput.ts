@@ -40,6 +40,17 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
       method: initialMethod._id,
     }));
   };
+  const loadAndSetInitialCategory = async () => {
+    await CategoryStore.loadCategories();
+    const initialCategory = CategoryStore.getCategories(
+      transactionState.classification,
+    )[0];
+    setTransaction((prevState) => ({
+      ...prevState,
+      cateogry: initialCategory._id,
+    }));
+  };
+
   const loadTransactionAndSetInitialInput = async () => {
     const transaction = await transactionAPI.getTransaction(
       TransactionStore.accountObjId,
@@ -65,9 +76,8 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
       category: input,
     }));
   }, [transactionState.classification]);
-
   useEffect(() => {
-    CategoryStore.loadCategories();
+    loadAndSetInitialCategory();
     loadAndSetInitialMethod();
     if (transactionObjId) {
       loadTransactionAndSetInitialInput();
