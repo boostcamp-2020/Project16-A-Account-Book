@@ -11,6 +11,6 @@ export const titleByAccountId = async (accountId: String) => {
 };
 
 export const getUserList = async () => {
-  const allUserList = await UserModel.find({}).exec();
+  const allUserList = await UserModel.find().exec();
   return allUserList;
 };
