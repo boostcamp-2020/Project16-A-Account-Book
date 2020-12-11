@@ -1,7 +1,5 @@
-
 import { AccountModel, IAccountDocument } from 'models/account';
 import { IUserDocument, UserModel } from 'models/user';
-
 
 export const titleByAccountId = async (accountId: String) => {
   const account = await AccountModel.findOne(
@@ -22,10 +20,9 @@ export const getInvitation = async (user: IUserDocument) => {
   return results;
 };
 
-
 export const getUserList = async () => {
   const allUserList = await UserModel.find().exec();
   return allUserList;
 };
 
-  export default titleByAccountId;
+export default titleByAccountId;

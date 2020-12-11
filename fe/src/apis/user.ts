@@ -9,6 +9,7 @@ export default {
   },
   getUserInvitation(): Promise<IInvitaion[]> {
     return axios.get(urls.getUserInvitation());
+  },
   getUserList(): Promise<IUser[]> {
     return axios.get(urls.user);
   },
