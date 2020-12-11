@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import AccountTitleImageUpdate from 'components/organisms/AccountImageTitleUpdate';
@@ -9,10 +9,8 @@ import { IUser } from 'types';
 import AccountSubmitButtonList from 'components/organisms/AccountSubmitButtonList';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import axios from 'apis/axios';
-import url from 'apis/urls';
+import accountAPI from 'apis/account';
 import { AccountStore } from 'stores/Account';
-import { toJS } from 'mobx';
 
 interface Props {
   location?: any;
@@ -22,28 +20,30 @@ const deleteHandler = (
   history: any,
   isOwner: boolean,
   accountObjId: string,
-) => () => {
+) => async () => {
   if (isOwner) {
-    axios.delete(url.accountUpdate(accountObjId));
+    await accountAPI.deleteAccount(accountObjId);
   } else {
     // TODO: 해당 user만 account users목록에서 빼는 api호출
   }
+  AccountStore.loadAccounts();
   history.goBack();
 };
 
 const AccountUpdatePage = ({ location }: Props) => {
   const history = useHistory();
   const { account, isNewAccount } = location.state;
+  const alreadyInvitedUserIdList = account.users.map((user: any) => user._id);
   const [userList, checkedUserIdList, setCheckedUserIdList] = useInviteUser(
-    account.users,
+    alreadyInvitedUserIdList,
   );
-
-  const userObjIdList = account.users.map((user: any) => {
-    return user._id;
-  });
+  const isOwner =
+    sessionStorage.getItem('userObjId') === alreadyInvitedUserIdList[0];
+  const titleInputRef = useRef<any>('');
   useEffect(() => {
-    AccountStore.setUserObjIdList([...userObjIdList, ...checkedUserIdList]);
-  }, [checkedUserIdList]);
+    titleInputRef.current.value = account.title;
+  }, []);
+
   const onSelectUser = (user: IUser) => {
     const selectedId = user._id;
     if (selectedId === 'ALL') {
@@ -60,28 +60,20 @@ const AccountUpdatePage = ({ location }: Props) => {
   };
 
   const submitHandler = async () => {
-    const title = AccountStore.accountUpdateTitle;
+    const title = titleInputRef.current.value;
+    const userObjIdList = [...alreadyInvitedUserIdList, ...checkedUserIdList];
     if (isNewAccount) {
-      await axios.post(url.account, {
-        title,
-        userObjIdList: [...toJS(AccountStore.userObjIdList)],
-      });
-      AccountStore.loadAccounts();
+      await accountAPI.createAccount(title, userObjIdList);
     } else {
-      await axios.put(url.accountUpdate(account._id), {
-        title,
-        userObjIdList: toJS(AccountStore.userObjIdList),
-      });
-      AccountStore.loadAccounts();
+      await accountAPI.updateAccount(account._id, title, userObjIdList);
     }
+    AccountStore.loadAccounts();
     history.goBack();
   };
 
-  const isOwner = true;
-
   const Contents = (
     <>
-      <AccountTitleImageUpdate account={account} />
+      <AccountTitleImageUpdate account={account} inputRef={titleInputRef} />
       <InviteUser
         dataList={userList}
         onClick={onSelectUser}

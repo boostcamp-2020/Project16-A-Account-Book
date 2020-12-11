@@ -15,27 +15,20 @@ const initialState = [
 ];
 
 const useInviteUser = (
-  alreadyInvitedUser?: IUser[],
+  alreadyInvitedUser: string[],
 ): [IUser[], string[], any] => {
   const [userList, setUserList] = useState(initialState);
   const [checkedUserIdList, setCheckedUserIdList] = useState([]);
 
   const loadAndSetUserList = async () => {
     const loadedUserList = await userAPI.getUserList();
-    setUserList(loadedUserList);
-    if (alreadyInvitedUser) {
-      deleteInvitedUser();
-    }
+    const uninvitedUserList = deleteInvitedUser(loadedUserList);
+    setUserList(uninvitedUserList);
   };
 
-  const deleteInvitedUser = () => {
-    const alreadyInvitedUserId = alreadyInvitedUser?.map(
-      (invitedUser) => invitedUser._id,
-    );
-    setUserList((initialUserList: IUser[]) =>
-      initialUserList.filter(
-        (user) => !alreadyInvitedUserId?.includes(user._id),
-      ),
+  const deleteInvitedUser = (loadedUserList: IUser[]) => {
+    return loadedUserList.filter(
+      (user) => !alreadyInvitedUser.includes(user._id),
     );
   };
 
