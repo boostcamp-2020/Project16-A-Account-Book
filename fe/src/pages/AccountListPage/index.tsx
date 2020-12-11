@@ -64,7 +64,7 @@ const AccountListPage = () => {
     return (
       <Account
         key={String(el._id) + String(el.title)}
-        account={{ ...el, icon: AccountSvg }}
+        account={{ ...el, icon: el.imageUrl || AccountSvg }}
         onClick={onClickHandler(history, el._id, el.title, el.ownerName)}
         onSettingClick={settingClickHandler(history, el)}
       />
