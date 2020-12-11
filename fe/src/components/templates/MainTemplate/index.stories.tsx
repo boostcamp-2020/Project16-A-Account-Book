@@ -46,7 +46,13 @@ export const MainSample = () => {
   ];
 
   const MonthInfoHeaderComponent = (
-    <MonthInfoHeader month={11} total={{ income: 20000, expense: 40000 }} />
+    <MonthInfoHeader
+      date={{
+        startDate: '2020-12-01',
+        endDate: '2021-11-11',
+      }}
+      total={{ income: 20000, expense: 40000 }}
+    />
   );
   const AccountDateComponent = (
     <>

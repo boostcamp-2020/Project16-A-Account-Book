@@ -19,21 +19,36 @@ export const DropdownItem = styled.div`
 export const DropdownBodyWrap = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
   background-color: white;
   width: inherit;
-  z-index: 10;
-  border: 1px solid ${({ theme }) => theme.color.subText};
+  border-bottom: 1px solid ${({ theme }) => theme.color.subText};
   padding: 0.3em;
   top: 1.3rem;
   left: 0;
+  .flex-container {
+    display: flex;
+    align-items: center;
+  }
+  .title-container {
+    margin-right: auto;
+    height: 1.5em;
+  }
+  .modify-button {
+    margin-right: 0.5em;
+  }
 `;
 
 export const CategoryEditButton = styled(EditButton)`
   font-size: ${({ theme }) => theme.fontSize.sm};
   width: 5%;
+  margin-right: 0.5em;
 `;
 
-export const TitleSpan = styled.span`
-  width: 90%;
+export const ColorBox = styled.div`
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  margin-right: 1em;
+  background-color: ${({ color }) => color};
+  border: 1px solid #ddd;
 `;

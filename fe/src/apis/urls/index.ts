@@ -13,15 +13,19 @@ export default {
   category: (accountObjId: string) => {
     return `/api/${accountObjId}/categories/`;
   },
-  defaultCategory: '/api/categories',
+  defaultCategory: 'api/categories',
   account: '/api/accounts',
 
   method: (accountObjId: string) => `/api/${accountObjId}/methods/`,
+  methodDeleteOrUpdate: (accountObjId: string, methodObjId: string) =>
+    `/api/${accountObjId}/methods/${methodObjId}`,
 
   statistics: (accountObjId: string) =>
     `/api/${accountObjId}/categories/statistics/`,
-
+  categories: (accountObjId: string) => `/api/${accountObjId}/categories`,
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
   mms: '/api/mms',
+  deleteCategory: (accountObjId: string, categoryObjId: string) =>
+    `/api/${accountObjId}/categories/${categoryObjId}`,
 };

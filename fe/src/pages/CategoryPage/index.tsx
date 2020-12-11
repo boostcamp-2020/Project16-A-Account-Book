@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import CategoryTemplate from 'components/templates/CategoryTemplate';
 import Header from 'components/organisms/Header';
-import backArrow from 'assets/svg/backArrow.svg';
-import IconButton from 'components/molecules/IconButton';
 import CategoryArea from 'components/organisms/CategoryArea';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { CategoryStore, categoryType } from 'stores/Category';
 import { TransactionStore } from 'stores/Transaction';
+import { MethodStore } from 'stores/Method';
 import Modal from 'components/molecules/Modal';
 import Input from 'components/atoms/Input';
-import Button from 'components/atoms/Button';
 import LabelWrap from 'components/molecules/LabelWrap';
-import axios from 'apis/axios';
-import url from 'apis/urls';
-
+import categoryAPI from 'apis/category';
+import methodAPI from 'apis/method';
+import NavBarComponent from 'components/organisms/NavBar';
+import { getRandomColor } from 'utils/random';
 import * as S from './style';
 
 export interface MatchParams {
@@ -28,138 +26,151 @@ export interface ClickTarget extends EventTarget {
 export interface ClickProps extends MouseEvent {
   target: ClickTarget;
 }
-
-function CategoryPage(): React.ReactElement {
-  const [type, setType] = useState<string>(categoryType.EXPENSE);
-  const [newCategory, setNewCategory] = useState<string>('');
-  const [color, setColor] = useState<string>('');
-  const [visible, setVisible] = useState<boolean>(false);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string>('');
-  const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
-
-  const editButtonHandler = async () => {
-    if (isClicked) {
-      setIsClicked(false);
-    } else {
-      setIsClicked(true);
-    }
-  };
-
-  const TabClickHandler = (e: ClickProps) => {
-    const { value } = e.target;
-    if (value === categoryType.INCOME) {
-      setType(categoryType.INCOME);
-    } else if (value === categoryType.EXPENSE) {
-      setType(categoryType.EXPENSE);
-    } else {
-      setType('notype');
-    }
-  };
-
-  const newCategoryNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setNewCategory(value);
-  };
-
-  const newColorHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setColor(value);
-  };
-
-  const dropDownItemClicked = (objId: string) => {
-    setSelected(objId);
-    setVisible(true);
-  };
-
-  const deleteClicked = async (objId: string) => {
-    setSelected(objId);
-    setDeleteVisible(true);
-  };
-
-  const deleteConfirm = async () => {
-    await axios.put(url.defaultCategory, { objId: selected });
-    setSelected('');
-    CategoryStore.loadCategories();
-    setDeleteVisible(false);
-  };
-
-  const newCategoryConfirm = async () => {
-    if (!selected) {
-      await axios.post(url.defaultCategory, {
-        type,
-        title: newCategory,
-        color,
-        accountObjId: TransactionStore.accountObjId,
-      });
-      CategoryStore.loadCategories();
-      setVisible(false);
-    } else {
-      await axios.put(url.defaultCategory, {
-        objId: selected,
-        type,
-        title: newCategory,
-        color,
-      });
-      setSelected('');
-      CategoryStore.loadCategories();
-      setVisible(false);
-    }
-  };
-
-  const deleteCancel = () => {
-    setDeleteVisible(false);
-  };
-
-  const newCategoryCancel = () => {
-    setVisible(false);
-  };
-
-  const onPlusButtonClick = () => {
-    setVisible(true);
-  };
-
-  useEffect(() => {
-    CategoryStore.loadCategories();
-  }, []);
-
-  const headerContent = <Header />;
-
-  const homeButton = <IconButton icon={backArrow} />;
-
-  const deleteModalContent = (
+const DeleteModalContent = ({
+  deleteConfirm,
+  deleteCancel,
+}: {
+  deleteConfirm: any;
+  deleteCancel: any;
+}) => {
+  return (
     <S.ContantsWrapper>
       <S.ContentWrapper>
         <span>정말 삭제하시겠습니까?</span>
       </S.ContentWrapper>
       <S.ContentWrapper>
         <Input type="button" onClick={deleteConfirm} value="확인" />
-        <Button onClick={deleteCancel}>취소</Button>
+        <Input type="button" onClick={deleteCancel} value="취소" />
       </S.ContentWrapper>
     </S.ContantsWrapper>
   );
+};
+
+const D = React.memo(DeleteModalContent);
+
+function CategoryPage(): React.ReactElement {
+  const [type, setType] = useState<string>(categoryType.EXPENSE);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
+  const colorPicker = useRef<any>();
+  const inputRef = useRef<any>();
+  const selectedRef = useRef<string>('');
+
+  const editButtonHandler = () => setIsClicked(!isClicked);
+  useEffect(() => {
+    MethodStore.loadMethods();
+    CategoryStore.loadCategories();
+  }, []);
+
+  const TabClickHandler = useCallback(({ target: { value } }: ClickProps) => {
+    setType(value);
+  }, []);
+
+  const dropDownItemClicked = (data: any) => {
+    selectedRef.current = data._id;
+    colorPicker.current.value = data.color;
+    inputRef.current.value = data.title;
+    setVisible(true);
+  };
+
+  const deleteClicked = (objId: string) => {
+    selectedRef.current = objId;
+    setDeleteVisible(true);
+  };
+  const loadStore = () => {
+    const loadFuc =
+      type === 'METHOD'
+        ? MethodStore.loadMethods.bind(MethodStore)
+        : CategoryStore.loadCategories.bind(CategoryStore);
+    loadFuc();
+  };
+  const removeConfirm = async () => {
+    const apiFuc =
+      type === 'METHOD' ? methodAPI.removeMethod : categoryAPI.deleteCategory;
+    await apiFuc(TransactionStore.accountObjId, selectedRef.current);
+    loadStore();
+    setDeleteVisible(false);
+  };
+
+  const confirm = async () => {
+    const apiFuc = type === 'METHOD' ? methodConfirm : categoryConfirm;
+    const result: any = await apiFuc();
+    if (result.error) {
+      alert(result.error);
+    } else {
+      loadStore();
+      selectedRef.current = '';
+      onCancle(setVisible)();
+    }
+  };
+  const methodConfirm = async () => {
+    const body = {
+      title: inputRef.current.value,
+    };
+    const func = selectedRef.current
+      ? methodAPI.updateMethod
+      : methodAPI.createMethod;
+    return func(TransactionStore.accountObjId, body, selectedRef.current);
+  };
+  const categoryConfirm = async () => {
+    const body = {
+      type,
+      title: inputRef.current.value,
+      color: colorPicker.current.value,
+      objId: selectedRef.current,
+    };
+    const fuc = selectedRef.current
+      ? categoryAPI.putCategory
+      : categoryAPI.postCategory;
+    return fuc(TransactionStore.accountObjId, body);
+  };
+
+  const onCancle = (fnc: any) => () => {
+    inputRef.current.value = '';
+    fnc(false);
+  };
+
+  const onPlusButtonClick = () => {
+    colorPicker.current.value = getRandomColor();
+    setVisible(true);
+  };
 
   const modalContent = (
     <S.ContantsWrapper>
-      <S.ContentWrapper>
-        <LabelWrap htmlFor="memo" title={type}>
-          <Input onChangeHandler={newCategoryNameHandler} />
+      <div className="input-container">
+        <LabelWrap htmlFor="input-category" title={type}>
+          <Input id="input-category" type="text" inputRef={inputRef} />
         </LabelWrap>
-        <LabelWrap htmlFor="memo" title="color">
-          <Input type="color" onClick={newColorHandler} />
+        <LabelWrap
+          htmlFor="color-picker"
+          title="color"
+          visible={type !== 'METHOD'}
+        >
+          <Input id="color-picker" type="color" inputRef={colorPicker} />
         </LabelWrap>
-      </S.ContentWrapper>
+      </div>
+
       <S.ContentWrapper>
-        <Input type="button" onClick={newCategoryConfirm} value="확인" />
-        <Button onClick={newCategoryCancel}>취소</Button>
+        <Input type="button" onClick={confirm} value="확인" />
+        <Input type="button" onClick={onCancle(setVisible)} value="취소" />
       </S.ContentWrapper>
     </S.ContantsWrapper>
   );
-
+  const DC = (
+    <D
+      deleteCancel={onCancle(setDeleteVisible)}
+      deleteConfirm={removeConfirm}
+    />
+  );
   const bodyContent = (
-    <S.PageContainer>
+    <>
       <CategoryArea
-        dataList={toJS(CategoryStore.getCategories(type))}
+        dataList={
+          type === 'METHOD'
+            ? MethodStore.getMethods()
+            : CategoryStore.getCategories(type)
+        }
         onClickHandler={TabClickHandler}
         onPlusButtonClick={onPlusButtonClick}
         dropDownItemClicked={dropDownItemClicked}
@@ -168,16 +179,16 @@ function CategoryPage(): React.ReactElement {
         deleteClicked={deleteClicked}
       />
       <Modal visible={visible} content={modalContent} />
-      <Modal visible={deleteVisible} content={deleteModalContent} />
-    </S.PageContainer>
+      <Modal visible={deleteVisible} content={DC} />
+    </>
   );
 
   return (
     <CategoryTemplate
-      headerContent={headerContent}
-      homeButton={homeButton}
+      headerContent={<Header />}
       title="카테고리 설정"
       bodyContent={bodyContent}
+      NavBar={<NavBarComponent />}
     />
   );
 }

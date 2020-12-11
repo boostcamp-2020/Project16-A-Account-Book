@@ -37,4 +37,4 @@ const NavBar = ({ ...props }): React.ReactElement => {
   );
 };
 
-export default NavBar;
+export default React.memo(NavBar);

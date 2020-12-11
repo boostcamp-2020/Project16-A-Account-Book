@@ -6,12 +6,13 @@ import TotalBoxContainer from './style';
 export interface TotalInterface {
   title: string;
   total: number;
+  color?: string;
 }
-const TotalBox = ({ title, total }: TotalInterface) => {
+const TotalBox = ({ title, total, color = 'black' }: TotalInterface) => {
   return (
     <TotalBoxContainer>
       <div className="total-box__title">{title}</div>
-      <PriceTag color="white" value={total} bold />
+      <PriceTag color={color} value={total} bold />
     </TotalBoxContainer>
   );
 };

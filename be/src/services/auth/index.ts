@@ -51,23 +51,25 @@ export const getGithubAccessToken = async (code: string) => {
     data: { access_token: accessToken },
   } = await getAccessTokenFromGitHub(code);
   const { data: profile } = await getUserProfile(accessToken);
-  const { id, login } = profile;
+  const { id, login, avatar_url: avatarUrl } = profile;
 
   let user = await UserModel.findOne({ id }).exec();
   if (!user) {
     const categories = await CategoryModel.createDefaultCategory();
     const methods = await MethodModel.createDefaultMethod();
-    const newAccount = new AccountModel({
-      title: login,
-      owner: login,
-      categories,
-      methods,
-    });
     user = new UserModel({
       id,
       nickname: login,
-      accounts: [newAccount._id],
+      profileUrl: avatarUrl,
     });
+    const newAccount = new AccountModel({
+      title: login,
+      ownerName: login,
+      categories,
+      methods,
+      users: [user],
+    });
+
     await Promise.all([newAccount.save(), user.save()]);
   }
   const token = jwt.sign(

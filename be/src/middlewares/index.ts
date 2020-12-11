@@ -1,8 +1,16 @@
 import Koa from 'koa';
 import jwt from 'jsonwebtoken';
 import { jwtConfig } from 'config';
-import { unAuthroziedError, invalidAccessError } from 'libs/error';
+import {
+  unAuthroziedError,
+  invalidAccessError,
+  invalidCategory,
+  accountHasNoUserError,
+  updateUnclassifiedMethod,
+} from 'libs/error';
 import { UserModel } from 'models/user';
+import { CategoryModel, categoryType } from 'models/category';
+import { AccountModel } from 'models/account';
 
 interface IDecodedData {
   id: string | number;
@@ -44,11 +52,38 @@ export const verifyAccountAccess = async (
   if (!user) {
     throw unAuthroziedError;
   }
-  const userHasAccountId = user.accounts.some(
-    (account: object) => String(account) === accountObjId,
-  );
-  if (!userHasAccountId) {
+  const selectedAccount = await AccountModel.findById(accountObjId);
+  if (!selectedAccount) {
+    throw accountHasNoUserError;
+  }
+  const accountHasUserId = selectedAccount.users.some((el: any) => {
+    return String(el._id) === String(user._id);
+  });
+
+  if (!accountHasUserId) {
     throw invalidAccessError;
   }
+  await next();
+};
+
+export const isUnclassifide = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { category } = ctx.params;
+  const cat = await CategoryModel.findById(category);
+  if (!cat || cat.type === categoryType.UNCLASSIFIED) {
+    throw invalidCategory;
+  }
+  await next();
+};
+
+export const titleIsUnclassified = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { title } = ctx.request.body;
+  if (!title || title.trim() === '' || title.trim() === '미분류')
+    throw updateUnclassifiedMethod;
   await next();
 };

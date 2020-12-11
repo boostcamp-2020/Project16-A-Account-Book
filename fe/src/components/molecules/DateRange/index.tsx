@@ -1,12 +1,12 @@
 import React from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import dayjs from 'dayjs';
+import dateUtils from 'utils/date';
 import * as S from './style';
 
 export interface IDateRange {
   dates: {
-    startDate: Date | null;
-    endDate: Date | null;
+    startDate: Date | string | null;
+    endDate: Date | string | null;
   };
 }
 
@@ -16,12 +16,16 @@ const DateRange = ({ dates }: IDateRange) => {
       <div>
         <S.Small>시작일</S.Small>
         <div>
-          {dates.startDate && dayjs(dates.startDate).format('YY-MM-DD')}
+          {dates.startDate &&
+            dateUtils.dateCustomFormatter(dates.startDate, 'YY.MM.DD')}
         </div>
       </div>
       <div>
         <S.Small>마지막일</S.Small>
-        <div>{dates.endDate && dayjs(dates.endDate).format('YY-MM-DD')}</div>
+        <div>
+          {dates.endDate &&
+            dateUtils.dateCustomFormatter(dates.endDate, 'YY.MM.DD')}
+        </div>
       </div>
     </S.DecsContainer>
   );
