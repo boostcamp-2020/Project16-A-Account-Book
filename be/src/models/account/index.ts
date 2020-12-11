@@ -20,6 +20,7 @@ export interface IAccount {
   methods?: string[];
   ownerName?: string;
   users: Types.DocumentArray<IUserDocument>;
+  imageUrl?: String;
 }
 
 export interface AccountDocument extends Document {
@@ -29,6 +30,7 @@ export interface AccountDocument extends Document {
   methods?: [String];
   ownerName?: string;
   users: Types.DocumentArray<IUserDocument>;
+  imageUrl?: String;
 }
 
 export interface IAccountDocument extends IAccount, Document {}
@@ -79,17 +81,18 @@ export const AccountSchema = new Schema({
   ],
   ownerName: String,
   users: [UserSchema],
+  imageUrl: String,
 });
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
 AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
 AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
+AccountSchema.statics.findAccountByUserId = findAccountByUserId;
+AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
 AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
 AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 
-AccountSchema.statics.findAccountByUserId = findAccountByUserId;
-AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
   AccountSchema,

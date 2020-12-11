@@ -6,13 +6,15 @@ import accountRouter from 'routers/api/account';
 import { authorization, verifyAccountAccess } from 'middlewares';
 import methodRouter from './method';
 import categoryRouter from './category';
+import mmsRouter from './mms';
 
 const router = new Router();
 router.use('/auth', authRouter.routes());
 
 router.use(authorization);
-router.use('/user', userRouter.routes());
+router.use('/users', userRouter.routes());
 router.use('/accounts', accountRouter.routes());
+router.use('/mms', mmsRouter.routes());
 
 router.use('/:accountObjId', verifyAccountAccess);
 router.use('/:accountObjId/accounts', accountRouter.routes());

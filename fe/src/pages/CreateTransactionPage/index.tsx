@@ -6,7 +6,7 @@ import transactionAPI from 'apis/transaction';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 import { useHistory } from 'react-router-dom';
-import isCanSubmit from 'utils/isCanSubmit';
+import { transactionValidator } from 'utils/validator';
 import Header from 'components/organisms/HeaderBar';
 
 const classifications = ['지출', '수입'];
@@ -27,10 +27,10 @@ const CreateTransacionPage = () => {
   };
 
   const onSubmitHandler = async () => {
-    const flag = isCanSubmit(transactionState);
+    const flag = transactionValidator(transactionState);
 
     if (!flag) {
-      alert('🙀입력을 확인하세요!🙀');
+      alert('🙀입력을 확인하세요!🙀 ');
       return;
     }
     await transactionAPI.saveTransaction(

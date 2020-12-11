@@ -18,7 +18,7 @@ const StatisticsDetailPage = () => {
       expense: !prevShowType.expense,
     }));
   }, []);
-  const SubHeaderBar = <MonthInfo />;
+  const SubHeaderBar = <MonthInfo total={statistics.totalPrice} />;
   const Contents = (
     <PieChartDetail
       statistics={statistics}

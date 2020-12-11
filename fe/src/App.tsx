@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
 import AccountListPage from 'pages/AccountListPage';
+import AccountUpdatePage from 'pages/AccountUpdatePage';
 import CalendarPage from 'pages/CalendarPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
@@ -20,6 +21,7 @@ import CreateTransactionPage from './pages/CreateTransactionPage';
 import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ChattingPage from './pages/ChattingPage';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
@@ -54,6 +56,10 @@ const TransactionRouter = () => {
               path={`${url}/:owner/:title/category`}
               component={CategoryPage}
             />
+            <Route
+              path={`${url}/:owner/:title/chatting`}
+              component={ChattingPage}
+            />
             <Route path={`${url}/:owner/:title`} component={MainPage} />
           </Switch>
         </>
@@ -83,7 +89,10 @@ const AccountRouter = () => {
   return (
     <>
       <AuthCheck />
-      <Route path={`${url}`} component={AccountListPage} />
+      <Switch>
+        <Route path={`${url}/update`} component={AccountUpdatePage} />
+        <Route path={`${url}`} component={AccountListPage} />
+      </Switch>
     </>
   );
 };

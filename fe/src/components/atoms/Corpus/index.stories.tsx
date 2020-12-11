@@ -6,11 +6,11 @@ export default {
 };
 
 export const TextedCorpus = () => {
-  return <Corpus chat="뭐해?" />;
+  return <Corpus type="mine" chat="뭐해?" />;
 };
 const manyText =
   'sometimes forest fires makes smokes too and we have to decide what todo';
 
 export const ManyTextedCorpus = () => {
-  return <Corpus chat={manyText} />;
+  return <Corpus type="mine" chat={manyText} />;
 };

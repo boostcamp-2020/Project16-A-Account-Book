@@ -10,6 +10,7 @@ type accountItem = {
   _id: string;
   title: string;
   ownerName: string;
+  imageUrl?: string;
 };
 export interface Account {
   accountList: Array<accountItem>;
@@ -20,18 +21,21 @@ const initialState: Account = {
   accountList: [],
   state: state.PENDING,
 };
+
 export const AccountStore = makeAutoObservable({
   accountList: initialState.accountList,
   state: initialState.state,
+
   getAccountList() {
     return toJS(this.accountList);
   },
-  async loadTransactions() {
+  async loadAccounts() {
     this.state = state.PENDING;
     try {
       const result = await accountAPI.getAccount();
       runInAction(() => {
         this.accountList = result as any;
+        this.state = state.DONE;
       });
     } catch (err) {
       runInAction(() => {

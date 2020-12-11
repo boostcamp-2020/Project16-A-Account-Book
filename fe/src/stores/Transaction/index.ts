@@ -23,6 +23,7 @@ export interface ITransactionStore {
     categories: {
       income: types.IFilterCategory;
       expense: types.IFilterCategory;
+      unclassified: types.IFilterCategory;
     };
   };
   isCalendarModalOpen: boolean;
@@ -51,6 +52,10 @@ const initialState: ITransactionStore = {
         list: [],
       },
       expense: {
+        disabled: false,
+        list: [],
+      },
+      unclassified: {
         disabled: false,
         list: [],
       },

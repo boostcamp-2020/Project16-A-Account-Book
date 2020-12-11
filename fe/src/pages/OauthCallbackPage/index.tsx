@@ -16,7 +16,9 @@ function OauthCallbackPage({
   useEffect(() => {
     const getToken = async () => {
       if (code == null) return;
-      await auth.getAccessToken(code);
+      const res = await auth.getAccessToken(code);
+
+      sessionStorage.setItem('userObjId', (res as any)._id);
       setIsLoading(false);
       history.push('/accounts');
     };

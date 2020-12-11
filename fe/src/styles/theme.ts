@@ -24,9 +24,12 @@ const color = {
   selectedBlue: '#499ae9',
   grayBackground: '#f5f5f5',
 
+  transparentBrandColor: 'rgba(92, 198, 186, 0.1)',
+
   lightBorder: '#e6e6e6',
   green: '#20C997',
   transparentBackground: 'rgba(0, 0, 0, 0.1)',
+  red: '#fa5252',
 };
 
 const theme = {
