@@ -83,7 +83,12 @@ export const solution = (sms: string) => {
     }
     if (data.includes('/')) {
       const dateTarget = data.match(/[0-9]{2}\/[0-9]{2}/);
-      if (dateTarget) [newData.date] = [dateTarget[0]];
+      if (dateTarget) {
+        let date = dateTarget[0];
+        date.replace('/', '.');
+        date = `${new Date().getFullYear()}.${date}`;
+        [newData.date] = [date];
+      }
     }
   });
   return newData;

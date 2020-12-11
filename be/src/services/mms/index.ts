@@ -31,7 +31,7 @@ export const postMms = async (
       date: new Date(mmsObj.date),
       price: mmsObj.amount,
     });
-    await AccountModel.update(
+    await AccountModel.updateOne(
       { _id: accountObjId },
       { $push: { transactions: newTransaction._id } },
     );
