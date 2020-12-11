@@ -20,6 +20,7 @@ export interface IAccount {
   methods?: string[];
   ownerName?: string;
   users: Types.DocumentArray<IUserDocument>;
+  imageUrl?: String;
 }
 
 export interface AccountDocument extends Document {
@@ -29,6 +30,7 @@ export interface AccountDocument extends Document {
   methods?: [String];
   ownerName?: string;
   users: Types.DocumentArray<IUserDocument>;
+  imageUrl?: String;
 }
 
 export interface IAccountDocument extends IAccount, Document {}
@@ -79,6 +81,7 @@ export const AccountSchema = new Schema({
   ],
   ownerName: String,
   users: [UserSchema],
+  imageUrl: String,
 });
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
