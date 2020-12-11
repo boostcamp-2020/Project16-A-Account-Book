@@ -5,11 +5,11 @@ export interface Props {
   profileImgList: any;
 }
 
-const ProfileImgList = ({ profileImgList }: Props) => {
+const ProfileImgList = ({ profileImgList, ...props }: Props) => {
   const ImgList = profileImgList.map((el: any, index: number) => {
     return <S.Icon key={el} rightMargin={index} icon={el} size="lg" />;
   });
-  return <S.Wrap>{ImgList}</S.Wrap>;
+  return <S.Wrap {...props}>{ImgList}</S.Wrap>;
 };
 
 export default ProfileImgList;

@@ -48,4 +48,3 @@ export const accountNoChange = {
   status: 400,
   message: 'account Update 중 에러가 발생했습니다.',
 };
-
