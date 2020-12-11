@@ -37,7 +37,7 @@ export const postMms = async (
     );
     return { success: true };
   }
-  return { success: false, error: '미등록 카테고리가 존재하지 않습니다' };
+  return { success: false, error: '미분류 카테고리가 존재하지 않습니다' };
 };
 
 export default {};
