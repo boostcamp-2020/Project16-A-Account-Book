@@ -21,6 +21,7 @@ import CreateTransactionPage from './pages/CreateTransactionPage';
 import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
 import NotFoundPage from './pages/NotFoundPage';
+import ChattingPage from './pages/ChattingPage';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
@@ -54,6 +55,10 @@ const TransactionRouter = () => {
             <Route
               path={`${url}/:owner/:title/category`}
               component={CategoryPage}
+            />
+            <Route
+              path={`${url}/:owner/:title/chatting`}
+              component={ChattingPage}
             />
             <Route path={`${url}/:owner/:title`} component={MainPage} />
           </Switch>

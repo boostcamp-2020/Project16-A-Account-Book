@@ -9,7 +9,7 @@ export interface MonthHeaderInfoButton extends ButtonStyleProps {
 }
 export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
   color: ${({ color, theme }) =>
-    color ? theme.color[color] : theme.color.white};
+    color ? theme.color[color] : theme.color.brandColor};
   border: 0;
   width: 100%;
   height: 50%;

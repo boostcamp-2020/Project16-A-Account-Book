@@ -1,10 +1,10 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
-import ChattingArea from '.';
+import ChattingBox from '.';
 
 export default {
-  title: 'organisms / ChattingArea',
+  title: 'Molecules / ChattingBox',
 };
 
 const dataList = [
@@ -23,23 +23,10 @@ const dataList = [
   },
 ];
 
-const onChangeHandler = () => {
-  console.log('changed');
-};
-
-const onSubmitHandler = () => {
-  console.log('submit');
-};
-
-export const defaultArea = () => {
+export const defaultChattingBox = () => {
   return (
     <ThemeProvider theme={theme}>
-      <ChattingArea
-        dataList={dataList}
-        onChangeHandler={onChangeHandler}
-        onSubmitHandler={onSubmitHandler}
-        chatValue="yeah"
-      />
+      <ChattingBox dataList={dataList} />
     </ThemeProvider>
   );
 };

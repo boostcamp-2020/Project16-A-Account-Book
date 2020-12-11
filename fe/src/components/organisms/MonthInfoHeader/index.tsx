@@ -1,5 +1,6 @@
 import React from 'react';
 import TotalBox from 'components/molecules/TotalBox';
+import { Link, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import dateUtils from 'utils/date';
@@ -17,6 +18,11 @@ interface MonthInfoHeaderInterface {
   };
 }
 
+type Params = {
+  title: string;
+  owner: string;
+};
+
 const MonthInfoHeader = ({
   date = {
     startDate: TransactionStore.getDates().startDate,
@@ -24,6 +30,8 @@ const MonthInfoHeader = ({
   },
   total = TransactionStore.totalPrices,
 }: MonthInfoHeaderInterface) => {
+  const { title, owner } = useParams<Params>();
+  const baseUrl = `/transactions/${owner}/${title}`;
   return (
     <MonthInfoHeaderContainer>
       <DateRange dates={date} />
@@ -31,10 +39,11 @@ const MonthInfoHeader = ({
         <TotalBox title="수입" total={total.income} />
         <TotalBox title="지출" total={total.expense} />
       </div>
-
-      <MonthButton onClick={() => {}} size="md">
-        채팅
-      </MonthButton>
+      <Link to={`${baseUrl}/chatting`}>
+        <MonthButton onClick={() => {}} size="md">
+          채팅
+        </MonthButton>
+      </Link>
     </MonthInfoHeaderContainer>
   );
 };
