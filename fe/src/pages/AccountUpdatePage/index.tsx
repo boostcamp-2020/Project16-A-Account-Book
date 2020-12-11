@@ -64,11 +64,10 @@ const AccountUpdatePage = ({ location }: Props) => {
     const userObjIdList = [...alreadyInvitedUserIdList, ...checkedUserIdList];
     if (isNewAccount) {
       await accountAPI.createAccount(title, userObjIdList);
-      AccountStore.loadAccounts();
     } else {
       await accountAPI.updateAccount(account._id, title, userObjIdList);
-      AccountStore.loadAccounts();
     }
+    AccountStore.loadAccounts();
     history.goBack();
   };
 
