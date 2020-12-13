@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import dateUtils from 'utils/date';
 import * as S from './style';
 

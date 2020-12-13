@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-curly-newline */
-import React, { useRef, useReducer, useEffect } from 'react';
-import useVisible from 'hooks/useVisible';
+import React, { useReducer, useEffect } from 'react';
 import { MethodStore } from 'stores/Method';
 import {
   CategoryStore,
@@ -15,12 +14,7 @@ import DateRange from '../../molecules/DateRange';
 import DropdownHeader from '../../molecules/DropdownHeader';
 import Dropdown from '../../molecules/Dropdown';
 import { reducer, actions } from './filterReducer';
-import {
-  TopFilter,
-  CategoryFilterList,
-  Modal,
-  DatePickerList,
-} from './SubComponents';
+import { TopFilter, CategoryFilterList, DatePickerList } from './SubComponents';
 
 const SELECT_ALL_TYPE = 'ALL';
 
@@ -35,8 +29,6 @@ const MainFilterForm = () => {
 
   const { dates, categories, methods } = state;
   const { income, expense, unclassified } = categories;
-  const container = useRef<HTMLDivElement>(null);
-  const [visible, toggleVisible] = useVisible(container);
   const selectAll = (type: string) => {
     const fetchedCategories = CategoryStore.getCategories(type);
     const selectedCategoryIdList =
@@ -90,13 +82,6 @@ const MainFilterForm = () => {
       }
     }
   };
-
-  const onChangeDate = (dateList: [Date | null, Date | null]) => {
-    const [startDate, endDate] = dateList;
-    dispatch(actions.setDates(startDate, endDate));
-    if (endDate) toggleVisible();
-  };
-
   const onClickCategory = ({ type, _id }: { type: string; _id: string }) => {
     if (_id === SELECT_ALL_TYPE) {
       selectAll(type);
@@ -139,16 +124,9 @@ const MainFilterForm = () => {
       <TopFilter filterTitle="기간">
         <S.DateContainer>
           <DropdownHeader title="기간">
-            <DatePickerList
-              onClick={toggleVisible}
-              onClickFix={onClickDateFix}
-            />
+            <DatePickerList onClickFix={onClickDateFix} />
           </DropdownHeader>
-          <button
-            type="button"
-            onClick={() => toggleVisible}
-            className="range-container"
-          >
+          <button type="button" className="range-container">
             <DateRange dates={dates} />
           </button>
         </S.DateContainer>
@@ -162,9 +140,6 @@ const MainFilterForm = () => {
           title="결제수단"
         />
       </TopFilter>
-      {visible && (
-        <Modal dates={dates} onChange={onChangeDate} ref={container} />
-      )}
       <S.Box>
         <S.Label>
           <small>카테고리</small>
