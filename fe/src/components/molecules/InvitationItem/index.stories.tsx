@@ -19,7 +19,7 @@ export const invitationItem = () => {
         host={host}
         accountObjId={accountObjId}
         ownerName={owner}
-        accountProfile={src}
+        imageUrl={src}
         title={title}
       />
     </GlobalProvider>
