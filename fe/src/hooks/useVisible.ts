@@ -4,8 +4,6 @@ const useVisible = (ref: RefObject<HTMLDivElement>): [boolean, Function] => {
   const [visible, setVisible] = useState(false);
 
   const outsideClickHandler = (event: any) => {
-    event.stopPropagation();
-    event.preventDefault();
     if (!ref.current) return;
     if (event.target.closest('#date-picker')) return;
 
