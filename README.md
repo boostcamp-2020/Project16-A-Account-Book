@@ -15,6 +15,7 @@
     <img src="https://img.shields.io/badge/MobX-v6.0.4-orange?logo=Monster">
     <img src="https://img.shields.io/badge/prettier-^2.2.0-yellow?logo=prettier" />
     <img src="https://img.shields.io/badge/eslint-^7.11.0-yellow?logo=eslint">
+    <img src="https://img.shields.io/badge/yarn-^1.22.5-yellow?logo=yarn">
 </p>
 
 ## 🏠 [HOME PAGE](http://xn--n-b22fl8h.kro.kr)
