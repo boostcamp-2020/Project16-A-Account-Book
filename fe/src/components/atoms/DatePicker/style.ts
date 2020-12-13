@@ -15,7 +15,7 @@ export const Container = styled.div`
   .react-datepicker__month-container {
     font-family: 'Bmeuljiro';
   }
-  .btn-date {
+  .my-react-picker {
     background-color: ${({ theme }) => theme.color.white};
     border: none;
     outline: none;

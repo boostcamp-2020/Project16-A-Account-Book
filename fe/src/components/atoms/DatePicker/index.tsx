@@ -22,19 +22,11 @@ export interface ICustomInput {
   onClick?: any;
 }
 
-const CustomInput = ({ value, onClick }: ICustomInput) => {
-  return (
-    <button onClick={onClick} type="button" className="btn-date">
-      {value}
-    </button>
-  );
-};
 const DatePicker = ({ date, onChange, name = 'startDate' }: IDatePicker) => {
   return (
     <S.Container id="date-picker">
       <ReactDatePicker
         selected={date}
-        customInput={<CustomInput />}
         onChange={(d: Date) => onChange(d, name)}
         className="my-react-picker"
         locale={ko}
