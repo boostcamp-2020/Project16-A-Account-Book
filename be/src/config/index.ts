@@ -34,12 +34,9 @@ export const getDbUri = () => {
   return dbConfig.port ? localUri : srvUri;
 };
 
-export const getHostUrl = () => {
-  return `${hostConfig.url}:${hostConfig.backPort}`;
-};
-
 export const getFrontUrl = () => {
-  return `${hostConfig.url}:${hostConfig.frontPort}`;
+  const port = process.env.NODE_ENV === 'development' ? ':3000' : '';
+  return `${hostConfig.url}${port}`;
 };
 
 export const corsOptions = {
