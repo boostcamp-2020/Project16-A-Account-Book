@@ -48,7 +48,7 @@
 |:--:|:--:|:--:|:--:|
 |![](https://i.imgur.com/Vh06k4p.png)|![](https://i.imgur.com/lfBYG9C.png)|![](https://i.imgur.com/fp18GM8.png)|![](https://i.imgur.com/QqL7sad.png)|
 
-|[🔗 통계페이지](https://github.com/boostcamp-2020/Project16-A-Account-Book/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C#%ED%86%B5%EA%B3%84-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%86%8C%EA%B0%9C)|[🔗 채팅페이지]()|[🔗 태그페이지]()|[🔗 알람 모달]()|
+|[🔗 통계페이지](https://github.com/boostcamp-2020/Project16-A-Account-Book/wiki/%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C#-%ED%86%B5%EA%B3%84-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%86%8C%EA%B0%9C)|[🔗 채팅페이지]()|[🔗 태그페이지]()|[🔗 알람 모달]()|
 |:--:|:--:|:--:|:--:|
 |![](https://i.imgur.com/RDIQb3Q.png)|![](https://i.imgur.com/rhwIsA1.png)|![](https://i.imgur.com/36NIY7b.png)|<img width='500' src='https://i.imgur.com/3N5mWKB.png'>|
 
