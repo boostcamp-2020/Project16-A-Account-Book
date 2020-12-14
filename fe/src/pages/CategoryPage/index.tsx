@@ -20,6 +20,7 @@ export interface MatchParams {
 }
 
 export interface ClickTarget extends EventTarget {
+  id: number;
   value: string;
 }
 
@@ -53,6 +54,7 @@ function CategoryPage(): React.ReactElement {
   const [visible, setVisible] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const colorPicker = useRef<any>();
   const inputRef = useRef<any>();
   const selectedRef = useRef<string>('');
@@ -63,9 +65,13 @@ function CategoryPage(): React.ReactElement {
     CategoryStore.loadCategories();
   }, []);
 
-  const TabClickHandler = useCallback(({ target: { value } }: ClickProps) => {
-    setType(value);
-  }, []);
+  const TabClickHandler = useCallback(
+    ({ target: { value, id } }: ClickProps) => {
+      setType(value);
+      setSelectedTab(id);
+    },
+    [],
+  );
 
   const dropDownItemClicked = (data: any) => {
     selectedRef.current = data._id;
@@ -177,6 +183,7 @@ function CategoryPage(): React.ReactElement {
         editButtonHandler={editButtonHandler}
         isClicked={isClicked}
         deleteClicked={deleteClicked}
+        selectedTab={selectedTab}
       />
       <Modal visible={visible} content={modalContent} />
       <Modal visible={deleteVisible} content={DC} />

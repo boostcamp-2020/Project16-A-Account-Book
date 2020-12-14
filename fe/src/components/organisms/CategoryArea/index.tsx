@@ -12,6 +12,7 @@ export interface Props {
   editButtonHandler: any;
   deleteClicked: any;
   isClicked: boolean;
+  selectedTab: number;
 }
 
 const CategoryArea = ({
@@ -22,11 +23,12 @@ const CategoryArea = ({
   editButtonHandler,
   deleteClicked,
   isClicked,
+  selectedTab,
 }: Props) => {
   return (
     <S.CategoryAreaContainer>
       <S.TabUIContainer>
-        <TabHeader onClickHandler={onClickHandler} />
+        <TabHeader onClickHandler={onClickHandler} selectedTab={selectedTab} />
       </S.TabUIContainer>
       <S.EditButtonArea>
         <S.CustomEditButton
