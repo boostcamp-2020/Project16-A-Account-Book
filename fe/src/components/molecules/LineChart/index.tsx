@@ -25,11 +25,11 @@ const LineChart = ({
   const maximumYFromData = Math.max(...data.map((e) => e.totalPrice));
   const digits = utils.moneyFormatter(maximumYFromData).length;
 
-  const paddingWidth = (FONT_SIZE + digits) * 3;
+  const paddingLeftWidth = (FONT_SIZE + digits) * 3;
   const paddingHeight = FONT_SIZE * 3;
-  const chartWidth = width - paddingWidth * 2;
+  const chartWidth = width - paddingLeftWidth;
   const chartHeight = height - paddingHeight * 2;
-  const getXpos = (ratio: number) => ratio * chartWidth + paddingWidth;
+  const getXpos = (ratio: number) => ratio * chartWidth + paddingLeftWidth;
   const getYpos = (ratio: number) =>
     chartHeight - ratio * chartHeight + paddingHeight;
   const points = data
@@ -41,13 +41,13 @@ const LineChart = ({
     .join(' ');
   const xAxisPos = {
     x: {
-      start: paddingWidth,
-      end: chartWidth + paddingWidth,
+      start: paddingLeftWidth,
+      end: chartWidth + paddingLeftWidth,
     },
     y: height - paddingHeight,
   };
   const yAxisPos = {
-    x: paddingWidth,
+    x: paddingLeftWidth,
     y: {
       start: paddingHeight,
       end: height - paddingHeight,
