@@ -18,7 +18,7 @@ export const getUserList = async () => {
 export const getInvitation = async (user: IUserDocument) => {
   const account: any = user.invitations?.map((invitation) =>
     AccountModel.findById(invitation.accounts).select(
-      'title _id ownerName accountProfile',
+      'title _id ownerName imageUrl',
     ),
   );
   const results = await Promise.all(account);

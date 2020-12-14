@@ -27,6 +27,7 @@ export const getInvitation = async (ctx: Context) => {
     title: account.title,
     ownerName: account.ownerName,
     host: user.invitations[idx].host,
+    imageUrl: account.imageUrl,
   }));
   ctx.body = invitations;
 };
