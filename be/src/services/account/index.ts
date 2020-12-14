@@ -28,21 +28,31 @@ export const addAccountByUserAndAccountInfo = async (
   title: any,
   userObjIdList: String[],
 ) => {
-  const rawUserList = userObjIdList.map(async (userObjId: String) => {
-    return UserModel.findById(userObjId);
-  });
-  const userList = await Promise.all(rawUserList);
-  const categories = await CategoryModel.createDefaultCategory();
-  const methods = await MethodModel.createDefaultMethod();
+  const [categories, methods] = await Promise.all([
+    CategoryModel.createDefaultCategory(),
+    MethodModel.createDefaultMethod(),
+  ]);
+
   const newAccount = new AccountModel({
     title,
     ownerName: user.nickname,
     categories,
     methods,
-    users: [...userList],
+    users: [user],
   });
-
-  await Promise.all([newAccount.save()]);
+  return Promise.all([
+    newAccount.save(),
+    UserModel.updateMany(
+      {
+        _id: { $in: userObjIdList },
+      },
+      {
+        $addToSet: {
+          invitations: { host: user.nickname, accounts: newAccount._id },
+        },
+      },
+    ),
+  ]);
 };
 
 export const updateAccountByUserAndAccountInfo = async (
