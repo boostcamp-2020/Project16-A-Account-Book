@@ -18,6 +18,7 @@ export const getUserByAccessToken = async (ctx: Context) => {
   ctx.status = 200;
   ctx.body = ctx.request.body.user;
 };
+
 export const getInvitation = async (ctx: Context) => {
   const { user } = ctx.request.body;
   const accounts = await userService.getInvitation(user);
