@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
@@ -6,12 +6,14 @@ import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import CalenderBind from 'components/organisms/CalendarBind';
+import ToggleSwitch from 'components/atoms/ToggleSwitch';
 import NavBarComponent from 'components/organisms/NavBar';
 import NoData from 'components/organisms/NoData';
 import DateTransactionModal from 'components/organisms/DateTransactionModal';
 
 const CalenderPage = () => {
   const dateModal = useRef<HTMLDivElement>();
+  const [isSundayStart, setIsSundayStart] = useState<boolean>(true);
   let loaded = false;
 
   useEffect(() => {
@@ -50,6 +52,7 @@ const CalenderPage = () => {
   const Contents = (
     <>
       <DateTransactionModal refs={dateModal} />
+      <ToggleSwitch selected={isSundayStart} setSelected={setIsSundayStart} />
       <CalenderBind
         isSundayStart
         transactions={toJS(TransactionStore.transactions)}
