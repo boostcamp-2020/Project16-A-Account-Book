@@ -9,7 +9,7 @@ module.exports = (env, options) => {
   });
   return {
     name: 'ts-back-setting',
-    mode: 'development', // "production" | "development" | "none"
+    mode: process.env.NODE_ENV || 'development', // "production" | "development" | "none"
     devtool: 'eval', // source-map hidden-source-map
     externals: [nodeExternals()],
     resolve: {

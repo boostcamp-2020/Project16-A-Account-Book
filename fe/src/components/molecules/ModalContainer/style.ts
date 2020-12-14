@@ -24,7 +24,7 @@ const Container = styled.div<Prop>`
   width: 100vw;
   height: 100vh;
   display: flex;
-  z-index: 100;
+  z-index: 1;
   justify-content: ${({ justify }) => positionConverter(justify)};
   align-items: ${({ align }) => positionConverter(align)};
   background: ${({ theme }) => rgba(theme.color.black, 0.5)};

@@ -12,9 +12,10 @@ export const dateRange = () => {
     startDate: new Date(),
     endDate: new Date(),
   };
+  const onchange = () => {};
   return (
     <GP>
-      <DateRange dates={dummy} />
+      <DateRange dates={dummy} onChange={onchange} />
     </GP>
   );
 };
