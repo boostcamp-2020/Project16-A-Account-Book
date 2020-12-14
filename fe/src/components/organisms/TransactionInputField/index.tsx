@@ -44,7 +44,7 @@ const TransactionInputField = ({
   const categories = CategoryStore.getCategories(classification);
 
   return (
-    <>
+    <S.Container>
       <LabelWrap htmlFor={PRICE} title="금액">
         <S.Input
           value={price}
@@ -115,7 +115,7 @@ const TransactionInputField = ({
           onChangeHandler={formHandler}
         />
       </LabelWrap>
-    </>
+    </S.Container>
   );
 };
 
