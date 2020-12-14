@@ -1,5 +1,5 @@
 import { UserModel, IUserDocument } from 'models/user';
-import { AccountModel, IAccountDocument } from 'models/account';
+import { AccountModel } from 'models/account';
 
 export const titleByAccountId = async (accountId: String) => {
   const account = await AccountModel.findOne(
@@ -14,6 +14,12 @@ export const getUserList = async () => {
   const allUserList = await UserModel.find({}).exec();
   return allUserList;
 };
+
+export const putUser = async (user: IUserDocument, startOfWeek: String) => {
+  const result = user.update({ startOfWeek });
+  return result;
+};
+
 export const getInvitation = async (user: IUserDocument) => {
   const account: any = user.invitations?.map((invitation) =>
     AccountModel.findById(invitation.accounts).select(
