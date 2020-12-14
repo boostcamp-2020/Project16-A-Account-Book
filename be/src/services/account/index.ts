@@ -39,6 +39,7 @@ export const addAccountByUserAndAccountInfo = async (
     ownerName: user.nickname,
     categories,
     methods,
+    imageUrl: user.profileUrl,
     users: [...userList],
   });
 
