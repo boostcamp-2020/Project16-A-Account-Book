@@ -2,24 +2,30 @@ import styled from 'styled-components';
 
 export const ToggleSwitch = styled.button`
   position: relative;
-  width: 1.7rem;
-  height: 1rem;
-  border-radius: 0.5rem;
-  background-color: #5c52ce;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 2.8rem;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+  border: 2px solid black;
+  background-color: ${({ theme }) => theme.color.brandColor};
+  :focus {
+    outline: none;
+  }
   .circle {
     position: absolute;
-    top: 0;
-    right: -0.1px;
+    top: 0.1px;
+    right: -0.5px;
     background-color: white;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.75rem;
     transition: 0.3s;
   }
 
   .circle.active {
-    right: 0.71rem;
+    right: 1.32rem;
   }
 `;
 
