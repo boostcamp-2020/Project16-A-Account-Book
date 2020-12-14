@@ -4,7 +4,7 @@ import IconButton from 'components/molecules/IconButton';
 export interface Props {}
 
 export const HeaderBar = styled.div`
-  /* width: 100%;
+  width: 100%;
   height: 3rem;
   background-color: ${({ theme }) => theme.color.brandColor};
   display: flex;
@@ -16,7 +16,7 @@ export const HeaderBar = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-  } */
+  }
 `;
 
 export const Icon = styled(IconButton)`
