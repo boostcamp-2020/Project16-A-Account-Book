@@ -10,10 +10,13 @@ import ToggleSwitch from 'components/atoms/ToggleSwitch';
 import NavBarComponent from 'components/organisms/NavBar';
 import NoData from 'components/organisms/NoData';
 import DateTransactionModal from 'components/organisms/DateTransactionModal';
+import axios from 'apis/user';
 
 const CalenderPage = () => {
   const dateModal = useRef<HTMLDivElement>();
-  const [isSundayStart, setIsSundayStart] = useState<boolean>(true);
+  const [isSundayStart, setIsSundayStart] = useState<boolean>(
+    sessionStorage.getItem('userIsSundayStart') === 'true',
+  );
   let loaded = false;
 
   useEffect(() => {
@@ -21,6 +24,8 @@ const CalenderPage = () => {
       TransactionStore.loadTransactions();
       loaded = true;
     }
+    axios.putUserStartOfWeek(isSundayStart);
+    sessionStorage.setItem('userIsSundayStart', String(isSundayStart));
     if (dateModal.current) {
       if (TransactionStore.isCalendarModalOpen) {
         dateModal.current.classList.add('visible');
