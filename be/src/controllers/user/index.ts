@@ -27,8 +27,16 @@ export const getInvitation = async (ctx: Context) => {
     title: account.title,
     ownerName: account.ownerName,
     host: user.invitations[idx].host,
+    imageUrl: account.imageUrl,
   }));
   ctx.body = invitations;
 };
 
+export const deleteInvitation = async (ctx: Context) => {
+  const { user } = ctx.request.body;
+  const { accountObjId } = ctx.params;
+  await userService.denyInvitation(user, accountObjId);
+  ctx.status = 204;
+  ctx.res.end();
+};
 export default titleByAccountId;

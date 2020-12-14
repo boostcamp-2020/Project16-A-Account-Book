@@ -4,11 +4,9 @@ const useVisible = (ref: RefObject<HTMLDivElement>): [boolean, Function] => {
   const [visible, setVisible] = useState(false);
 
   const outsideClickHandler = (event: any) => {
-    event.stopPropagation();
-    event.preventDefault();
+    if (event.target.classList.contains('react-datepicker__day')) return;
     if (!ref.current) return;
     if (event.target.closest('#date-picker')) return;
-
     if (ref && !ref.current.contains(event.target)) {
       setVisible(false);
     }
