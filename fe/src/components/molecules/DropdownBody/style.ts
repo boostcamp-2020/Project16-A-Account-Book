@@ -10,6 +10,8 @@ export const DropdownBodyWrap = styled.div`
   position: absolute;
   background-color: white;
   width: inherit;
+  max-height: 35vh;
+  overflow-y: auto;
   z-index: 10;
   border: 1px solid ${({ theme }) => theme.color.subText};
   padding: 0.3em;
@@ -26,5 +28,12 @@ export const DropdownBodyWrap = styled.div`
     background: transparent;
     display: flex;
     color: ${({ theme }) => theme.color.black};
+  }
+  @media only screen and (max-width: 600px) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    max-width: 50vw;
+    transform: translate(-50%, -50%);
   }
 `;
