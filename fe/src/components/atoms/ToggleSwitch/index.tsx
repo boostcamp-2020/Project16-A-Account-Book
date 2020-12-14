@@ -18,6 +18,8 @@ const ToggleSwitch = ({ selected, setSelected, className }: Props) => {
       className={className}
     >
       <div className={`circle ${selected ? 'active' : ''}`} />
+      <div>월</div>
+      <div>일</div>
     </S.ToggleSwitch>
   );
 };
