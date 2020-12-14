@@ -27,7 +27,7 @@ export const Header = styled.header`
 `;
 
 export const Content = styled.div`
-  margin: 1em 0.5em 0 0.5em;
+  height: inherit;
 `;
 
 export const Nav = styled.nav`
