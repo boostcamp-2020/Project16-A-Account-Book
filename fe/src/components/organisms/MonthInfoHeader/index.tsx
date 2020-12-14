@@ -8,10 +8,7 @@ import DateRange from 'components/molecules/DateRange';
 import { MonthInfoHeaderContainer, MonthButton } from './style';
 
 interface MonthInfoHeaderInterface {
-  date?: {
-    startDate: string;
-    endDate: string;
-  };
+  date?: any;
   total?: {
     income: number;
     expense: number;
@@ -25,8 +22,10 @@ type Params = {
 
 const MonthInfoHeader = ({
   date = {
-    startDate: TransactionStore.getDates().startDate,
-    endDate: dateUtils.subTractDate(TransactionStore.getDates().endDate),
+    startDate: TransactionStore.getOriginDates().startDate,
+    endDate: new Date(
+      dateUtils.subTractDate(TransactionStore.getDates().endDate),
+    ),
   },
   total = TransactionStore.totalPrices,
 }: MonthInfoHeaderInterface) => {
@@ -34,7 +33,7 @@ const MonthInfoHeader = ({
   const baseUrl = `/transactions/${owner}/${title}`;
   return (
     <MonthInfoHeaderContainer>
-      <DateRange dates={date} />
+      <DateRange dates={date} disabled />
       <div>
         <TotalBox title="수입" total={total.income} />
         <TotalBox title="지출" total={total.expense} />
