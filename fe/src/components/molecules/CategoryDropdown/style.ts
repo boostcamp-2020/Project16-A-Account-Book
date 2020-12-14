@@ -32,6 +32,10 @@ export const DropdownBodyWrap = styled.div`
   .title-container {
     margin-right: auto;
     height: 1.5em;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .modify-button {
     margin-right: 0.5em;
