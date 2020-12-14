@@ -12,13 +12,13 @@ const InvitationItem = ({
   host,
   ownerName,
   title,
-  accountProfile,
+  imageUrl,
   onClick,
 }: Prop) => {
   return (
     <S.Container>
       <div className="profile__container">
-        <S.UserProfileImage icon={accountProfile} />
+        <S.UserProfileImage icon={imageUrl} />
       </div>
       <div className="content">
         <div className="text__container">

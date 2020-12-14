@@ -141,7 +141,11 @@ export const updateCategory = async (
     match: { type, title },
     select: '_id',
   });
-  if (exist.categories.length === 0) {
+
+  if (
+    String(exist.categories[0]._id) === objId ||
+    exist.categories.length === 0
+  ) {
     await CategoryModel.update(
       { _id: objId },
       { $set: { type, title, color } },
