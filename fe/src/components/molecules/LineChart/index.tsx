@@ -6,7 +6,7 @@ import utils from 'utils';
 const STROKE = 1;
 const labelStyle = {
   fill: theme.color.subText,
-  fontSize: STROKE * 4,
+  fontSize: STROKE * 8,
 };
 export interface Props {
   data: IDateTotalprice[];
@@ -25,11 +25,11 @@ const LineChart = ({
   const maximumYFromData = Math.max(...data.map((e) => e.totalPrice));
   const digits = utils.moneyFormatter(maximumYFromData).length;
 
-  const paddingWidth = (FONT_SIZE + digits) * 3;
+  const paddingLeftWidth = (FONT_SIZE + digits) * 3;
   const paddingHeight = FONT_SIZE * 3;
-  const chartWidth = width - paddingWidth * 2;
+  const chartWidth = width - paddingLeftWidth;
   const chartHeight = height - paddingHeight * 2;
-  const getXpos = (ratio: number) => ratio * chartWidth + paddingWidth;
+  const getXpos = (ratio: number) => ratio * chartWidth + paddingLeftWidth;
   const getYpos = (ratio: number) =>
     chartHeight - ratio * chartHeight + paddingHeight;
   const points = data
@@ -41,13 +41,13 @@ const LineChart = ({
     .join(' ');
   const xAxisPos = {
     x: {
-      start: paddingWidth,
-      end: chartWidth + paddingWidth,
+      start: paddingLeftWidth,
+      end: chartWidth + paddingLeftWidth,
     },
     y: height - paddingHeight,
   };
   const yAxisPos = {
-    x: paddingWidth,
+    x: paddingLeftWidth,
     y: {
       start: paddingHeight,
       end: height - paddingHeight,
@@ -98,15 +98,15 @@ const LineChart = ({
   };
 
   const LabelsXAxis = () => {
-    const y = yAxisPos.y.end + FONT_SIZE * 2;
+    const y = yAxisPos.y.end + labelStyle.fontSize;
     const dateLength = data[0].date.length;
-    const labelLength = (FONT_SIZE + dateLength) * 1.5;
+    const labelLength = (labelStyle.fontSize + dateLength) * 1.3;
     let lastPrintedX = 0;
     return (
       <>
         {data.map((element, index) => {
           const ratio = index / maximumXFromData;
-          const x = getXpos(ratio) - FONT_SIZE;
+          const x = getXpos(ratio) - labelLength / 2;
           const printTarget = x >= lastPrintedX;
           if (printTarget) {
             lastPrintedX = Math.ceil(x + labelLength);
@@ -146,7 +146,7 @@ const LineChart = ({
 
   const LabelLineInfo = () => {
     const startX = xAxisPos.x.start;
-    const endX = xAxisPos.x.start + STROKE * 2;
+    const endX = xAxisPos.x.start + STROKE * 5;
     const y = paddingHeight - FONT_SIZE;
     return (
       <>
@@ -155,12 +155,7 @@ const LineChart = ({
           strokeWidth={STROKE}
           points={`${startX},${y} ${endX},${y}`}
         />
-        <text
-          x={endX + FONT_SIZE}
-          y={y}
-          fill={labelStyle.fill}
-          fontSize={FONT_SIZE * 0.8}
-        >
+        <text x={endX + FONT_SIZE} y={y} style={labelStyle}>
           지출 추이
         </text>
       </>

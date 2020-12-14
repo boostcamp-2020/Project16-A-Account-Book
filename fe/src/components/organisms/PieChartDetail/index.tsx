@@ -3,6 +3,8 @@ import StatisticsList from 'components/organisms/StatisticsList';
 import PieChart from 'components/molecules/PieChart';
 import Checkbox from 'components/molecules/Checkbox';
 import PriceTag from 'components/atoms/PriceTag';
+import NoDataPieChartContents from 'components/molecules/NoDataPieChartContents';
+
 import { IStatistics } from 'types';
 import * as S from './style';
 
@@ -41,9 +43,14 @@ const PieChartDetail = ({
     <>
       <S.StatisticsTitle>통계</S.StatisticsTitle>
       {TotalStatusCheckBox}
-      <S.PieChartWrap>
-        <PieChart pieces={categories} />
-      </S.PieChartWrap>
+      {categories.length === 0 ? (
+        <NoDataPieChartContents />
+      ) : (
+        <S.PieChartWrap>
+          <PieChart pieces={categories} />
+        </S.PieChartWrap>
+      )}
+
       <StatisticsList categories={categories} />
     </>
   );
