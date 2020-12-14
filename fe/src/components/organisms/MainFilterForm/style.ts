@@ -3,10 +3,9 @@ import Button from 'components/atoms/Button';
 import Input from 'components/atoms/Input';
 
 export const Container = styled.section`
-  position: absolute;
+  position: relative;
   left: 0;
   top: 1.5rem;
-  z-index: 10;
   min-width: 80vw;
   border: 1px solid ${({ theme }) => theme.color.subText};
   background: ${({ theme }) => theme.color.white};
@@ -61,12 +60,9 @@ export const DateContainer = styled.div`
 `;
 
 export const DateFilterContainer = styled.div`
-  position: absolute;
-  width: calc(100% - 0.6em);
   border: 1px solid ${({ theme }) => theme.color.subText};
   padding: 0.3em;
   background: white;
-  z-index: 10;
 `;
 
 export const DateFilterButton = styled(Button)`
@@ -80,17 +76,4 @@ export const DateFilterButton = styled(Button)`
 export const BottomButton = styled(Input)`
   border: none;
   background: ${({ theme }) => theme.color.brandColor};
-`;
-
-export const Model = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.5);
 `;
