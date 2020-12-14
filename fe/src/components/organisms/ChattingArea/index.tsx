@@ -7,6 +7,7 @@ export interface ChattingAreaProps {
   onSubmitHandler: any;
   dataList: DataProps[];
   chatValue: string;
+  onPressEnter: any;
 }
 
 const ChattingArea = ({
@@ -14,6 +15,7 @@ const ChattingArea = ({
   onSubmitHandler,
   dataList,
   chatValue,
+  onPressEnter,
 }: ChattingAreaProps) => {
   return (
     <S.ChattingArea>
@@ -24,6 +26,7 @@ const ChattingArea = ({
           placeholder="chat your message"
           onChangeHandler={onChangeHandler}
           value={chatValue}
+          onKeyDown={onPressEnter}
         />
         <S.ChattingBtn
           onClick={onSubmitHandler}

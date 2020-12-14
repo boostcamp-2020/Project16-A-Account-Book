@@ -11,6 +11,7 @@ export interface Props {
   value?: any;
   type?: string;
   inputRef?: any;
+  onKeyDown?: any;
 }
 
 const Input = ({

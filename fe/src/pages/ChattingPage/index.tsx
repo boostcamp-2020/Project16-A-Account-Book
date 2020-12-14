@@ -35,6 +35,12 @@ const ChattingPage = () => {
   const [processing, setProcessing] = useState<boolean>(false);
   const [parsedMMS, setParsedMMS] = useState<ParsedSMS>(defaultMMS);
 
+  const onPressEnter = (e: any) => {
+    const ENTER_KEYCODE = 13;
+    if (e.keyCode === ENTER_KEYCODE) {
+      onSubmitHandler();
+    }
+  };
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setChangedValue(e.target.value);
@@ -42,6 +48,7 @@ const ChattingPage = () => {
 
   const mmsProcess = async () => {
     const client = changedValue;
+
     const processedMMS = await chattingAPI.processChatting(
       TransactionStore.accountObjId,
       parsedMMS,
@@ -75,6 +82,7 @@ const ChattingPage = () => {
   const ChattingContent = (
     <ChattingArea
       onChangeHandler={onChangeHandler}
+      onPressEnter={onPressEnter}
       onSubmitHandler={onSubmitHandler}
       dataList={ChattingStore.getChattings()}
       chatValue={changedValue}
