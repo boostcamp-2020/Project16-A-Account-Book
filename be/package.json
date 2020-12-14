@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "cd src && nodemon --exec ts-node -r tsconfig-paths/register app.ts",
+    "dev": "cd src && NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register app.ts",
     "seed": "cd src && NODE_ENV=SEED ts-node -r tsconfig-paths/register seed.ts",
     "unseed": "cd src && NODE_ENV=UNSEED ts-node -r tsconfig-paths/register seed.ts",
     "seed-dev": "npm run seed && npm run dev",
