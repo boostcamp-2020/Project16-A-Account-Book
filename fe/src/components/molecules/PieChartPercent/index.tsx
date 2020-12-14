@@ -49,7 +49,7 @@ const PieChartPercent = ({
         fill={theme.color.brandColor}
         fontSize="1rem"
       >
-        {`${largestPiece.percent}%`}
+        {`${largestPiece.percent || 0}%`}
       </text>
     </svg>
   );
