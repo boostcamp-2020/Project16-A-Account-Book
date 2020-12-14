@@ -9,6 +9,6 @@ export default {
 
 export const Default = () => (
   <GlobalThemePrivider>
-    <ToggleSwitch />
+    <ToggleSwitch selected />
   </GlobalThemePrivider>
 );
