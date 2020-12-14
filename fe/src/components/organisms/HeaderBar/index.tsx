@@ -9,6 +9,7 @@ import InvitationList from '../InvitationList';
 
 export interface Props {
   title?: string;
+  back?: boolean;
 }
 
 const onClickHandler = () => {
@@ -17,10 +18,13 @@ const onClickHandler = () => {
 
 const HeaderBar = ({
   title = 'N석봉',
+  back = false,
   ...props
 }: Props): React.ReactElement => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, toggleModal] = useVisible(ref);
+  console.log(back);
+
   const onClickVisible = (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
