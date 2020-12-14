@@ -17,6 +17,8 @@ const onPlusButtonClick = () => {
   console.log('plus button clicked');
 };
 
+const selectedTab = -1;
+
 export const defaultTabHeader = () => {
   return (
     <ThemeProvider theme={theme}>
@@ -32,6 +34,7 @@ export const defaultTabHeader = () => {
         deleteClicked={() => {
           console.log('deleted');
         }}
+        selectedTab={selectedTab}
       />
     </ThemeProvider>
   );
