@@ -19,7 +19,11 @@ export const Calendar = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
+  border: 2px solid white;
+  border-radius: 1rem;
+  padding: 1em 0.5em 0.5em;
   :hover {
+    border: 2px solid ${({ theme }) => theme.color.lightBorder};
     ${CenterMonth} {
       color: ${({ theme }) => theme.color.brandColor};
     }
