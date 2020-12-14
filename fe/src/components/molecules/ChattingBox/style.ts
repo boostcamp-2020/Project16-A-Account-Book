@@ -1,13 +1,11 @@
 import styled from 'styled-components';
 
 export const ChattingBox = styled.div`
-  width: 98%;
-  padding: 1%;
+  height: calc(100% - 2.2rem);
 `;
 
 export const ChattingArea = styled.div`
   width: 98%;
-  height: 28rem;
   overflow-y: auto;
 `;
 
