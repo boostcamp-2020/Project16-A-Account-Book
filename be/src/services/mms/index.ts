@@ -34,7 +34,6 @@ export const postMms = async (
       excludeFromBudget: false,
       isDeleted: false,
     });
-    console.log(newTransaction);
     await AccountModel.updateOne(
       { _id: accountObjId },
       { $push: { transactions: newTransaction._id } },
