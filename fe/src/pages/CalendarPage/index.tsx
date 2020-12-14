@@ -11,6 +11,7 @@ import NavBarComponent from 'components/organisms/NavBar';
 import NoData from 'components/organisms/NoData';
 import DateTransactionModal from 'components/organisms/DateTransactionModal';
 import axios from 'apis/user';
+import * as S from './styles';
 
 const CalenderPage = () => {
   const dateModal = useRef<HTMLDivElement>();
@@ -55,15 +56,19 @@ const CalenderPage = () => {
   }
 
   const Contents = (
-    <>
+    <S.Contents>
       <DateTransactionModal refs={dateModal} />
-      <ToggleSwitch selected={isSundayStart} setSelected={setIsSundayStart} />
+      <ToggleSwitch
+        className="toggleSwitch"
+        selected={isSundayStart}
+        setSelected={setIsSundayStart}
+      />
       <CalenderBind
         isSundayStart={isSundayStart}
         transactions={toJS(TransactionStore.transactions)}
         selectedDate={selectedDate}
       />
-    </>
+    </S.Contents>
   );
 
   return (
