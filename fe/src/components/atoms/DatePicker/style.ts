@@ -20,6 +20,9 @@ export const Container = styled.div`
     border: none;
     outline: none;
   }
+  input {
+    width: 4em;
+  }
 `;
 
 export const DecsContainer = styled.div`

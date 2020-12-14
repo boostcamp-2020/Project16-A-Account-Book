@@ -16,7 +16,7 @@ const DateRange = ({ dates, onChange, disabled = false }: IDateRange) => {
     <S.DecsContainer>
       <div>
         <S.Small>시작일</S.Small>
-        <div>
+        <div className="date-container">
           <DatePicker
             date={dates.startDate}
             name="startDate"
@@ -27,7 +27,7 @@ const DateRange = ({ dates, onChange, disabled = false }: IDateRange) => {
       </div>
       <div>
         <S.Small>마지막일</S.Small>
-        <div>
+        <div className="date-container">
           <DatePicker
             date={dates.endDate}
             name="endDate"
