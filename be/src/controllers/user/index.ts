@@ -18,6 +18,7 @@ export const getUserByAccessToken = async (ctx: Context) => {
   ctx.status = 200;
   ctx.body = ctx.request.body.user;
 };
+
 export const getInvitation = async (ctx: Context) => {
   const { user } = ctx.request.body;
   const accounts = await userService.getInvitation(user);
@@ -30,4 +31,11 @@ export const getInvitation = async (ctx: Context) => {
   ctx.body = invitations;
 };
 
+export const deleteInvitation = async (ctx: Context) => {
+  const { user } = ctx.request.body;
+  const { accountObjId } = ctx.params;
+  await userService.denyInvitation(user, accountObjId);
+  ctx.status = 204;
+  ctx.res.end();
+};
 export default titleByAccountId;
