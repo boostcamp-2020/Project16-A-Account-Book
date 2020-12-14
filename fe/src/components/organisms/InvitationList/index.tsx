@@ -22,6 +22,7 @@ const InvitationList = () => {
     await api(id);
     const message = approve === 'true' ? '수락되었습니다' : '거절되었습니다';
     alert(message);
+    initialState();
   };
   const initialState = async () => {
     const res = await userAPI.getUserInvitation();
