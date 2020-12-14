@@ -130,7 +130,7 @@ const MainFilterForm = () => {
     document.body.click();
   };
   return (
-    <S.Container>
+    <S.Container id="filter">
       <TopFilter filterTitle="기간">
         <S.DateContainer>
           <DropdownHeader title="기간">
