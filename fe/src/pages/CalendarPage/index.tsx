@@ -28,7 +28,7 @@ const CalenderPage = () => {
         dateModal.current.classList.remove('visible');
       }
     }
-  }, [TransactionStore.isCalendarModalOpen]);
+  }, [isSundayStart, TransactionStore.isCalendarModalOpen]);
 
   const SubHeaderBar = <MonthInfo />;
   const selectedDate = {
@@ -54,7 +54,7 @@ const CalenderPage = () => {
       <DateTransactionModal refs={dateModal} />
       <ToggleSwitch selected={isSundayStart} setSelected={setIsSundayStart} />
       <CalenderBind
-        isSundayStart
+        isSundayStart={isSundayStart}
         transactions={toJS(TransactionStore.transactions)}
         selectedDate={selectedDate}
       />
