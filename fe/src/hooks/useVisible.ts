@@ -4,12 +4,15 @@ const useVisible = (ref: RefObject<HTMLDivElement>): [boolean, Function] => {
   const [visible, setVisible] = useState(false);
 
   const outsideClickHandler = (event: any) => {
-    if (!ref.current) return;
-    if (event.target.closest('#date-picker')) return;
+    console.log(event.target);
+    console.log(ref);
 
-    if (ref && !ref.current.contains(event.target)) {
-      setVisible(false);
-    }
+    // if (!ref.current) return;
+    // if (event.target.closest('#date-picker')) return;
+
+    // if (ref && !ref.current.contains(event.target)) {
+    //   setVisible(false);
+    // }
   };
 
   useEffect(() => {

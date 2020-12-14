@@ -22,7 +22,9 @@ const MainFilterForm = () => {
   const [state, dispatch] = useReducer(reducer, {
     dates: {
       startDate: TransactionStore.getOriginDates().startDate,
-      endDate: dateUtils.subTractDate(TransactionStore.getDates().endDate),
+      endDate: new Date(
+        dateUtils.subTractDate(TransactionStore.getDates().endDate),
+      ),
     },
     ...TransactionStore.getFilter(),
   });
@@ -82,6 +84,14 @@ const MainFilterForm = () => {
       }
     }
   };
+  const onChangeDate = (date: Date, name: string) => {
+    const targetDates = {
+      ...dates,
+      [name]: date,
+    };
+    dispatch(actions.setDates(targetDates.startDate, targetDates.endDate));
+  };
+
   const onClickCategory = ({ type, _id }: { type: string; _id: string }) => {
     if (_id === SELECT_ALL_TYPE) {
       selectAll(type);
@@ -127,7 +137,7 @@ const MainFilterForm = () => {
             <DatePickerList onClickFix={onClickDateFix} />
           </DropdownHeader>
           <button type="button" className="range-container">
-            <DateRange dates={dates} />
+            <DateRange dates={dates} onChange={onChangeDate} />
           </button>
         </S.DateContainer>
       </TopFilter>

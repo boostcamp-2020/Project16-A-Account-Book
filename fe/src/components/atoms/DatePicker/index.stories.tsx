@@ -9,13 +9,13 @@ export default {
 };
 
 export const datePicker = () => {
-  const [date, setDates] = useState<Date>(new Date());
+  const [date, setDates] = useState<Date | null>(null);
   const onChnage = (d: Date) => {
     setDates(d);
   };
   return (
     <GlobalThemeProvider>
-      <DatePicker date={date} onChange={onChnage} />
+      <DatePicker date={date} onChange={onChnage} disabled={false} />
     </GlobalThemeProvider>
   );
 };

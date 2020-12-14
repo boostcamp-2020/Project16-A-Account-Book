@@ -13,6 +13,7 @@ export interface IDatePicker {
   date: Date | null;
   name?: string;
   onChange: any;
+  disabled: boolean;
 }
 export interface IButton {
   onClick?: any;
@@ -22,7 +23,12 @@ export interface ICustomInput {
   onClick?: any;
 }
 
-const DatePicker = ({ date, onChange, name = 'startDate' }: IDatePicker) => {
+const DatePicker = ({
+  date,
+  onChange,
+  name = 'startDate',
+  disabled,
+}: IDatePicker) => {
   return (
     <S.Container id="date-picker">
       <ReactDatePicker
@@ -30,6 +36,7 @@ const DatePicker = ({ date, onChange, name = 'startDate' }: IDatePicker) => {
         onChange={(d: Date) => onChange(d, name)}
         className="my-react-picker"
         locale={ko}
+        disabled={disabled}
         dateFormat="yy.MM.dd"
         popperPlacement="auto"
         popperModifiers={{ preventOverflow: { enabled: true } }}
