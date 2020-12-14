@@ -8,14 +8,14 @@ export const ToggleSwitch = styled.button`
   width: 2.8rem;
   height: 1.5rem;
   border-radius: 0.75rem;
-  border: 2px solid black;
+  border: 2px solid ${({ theme }) => theme.color.lightBorder};
   background-color: ${({ theme }) => theme.color.brandColor};
   :focus {
     outline: none;
   }
   .circle {
     position: absolute;
-    top: 0.1px;
+    top: 0px;
     right: -0.5px;
     background-color: white;
     width: 1.25rem;
