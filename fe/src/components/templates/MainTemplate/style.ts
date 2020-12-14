@@ -26,9 +26,7 @@ export const Header = styled.header`
   width: 100%;
 `;
 
-export const Content = styled.div`
-  height: inherit;
-`;
+export const Content = styled.div``;
 
 export const Nav = styled.nav`
   display: flex;
