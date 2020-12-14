@@ -2,31 +2,24 @@ import React from 'react';
 import * as S from './style';
 
 export interface Props {
+  selected: boolean;
+  setSelected?: any;
   className?: string;
 }
 
-const onClickHandler = (e: any) => {
-  const target = e.target.querySelector('.circle');
-  if (!target) {
-    const activeIndex = e.target.classList.contains('active');
-    if (activeIndex) {
-      e.target.classList.remove('active');
-    } else {
-      e.target.classList.add('active');
-    }
-    return;
-  }
-  const activeIndex = target.classList.contains('active');
-  if (activeIndex) {
-    target.classList.remove('active');
-  } else {
-    target.classList.add('active');
-  }
+const onClickHandler = (selected: boolean, setSelected: any) => () => {
+  setSelected(!selected);
 };
-const ToggleSwitch = ({ className }: Props) => (
-  <S.ToggleSwitch onClick={onClickHandler} className={className}>
-    <div className="circle" />
-  </S.ToggleSwitch>
-);
+
+const ToggleSwitch = ({ selected, setSelected, className }: Props) => {
+  return (
+    <S.ToggleSwitch
+      onClick={onClickHandler(selected, setSelected)}
+      className={className}
+    >
+      <div className={`circle ${selected ? 'active' : ''}`} />
+    </S.ToggleSwitch>
+  );
+};
 
 export default ToggleSwitch;
