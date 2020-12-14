@@ -28,6 +28,9 @@ export const Account = styled.div`
 
 export const Icon = styled(IconComponent)`
   margin-right: 1rem;
+  border-radius: 1rem;
+  width: 2rem;
+  height: 2rem;
 `;
 
 export const Setting = styled(IconComponent)`
