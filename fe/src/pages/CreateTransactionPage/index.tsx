@@ -48,7 +48,7 @@ const CreateTransacionPage = () => {
 
   return (
     <FormTransactionTemplate
-      header={<Header title="거래내역 추가" />}
+      header={<Header title="거래내역 추가" back />}
       main={Main}
     />
   );
