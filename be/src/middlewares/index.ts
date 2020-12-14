@@ -7,6 +7,8 @@ import {
   invalidCategory,
   accountHasNoUserError,
   updateUnclassifiedMethod,
+  invaildMethod,
+  invaildTitleLengthTitle,
 } from 'libs/error';
 import { UserModel } from 'models/user';
 import { CategoryModel, categoryType } from 'models/category';
@@ -83,7 +85,18 @@ export const titleIsUnclassified = async (
   next: () => Promise<any>,
 ) => {
   const { title } = ctx.request.body;
-  if (!title || title.trim() === '' || title.trim() === '미분류')
-    throw updateUnclassifiedMethod;
+  if (!title || title.trim() === '미분류') throw updateUnclassifiedMethod;
+  await next();
+};
+
+export const isVaildLengthTitle = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { title } = ctx.request.body;
+  if (!title) throw invaildMethod;
+  const trimedTitle = title.trim();
+  if (trimedTitle.length <= 0 || trimedTitle.length > 20)
+    throw invaildTitleLengthTitle;
   await next();
 };
