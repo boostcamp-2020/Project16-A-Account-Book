@@ -124,3 +124,18 @@ export async function findUnclassifiedCategory(
 
   return res.categories[0]._id;
 }
+
+export async function findDuplicateCategory(
+  this: IAccountModel,
+  accountObjId: string,
+  type: string,
+  title: string,
+) {
+  return AccountModel.findById(accountObjId, {
+    categories: true,
+  }).populate({
+    path: 'categories',
+    match: { type, title },
+    select: '_id',
+  });
+}

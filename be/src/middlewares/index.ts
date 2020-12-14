@@ -98,5 +98,6 @@ export const isVaildLengthTitle = async (
   const trimedTitle = title.trim();
   if (trimedTitle.length <= 0 || trimedTitle.length > 20)
     throw invaildTitleLengthTitle;
+  ctx.request.body.title = trimedTitle;
   await next();
 };
