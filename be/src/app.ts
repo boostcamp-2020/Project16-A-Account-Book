@@ -17,8 +17,8 @@ app.use(async (ctx, next) => {
     ctx.body = err;
   }
 });
-app.use(cors(corsOptions));
 
+app.use(cors(corsOptions));
 app.use(bodyParser());
 app.use(Router.routes());
 app.use(Router.allowedMethods());

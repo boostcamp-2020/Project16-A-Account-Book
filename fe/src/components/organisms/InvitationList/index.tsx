@@ -6,7 +6,7 @@ import Container from './style';
 export interface IInvitaion {
   accountObjId: string;
   title: string;
-  accountProfile: string;
+  imageUrl: string;
   ownerName: string;
   host: string;
 }

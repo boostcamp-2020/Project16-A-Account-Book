@@ -15,6 +15,11 @@ export const Container = styled.div`
   .react-datepicker__month-container {
     font-family: 'Bmeuljiro';
   }
+  .my-react-picker {
+    background-color: ${({ theme }) => theme.color.white};
+    border: none;
+    outline: none;
+  }
 `;
 
 export const DecsContainer = styled.div`
