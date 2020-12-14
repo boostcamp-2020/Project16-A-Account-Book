@@ -8,6 +8,7 @@ export interface ChattingAreaProps {
   dataList: DataProps[];
   chatValue: string;
   onPressEnter: any;
+  scroll?: any;
 }
 
 const ChattingArea = ({
@@ -16,10 +17,11 @@ const ChattingArea = ({
   dataList,
   chatValue,
   onPressEnter,
+  scroll,
 }: ChattingAreaProps) => {
   return (
     <S.ChattingArea>
-      <S.ChatBox dataList={dataList} />
+      <S.ChatBox dataList={dataList} scroll={scroll} />
       <S.ChattingBottom>
         <S.ChattingInput
           disabled={false}

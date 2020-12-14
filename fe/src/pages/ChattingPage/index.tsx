@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import MainTemplate from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import ChattingArea from 'components/organisms/ChattingArea';
@@ -34,7 +34,7 @@ const ChattingPage = () => {
   const [changedValue, setChangedValue] = useState<string>('');
   const [processing, setProcessing] = useState<boolean>(false);
   const [parsedMMS, setParsedMMS] = useState<ParsedSMS>(defaultMMS);
-
+  const ref = useRef<HTMLDivElement>();
   const onPressEnter = (e: any) => {
     const ENTER_KEYCODE = 13;
     if (e.keyCode === ENTER_KEYCODE) {
@@ -66,6 +66,7 @@ const ChattingPage = () => {
 
   const onSubmitHandler = () => {
     ChattingStore.addChat(changedValue, myMessage);
+
     if (!processing) {
       const parsedMms = solution(changedValue);
       if (paymentList.indexOf(parsedMms.cardname) > -1) {
@@ -77,6 +78,10 @@ const ChattingPage = () => {
     } else {
       mmsProcess();
     }
+
+    if (ref.current) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
   };
 
   const ChattingContent = (
@@ -86,6 +91,7 @@ const ChattingPage = () => {
       onSubmitHandler={onSubmitHandler}
       dataList={ChattingStore.getChattings()}
       chatValue={changedValue}
+      scroll={ref}
     />
   );
   return (

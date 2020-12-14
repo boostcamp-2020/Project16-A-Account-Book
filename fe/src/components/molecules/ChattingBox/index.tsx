@@ -11,12 +11,16 @@ export interface DataProps {
 
 export interface ChattingBoxProps {
   dataList: DataProps[];
+  scroll?: any;
 }
 
-const ChattingBox = ({ dataList }: ChattingBoxProps): React.ReactElement => {
+const ChattingBox = ({
+  dataList,
+  scroll,
+}: ChattingBoxProps): React.ReactElement => {
   return (
     <S.ChattingBox>
-      <S.ChattingArea>
+      <S.ChattingArea ref={scroll}>
         {dataList.map(
           (data: DataProps): React.ReactElement =>
             data.type === myMessage ? (

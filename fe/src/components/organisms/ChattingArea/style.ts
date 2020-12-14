@@ -13,7 +13,6 @@ export const ChattingArea = styled.div`
   width: 100%;
   height: calc(100vh - 8.5rem);
   overflow-x: hidden;
-  overflow-y: auto;
   border: 0.1rem solid ${({ theme }) => theme.color.brandColor};
   input {
     padding: 0;
@@ -32,6 +31,7 @@ export const ChattingBottom = styled.div`
   width: 100%;
   display: flex;
   height: 2.2rem;
+  overflow-y: auto;
   align-items: center;
 `;
 
