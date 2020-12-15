@@ -39,6 +39,7 @@ export const addAccountByUserAndAccountInfo = async (
     categories,
     methods,
     users: [user],
+    imageUrl: user.profileUrl,
   });
   return Promise.all([
     newAccount.save(),

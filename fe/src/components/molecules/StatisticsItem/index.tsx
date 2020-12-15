@@ -9,7 +9,7 @@ const StatisticsItem = ({
   category: ICategoryStatistics;
 }): React.ReactElement => {
   const { title, color, totalPrice, percent } = category;
-  const percentText = `${percent}%`;
+  const percentText = `${percent || 0}%`;
   return (
     <S.StatisticsItem>
       <S.StatisticsData>

@@ -15,6 +15,11 @@ export const getUserList = async () => {
   return allUserList;
 };
 
+export const putUser = async (user: IUserDocument, startOfWeek: String) => {
+  const result = user.update({ startOfWeek });
+  return result;
+};
+
 export const getInvitation = async (user: IUserDocument) => {
   const account: any = user.invitations?.map((invitation) =>
     AccountModel.findById(invitation.accounts).select(

@@ -18,5 +18,10 @@ export default {
   },
   denyInvitation(accountObjId: string) {
     return axios.delete(urls.postAndDeleteInvitation(accountObjId));
+
+  putUserStartOfWeek(isSundayStart: boolean) {
+    return axios.put(`${urls.userInfo}`, {
+      StartOfWeek: isSundayStart ? 'sunday' : 'monday',
+    });
   },
 };

@@ -16,6 +16,9 @@ const getSumByCategories = (
     const newState = state;
     const { price } = transaction;
     const { type, title, _id, color } = transaction.category;
+    if (type === categoryType.UNCLASSIFIED) {
+      return newState;
+    }
     const [totalType, catType] =
       type === categoryType.EXPENSE
         ? ['expense', 'expenseObject']

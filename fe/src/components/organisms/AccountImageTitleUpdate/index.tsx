@@ -13,7 +13,6 @@ const AccountImageTitleUpdate = ({ account, inputRef, ...props }: Props) => {
     <S.AccountImageTitleUpdate {...props}>
       <div className="imageWrap">
         <S.Icon icon={account.icon || emptyImg} />
-        <S.UploadBtn>업로드</S.UploadBtn>
       </div>
       <div className="textWrap">
         <div className="title">{text}</div>
