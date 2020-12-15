@@ -11,6 +11,9 @@ export const initTotalPrice = {
 
 export const sumAllPricesByType = (transactions: TransactionDBType[]) => {
   return transactions.reduce((summedPriceByType, transaction) => {
+    if (transaction.category.type === categoryType.UNCLASSIFIED) {
+      return summedPriceByType;
+    }
     const type =
       transaction.category.type === categoryType.INCOME ? 'income' : 'expense';
     return {
