@@ -1,5 +1,6 @@
 import React from 'react';
-import PriceTag from 'components/atoms/PriceTag';
+import PriceWithSign from 'components/molecules/PriceWithSign';
+import { categoryType } from 'stores/Category';
 import { DateMoneyHeaderStyle, ReducedDate } from './style';
 
 export interface Props {
@@ -22,14 +23,8 @@ const DateMoneyHeader = ({
     <DateMoneyHeaderStyle {...props}>
       <ReducedDate date={date} parseString="ymdz" />
       <div className="price-container">
-        <div className="price-container__price price-container__price--income">
-          {income === 0 ? '' : `+`}
-          <PriceTag value={income} bold color="selectedBlue" />
-        </div>
-        <div className="price-container__price price-container__price--expense">
-          {expense === 0 ? '' : '-'}
-          <PriceTag value={expense} bold color="red" />
-        </div>
+        <PriceWithSign price={income} type={categoryType.INCOME} bold />
+        <PriceWithSign price={expense} type={categoryType.EXPENSE} bold />
       </div>
     </DateMoneyHeaderStyle>
   );
