@@ -26,8 +26,6 @@ const Input = ({
   inputRef,
   ...props
 }: Props): React.ReactElement => {
-  console.log({ ...props });
-
   return (
     <SInput
       id={id}
