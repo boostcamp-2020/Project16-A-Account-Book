@@ -158,10 +158,9 @@ export const TransactionStore = makeAutoObservable({
     return calTotalPriceByDateAndType(this.transactions, categoryType.EXPENSE);
   },
   get totalPrices(): { income: number; expense: number } {
-    if (this.isFiltered) {
-      return sumAllPricesByType(this.filteredTransactionList);
-    }
-    return calTotalPrices(this.getTransactions());
+    return this.isFiltered
+      ? sumAllPricesByType(this.filteredTransactionList)
+      : calTotalPrices(this.getTransactions());
   },
   get filteredTransactionList(): types.TransactionDBType[] {
     if (!this.isFiltered) return [];
