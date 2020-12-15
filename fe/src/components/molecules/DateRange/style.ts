@@ -8,6 +8,10 @@ export const DecsContainer = styled.div`
   padding: 0.5rem 0.3rem;
   background: transparent;
   background: ${({ theme }) => theme.color.white};
+  .date-container {
+    display: flex;
+    justify-content: center;
+  }
 `;
 export const Small = styled.small`
   font-size: 0.8rem;
