@@ -54,6 +54,7 @@ const AccountListPage = () => {
 
   const userId = sessionStorage.getItem('userObjId');
   if (!userId) {
+    window.location.href = '/accounts';
     return <></>;
   }
 
