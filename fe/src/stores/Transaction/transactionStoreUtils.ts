@@ -1,5 +1,10 @@
 import math from 'utils/math';
-import { IDateTotalprice, TransactionDBType, IDateTransactionObj } from 'types';
+import {
+  IDateTotalprice,
+  TransactionDBType,
+  IDateTransactionObj,
+  ICategory,
+} from 'types';
 import { TransactionStore } from 'stores/Transaction';
 import { categoryConvertBig2Small, categoryType } from 'stores/Category';
 import dateUtil from 'utils/date';
@@ -96,4 +101,53 @@ export const filterList = (
       dateUtil.isDateInDateRange(transaction.date, startDate, endDate) &&
       !isNotMatchedWithFilterInfo(transaction),
   );
+};
+
+interface ITotalCategoryObj extends Omit<ICategory, '__v' | 'type'> {
+  totalPrice: number;
+}
+
+interface ITotalObj {
+  totalIncomeCategoryObj: {
+    [title: string]: ITotalCategoryObj;
+  };
+  totalExpenseCategoryObj: {
+    [title: string]: ITotalCategoryObj;
+  };
+}
+
+export const calTotalPriceByCategories = (
+  transactionList: TransactionDBType[],
+): ITotalObj => {
+  const initTotalObj = {
+    totalIncomeCategoryObj: {},
+    totalExpenseCategoryObj: {},
+  };
+  const totalPriceByCategories = transactionList.reduce(
+    (prevTotalObj: ITotalObj, transaction) => {
+      const newTotalObj = prevTotalObj;
+      const { price } = transaction;
+      const { type, title, _id, color } = transaction.category;
+      if (type === categoryType.UNCLASSIFIED) {
+        return prevTotalObj;
+      }
+      const typeKey =
+        type === categoryType.EXPENSE
+          ? 'totalExpenseCategoryObj'
+          : 'totalIncomeCategoryObj';
+      if (newTotalObj[typeKey][title]) {
+        newTotalObj[typeKey][title].totalPrice += price;
+      } else {
+        newTotalObj[typeKey][title] = {
+          _id,
+          title,
+          color,
+          totalPrice: price,
+        };
+      }
+      return newTotalObj;
+    },
+    initTotalObj,
+  );
+  return totalPriceByCategories;
 };
