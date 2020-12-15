@@ -26,9 +26,7 @@ export const Header = styled.header`
   width: 100%;
 `;
 
-export const Content = styled.div`
-  margin: 1em 0.5em 0 0.5em;
-`;
+export const Content = styled.div``;
 
 export const Nav = styled.nav`
   display: flex;

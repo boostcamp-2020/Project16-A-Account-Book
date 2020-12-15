@@ -38,6 +38,7 @@ export const defaultArea = () => {
         dataList={dataList}
         onChangeHandler={onChangeHandler}
         onSubmitHandler={onSubmitHandler}
+        onPressEnter={() => {}}
         chatValue="yeah"
       />
     </ThemeProvider>
