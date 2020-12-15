@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import Template from 'components/templates/MainTemplate';
@@ -7,6 +7,8 @@ import { AccountStore } from 'stores/Account';
 import Account from 'components/organisms/Account';
 import { useHistory } from 'react-router-dom';
 import AccountSvg from 'assets/svg/account.svg';
+import axios from 'apis/axios';
+import url from 'apis/urls';
 import * as S from './styles';
 
 const onClickHandler = (
@@ -51,11 +53,26 @@ const newAccountClickHandler = (history: any, userId: String) => () => {
 
 const AccountListPage = () => {
   const history = useHistory();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const userId = sessionStorage.getItem('userObjId');
-  if (!userId) {
-    window.location.href = '/accounts';
-    return <></>;
+
+  useEffect(() => {
+    if (!loading) {
+      AccountStore.loadAccounts();
+    }
+  }, [loading]);
+
+  if (!userId && loading === false) {
+    setLoading(true);
+    axios.get(`${url.userInfo}`).then((res) => {
+      sessionStorage.setItem('userObjId', (res as any)._id);
+      sessionStorage.setItem(
+        'userIsSundayStart',
+        String((res as any).startOfWeek === 'sunday'),
+      );
+      setLoading(false);
+    });
+    return <>로딩중</>;
   }
 
   const List = AccountStore.getAccountList().map((el) => {
@@ -76,9 +93,6 @@ const AccountListPage = () => {
     </S.SubmitButton>
   );
 
-  useEffect(() => {
-    AccountStore.loadAccounts();
-  }, []);
   return (
     <Template
       HeaderBar={<Header />}
