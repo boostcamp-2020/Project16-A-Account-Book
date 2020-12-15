@@ -55,11 +55,12 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
 
 export const calTotalPrices = (list: IDateTransactionObj) => {
   return Object.values<TransactionDBType[]>(list).reduce(
-    (acc: { income: number; expense: number }, transactions) => {
+    (acc, transactions) => {
       const summedPrices = sumAllPricesByType(transactions);
       return {
         income: acc.income + summedPrices.income,
         expense: acc.expense + summedPrices.expense,
+        unclassified: acc.unclassified + summedPrices.unclassified,
       };
     },
     initTotalPrice,
