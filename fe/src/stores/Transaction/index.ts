@@ -9,6 +9,8 @@ import {
   calTotalPriceByDateAndType,
   sumAllPricesByType,
   filterList,
+  calTotalPriceByCategories,
+  addPercentAndGetArray,
 } from 'stores/Transaction/transactionStoreUtils';
 
 export interface ITransactionStore {
@@ -174,6 +176,19 @@ export const TransactionStore = makeAutoObservable({
       this.getTransactions(),
     ).reduce((appendedList, list) => [...appendedList, ...list], []);
     return transactionList;
+  },
+  get pieChartStatistics(): types.IStatistics {
+    const totalPrice = this.totalPricesExceptFilterAndUnclassified;
+    const totalCategoryObj = calTotalPriceByCategories(this.transactionList);
+    const incomeCategories = addPercentAndGetArray(
+      totalCategoryObj.totalIncomeCategoryObj,
+      totalPrice.income,
+    );
+    const expenseCategories = addPercentAndGetArray(
+      totalCategoryObj.totalExpenseCategoryObj,
+      totalPrice.expense,
+    );
+    return { totalPrice, incomeCategories, expenseCategories };
   },
   getTransactions(): types.IDateTransactionObj {
     return toJS(this.transactions);
