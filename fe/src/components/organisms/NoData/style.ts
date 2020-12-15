@@ -18,6 +18,10 @@ export const NoData = styled.div`
     background-size: 300px 300px;
     -webkit-filter: grayscale(100%);
     filter: gray;
+
+    :hover {
+      -webkit-filter: grayscale(50%);
+    }
   }
 `;
 
