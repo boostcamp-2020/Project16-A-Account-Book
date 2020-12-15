@@ -11,8 +11,10 @@ export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
   color: ${({ color, theme }) =>
     color ? theme.color[color] : theme.color.brandColor};
   border: 0;
-  width: 100%;
-  height: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.25rem;
+  border: 1px solid ${({ theme }) => theme.color.brandColor};
   ${({ border, theme }) =>
     border &&
     css`
