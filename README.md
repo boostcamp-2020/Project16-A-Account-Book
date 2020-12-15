@@ -63,8 +63,8 @@
 **1. 몽고디비 설치 후 데이터베이스 생성**
 **2. 백엔드**
 - 백엔드 환경 변수 설정
-  - be 폴더 바로 밑에 .env 파일 생성
-  - .env-template 안에 있는 내용 작성
+  - be/src 폴더 바로 밑에 .env 파일 생성
+  - be/src/.env-template 안에 있는 내용 작성
   - .env 예시
       - mongodb cloud의 경우 DB_PORT는 작성하지 않기
     ```
