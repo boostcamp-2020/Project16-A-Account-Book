@@ -17,12 +17,23 @@ const getPriceColor = (type: string) => {
       return 'black';
   }
 };
-
+const getSigin = ({ type, price }: { type: string; price: number }) => {
+  if (price === 0) return '';
+  switch (type) {
+    case categoryType.EXPENSE:
+      return '-';
+    case categoryType.INCOME:
+      return '+';
+    default:
+      return '';
+  }
+};
 const PriceWithSign = ({ price, type, ...props }: Prop) => {
   const color = getPriceColor(type);
+  const sign = getSigin({ type, price });
   return (
     <S.Price color={color}>
-      {price === 0 ? '' : `+`}
+      {sign}
       <PriceTag value={price} color={color} {...props} />
     </S.Price>
   );
