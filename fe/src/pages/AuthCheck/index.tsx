@@ -7,6 +7,10 @@ const AuthCheck = () => {
   if (!sessionStorage.getItem('userObjId')) {
     axios.get(`${url.userInfo}`).then((res) => {
       sessionStorage.setItem('userObjId', (res as any)._id);
+      sessionStorage.setItem(
+        'userIsSundayStart',
+        String((res as any).startOfWeek === 'sunday'),
+      );
     });
   }
   return <></>;

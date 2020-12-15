@@ -15,6 +15,11 @@ export const getUserList = async () => {
   return allUserList;
 };
 
+export const putUser = async (user: IUserDocument, startOfWeek: String) => {
+  const result = user.update({ startOfWeek });
+  return result;
+};
+
 export const getInvitation = async (user: IUserDocument) => {
   const account: any = user.invitations?.map((invitation) =>
     AccountModel.findById(invitation.accounts).select(
@@ -25,17 +30,39 @@ export const getInvitation = async (user: IUserDocument) => {
   return results;
 };
 
-export const denyInvitation = async (
-  user: IUserDocument,
-  accountObjId: string,
-) => {
+const filterInvitation = (user: IUserDocument, accountObjId: string) => {
   const prevInvitaionLength = user.invitations?.length;
   // eslint-disable-next-line no-param-reassign
   user.invitations = user.invitations?.filter(
     (invitation) => String(invitation.accounts) !== accountObjId,
   );
-  if (user.invitations?.length === prevInvitaionLength)
-    return Promise.resolve();
-  return user.save();
+  return user.invitations?.length === prevInvitaionLength
+    ? Promise.resolve()
+    : user.save();
 };
+
+export const denyInvitation = async (
+  user: IUserDocument,
+  accountObjId: string,
+) => {
+  return filterInvitation(user, accountObjId);
+};
+
+export const agreeInvitaion = async (
+  user: IUserDocument,
+  accountObjId: string,
+) => {
+  return Promise.all([
+    filterInvitation(user, accountObjId),
+    AccountModel.update(
+      { _id: accountObjId, 'users._id': { $ne: user._id } },
+      {
+        $addToSet: {
+          users: user,
+        },
+      },
+    ),
+  ]);
+};
+
 export default titleByAccountId;

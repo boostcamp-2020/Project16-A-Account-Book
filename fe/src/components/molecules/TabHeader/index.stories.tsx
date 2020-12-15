@@ -9,6 +9,10 @@ const onClickHandler = () => {
   console.log('tab clicked');
 };
 
+const selectedTab = -1;
+
 export const defaultTabHeader = () => {
-  return <TabHeader onClickHandler={onClickHandler} />;
+  return (
+    <TabHeader onClickHandler={onClickHandler} selectedTab={selectedTab} />
+  );
 };

@@ -25,17 +25,18 @@ export const AccountImageTitleUpdate = styled.div`
     width: 90%;
   }
   .title {
-    margin-top: 1.5em;
-    font-size: 1.5rem;
+    margin-top: 0.7em;
+    font-size: 1.2rem;
     margin-bottom: 0.5em;
   }
 `;
 
 export const Icon = styled(IconComponent)`
   border-radius: 2rem;
-  width: 2rem;
-  height: 2rem;
-  margin: 2em 0 0.5em 0;
+  width: 3rem;
+  height: 3rem;
+  margin: 0.5em 0 0.5em 0;
+  border-radius: 1.5rem;
 `;
 
 export const UploadBtn = styled(ButtonComponent)`
@@ -50,5 +51,6 @@ export const UploadBtn = styled(ButtonComponent)`
 
 export const TitleInput = styled(Input)`
   width: 90%;
+  margin-bottom: 1em;
 `;
 export default {};

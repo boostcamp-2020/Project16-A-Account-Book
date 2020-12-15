@@ -38,7 +38,7 @@ const HeaderBar = ({
         <>
           <Modal>
             <div ref={ref}>
-              <InvitationList onClick={() => {}} />
+              <InvitationList />
             </div>
           </Modal>
         </>

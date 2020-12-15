@@ -8,6 +8,11 @@ export const CalendarOneDate = styled(Button)`
   height: 5rem;
   text-align: left;
   background-color: transparent;
+
+  :hover {
+    background-color: ${({ theme }) => theme.color.transparentBrandColor};
+    border-radius: 1rem;
+  }
 `;
 
 export const DateText = styled.div`
