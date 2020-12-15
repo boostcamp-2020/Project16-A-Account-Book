@@ -18,10 +18,6 @@ export interface IDatePicker {
 export interface IButton {
   onClick?: any;
 }
-export interface ICustomInput {
-  value?: any;
-  onClick?: any;
-}
 
 const DatePicker = ({
   date,

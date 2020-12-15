@@ -27,3 +27,12 @@ export const Form = styled.form`
     margin-top: 1rem;
   }
 `;
+
+export const Container = styled.div`
+  padding: 1rem 1rem;
+  select {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid ${({ theme }) => theme.color.subText};
+  }
+`;
