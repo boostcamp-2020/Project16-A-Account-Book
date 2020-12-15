@@ -1,15 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import MonthInfo from 'components/organisms/MonthInfoHeader';
 import NavBarComponent from 'components/organisms/NavBar';
-import useStatistics from 'hooks/useStatistics';
 import PieChartDetail from 'components/organisms/PieChartDetail';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 
 const StatisticsDetailPage = () => {
-  const statistics = useStatistics();
+  useEffect(() => {
+    TransactionStore.loadTransactions();
+  }, []);
   const [showType, setShowType] = useState({
     income: false,
     expense: true,
@@ -27,7 +28,7 @@ const StatisticsDetailPage = () => {
   );
   const Contents = (
     <PieChartDetail
-      statistics={statistics}
+      statistics={TransactionStore.pieChartStatistics}
       checkStatus={showType}
       onClick={toggleType}
     />
