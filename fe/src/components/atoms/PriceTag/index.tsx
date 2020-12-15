@@ -1,7 +1,7 @@
 import React from 'react';
 import PriceContainer from './style';
 
-interface Props {
+export interface Props {
   value: number;
   bold?: boolean;
   size?: string;

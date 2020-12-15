@@ -1,11 +1,11 @@
 import React from 'react';
 import { categoryType } from 'stores/Category';
+import PriceTag, { Props } from 'components/atoms/PriceTag';
 import * as S from './style';
 
-export interface Prop {
+export interface Prop extends Omit<Props, 'value'> {
   price: number;
-  type: 'income' | 'expense' | 'unclassified';
-  children?: any;
+  type: string;
 }
 const getPriceColor = (type: string) => {
   switch (type) {
@@ -18,12 +18,12 @@ const getPriceColor = (type: string) => {
   }
 };
 
-const PriceWithSign = ({ price, type, children }: Prop) => {
+const PriceWithSign = ({ price, type, ...props }: Prop) => {
   const color = getPriceColor(type);
   return (
     <S.Price color={color}>
       {price === 0 ? '' : `+`}
-      {children}
+      <PriceTag value={price} color={color} {...props} />
     </S.Price>
   );
 };
