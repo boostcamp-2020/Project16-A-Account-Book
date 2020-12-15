@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import useVisible from 'hooks/useVisible';
+import ModalContainer from '../ModalContainer';
 
 import * as S from './style';
 
@@ -19,13 +20,21 @@ const DropdownButtonHeader = ({
 }: Props) => {
   const dropdownContainer = useRef<HTMLDivElement>(null);
   const [visible, toogleVisivle] = useVisible(dropdownContainer);
-
+  const onClickVisible = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toogleVisivle();
+  };
   return (
-    <S.Container ref={dropdownContainer} border={border}>
-      <S.DropdownButton onClick={toogleVisivle} disabled={disabled}>
+    <S.Container border={border}>
+      <S.DropdownButton onClick={onClickVisible} disabled={disabled}>
         <div>{`${title} ${arrowCharacter}`}</div>
       </S.DropdownButton>
-      {visible && children}
+      {visible && (
+        <ModalContainer>
+          <div ref={dropdownContainer}>{children}</div>
+        </ModalContainer>
+      )}
     </S.Container>
   );
 };
