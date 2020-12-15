@@ -4,6 +4,7 @@ import {
   TransactionDBType,
   IDateTransactionObj,
   ICategory,
+  ICategoryStatistics,
 } from 'types';
 import { TransactionStore } from 'stores/Transaction';
 import { categoryConvertBig2Small, categoryType } from 'stores/Category';
@@ -150,4 +151,18 @@ export const calTotalPriceByCategories = (
     initTotalObj,
   );
   return totalPriceByCategories;
+};
+
+export const addPercentAndGetArray = (
+  categoryObj: { [title: string]: ITotalCategoryObj },
+  totalTypePrice: number,
+): ICategoryStatistics[] => {
+  return Object.keys(categoryObj).map((title) => {
+    return {
+      ...categoryObj[title],
+      percent: Math.round(
+        (categoryObj[title].totalPrice / totalTypePrice) * 100,
+      ),
+    };
+  });
 };
