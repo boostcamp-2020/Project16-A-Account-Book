@@ -30,20 +30,29 @@ const TransactionList = ({ date, transactionList, onClick }: Props) => {
     return acc;
   };
 
-  const { transList, totalPrice } = transactionList.reduce(
-    reduceTransactionList,
-    {
-      transList: [],
-      totalPrice: 0,
-      income: 0,
-      expense: 0,
-      unclassified: 0,
-    },
-  );
+  const {
+    transList,
+    totalPrice,
+    income,
+    expense,
+    unclassified,
+  } = transactionList.reduce(reduceTransactionList, {
+    transList: [],
+    totalPrice: 0,
+    income: 0,
+    expense: 0,
+    unclassified: 0,
+  });
 
   return (
     <S.TransactionList>
-      <S.Header date={date} totalPayment={totalPrice} />
+      <S.Header
+        date={date}
+        totalPayment={totalPrice}
+        income={income}
+        expense={expense}
+        unclassified={unclassified}
+      />
       {transList}
     </S.TransactionList>
   );
