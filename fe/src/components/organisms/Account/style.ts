@@ -13,6 +13,7 @@ export const Account = styled.div`
   padding: 0 1rem;
   :hover {
     cursor: pointer;
+    background-color: ${({ theme }) => theme.color.transparentBrandColor};
   }
 
   .text {

@@ -18,11 +18,11 @@ const CalendarOneDate = ({
   ...props
 }: Props): React.ReactElement => {
   return (
-    <S.CalendarOneDate onClick={onClick} {...props}>
+    <S.CalendarOneDate onClick={(income || expense) && onClick} {...props}>
       <S.DateText>{date}</S.DateText>
       <S.PriceTextWrap>
-        <S.IncomeText>{income}</S.IncomeText>
-        <S.ExpenseText>{expense}</S.ExpenseText>
+        <S.IncomeText>{income !== undefined && `+${income}원`}</S.IncomeText>
+        <S.ExpenseText>{expense && `-${expense}원`}</S.ExpenseText>
       </S.PriceTextWrap>
       <S.EmptyArea />
     </S.CalendarOneDate>
