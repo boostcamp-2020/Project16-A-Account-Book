@@ -12,7 +12,6 @@ export const ContentArea = styled.div`
   overflow-y: auto;
   box-sizing: border-box;
   position: absolute;
-  z-index: -1;
   width: 100%;
   top: 3rem;
   height: calc(100vh - 3rem - 4rem - 2px);
@@ -22,15 +21,12 @@ export const ContentArea = styled.div`
 
 export const Header = styled.header`
   position: absolute;
-  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
 `;
 
-export const Content = styled.div`
-  margin: 1em 0.5em 0 0.5em;
-`;
+export const Content = styled.div``;
 
 export const Nav = styled.nav`
   display: flex;

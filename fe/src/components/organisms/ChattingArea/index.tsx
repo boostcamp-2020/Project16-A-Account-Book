@@ -7,6 +7,8 @@ export interface ChattingAreaProps {
   onSubmitHandler: any;
   dataList: DataProps[];
   chatValue: string;
+  onPressEnter: any;
+  scroll?: any;
 }
 
 const ChattingArea = ({
@@ -14,16 +16,19 @@ const ChattingArea = ({
   onSubmitHandler,
   dataList,
   chatValue,
+  onPressEnter,
+  scroll,
 }: ChattingAreaProps) => {
   return (
     <S.ChattingArea>
-      <S.ChatBox dataList={dataList} />
+      <S.ChatBox dataList={dataList} scroll={scroll} />
       <S.ChattingBottom>
         <S.ChattingInput
           disabled={false}
           placeholder="chat your message"
           onChangeHandler={onChangeHandler}
           value={chatValue}
+          onKeyDown={onPressEnter}
         />
         <S.ChattingBtn
           onClick={onSubmitHandler}

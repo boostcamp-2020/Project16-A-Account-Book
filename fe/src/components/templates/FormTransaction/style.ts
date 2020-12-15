@@ -8,5 +8,8 @@ export const Header = styled.header`
 `;
 
 export const Main = styled.main`
-  margin: 10% 0;
+  margin-top: 3rem;
+  height: calc(100vh - 8rem);
+  overflow-x: hidden;
+  overflow-y: auto;
 `;

@@ -68,8 +68,7 @@ export const getGithubAccessToken = async (code: string) => {
       categories,
       methods,
       users: [user],
-      imageUrl:
-        'https://kr.object.ncloudstorage.com/account/abstract-user-flat-4.svg',
+      imageUrl: user.profileUrl,
     });
 
     await Promise.all([newAccount.save(), user.save()]);

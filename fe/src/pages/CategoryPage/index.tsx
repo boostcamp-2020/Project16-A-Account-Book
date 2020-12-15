@@ -20,6 +20,7 @@ export interface MatchParams {
 }
 
 export interface ClickTarget extends EventTarget {
+  id: number;
   value: string;
 }
 
@@ -53,6 +54,7 @@ function CategoryPage(): React.ReactElement {
   const [visible, setVisible] = useState<boolean>(false);
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const colorPicker = useRef<any>();
   const inputRef = useRef<any>();
   const selectedRef = useRef<string>('');
@@ -63,9 +65,13 @@ function CategoryPage(): React.ReactElement {
     CategoryStore.loadCategories();
   }, []);
 
-  const TabClickHandler = useCallback(({ target: { value } }: ClickProps) => {
-    setType(value);
-  }, []);
+  const TabClickHandler = useCallback(
+    ({ target: { value, id } }: ClickProps) => {
+      setType(value);
+      setSelectedTab(id);
+    },
+    [],
+  );
 
   const dropDownItemClicked = (data: any) => {
     selectedRef.current = data._id;
@@ -92,8 +98,15 @@ function CategoryPage(): React.ReactElement {
     loadStore();
     setDeleteVisible(false);
   };
-
+  const isVaildLengthTitle = (title: string) => {
+    return title && title.length >= 1 && title.length <= 20;
+  };
   const confirm = async () => {
+    const trimedTitle = inputRef.current.value.trim();
+    if (!isVaildLengthTitle(trimedTitle)) {
+      alert('최대 20자까지 입력이 가능합니다.');
+      return;
+    }
     const apiFuc = type === 'METHOD' ? methodConfirm : categoryConfirm;
     const result: any = await apiFuc();
     if (result.error) {
@@ -105,6 +118,15 @@ function CategoryPage(): React.ReactElement {
     }
   };
   const methodConfirm = async () => {
+    const exist = MethodStore.getMethods().find(
+      (method) => method.title === inputRef.current.value.trim(),
+    );
+    if (exist && exist._id === selectedRef.current) {
+      return Promise.resolve({ error: '변경사항이 없습니다!' });
+    }
+    if (exist) {
+      return Promise.resolve({ error: '중복되는 입력입니다!' });
+    }
     const body = {
       title: inputRef.current.value,
     };
@@ -114,6 +136,15 @@ function CategoryPage(): React.ReactElement {
     return func(TransactionStore.accountObjId, body, selectedRef.current);
   };
   const categoryConfirm = async () => {
+    const exist = CategoryStore.getCategories(type).find(
+      (category) => category.title === inputRef.current.value.trim(),
+    );
+    if (exist && exist._id === selectedRef.current) {
+      return Promise.resolve({ error: '변경사항이 없습니다!' });
+    }
+    if (exist) {
+      return Promise.resolve({ error: '중복되는 입력입니다!' });
+    }
     const body = {
       type,
       title: inputRef.current.value,
@@ -128,10 +159,12 @@ function CategoryPage(): React.ReactElement {
 
   const onCancle = (fnc: any) => () => {
     inputRef.current.value = '';
+    selectedRef.current = '';
     fnc(false);
   };
 
   const onPlusButtonClick = () => {
+    inputRef.current.value = '';
     colorPicker.current.value = getRandomColor();
     setVisible(true);
   };
@@ -177,6 +210,7 @@ function CategoryPage(): React.ReactElement {
         editButtonHandler={editButtonHandler}
         isClicked={isClicked}
         deleteClicked={deleteClicked}
+        selectedTab={selectedTab}
       />
       <Modal visible={visible} content={modalContent} />
       <Modal visible={deleteVisible} content={DC} />

@@ -48,3 +48,15 @@ export const accountNoChange = {
   status: 400,
   message: 'account Update 중 에러가 발생했습니다.',
 };
+
+export const invaildTitleLengthTitle = {
+  status: 200,
+  error: '최대 20자 까지 입력 가능합니다',
+  success: false,
+};
+
+export const duplicatedValue = {
+  status: 200,
+  error: '중복된 입력입니다',
+  success: false,
+};

@@ -63,7 +63,7 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
 
   return (
     <FormTransactionTemplate
-      header={<Header title="거래내역 수정" />}
+      header={<Header title="거래내역 수정" back />}
       main={Main}
     />
   );

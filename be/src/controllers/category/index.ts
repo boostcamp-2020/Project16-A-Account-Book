@@ -28,14 +28,16 @@ const getStatisticsInfo = async (ctx: Context) => {
 const post = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
   const { type, title, color } = ctx.request.body;
-  const res = await postCategory(type, title, color, accountObjId);
-  ctx.status = res.success ? 201 : 200;
-  ctx.body = res;
+
+  await postCategory(type, title, color, accountObjId);
+  ctx.status = 201;
+  ctx.res.end();
 };
 
 const put = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
   const { objId, type, title, color } = ctx.request.body;
+
   const res = await updateCategory(objId, type, title, color, accountObjId);
   ctx.status = res.success ? 201 : 200;
   ctx.body = res;

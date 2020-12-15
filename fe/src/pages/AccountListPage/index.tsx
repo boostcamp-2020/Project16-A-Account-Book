@@ -7,7 +7,7 @@ import { AccountStore } from 'stores/Account';
 import Account from 'components/organisms/Account';
 import { useHistory } from 'react-router-dom';
 import AccountSvg from 'assets/svg/account.svg';
-import Button from 'components/atoms/Button';
+import * as S from './styles';
 
 const onClickHandler = (
   history: any,
@@ -70,9 +70,9 @@ const AccountListPage = () => {
   const Contents = <>{List}</>;
 
   const newAccountBtn = (
-    <Button onClick={newAccountClickHandler(history, userId!)}>
+    <S.SubmitButton onClick={newAccountClickHandler(history, userId!)}>
       새 가계부
-    </Button>
+    </S.SubmitButton>
   );
 
   useEffect(() => {

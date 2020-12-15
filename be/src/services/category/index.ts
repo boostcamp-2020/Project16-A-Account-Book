@@ -2,6 +2,7 @@ import { AccountModel } from 'models/account';
 import { CategoryModel, categoryType } from 'models/category';
 import { TransactionModel } from 'models/transaction';
 import { getCompFuncByKey } from 'libs/utils';
+import { duplicatedValue } from 'libs/error';
 import { ITotalPrice, ICategoryStatistics, IStatistics } from './index.type';
 
 const getSumByCategories = (
@@ -16,6 +17,9 @@ const getSumByCategories = (
     const newState = state;
     const { price } = transaction;
     const { type, title, _id, color } = transaction.category;
+    if (type === categoryType.UNCLASSIFIED) {
+      return newState;
+    }
     const [totalType, catType] =
       type === categoryType.EXPENSE
         ? ['expense', 'expenseObject']
@@ -106,25 +110,23 @@ export const postCategory = async (
   color: string,
   accountObjId: string,
 ) => {
-  const res = await CategoryModel.findOne({ title });
-  if (res != null) {
-    return { success: false, error: '중복된 타이틀 존재' };
-  }
+  const exist: any = await AccountModel.findDuplicateCategory(
+    accountObjId,
+    type,
+    title,
+  );
+  if (exist.categories.length !== 0) throw duplicatedValue;
+
   const newCategory = new CategoryModel({
     type,
     title,
     color,
   });
-  try {
-    await newCategory.save();
-    await AccountModel.update(
-      { _id: accountObjId },
-      { $push: { categories: newCategory._id } },
-    );
-    return { success: true, newCategory };
-  } catch (e) {
-    return { success: false, message: e };
-  }
+  const updateAccount = AccountModel.update(
+    { _id: accountObjId },
+    { $push: { categories: newCategory._id } },
+  );
+  return Promise.all([newCategory.save(), updateAccount]);
 };
 
 export const updateCategory = async (
@@ -134,16 +136,13 @@ export const updateCategory = async (
   color: string,
   accountObjId: string,
 ) => {
-  const exist: any = await AccountModel.findById(accountObjId, {
-    categories: true,
-  }).populate({
-    path: 'categories',
-    match: { type, title },
-    select: '_id',
-  });
-
+  const exist: any = await AccountModel.findDuplicateCategory(
+    accountObjId,
+    type,
+    title,
+  );
   if (
-    String(exist.categories[0]._id) === objId ||
+    (exist.categories[0] && String(exist.categories[0]._id) === objId) ||
     exist.categories.length === 0
   ) {
     await CategoryModel.update(

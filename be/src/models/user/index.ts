@@ -31,8 +31,8 @@ export const UserSchema = new Schema({
 });
 
 export interface IInvitation {
-  host: string;
-  accounts: string;
+  host: String;
+  accounts: String;
 }
 export interface IUserDocument extends Document {
   timezone?: String;

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import InvitationItem from 'components/molecules/InvitationItem';
 import userAPI from 'apis/user';
+import { useLocation } from 'react-router-dom';
+import { AccountStore } from 'stores/Account';
 import Container from './style';
 
 export interface IInvitaion {
@@ -13,8 +15,19 @@ export interface IInvitaion {
 export interface Prop {
   onClick?: any;
 }
-const InvitationList = ({ onClick }: Prop) => {
+const InvitationList = () => {
   const [invitationList, setinvitationList] = useState<IInvitaion[]>([]);
+  const location = useLocation();
+  const onClickAgreeAndDeny = async (e: any) => {
+    const { id, approve } = e.target.dataset;
+    const api =
+      approve === 'true' ? userAPI.agreeInvitation : userAPI.denyInvitation;
+    await api(id);
+    const message = approve === 'true' ? '수락되었습니다' : '거절되었습니다';
+    alert(message);
+    initialState();
+    if (location.pathname === '/accounts') AccountStore.loadAccounts();
+  };
   const initialState = async () => {
     const res = await userAPI.getUserInvitation();
     setinvitationList(res);
@@ -23,7 +36,7 @@ const InvitationList = ({ onClick }: Prop) => {
     initialState();
   }, []);
   const invitations = invitationList.map((invitation) => {
-    return <InvitationItem {...invitation} onClick={onClick} />;
+    return <InvitationItem {...invitation} onClick={onClickAgreeAndDeny} />;
   });
   return (
     <Container>

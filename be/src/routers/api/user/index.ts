@@ -5,6 +5,7 @@ import accountRouter from './account';
 const router = new Router();
 
 router.get('/userInfo', userController.getUserByAccessToken);
+router.put('/userInfo', userController.putUser);
 router.get('/titleByAccountId', userController.titleByAccountId);
 router.get('/', userController.getUserList);
 router.use('/accounts', accountRouter.routes());

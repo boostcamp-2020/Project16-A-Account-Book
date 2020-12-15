@@ -11,6 +11,7 @@ export interface Props {
   value?: any;
   type?: string;
   inputRef?: any;
+  onKeyDown?: any;
 }
 
 const Input = ({
@@ -25,6 +26,8 @@ const Input = ({
   inputRef,
   ...props
 }: Props): React.ReactElement => {
+  console.log({ ...props });
+
   return (
     <SInput
       id={id}
