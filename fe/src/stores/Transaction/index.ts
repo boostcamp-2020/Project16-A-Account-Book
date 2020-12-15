@@ -10,10 +10,9 @@ import {
   sumAllPricesByType,
   filterList,
 } from 'stores/Transaction/transactionStoreUtils';
-import { testAccountDateList } from './testData';
 
 export interface ITransactionStore {
-  transactions: any;
+  transactions: types.IDateTransactionObj;
   dates: {
     startDate: Date;
     endDate: Date;
@@ -36,7 +35,7 @@ const oneMonthDate = date.getOneMonthRange(
 );
 
 const initialState: ITransactionStore = {
-  transactions: testAccountDateList,
+  transactions: {},
 
   dates: {
     startDate: oneMonthDate.startDate,
@@ -92,7 +91,7 @@ const fetchFilter = () => {
   return initialState.filter;
 };
 export const TransactionStore = makeAutoObservable({
-  transactions: [] as any,
+  transactions: {},
   dates: fetchDate(),
   filter: fetchFilter(),
   isFiltered: !!window.sessionStorage.getItem('filter'),
@@ -168,14 +167,15 @@ export const TransactionStore = makeAutoObservable({
   },
   get filteredTransactionList(): types.TransactionDBType[] {
     if (!this.isFiltered) return [];
-
+    return filterList(this.transactionList);
+  },
+  get transactionList(): types.TransactionDBType[] {
     const transactionList = Object.values<types.TransactionDBType[]>(
       this.getTransactions(),
     ).reduce((appendedList, list) => [...appendedList, ...list], []);
-
-    return filterList(transactionList);
+    return transactionList;
   },
-  getTransactions() {
+  getTransactions(): types.IDateTransactionObj {
     return toJS(this.transactions);
   },
   async loadTransactions() {
