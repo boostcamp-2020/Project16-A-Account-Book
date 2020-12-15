@@ -1,18 +1,18 @@
 import math from 'utils/math';
 import { IDateTotalprice, TransactionDBType, IDateTransactionObj } from 'types';
 import { TransactionStore } from 'stores/Transaction';
-import { categoryConvertBig2Small, categoryType } from 'stores/Category';
+import { categoryConvertBig2Small } from 'stores/Category';
 import dateUtil from 'utils/date';
 
 export const initTotalPrice = {
   income: 0,
   expense: 0,
+  unclassified: 0,
 };
 
 export const sumAllPricesByType = (transactions: TransactionDBType[]) => {
   return transactions.reduce((summedPriceByType, transaction) => {
-    const type =
-      transaction.category.type === categoryType.INCOME ? 'income' : 'expense';
+    const type = categoryConvertBig2Small(transaction.category.type);
     return {
       ...summedPriceByType,
       [type]: summedPriceByType[type] + transaction.price,
