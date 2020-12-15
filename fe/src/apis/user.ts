@@ -13,4 +13,9 @@ export default {
   getUserInvitation(): Promise<IInvitaion[]> {
     return axios.get(urls.getUserInvitation());
   },
+  putUserStartOfWeek(isSundayStart: boolean) {
+    axios.put(`${urls.userInfo}`, {
+      StartOfWeek: isSundayStart ? 'sunday' : 'monday',
+    });
+  },
 };

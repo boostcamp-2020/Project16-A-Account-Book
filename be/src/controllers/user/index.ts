@@ -8,6 +8,15 @@ export const titleByAccountId = async (ctx: Context) => {
   ctx.response.body = title;
 };
 
+export const putUser = async (ctx: Context) => {
+  await userService.putUser(
+    ctx.request.body.user,
+    ctx.request.body.StartOfWeek,
+  );
+  ctx.status = 200;
+  ctx.body = { success: true };
+};
+
 export const getUserList = async (ctx: Context) => {
   const userList = await userService.getUserList();
   ctx.status = 200;
