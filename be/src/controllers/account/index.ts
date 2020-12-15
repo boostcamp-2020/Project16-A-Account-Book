@@ -22,10 +22,12 @@ export const postAccount = async (ctx: Koa.Context) => {
 };
 
 export const putAccount = async (ctx: Koa.Context) => {
+  const { user, title, userObjIdList } = ctx.request.body;
   await accountService.updateAccountByUserAndAccountInfo(
-    ctx.request.body.title,
+    title,
     ctx.params.accountObjId,
-    ctx.request.body.userObjIdList,
+    userObjIdList,
+    user,
   );
   ctx.status = 200;
   ctx.response.body = { success: true };

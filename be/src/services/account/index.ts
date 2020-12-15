@@ -4,7 +4,6 @@ import { MethodModel } from 'models/method';
 import { NotVaildException } from 'models/account/static';
 import { UserHasNoAccount, accountNoChange } from 'libs/error';
 import { IUserDocument, UserModel } from 'models/user';
-import { Types } from 'mongoose';
 
 export const getAccountsByUserId = async (userId: string) => {
   const res = await AccountModel.findAccountByUserId(userId);
@@ -59,25 +58,32 @@ export const CreateNewAccount = async (
 
 export const updateAccountByUserAndAccountInfo = async (
   title: any,
-  accountObjId: String,
+  accountObjId: string,
   userObjIdList: String[],
+  user: IUserDocument,
 ) => {
-  const rawUserList = userObjIdList.map(async (userObjId: String) => {
-    return UserModel.findById(userObjId);
-  });
-  const userList = await Promise.all(rawUserList);
-
-  const updateAccount = await AccountModel.findOneAndUpdate(
+  const inviteUsers = UserModel.updateMany(
+    {
+      _id: { $in: userObjIdList },
+      'invitations.accounts': { $ne: accountObjId },
+    },
+    {
+      $addToSet: {
+        invitations: {
+          host: user.nickname,
+          accounts: accountObjId,
+        },
+      },
+    },
+  );
+  const updateAccount = AccountModel.updateOne(
     { _id: accountObjId },
     {
       title,
-      users: [...userList] as Types.DocumentArray<IUserDocument>,
     },
   );
 
-  if (!updateAccount) {
-    throw accountNoChange;
-  }
+  return Promise.all([updateAccount, inviteUsers]);
 };
 
 export const deleteAccountByAccountInfo = async (accountObjId: String) => {
