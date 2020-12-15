@@ -163,6 +163,9 @@ export const TransactionStore = makeAutoObservable({
     }
     return calTotalPrices(this.getTransactions());
   },
+  get totalPricesExceptFilterAndUnclassified() {
+    return calTotalPrices(this.getTransactions());
+  },
   get filteredTransactionList(): types.TransactionDBType[] {
     if (!this.isFiltered) return [];
 
