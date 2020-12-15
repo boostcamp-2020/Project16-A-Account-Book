@@ -23,7 +23,7 @@ export const getAccountByTitleAndOwner = async (
   return account;
 };
 
-export const CreateNewAccount = async (
+export const createNewAccount = async (
   user: IUserDocument,
   title: any,
   userObjIdList: string[],
