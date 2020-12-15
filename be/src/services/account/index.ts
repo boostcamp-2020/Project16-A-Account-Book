@@ -22,6 +22,27 @@ export const getAccountByTitleAndOwner = async (
   return account;
 };
 
+const inviteUserList = (
+  host: String,
+  accountObjId: string,
+  userObjIdList: string[],
+) => {
+  return UserModel.updateMany(
+    {
+      _id: { $in: userObjIdList },
+      'invitations.accounts': { $ne: accountObjId },
+    },
+    {
+      $addToSet: {
+        invitations: {
+          host,
+          accounts: accountObjId,
+        },
+      },
+    },
+  );
+};
+
 export const CreateNewAccount = async (
   user: IUserDocument,
   title: any,
@@ -40,18 +61,10 @@ export const CreateNewAccount = async (
     users: [user],
     imageUrl: user.profileUrl,
   });
-  const inviteUsers = UserModel.updateMany(
-    {
-      _id: { $in: userObjIdList },
-    },
-    {
-      $addToSet: {
-        invitations: {
-          host: user.nickname,
-          accounts: newAccount._id,
-        },
-      },
-    },
+  const inviteUsers = inviteUserList(
+    user.nickname,
+    newAccount._id,
+    userObjIdList,
   );
   return Promise.all([newAccount.save(), inviteUsers]);
 };
@@ -59,22 +72,13 @@ export const CreateNewAccount = async (
 export const updateAccountByUserAndAccountInfo = async (
   title: any,
   accountObjId: string,
-  userObjIdList: String[],
+  userObjIdList: string[],
   user: IUserDocument,
 ) => {
-  const inviteUsers = UserModel.updateMany(
-    {
-      _id: { $in: userObjIdList },
-      'invitations.accounts': { $ne: accountObjId },
-    },
-    {
-      $addToSet: {
-        invitations: {
-          host: user.nickname,
-          accounts: accountObjId,
-        },
-      },
-    },
+  const inviteUsers = inviteUserList(
+    user.nickname,
+    accountObjId,
+    userObjIdList,
   );
   const updateAccount = AccountModel.updateOne(
     { _id: accountObjId },
