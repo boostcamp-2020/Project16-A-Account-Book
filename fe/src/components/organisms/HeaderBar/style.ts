@@ -17,6 +17,17 @@ export const HeaderBar = styled.div`
     justify-content: center;
     align-items: center;
   }
+  .btn-back {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: ${({ theme }) => theme.fontSize.xs};
+    color: ${({ theme }) => theme.color.white};
+  }
 `;
 
 export const Icon = styled(IconButton)`
