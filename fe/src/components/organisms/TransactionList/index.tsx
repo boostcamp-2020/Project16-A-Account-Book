@@ -1,4 +1,5 @@
 import React from 'react';
+import { categoryConvertBig2Small as convert } from 'stores/Category';
 import * as S from './style';
 
 export interface Props {
@@ -10,6 +11,9 @@ export interface Props {
 interface accType {
   transList: JSX.Element[];
   totalPrice: number;
+  income: number;
+  expense: number;
+  unclassified: number;
 }
 
 const TransactionList = ({ date, transactionList, onClick }: Props) => {
@@ -22,6 +26,7 @@ const TransactionList = ({ date, transactionList, onClick }: Props) => {
       />,
     );
     acc.totalPrice += transEl.price;
+    acc[convert(transEl.categoryType)] = transEl.price;
     return acc;
   };
 
@@ -30,6 +35,9 @@ const TransactionList = ({ date, transactionList, onClick }: Props) => {
     {
       transList: [],
       totalPrice: 0,
+      income: 0,
+      expense: 0,
+      unclassified: 0,
     },
   );
 

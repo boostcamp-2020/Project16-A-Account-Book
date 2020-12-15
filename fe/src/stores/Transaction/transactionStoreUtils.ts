@@ -48,6 +48,7 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
         id: _id,
         category: category.title,
         method: method.title,
+        categoryType: category.type,
       },
     ];
   }, []);
