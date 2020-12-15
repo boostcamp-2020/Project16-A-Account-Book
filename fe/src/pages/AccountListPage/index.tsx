@@ -7,8 +7,8 @@ import { AccountStore } from 'stores/Account';
 import Account from 'components/organisms/Account';
 import { useHistory } from 'react-router-dom';
 import AccountSvg from 'assets/svg/account.svg';
-import axios from 'apis/axios';
-import url from 'apis/urls';
+import userApi from 'apis/user';
+
 import * as S from './styles';
 
 const onClickHandler = (
@@ -64,7 +64,7 @@ const AccountListPage = () => {
 
   if (!userId && loading === false) {
     setLoading(true);
-    axios.get(`${url.userInfo}`).then((res) => {
+    userApi.getUserInfo().then((res) => {
       sessionStorage.setItem('userObjId', (res as any)._id);
       sessionStorage.setItem(
         'userIsSundayStart',
