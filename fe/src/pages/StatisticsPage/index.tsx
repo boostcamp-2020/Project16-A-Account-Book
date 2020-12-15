@@ -7,6 +7,8 @@ import NavBarComponent from 'components/organisms/NavBar';
 import useStatistics from 'hooks/useStatistics';
 import PieChartOverview from 'components/organisms/PieChartOverview';
 import LineChartOverview from 'components/organisms/LineChartOverview';
+import { TransactionStore } from 'stores/Transaction';
+import { observer } from 'mobx-react-lite';
 
 const StatisticsPage = ({ location }: { location: any }) => {
   const statistics = useStatistics();
@@ -14,8 +16,11 @@ const StatisticsPage = ({ location }: { location: any }) => {
   const moveToStatisticDetailPage = () =>
     history.push(`${location.pathname}/detail`);
 
-  const SubHeaderBar = <MonthInfo />;
-
+  const SubHeaderBar = (
+    <MonthInfo
+      total={TransactionStore.totalPricesExceptFilterAndUnclassified}
+    />
+  );
   const Contents = (
     <>
       <PieChartOverview
@@ -36,4 +41,4 @@ const StatisticsPage = ({ location }: { location: any }) => {
   );
 };
 
-export default StatisticsPage;
+export default observer(StatisticsPage);
