@@ -48,4 +48,13 @@ export const deleteInvitation = async (ctx: Context) => {
   ctx.status = 204;
   ctx.res.end();
 };
+
+export const agreeInvitation = async (ctx: Context) => {
+  const { user } = ctx.request.body;
+  const { accountObjId } = ctx.params;
+  await userService.agreeInvitaion(user, accountObjId);
+
+  ctx.status = 204;
+  ctx.res.end();
+};
 export default titleByAccountId;

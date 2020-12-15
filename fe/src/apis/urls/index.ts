@@ -32,4 +32,6 @@ export default {
     `/api/${accountObjId}/categories/${categoryObjId}`,
 
   getUserInvitation: () => `/api/users/accounts`,
+  postAndDeleteInvitation: (accountObjId: string) =>
+    `/api/users/accounts/${accountObjId}`,
 };

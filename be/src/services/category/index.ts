@@ -146,7 +146,7 @@ export const updateCategory = async (
   });
 
   if (
-    String(exist.categories[0]._id) === objId ||
+    (exist.categories[0] && String(exist.categories[0]._id) === objId) ||
     exist.categories.length === 0
   ) {
     await CategoryModel.update(

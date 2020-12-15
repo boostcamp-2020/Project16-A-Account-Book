@@ -61,7 +61,7 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const submitHandler = async () => {
     const title = titleInputRef.current.value;
-    const userObjIdList = [...alreadyInvitedUserIdList, ...checkedUserIdList];
+    const userObjIdList = [...checkedUserIdList];
     if (isNewAccount) {
       await accountAPI.createAccount(title, userObjIdList);
     } else {

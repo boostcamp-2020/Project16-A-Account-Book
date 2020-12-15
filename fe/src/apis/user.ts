@@ -13,8 +13,14 @@ export default {
   getUserInvitation(): Promise<IInvitaion[]> {
     return axios.get(urls.getUserInvitation());
   },
+  agreeInvitation(accountObjId: string) {
+    return axios.post(urls.postAndDeleteInvitation(accountObjId));
+  },
+  denyInvitation(accountObjId: string) {
+    return axios.delete(urls.postAndDeleteInvitation(accountObjId));
+
   putUserStartOfWeek(isSundayStart: boolean) {
-    axios.put(`${urls.userInfo}`, {
+    return axios.put(`${urls.userInfo}`, {
       StartOfWeek: isSundayStart ? 'sunday' : 'monday',
     });
   },
