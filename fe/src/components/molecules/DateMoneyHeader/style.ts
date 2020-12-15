@@ -16,4 +16,21 @@ export const ReducedDate = styled(DateAtom)`
 export const DateMoneyHeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
+  .price-container {
+    display: flex;
+    align-items: center;
+    &__price {
+      display: flex;
+      align-items: center;
+      &--income {
+        color: ${({ theme }) => theme.color.selectedBlue};
+      }
+      &--expense {
+        color: ${({ theme }) => theme.color.red};
+      }
+    }
+  }
+  .price-container__price + .price-container__price {
+    margin-left: 0.5em;
+  }
 `;

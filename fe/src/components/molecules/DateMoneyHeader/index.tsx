@@ -21,7 +21,16 @@ const DateMoneyHeader = ({
   return (
     <DateMoneyHeaderStyle {...props}>
       <ReducedDate date={date} parseString="ymdz" />
-      <PriceTag value={totalPayment} bold />
+      <div className="price-container">
+        <div className="price-container__price price-container__price--income">
+          {income === 0 ? '' : `+`}
+          <PriceTag value={income} bold color="selectedBlue" />
+        </div>
+        <div className="price-container__price price-container__price--expense">
+          {expense === 0 ? '' : '-'}
+          <PriceTag value={expense} bold color="red" />
+        </div>
+      </div>
     </DateMoneyHeaderStyle>
   );
 };
