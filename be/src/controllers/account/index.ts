@@ -15,10 +15,8 @@ export const get = async (ctx: Koa.Context) => {
 };
 
 export const postAccount = async (ctx: Koa.Context) => {
-  await accountService.addAccountByUserAndAccountInfo(
-    ctx.request.body.user,
-    ctx.request.body.title,
-  );
+  const { user, title, userObjIdList } = ctx.request.body;
+  await accountService.CreateNewAccount(user, title, userObjIdList);
   ctx.status = 201;
   ctx.response.body = { success: true };
 };
