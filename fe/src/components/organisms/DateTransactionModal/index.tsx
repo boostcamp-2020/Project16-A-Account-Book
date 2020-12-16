@@ -38,7 +38,7 @@ const DateTransactionModal = ({
         ref={refs}
         {...props}
       />
-      <S.Content ref={contentRef}>
+      <S.Content ref={contentRef} className="visible">
         <TransactionList
           date={TransactionStore.modalClickDate}
           transactionList={TransactionStore.clickedModalTransactionList}
