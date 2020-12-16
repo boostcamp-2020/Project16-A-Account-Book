@@ -118,4 +118,18 @@ export const addUserInAccount = async (
   return { success: false, message: result };
 };
 
+export const deleteUserInAccount = async (
+  accountObjId: string,
+  userObjId: string,
+) => {
+  const result = await AccountModel.findOneAndDeleteUser(
+    accountObjId,
+    userObjId,
+  );
+  if (!result) {
+    return { success: false, message: '삭제 실패' };
+  }
+  return { success: true, message: '삭제 성공' };
+};
+
 export default {};
