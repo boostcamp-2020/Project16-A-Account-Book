@@ -1,7 +1,10 @@
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
+import utc from 'dayjs/plugin/utc';
 
+dayjs.extend(utc);
 dayjs.locale('ko');
+
 export default {
   dateFormatter: (date: Date): string => dayjs(date).format('YYYY-MM-DD'),
   dateCustomFormatter: (date: Date | string | number, format: string): string =>
@@ -10,16 +13,12 @@ export default {
     const nowMaxDate = new Date(date.getFullYear(), date.getMonth() + 1, -1);
     return nowMaxDate.getDate() + 1;
   },
-  getOneMonthRange: (year: string, month: string) => {
-    if (month === '12') {
-      return {
-        startDate: new Date(`${year}-${month}-1`),
-        endDate: new Date(`${Number(year) + 1}-${1}`),
-      };
-    }
+  getOneMonthRange: () => {
+    const now = dayjs().set('date', 1);
+    const endDate = now.add(1, 'month');
     return {
-      startDate: new Date(`${year}-${month}-1`),
-      endDate: new Date(`${year}-${Number(month) + 1}`),
+      startDate: now.toDate(),
+      endDate: endDate.toDate(),
     };
   },
   getNextDate: (date: Date | string) =>

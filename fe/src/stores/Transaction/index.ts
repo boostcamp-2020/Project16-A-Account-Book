@@ -31,10 +31,7 @@ export interface ITransactionStore {
   modalDate: Date;
 }
 
-const oneMonthDate = date.getOneMonthRange(
-  String(new Date().getFullYear()),
-  String(new Date().getMonth() + 1),
-);
+const oneMonthDate = date.getOneMonthRange();
 
 const initialState: ITransactionStore = {
   transactions: {},

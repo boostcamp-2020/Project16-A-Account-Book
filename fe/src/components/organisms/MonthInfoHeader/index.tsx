@@ -3,8 +3,8 @@ import TotalBox from 'components/molecules/TotalBox';
 import { Link, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
-import dateUtils from 'utils/date';
 import DateRange from 'components/molecules/DateRange';
+import dayjs from 'dayjs';
 import * as S from './style';
 
 interface MonthInfoHeaderInterface {
@@ -23,9 +23,9 @@ type Params = {
 const MonthInfoHeader = ({
   date = {
     startDate: TransactionStore.getOriginDates().startDate,
-    endDate: new Date(
-      dateUtils.subTractDate(TransactionStore.getDates().endDate),
-    ),
+    endDate: dayjs(TransactionStore.getDates().endDate)
+      .subtract(1, 'date')
+      .toDate(),
   },
   total = TransactionStore.totalPrices,
 }: MonthInfoHeaderInterface) => {
