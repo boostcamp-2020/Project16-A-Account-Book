@@ -41,12 +41,12 @@ const TransactionInputField = ({
 }: Props): React.ReactElement => {
   const methods = MethodStore.getMethods();
   const categories = CategoryStore.getCategories(classification);
-
+  const newPrice = price === 0 ? undefined : price;
   return (
     <S.Container>
       <LabelWrap htmlFor={PRICE} title="금액">
         <S.Input
-          value={price}
+          value={newPrice}
           name={PRICE}
           placeholder="금액을 입력하세요"
           onChangeHandler={formHandler}
