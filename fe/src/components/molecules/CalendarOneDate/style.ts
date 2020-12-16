@@ -31,9 +31,11 @@ export const EmptyArea = styled.div`
 `;
 
 export const IncomeText = styled.div`
+  font-size: 0.4rem;
   color: ${({ theme }) => theme.color.brandColor};
 `;
 
 export const ExpenseText = styled.div`
+  font-size: 0.4rem;
   color: ${({ theme }) => theme.color.subText};
 `;
