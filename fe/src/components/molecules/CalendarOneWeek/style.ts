@@ -34,5 +34,5 @@ export const IncomePriceTag = styled(PriceTagComponent)`
 
 export const ExpensePriceTag = styled(PriceTagComponent)`
   ${PriceTag}
-  color: ${({ theme }) => theme.color.subText};
+  color: ${({ theme }) => theme.color.red};
 `;
