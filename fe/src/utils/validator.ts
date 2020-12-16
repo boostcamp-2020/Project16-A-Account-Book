@@ -1,7 +1,11 @@
 import { State } from 'hooks/useTransactionInput';
 
 const isBlank = (value: any) => {
-  return value === null || value === undefined || value === '';
+  return (
+    value === null ||
+    value === undefined ||
+    (typeof value === 'string' && value.trim() === '')
+  );
 };
 
 const checkAllRequiredInputFilled = (form: State) => {
