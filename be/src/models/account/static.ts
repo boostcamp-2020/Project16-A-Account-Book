@@ -55,26 +55,6 @@ export async function findByPkAndPushTransaction(
   }).exec();
 }
 
-export async function findByPkAndGetTransCategory(
-  this: any,
-  accountObjId: string,
-  startDate: string,
-  endDate: string,
-) {
-  const accountInfo = await this.findById(accountObjId, 'transactions')
-    .populate({
-      path: 'transactions',
-      match: {
-        date: { $gte: startDate, $lt: endDate },
-        isDeleted: { $eq: false },
-      },
-      select: 'price category date',
-      populate: { path: 'category', select: 'type color title' },
-    })
-    .exec();
-  return accountInfo.transactions;
-}
-
 export class NotVaildException {
   message: string;
 

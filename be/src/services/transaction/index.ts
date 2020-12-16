@@ -1,7 +1,6 @@
 import { TransactionModel, ITransaction } from 'models/transaction';
 import { AccountModel } from 'models/account';
 import { getCompFuncByKey } from 'libs/utils';
-import { ITotalPrice } from 'services/category/index.type';
 
 const oneMonthTransactionsReducer = (acc: any, transaction: ITransaction) => {
   const year = transaction.date.getFullYear();
