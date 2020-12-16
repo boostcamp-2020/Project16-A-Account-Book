@@ -11,6 +11,7 @@ import {
   findAccountByUserId,
   findByPkAndPushUser,
   findDuplicateCategory,
+  findOneAndDeleteUser,
 } from './static';
 
 export interface IAccount {
@@ -55,6 +56,7 @@ export interface IAccountModel extends Model<IAccountDocument> {
     type: string,
     title: string,
   ): Promise<any>;
+  findOneAndDeleteUser(accountObjId: string, userObjId: string): Promise<any>;
 }
 
 export const AccountSchema = new Schema({
@@ -92,6 +94,7 @@ AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
 AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
 AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 AccountSchema.statics.findDuplicateCategory = findDuplicateCategory;
+AccountSchema.statics.findOneAndDeleteUser = findOneAndDeleteUser;
 
 export const AccountModel = model<IAccountDocument, IAccountModel>(
   'accounts',
