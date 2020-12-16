@@ -36,7 +36,7 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     const initialMethod = MethodStore.getMethods()[0];
     setTransaction((prevState) => ({
       ...prevState,
-      method: initialMethod._id,
+      method: initialMethod?._id,
     }));
   };
   const setInitialCategory = () => {
@@ -45,7 +45,7 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     )[0];
     setTransaction((prevState) => ({
       ...prevState,
-      category: initialCategory._id,
+      category: initialCategory?._id,
     }));
   };
 
