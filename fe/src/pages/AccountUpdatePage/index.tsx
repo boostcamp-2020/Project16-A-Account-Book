@@ -24,7 +24,7 @@ const deleteHandler = (
   if (isOwner) {
     await accountAPI.deleteAccount(accountObjId);
   } else {
-    // TODO: 해당 user만 account users목록에서 빼는 api호출
+    await accountAPI.deleteAccountUser(accountObjId);
   }
   AccountStore.loadAccounts();
   history.goBack();
@@ -61,11 +61,10 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const submitHandler = async () => {
     const title = titleInputRef.current.value;
-    const userObjIdList = [...checkedUserIdList];
     if (isNewAccount) {
-      await accountAPI.createAccount(title, userObjIdList);
+      await accountAPI.createAccount(title, checkedUserIdList);
     } else {
-      await accountAPI.updateAccount(account._id, title, userObjIdList);
+      await accountAPI.updateAccount(account._id, title, checkedUserIdList);
     }
     AccountStore.loadAccounts();
     history.goBack();
