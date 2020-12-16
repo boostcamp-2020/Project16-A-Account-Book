@@ -21,9 +21,10 @@ export const DateText = styled.div`
 `;
 
 export const PriceTextWrap = styled.div`
+  margin-top: 2em;
   font-size: 0.75rem;
   height: 50%;
-  text-align: center;
+  text-align: right;
 `;
 
 export const EmptyArea = styled.div`
