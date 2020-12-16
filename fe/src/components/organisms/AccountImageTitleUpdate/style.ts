@@ -53,4 +53,11 @@ export const TitleInput = styled(Input)`
   width: 90%;
   margin-bottom: 1em;
 `;
-export default {};
+
+export const ErrorMessage = styled.div`
+  position: absolute;
+  font-size: 0.8rem;
+  top: 1.7rem;
+  right: 2rem;
+  color: ${({ theme }) => theme.color.red};
+`;
