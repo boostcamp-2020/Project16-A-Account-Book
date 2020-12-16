@@ -9,8 +9,6 @@ import {
 
 const router = new Router();
 
-router.get('/statistics', categoryController.getStatisticsInfo);
-
 router.get('/', categoryController.get);
 router.post(
   '/',

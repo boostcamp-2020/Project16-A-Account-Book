@@ -4,7 +4,6 @@ import { IUserDocument, UserSchema } from '../user';
 
 import {
   findByPkAndPushTransaction,
-  findByPkAndGetTransCategory,
   findByTitleAndOwner,
   findAllTransactionExceptDeleted,
   findUnclassifiedCategory,
@@ -40,11 +39,6 @@ export interface IAccountModel extends Model<IAccountDocument> {
   findByPkAndPushTransaction(
     accountObjId: string,
     transactionObjId: string,
-  ): Promise<any>;
-  findByPkAndGetTransCategory(
-    accountObjId: string,
-    startDate: string,
-    endDate: string,
   ): Promise<any>;
   findByTitleAndOwner(title: string, owner: string): Promise<IAccountDocument>;
   findAllTransactionExceptDeleted(
@@ -91,7 +85,6 @@ export const AccountSchema = new Schema({
 });
 
 AccountSchema.statics.findByPkAndPushTransaction = findByPkAndPushTransaction;
-AccountSchema.statics.findByPkAndGetTransCategory = findByPkAndGetTransCategory;
 AccountSchema.statics.findByTitleAndOwner = findByTitleAndOwner;
 AccountSchema.statics.findAllTransactionExceptDeleted = findAllTransactionExceptDeleted;
 AccountSchema.statics.findAccountByUserId = findAccountByUserId;

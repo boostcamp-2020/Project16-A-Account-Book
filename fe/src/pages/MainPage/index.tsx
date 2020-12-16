@@ -28,7 +28,7 @@ const MainPage = () => {
   const Contents = (
     <>
       <FilterBar />
-      {transactions.length === 0 ? (
+      {Object.keys(transactions).length === 0 ? (
         <NoData />
       ) : (
         <TransactionDateList list={transactions} onClick={onClickHandler} />
