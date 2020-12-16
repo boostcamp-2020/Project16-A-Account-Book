@@ -1,6 +1,11 @@
 import utils from '../index';
 
 describe('금액이 주어졌을 때,', () => {
+  test('천원대 미만의 금액은 그대로 돌아온다.', () => {
+    expect(utils.summaryOfMoney(-1000)).toBe('-1000');
+    expect(utils.summaryOfMoney(0)).toBe('0');
+    expect(utils.summaryOfMoney(123)).toBe('123');
+  });
   test('천원대의 금액이 들어오면 X.X천을 반환한다.', () => {
     expect(utils.summaryOfMoney(4500)).toBe('4.5천');
   });

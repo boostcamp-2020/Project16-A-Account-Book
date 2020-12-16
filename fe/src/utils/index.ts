@@ -12,6 +12,9 @@ export default {
     return [...set];
   },
   summaryOfMoney(money: number): string {
+    if (money < 1000) {
+      return String(money);
+    }
     const NUM_OF_DECIMAL_PLACE = 1;
     const matcher = [
       [10 ** 3, '천'],
@@ -24,7 +27,8 @@ export default {
       [10 ** 10, '백억'],
       [10 ** 11, '천억'],
     ];
-    let matched;
+    let matchedDivisitonBy;
+    let matchedUnit;
 
     type matcherType = [divisionBy: number | any, unit: string];
     // eslint-disable-next-line no-restricted-syntax
@@ -33,9 +37,9 @@ export default {
       if (Math.floor(money / divisionBy) === 0) {
         break;
       }
-      matched = [divisionBy, unit];
+      matchedDivisitonBy = divisionBy;
+      matchedUnit = unit;
     }
-    const [matchedDivisitonBy, matchedUnit] = matched;
     return `${Number.parseFloat(`${money / matchedDivisitonBy}`).toFixed(
       NUM_OF_DECIMAL_PLACE,
     )}${matchedUnit}`;
