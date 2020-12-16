@@ -18,15 +18,16 @@ const CalenderPage = () => {
   const [isSundayStart, setIsSundayStart] = useState<boolean>(
     sessionStorage.getItem('userIsSundayStart') === 'true',
   );
-  let loaded = false;
+  useEffect(() => {
+    TransactionStore.loadTransactions();
+  }, []);
 
   useEffect(() => {
-    if (!loaded) {
-      TransactionStore.loadTransactions();
-      loaded = true;
-    }
     axios.putUserStartOfWeek(isSundayStart);
     sessionStorage.setItem('userIsSundayStart', String(isSundayStart));
+  }, [isSundayStart]);
+
+  useEffect(() => {
     if (dateModal.current) {
       if (TransactionStore.isCalendarModalOpen) {
         dateModal.current.classList.add('visible');
@@ -34,9 +35,13 @@ const CalenderPage = () => {
         dateModal.current.classList.remove('visible');
       }
     }
-  }, [isSundayStart, TransactionStore.isCalendarModalOpen]);
+  }, [TransactionStore.isCalendarModalOpen]);
 
-  const SubHeaderBar = <MonthInfo />;
+  const SubHeaderBar = (
+    <MonthInfo
+      total={TransactionStore.totalPricesExceptFilterAndUnclassified}
+    />
+  );
   const selectedDate = {
     startDate: toJS(TransactionStore.dates.startDate),
     endDate: toJS(TransactionStore.dates.endDate),
