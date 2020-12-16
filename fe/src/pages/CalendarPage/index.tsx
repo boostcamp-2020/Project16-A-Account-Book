@@ -20,9 +20,6 @@ const CalenderPage = () => {
   );
   useEffect(() => {
     TransactionStore.loadTransactions();
-    if (dateModal.current) {
-      dateModal.current.classList.add('visible');
-    }
   }, []);
 
   useEffect(() => {
@@ -32,7 +29,11 @@ const CalenderPage = () => {
 
   useEffect(() => {
     if (dateModal.current) {
-      dateModal.current.classList.toggle('visible');
+      if (TransactionStore.isCalendarModalOpen) {
+        dateModal.current.classList.add('visible');
+      } else {
+        dateModal.current.classList.remove('visible');
+      }
     }
   }, [TransactionStore.isCalendarModalOpen]);
 
