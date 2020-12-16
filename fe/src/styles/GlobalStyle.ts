@@ -20,6 +20,13 @@ const GlobalStyle = createGlobalStyle`
       font-family :  Bmeuljiro,sans-serif !important;
     }
     box-sizing: border-box;
+      font-size: 12px;
+    @media only screen and (min-width : 768px){
+      font-size: 14px;
+    }
+    @media only screen and (min-width : 1024px){
+      font-size: 16px;
+    }
   }
 
   menu, ol, ul {
