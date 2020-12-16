@@ -20,6 +20,9 @@ const CalenderPage = () => {
   );
   useEffect(() => {
     TransactionStore.loadTransactions();
+    if (dateModal.current) {
+      dateModal.current.classList.add('visible');
+    }
   }, []);
 
   useEffect(() => {
