@@ -220,7 +220,6 @@ function CategoryPage(): React.ReactElement {
   return (
     <CategoryTemplate
       headerContent={<Header />}
-      title="카테고리 설정"
       bodyContent={bodyContent}
       NavBar={<NavBarComponent />}
     />
