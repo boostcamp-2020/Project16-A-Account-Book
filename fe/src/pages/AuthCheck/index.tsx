@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
-import axios from 'apis/axios';
-import url from 'apis/urls';
+import React from 'react';
+import userApi from 'apis/user';
 
 const AuthCheck = () => {
-  useEffect(() => {});
   if (!sessionStorage.getItem('userObjId')) {
-    axios.get(`${url.userInfo}`).then((res) => {
+    userApi.getUserInfo().then((res) => {
       sessionStorage.setItem('userObjId', (res as any)._id);
       sessionStorage.setItem(
         'userIsSundayStart',

@@ -43,7 +43,7 @@ const inviteUserList = (
   );
 };
 
-export const CreateNewAccount = async (
+export const createNewAccount = async (
   user: IUserDocument,
   title: any,
   userObjIdList: string[],

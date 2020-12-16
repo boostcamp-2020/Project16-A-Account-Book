@@ -13,6 +13,9 @@ export default {
   getUserInvitation(): Promise<IInvitaion[]> {
     return axios.get(urls.getUserInvitation());
   },
+  getUserInfo(): Promise<IUser> {
+    return axios.get(`${urls.userInfo}`);
+  },
   agreeInvitation(accountObjId: string) {
     return axios.post(urls.postAndDeleteInvitation(accountObjId));
   },
