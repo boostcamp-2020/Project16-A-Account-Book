@@ -134,7 +134,7 @@ export async function findMethodByTitle(
     .populate({
       path: 'methods',
       match: { title: methodTitle },
-      select: 'title',
+      select: '_id',
     })
     .exec();
 

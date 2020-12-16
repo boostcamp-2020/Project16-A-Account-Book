@@ -1,6 +1,5 @@
 import { MethodModel } from 'models/method';
 import { TransactionModel } from 'models/transaction';
-import { CategoryModel } from 'models/category';
 import { AccountModel } from 'models/account';
 
 export interface ParsedSMS {
@@ -18,20 +17,24 @@ export const postMms = async (
   mmsObj: ParsedSMS,
   client: string,
 ) => {
-  const account = await AccountModel.findById(accountObjId);
-  if (!account) {
-    return { success: false, message: '존재하지 않는 가계부입니다' };
-  }
-  let method = await MethodModel.findOne({ title: mmsObj.cardname });
-  if (!method) {
-    method = await MethodModel.create({ title: mmsObj.cardname });
-  }
-  const category = await CategoryModel.findOne({ title: '미분류' });
-  if (category != null) {
+  let method = await AccountModel.findMethodByTitle(
+    accountObjId,
+    mmsObj.cardname,
+  );
+  if (!method[0]) {
+    method = await MethodModel.create({
+      title: mmsObj.cardname,
+    });
+    await AccountModel.findByPkAndPushMethod(accountObjId, method._id);
+  } else [method] = method;
+  const unclassifiedId = await AccountModel.findUnclassifiedCategory(
+    accountObjId,
+  );
+  if (unclassifiedId != null) {
     const newTransaction = await TransactionModel.create({
       client,
       method: method._id,
-      category: category._id,
+      category: unclassifiedId,
       date: new Date(`${mmsObj.date} ${mmsObj.time}`),
       price: mmsObj.amount,
       memo: '문자로 추가',
