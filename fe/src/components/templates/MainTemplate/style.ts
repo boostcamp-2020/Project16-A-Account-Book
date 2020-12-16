@@ -21,7 +21,7 @@ export const ContentArea = styled.div`
   height: calc(100vh - 3rem - 4rem - 2px);
   padding: 0.5em 1em;
   left: 0;
-  .content-wapper {
+  .content-warpper {
     width: 100%;
     margin: 0 auto;
     @media only screen and (min-width: 768px) {

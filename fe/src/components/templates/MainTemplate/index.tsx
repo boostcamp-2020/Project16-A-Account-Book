@@ -19,7 +19,7 @@ const MainTemplate = ({
     <S.Container {...props}>
       <S.Header>{HeaderBar}</S.Header>
       <S.ContentArea>
-        <div className="content-wapper">
+        <div className="content-warpper">
           {SubHeaderBar}
           <S.Content>{Contents}</S.Content>
         </div>
