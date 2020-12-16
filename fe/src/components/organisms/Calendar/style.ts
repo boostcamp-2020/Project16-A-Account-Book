@@ -5,7 +5,7 @@ import CalendarDayBar from 'components/molecules/CalendarDayBar';
 
 export const CenterMonth = styled.div`
   font-size: 6rem;
-  color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.1);
   width: 20rem;
   height: 4rem;
   position: absolute;
@@ -25,7 +25,7 @@ export const Calendar = styled.div`
   :hover {
     border: 2px solid ${({ theme }) => theme.color.lightBorder};
     ${CenterMonth} {
-      color: ${({ theme }) => theme.color.brandColor};
+      color: ${({ theme }) => theme.color.transparentBrandColor};
     }
   }
 `;
