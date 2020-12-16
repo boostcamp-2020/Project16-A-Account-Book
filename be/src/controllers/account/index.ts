@@ -55,7 +55,6 @@ export const deleteAccountUser = async (ctx: Koa.Context) => {
   const { accountObjId } = ctx.params;
   const { _id: userObjId } = ctx.request.body.user;
   await accountService.deleteUserInAccount(accountObjId, userObjId);
-  console.log('acc');
   ctx.status = 200;
   ctx.body = { message: 'success' };
 };
