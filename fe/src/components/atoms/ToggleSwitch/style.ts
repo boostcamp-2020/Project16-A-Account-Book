@@ -13,6 +13,9 @@ export const ToggleSwitch = styled.button`
   :focus {
     outline: none;
   }
+  :hover {
+    cursor: pointer;
+  }
   .circle {
     position: absolute;
     top: 0px;
