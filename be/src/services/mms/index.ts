@@ -18,6 +18,10 @@ export const postMms = async (
   mmsObj: ParsedSMS,
   client: string,
 ) => {
+  const account = await AccountModel.findById(accountObjId);
+  if (!account) {
+    return { success: false, message: '존재하지 않는 가계부입니다' };
+  }
   let method = await MethodModel.findOne({ title: mmsObj.cardname });
   if (!method) {
     method = await MethodModel.create({ title: mmsObj.cardname });
