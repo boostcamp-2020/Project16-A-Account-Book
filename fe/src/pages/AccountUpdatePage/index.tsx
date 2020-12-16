@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import AccountTitleImageUpdate from 'components/organisms/AccountImageTitleUpdate';
@@ -40,6 +40,7 @@ const AccountUpdatePage = ({ location }: Props) => {
   const isOwner =
     sessionStorage.getItem('userObjId') === alreadyInvitedUserIdList[0];
   const titleInputRef = useRef<any>('');
+  const [titleErrorMessage, setTitleErrorMessage] = useState<string>('');
   useEffect(() => {
     titleInputRef.current.value = account.title;
   }, []);
@@ -61,6 +62,14 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const submitHandler = async () => {
     const title = titleInputRef.current.value;
+    if (title.length < 2) {
+      setTitleErrorMessage('2자리 이상 입력하세요.');
+      return;
+    }
+    if (title.length > 20) {
+      setTitleErrorMessage('20자리 이하로 입력하세요');
+      return;
+    }
     if (isNewAccount) {
       await accountAPI.createAccount(title, checkedUserIdList);
     } else {
@@ -72,7 +81,11 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const Contents = (
     <>
-      <AccountTitleImageUpdate account={account} inputRef={titleInputRef} />
+      <AccountTitleImageUpdate
+        account={account}
+        errorMessage={titleErrorMessage}
+        inputRef={titleInputRef}
+      />
       <InviteUser
         dataList={userList}
         onClick={onSelectUser}
