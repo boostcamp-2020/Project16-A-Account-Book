@@ -12,8 +12,19 @@ export const DecsContainer = styled.div`
     display: flex;
     justify-content: center;
   }
+  .my-react-picker {
+    text-align: center;
+  }
+
+  & > div {
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 export const Small = styled.small`
   font-size: 0.8rem;
+  text-align: center;
   color: ${({ theme }) => theme.color.subText};
 `;
