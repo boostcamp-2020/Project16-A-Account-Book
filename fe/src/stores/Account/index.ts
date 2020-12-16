@@ -6,7 +6,7 @@ const state = {
   DONE: 'DONE',
   ERROR: 'ERROR',
 };
-type accountItem = {
+export type accountItem = {
   _id: string;
   title: string;
   ownerName: string;
