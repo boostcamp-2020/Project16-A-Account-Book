@@ -23,10 +23,10 @@ export const getAccountByTitleAndOwner = async (
   return account;
 };
 
-export const addAccountByUserAndAccountInfo = async (
+export const createNewAccount = async (
   user: IUserDocument,
   title: any,
-  userObjIdList: String[],
+  userObjIdList: string[],
 ) => {
   const [categories, methods] = await Promise.all([
     CategoryModel.createDefaultCategory(),
@@ -41,19 +41,20 @@ export const addAccountByUserAndAccountInfo = async (
     users: [user],
     imageUrl: user.profileUrl,
   });
-  return Promise.all([
-    newAccount.save(),
-    UserModel.updateMany(
-      {
-        _id: { $in: userObjIdList },
-      },
-      {
-        $addToSet: {
-          invitations: { host: user.nickname, accounts: newAccount._id },
+  const inviteUsers = UserModel.updateMany(
+    {
+      _id: { $in: userObjIdList },
+    },
+    {
+      $addToSet: {
+        invitations: {
+          host: user.nickname,
+          accounts: newAccount._id,
         },
       },
-    ),
-  ]);
+    },
+  );
+  return Promise.all([newAccount.save(), inviteUsers]);
 };
 
 export const updateAccountByUserAndAccountInfo = async (
