@@ -10,7 +10,7 @@ import AccountSubmitButtonList from 'components/organisms/AccountSubmitButtonLis
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import accountAPI from 'apis/account';
-import { AccountStore } from 'stores/Account';
+import { AccountStore, accountItem } from 'stores/Account';
 
 interface Props {
   location?: any;
@@ -28,6 +28,25 @@ const deleteHandler = (
   }
   AccountStore.loadAccounts();
   history.goBack();
+};
+
+const accountTitleVerify = (title: string, originTitle: string) => {
+  if (title.length < 2) {
+    return '2자리 이상 입력하세요';
+  }
+  if (title.length > 20) {
+    return '20자리 이하로 입력하세요';
+  }
+  const notDuplicated = AccountStore.getAccountList().every(
+    (account: accountItem) => {
+      if (originTitle === account.title) return true;
+      return account.title !== title;
+    },
+  );
+  if (!notDuplicated) {
+    return '중복된 가계부 이름 입니다.';
+  }
+  return '';
 };
 
 const AccountUpdatePage = ({ location }: Props) => {
@@ -62,12 +81,10 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const submitHandler = async () => {
     const title = titleInputRef.current.value;
-    if (title.length < 2) {
-      setTitleErrorMessage('2자리 이상 입력하세요.');
-      return;
-    }
-    if (title.length > 20) {
-      setTitleErrorMessage('20자리 이하로 입력하세요');
+
+    const verifyResult = accountTitleVerify(title, account.title);
+    if (verifyResult !== '') {
+      setTitleErrorMessage(verifyResult);
       return;
     }
     if (isNewAccount) {
