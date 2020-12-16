@@ -1,6 +1,8 @@
+import { invalidAccessError } from 'libs/error';
 import { categoryType } from 'models/category';
+import { Types } from 'mongoose';
 import { AccountModel, IAccountModel } from '.';
-import { UserModel } from '../user';
+import { IUserDocument, UserModel } from '../user';
 
 export async function findAllTransactionExceptDeleted(
   this: any,
@@ -118,4 +120,22 @@ export async function findDuplicateCategory(
     match: { type, title },
     select: '_id',
   });
+}
+
+export async function findOneAndDeleteUser(
+  this: IAccountModel,
+  accountObjId: string,
+  userObjId: string,
+) {
+  const account = await AccountModel.findById(accountObjId);
+  if (!account) throw invalidAccessError;
+  const newUsers = account.users.filter(
+    (user: IUserDocument) => String(user._id) !== String(userObjId),
+  );
+  return AccountModel.update(
+    {
+      _id: accountObjId,
+    },
+    { $set: { users: newUsers as Types.DocumentArray<IUserDocument> } },
+  );
 }
