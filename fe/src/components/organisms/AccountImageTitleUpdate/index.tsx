@@ -5,9 +5,15 @@ import * as S from './style';
 export interface Props {
   account: any;
   inputRef?: any;
+  errorMessage?: string;
 }
 
-const AccountImageTitleUpdate = ({ account, inputRef, ...props }: Props) => {
+const AccountImageTitleUpdate = ({
+  account,
+  inputRef,
+  errorMessage,
+  ...props
+}: Props) => {
   const text = '가계부 이름';
   return (
     <S.AccountImageTitleUpdate {...props}>
@@ -19,7 +25,9 @@ const AccountImageTitleUpdate = ({ account, inputRef, ...props }: Props) => {
         <S.TitleInput
           placeholder="가계부 제목을 입력하세요"
           inputRef={inputRef}
+          type="text"
         />
+        <S.ErrorMessage>{errorMessage}</S.ErrorMessage>
       </div>
     </S.AccountImageTitleUpdate>
   );
