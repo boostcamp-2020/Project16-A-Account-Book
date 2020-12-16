@@ -1,5 +1,6 @@
 import React from 'react';
 import doubleArrowIcon from 'assets/svg/doubleArrow.svg';
+import PriceWithSign from 'components/molecules/PriceWithSign';
 import * as S from './style';
 
 export interface Props {
@@ -9,6 +10,8 @@ export interface Props {
 
 const Transaction = ({ trans, onClick }: Props) => {
   const classificationString = `${trans.category} | ${trans.method}`;
+  const type = trans.categoryType;
+
   return (
     <S.TransactionStyle onClick={() => onClick(trans.id)}>
       <S.TransactionIcon icon={trans.icon || doubleArrowIcon} size="sm" />
@@ -17,7 +20,7 @@ const Transaction = ({ trans, onClick }: Props) => {
           <S.Client>{trans.client}</S.Client>
           <S.Classification>{classificationString}</S.Classification>
         </S.PaymentInfo>
-        <S.Price value={trans.price} />
+        <PriceWithSign price={trans.price} type={type} />
       </S.Text>
     </S.TransactionStyle>
   );

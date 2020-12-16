@@ -1,7 +1,7 @@
 import React from 'react';
 import PriceContainer from './style';
 
-interface Props {
+export interface Props {
   value: number;
   bold?: boolean;
   size?: string;
@@ -17,7 +17,7 @@ const PriceTag: React.FC<Props> = ({
 }): React.ReactElement => {
   return (
     <PriceContainer bold={bold} size={size} color={color} {...props}>
-      {`${value.toLocaleString()}원`}
+      {value === 0 ? '' : `${value.toLocaleString()}원`}
     </PriceContainer>
   );
 };

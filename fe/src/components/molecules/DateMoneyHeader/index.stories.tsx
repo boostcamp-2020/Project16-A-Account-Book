@@ -11,10 +11,18 @@ export default {
 export const DateMoneyHeaderSample = () => {
   const date = new Date();
   const value = 1000000;
-
+  const income = 400000;
+  const expense = 560000;
+  const unclassified = 0;
   return (
     <ThemeProvider theme={theme}>
-      <DateMoneyHeader totalPayment={value} date={date} />
+      <DateMoneyHeader
+        totalPayment={value}
+        date={date}
+        income={income}
+        expense={expense}
+        unclassified={unclassified}
+      />
     </ThemeProvider>
   );
 };

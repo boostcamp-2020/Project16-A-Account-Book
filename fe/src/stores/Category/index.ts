@@ -57,7 +57,7 @@ const categoryConverter = (input: string): string => {
       return categoryType.UNCLASSIFIED;
   }
 };
-export const categoryConvertBig2Small = (input: string): string => {
+export const categoryConvertBig2Small = (input: string) => {
   switch (input) {
     case categoryType.EXPENSE:
     case 'expense':

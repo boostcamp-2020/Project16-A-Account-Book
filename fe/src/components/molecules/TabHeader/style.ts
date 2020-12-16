@@ -16,6 +16,14 @@ export const TabButton = styled(Input)<TabButtonProps>`
     border-left: 1px solid ${({ theme }) => theme.color.subText};
   }
   text-align: center;
+  :focus {
+    outline: none;
+  }
+  :hover {
+    cursor: pointer;
+  }
+  color: transparent;
+  text-shadow: 0 0 0 ${(props) => props.color};
 `;
 
 export const TabUI = styled.div`

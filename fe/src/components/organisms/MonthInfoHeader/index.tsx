@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import dateUtils from 'utils/date';
 import DateRange from 'components/molecules/DateRange';
-import { MonthInfoHeaderContainer, MonthButton } from './style';
+import * as S from './style';
 
 interface MonthInfoHeaderInterface {
   date?: any;
@@ -32,18 +32,16 @@ const MonthInfoHeader = ({
   const { title, owner } = useParams<Params>();
   const baseUrl = `/transactions/${owner}/${title}`;
   return (
-    <MonthInfoHeaderContainer>
+    <S.MonthInfoHeaderContainer>
       <DateRange dates={date} disabled />
       <div>
         <TotalBox title="수입" total={total.income} />
         <TotalBox title="지출" total={total.expense} />
       </div>
       <Link to={`${baseUrl}/chatting`}>
-        <MonthButton onClick={() => {}} size="md">
-          채팅
-        </MonthButton>
+        <S.MonthButton onClick={() => {}}>채팅</S.MonthButton>
       </Link>
-    </MonthInfoHeaderContainer>
+    </S.MonthInfoHeaderContainer>
   );
 };
 

@@ -13,15 +13,12 @@ import dateUtil from 'utils/date';
 export const initTotalPrice = {
   income: 0,
   expense: 0,
+  unclassified: 0,
 };
 
 export const sumAllPricesByType = (transactions: TransactionDBType[]) => {
   return transactions.reduce((summedPriceByType, transaction) => {
-    if (transaction.category.type === categoryType.UNCLASSIFIED) {
-      return summedPriceByType;
-    }
-    const type =
-      transaction.category.type === categoryType.INCOME ? 'income' : 'expense';
+    const type = categoryConvertBig2Small(transaction.category.type);
     return {
       ...summedPriceByType,
       [type]: summedPriceByType[type] + transaction.price,
@@ -57,6 +54,7 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
         id: _id,
         category: category.title,
         method: method.title,
+        categoryType: category.type,
       },
     ];
   }, []);
@@ -64,11 +62,12 @@ export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
 
 export const calTotalPrices = (list: IDateTransactionObj) => {
   return Object.values<TransactionDBType[]>(list).reduce(
-    (acc: { income: number; expense: number }, transactions) => {
+    (acc, transactions) => {
       const summedPrices = sumAllPricesByType(transactions);
       return {
         income: acc.income + summedPrices.income,
         expense: acc.expense + summedPrices.expense,
+        unclassified: acc.unclassified + summedPrices.unclassified,
       };
     },
     initTotalPrice,

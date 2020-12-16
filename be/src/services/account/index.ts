@@ -4,7 +4,6 @@ import { MethodModel } from 'models/method';
 import { NotVaildException } from 'models/account/static';
 import { UserHasNoAccount, accountNoChange } from 'libs/error';
 import { IUserDocument, UserModel } from 'models/user';
-import { Types } from 'mongoose';
 
 export const getAccountsByUserId = async (userId: string) => {
   const res = await AccountModel.findAccountByUserId(userId);
@@ -23,10 +22,31 @@ export const getAccountByTitleAndOwner = async (
   return account;
 };
 
-export const addAccountByUserAndAccountInfo = async (
+const inviteUserList = (
+  host: String,
+  accountObjId: string,
+  userObjIdList: string[],
+) => {
+  return UserModel.updateMany(
+    {
+      _id: { $in: userObjIdList },
+      'invitations.accounts': { $ne: accountObjId },
+    },
+    {
+      $addToSet: {
+        invitations: {
+          host,
+          accounts: accountObjId,
+        },
+      },
+    },
+  );
+};
+
+export const createNewAccount = async (
   user: IUserDocument,
   title: any,
-  userObjIdList: String[],
+  userObjIdList: string[],
 ) => {
   const [categories, methods] = await Promise.all([
     CategoryModel.createDefaultCategory(),
@@ -41,42 +61,33 @@ export const addAccountByUserAndAccountInfo = async (
     users: [user],
     imageUrl: user.profileUrl,
   });
-  return Promise.all([
-    newAccount.save(),
-    UserModel.updateMany(
-      {
-        _id: { $in: userObjIdList },
-      },
-      {
-        $addToSet: {
-          invitations: { host: user.nickname, accounts: newAccount._id },
-        },
-      },
-    ),
-  ]);
+  const inviteUsers = inviteUserList(
+    user.nickname,
+    newAccount._id,
+    userObjIdList,
+  );
+  return Promise.all([newAccount.save(), inviteUsers]);
 };
 
 export const updateAccountByUserAndAccountInfo = async (
   title: any,
-  accountObjId: String,
-  userObjIdList: String[],
+  accountObjId: string,
+  userObjIdList: string[],
+  user: IUserDocument,
 ) => {
-  const rawUserList = userObjIdList.map(async (userObjId: String) => {
-    return UserModel.findById(userObjId);
-  });
-  const userList = await Promise.all(rawUserList);
-
-  const updateAccount = await AccountModel.findOneAndUpdate(
+  const inviteUsers = inviteUserList(
+    user.nickname,
+    accountObjId,
+    userObjIdList,
+  );
+  const updateAccount = AccountModel.updateOne(
     { _id: accountObjId },
     {
       title,
-      users: [...userList] as Types.DocumentArray<IUserDocument>,
     },
   );
 
-  if (!updateAccount) {
-    throw accountNoChange;
-  }
+  return Promise.all([updateAccount, inviteUsers]);
 };
 
 export const deleteAccountByAccountInfo = async (accountObjId: String) => {
