@@ -26,7 +26,7 @@ const TransactionList = ({ date, transactionList, onClick }: Props) => {
       />,
     );
     acc.totalPrice += transEl.price;
-    acc[convert(transEl.categoryType)] = transEl.price;
+    acc[convert(transEl.categoryType)] += transEl.price;
     return acc;
   };
 
