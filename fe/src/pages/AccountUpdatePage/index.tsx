@@ -87,10 +87,26 @@ const AccountUpdatePage = ({ location }: Props) => {
       setTitleErrorMessage(verifyResult);
       return;
     }
+    let serverMessage = '';
     if (isNewAccount) {
-      await accountAPI.createAccount(title, checkedUserIdList);
+      const result = await accountAPI.createAccount(title, checkedUserIdList);
+      if (result.data && 'error' in result.data) {
+        serverMessage = result.data.error;
+      }
     } else {
-      await accountAPI.updateAccount(account._id, title, checkedUserIdList);
+      const result = await accountAPI.updateAccount(
+        account._id,
+        title,
+        checkedUserIdList,
+      );
+      if (result.data && 'error' in result.data) {
+        serverMessage = result.data.error;
+      }
+    }
+    if (serverMessage !== '') {
+      setTitleErrorMessage(serverMessage);
+      AccountStore.loadAccounts();
+      return;
     }
     AccountStore.loadAccounts();
     history.goBack();
