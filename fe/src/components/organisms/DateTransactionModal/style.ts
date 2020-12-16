@@ -4,11 +4,16 @@ export const Content = styled.div`
   display: flex;
   justify-content: center;
   position: fixed;
-  border-radius: 1.5rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
   width: 90%;
   height: 30%;
   bottom: -30%;
   z-index: 15;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   transition: all 1s ease 0s;
   & > div {
     width: 80%;
