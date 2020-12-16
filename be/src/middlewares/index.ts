@@ -9,6 +9,7 @@ import {
   updateUnclassifiedMethod,
   invaildMethod,
   invaildTitleLengthTitle,
+  duplicatedValue,
 } from 'libs/error';
 import { UserModel } from 'models/user';
 import { CategoryModel, categoryType } from 'models/category';
@@ -99,5 +100,17 @@ export const isVaildLengthTitle = async (
   if (trimedTitle.length <= 0 || trimedTitle.length > 20)
     throw invaildTitleLengthTitle;
   ctx.request.body.title = trimedTitle;
+  await next();
+};
+
+export const isDuplicateAccountTitle = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { title } = ctx.request.body;
+  const findDuplicate = await AccountModel.find({ title });
+  if (findDuplicate.length !== 0) {
+    throw duplicatedValue;
+  }
   await next();
 };
