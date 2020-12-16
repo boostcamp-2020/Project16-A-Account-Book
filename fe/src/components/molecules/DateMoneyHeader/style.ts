@@ -16,4 +16,8 @@ export const ReducedDate = styled(DateAtom)`
 export const DateMoneyHeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
+  .price-container {
+    display: flex;
+    align-items: center;
+  }
 `;
