@@ -4,6 +4,9 @@ export const LabelWrap = styled.div`
   display: ${({ visible }: { visible: boolean }) =>
     visible ? 'flex' : 'none'};
   align-items: center;
+  & + & {
+    margin-top: 1rem;
+  }
 `;
 
 export const Label = styled.label`

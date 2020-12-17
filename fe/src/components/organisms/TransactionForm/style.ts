@@ -11,11 +11,7 @@ export const SubmitButton = styled(Input)`
   font-size: large;
 `;
 
-export const Form = styled.form`
-  div + div {
-    margin-top: 1rem;
-  }
-`;
+export const Form = styled.form``;
 
 export const IconButton = styled(IconBtn)`
   flex: 1 1 30%;
