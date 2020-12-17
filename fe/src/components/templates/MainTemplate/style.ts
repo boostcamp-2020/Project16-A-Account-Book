@@ -18,7 +18,7 @@ export const ContentArea = styled.div`
   position: absolute;
   width: 100%;
   top: 3rem;
-  height: calc(100vh - 3rem - 4rem - 2px);
+  height: calc(100% - 3rem - 4rem - 2px);
   padding: 0.5em 1em;
   left: 0;
   .content-warpper {
