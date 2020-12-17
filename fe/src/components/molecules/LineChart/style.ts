@@ -1,16 +1,19 @@
 import styled, { keyframes } from 'styled-components';
+import mathUtils from 'utils/math';
 
 export interface IPolyline {
-  sd: any;
+  points: string;
 }
-const polylineAnimation = (sd: any) => keyframes`
+const polylineAnimation = (length: number) => keyframes`
       from {
-        stroke-dasharray: 0 251; 
+        stroke-dasharray: 0 ${length}; 
       }
       to {
-        stroke-dasharray: ${sd} 251; 
+        stroke-dasharray: ${length} 0; 
       }
 `;
 export const Polyline = styled.polyline<IPolyline>`
-  animation: ${({ sd }) => polylineAnimation(sd)} 1s ease-in-out forwards;
+  animation: ${({ points }) =>
+      polylineAnimation(mathUtils.getPolyLineLength(points))}
+    1s linear forwards;
 `;
