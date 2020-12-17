@@ -9,6 +9,7 @@ const SInput = styled.input<Prop>`
   border: 1px solid;
   border-radius: 0.1rem;
   padding: 0.5% 1%;
+  font-size: 16px;
 
   background-color: ${({ disabled, theme }) =>
     disabled ? theme.color.gray : theme.color.white};
