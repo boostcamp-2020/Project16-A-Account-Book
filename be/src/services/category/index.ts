@@ -16,6 +16,11 @@ export const getCategories = async (accountObjId: string) => {
 
   return categorisedType;
 };
+const isDuplicated = (existCategory: any, objid: string) => {
+  if (existCategory.categories.length === 0) return false;
+  if (String(existCategory.categories[0]._id) === objid) return false;
+  return true;
+};
 
 export const postCategory = async (
   type: string,
@@ -28,7 +33,7 @@ export const postCategory = async (
     type,
     title,
   );
-  if (exist.categories.length !== 0) throw duplicatedValue;
+  if (isDuplicated(exist, 'new')) throw duplicatedValue;
 
   const newCategory = new CategoryModel({
     type,
@@ -54,19 +59,9 @@ export const updateCategory = async (
     type,
     title,
   );
-  if (
-    (exist.categories[0] && String(exist.categories[0]._id) === objId) ||
-    exist.categories.length === 0
-  ) {
-    await CategoryModel.update(
-      { _id: objId },
-      { $set: { type, title, color } },
-    );
-    return {
-      success: true,
-    };
-  }
-  return { success: false, error: '중복되는 카테고리가 존재합니다' };
+  if (isDuplicated(exist, objId)) throw duplicatedValue;
+
+  return CategoryModel.update({ _id: objId }, { $set: { type, title, color } });
 };
 
 export const deleteOneCategory = async (
