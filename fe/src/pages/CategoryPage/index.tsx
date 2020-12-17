@@ -143,7 +143,11 @@ function CategoryPage(): React.ReactElement {
     const exist = CategoryStore.getCategories(type).find(
       (category) => category.title === inputRef.current.value.trim(),
     );
-    if (exist && exist._id === selectedRef.current) {
+    if (
+      exist &&
+      exist._id === selectedRef.current &&
+      exist.color === colorPicker.current.value
+    ) {
       return Promise.resolve({ error: '변경사항이 없습니다!' });
     }
     if (exist) {
