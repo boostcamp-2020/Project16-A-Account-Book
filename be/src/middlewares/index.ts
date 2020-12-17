@@ -114,6 +114,9 @@ export const isDuplicateAccountTitle = async (
   if (findDuplicate.length !== 0) {
     throw duplicatedValue;
   }
+
+  await next();
+
 };
 export const isValidPrice = async (
   ctx: Koa.Context,
