@@ -23,4 +23,7 @@ export default {
   deleteAccount(accountId: string) {
     return axios.delete(url.accountUpdate(accountId));
   },
+  deleteAccountUser(accountId: string) {
+    return axios.delete(url.deleteAccountUser(accountId));
+  },
 };

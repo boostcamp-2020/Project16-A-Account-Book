@@ -25,6 +25,9 @@ export default {
   accountUpdate: (accountObjId: string) => `/api/${accountObjId}/accounts`,
   accountInfo: (owner: string, title: string) =>
     `/api/accounts/info?title=${title}&owner=${owner}`,
+  deleteAccountUser: (accountObjId: string) =>
+    `/api/${accountObjId}/accounts/user`,
+
   mms: '/api/mms',
   deleteCategory: (accountObjId: string, categoryObjId: string) =>
     `/api/${accountObjId}/categories/${categoryObjId}`,

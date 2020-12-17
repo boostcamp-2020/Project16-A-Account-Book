@@ -11,6 +11,7 @@ import {
   findAccountByUserId,
   findByPkAndPushUser,
   findDuplicateCategory,
+  findOneAndDeleteUser,
   findMethodByTitle,
   findByPkAndPushCategory,
   findByPkAndPushMethod,
@@ -58,6 +59,8 @@ export interface IAccountModel extends Model<IAccountDocument> {
     type: string,
     title: string,
   ): Promise<any>;
+  findOneAndDeleteUser(accountObjId: string, userObjId: string): Promise<any>;
+
   findMethodByTitle(accountObjId: string, methodTitle: string): Promise<any>;
   findByPkAndPushCategory(
     accountObjId: string,
@@ -104,6 +107,7 @@ AccountSchema.statics.findByPkAndPushUser = findByPkAndPushUser;
 AccountSchema.statics.findUnclassifiedCategory = findUnclassifiedCategory;
 AccountSchema.statics.findUnclassifiedMethod = findUnclassifiedMethod;
 AccountSchema.statics.findDuplicateCategory = findDuplicateCategory;
+AccountSchema.statics.findOneAndDeleteUser = findOneAndDeleteUser;
 AccountSchema.statics.findMethodByTitle = findMethodByTitle;
 AccountSchema.statics.findByPkAndPushCategory = findByPkAndPushCategory;
 AccountSchema.statics.findByPkAndPushMethod = findByPkAndPushMethod;

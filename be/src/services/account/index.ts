@@ -118,4 +118,11 @@ export const addUserInAccount = async (
   return { success: false, message: result };
 };
 
+export const deleteUserInAccount = async (
+  accountObjId: string,
+  userObjId: string,
+) => {
+  return AccountModel.findOneAndDeleteUser(accountObjId, userObjId);
+};
+
 export default {};

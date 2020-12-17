@@ -9,5 +9,6 @@ router.post('/', accountController.postAccount);
 router.put('/', accountController.putAccount);
 router.del('/', accountController.deleteAccount);
 router.post('/user', accountController.postAccountUser);
+router.delete('/user', accountController.deleteAccountUser);
 
 export default router;
