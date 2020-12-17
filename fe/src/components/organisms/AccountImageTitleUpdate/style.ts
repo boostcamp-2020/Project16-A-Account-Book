@@ -60,5 +60,11 @@ export const ErrorMessage = styled.div`
   font-size: 0.8rem;
   top: 1.5rem;
   right: 1.3rem;
+  @media only screen and (min-width: 768px) {
+    right: 2.8rem;
+  }
+  @media only screen and (min-width: 1024px) {
+    right: 4rem;
+  }
   color: ${({ theme }) => theme.color.red};
 `;
