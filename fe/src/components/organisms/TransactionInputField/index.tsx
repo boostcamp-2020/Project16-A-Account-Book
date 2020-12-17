@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-curly-newline */
 import React from 'react';
 import LabelWrap from 'components/molecules/LabelWrap';
-import 'react-datepicker/dist/react-datepicker.css';
 import { MethodStore } from 'stores/Method';
 import { CategoryStore } from 'stores/Category';
 import { observer } from 'mobx-react-lite';
