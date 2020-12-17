@@ -39,4 +39,8 @@ export const Container = styled.div`
     border: 0;
     border-bottom: 1px solid ${({ theme }) => theme.color.subText};
   }
+  option,
+  select {
+    font-family: Bmeuljiro, sans-serif !important;
+  }
 `;
