@@ -12,6 +12,7 @@ interface accProps {
   dateComponentList: JSX.Element[];
   income: number;
   expense: number;
+  unclassified: number;
 }
 
 const getDateString = (selectedDate: Date, date: number) => {
@@ -31,6 +32,7 @@ const CalendarOneDate = ({
           date={el.date}
           income={el.income}
           expense={el.expense}
+          unclassified={el.unclassified}
           onClick={() => {
             TransactionStore.setModalVisible(true);
             TransactionStore.setModalClickDate(
@@ -43,12 +45,14 @@ const CalendarOneDate = ({
         dateComponentList: [...acc.dateComponentList, newComponent],
         income: acc.income + (el.income! || 0),
         expense: acc.expense + (el.expense! || 0),
+        unclassified: acc.unclassified + (el.unclassified! || 0),
       };
     },
     {
       dateComponentList: [],
       income: 0,
       expense: 0,
+      unclassified: 0,
     },
   );
 

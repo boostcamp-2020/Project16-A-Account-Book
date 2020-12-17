@@ -60,3 +60,14 @@ export const duplicatedValue = {
   error: '중복된 입력입니다',
   success: false,
 };
+
+export const invalidPrice = {
+  status: 200,
+  error: '가격에 음수가 올 수 없습니다.',
+  success: false,
+};
+export const invalidForm = {
+  status: 200,
+  error: '폼이 다 채워지지 않았거나, 폼의 내용이 잘못되었습니다.',
+  success: false,
+};

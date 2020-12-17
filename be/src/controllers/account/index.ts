@@ -6,10 +6,6 @@ export const get = async (ctx: Koa.Context) => {
     ctx.request.body.user._id,
   );
 
-  if (!res) {
-    ctx.status = 204;
-    return;
-  }
   ctx.status = 200;
   ctx.response.body = res;
 };
@@ -55,6 +51,14 @@ export const postAccountUser = async (ctx: Koa.Context) => {
   ctx.body = { message: 'success' };
 };
 
+export const deleteAccountUser = async (ctx: Koa.Context) => {
+  const { accountObjId } = ctx.params;
+  const { _id: userObjId } = ctx.request.body.user;
+  await accountService.deleteUserInAccount(accountObjId, userObjId);
+  ctx.status = 200;
+  ctx.body = { message: 'success' };
+};
+
 export default {
   get,
   postAccount,
@@ -62,4 +66,5 @@ export default {
   deleteAccount,
   getThisAccountInfo,
   postAccountUser,
+  deleteAccountUser,
 };

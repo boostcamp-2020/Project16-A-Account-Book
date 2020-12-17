@@ -22,8 +22,10 @@ export interface Props {
   client: string;
   memo: string;
   classifications: string[];
-  formHandler: any;
   price: number;
+  category: string;
+  method: string;
+  formHandler: any;
 }
 
 const TransactionInputField = ({
@@ -34,15 +36,17 @@ const TransactionInputField = ({
   memo,
   formHandler,
   price,
+  category,
+  method,
 }: Props): React.ReactElement => {
   const methods = MethodStore.getMethods();
   const categories = CategoryStore.getCategories(classification);
-
+  const newPrice = price === 0 ? undefined : price;
   return (
     <S.Container>
       <LabelWrap htmlFor={PRICE} title="금액">
         <S.Input
-          value={price}
+          value={newPrice}
           name={PRICE}
           placeholder="금액을 입력하세요"
           onChangeHandler={formHandler}
@@ -64,9 +68,13 @@ const TransactionInputField = ({
       </LabelWrap>
       <LabelWrap htmlFor={CATEGORY} title="카테고리">
         <select name={CATEGORY} id={CATEGORY} onChange={formHandler}>
-          {categories.map((category) => (
-            <option key={category._id} value={category._id}>
-              {category.title}
+          {categories.map((categoryItem) => (
+            <option
+              key={categoryItem._id}
+              value={categoryItem._id}
+              selected={category === categoryItem._id}
+            >
+              {categoryItem.title}
             </option>
           ))}
         </select>
@@ -81,11 +89,15 @@ const TransactionInputField = ({
       </LabelWrap>
       <LabelWrap htmlFor={METHOD} title="결제수단">
         <select name={METHOD} id={METHOD} onChange={formHandler}>
-          {methods.map((method) => {
-            if (method.title === '미분류') return <></>;
+          {methods.map((methodItem) => {
+            if (methodItem.title === '미분류') return <></>;
             return (
-              <option key={method._id} value={method._id}>
-                {method.title}
+              <option
+                key={methodItem._id}
+                value={methodItem._id}
+                selected={method === methodItem._id}
+              >
+                {methodItem.title}
               </option>
             );
           })}

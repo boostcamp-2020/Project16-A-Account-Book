@@ -7,12 +7,7 @@ export interface Props {
   selectedTab: number;
 }
 
-const titles = ['지출', '수입', '결재수단'];
-const valueMap = new Map([
-  ['지출', 'EXPENSE'],
-  ['수입', 'INCOME'],
-  ['결재수단', 'METHOD'],
-]);
+const titles = ['지출', '수입', '결제수단'];
 
 const TabHeader = ({ onClickHandler, selectedTab }: Props) => {
   return (
@@ -20,10 +15,10 @@ const TabHeader = ({ onClickHandler, selectedTab }: Props) => {
       {titles.map((title, idx) => {
         return (
           <S.TabButton
-            key={valueMap.get(title)}
+            key={title}
             id={String(idx)}
-            value={valueMap.get(title)}
             type="button"
+            value={title}
             color={
               Number(selectedTab) === idx
                 ? theme.color.selectedBlue

@@ -9,18 +9,25 @@ export default {
 export const SimplePieChart = () => {
   const pieces = [
     {
-      title: '기타수입',
-      color: '#be00a5',
-      _id: '5fc79e46233d1b4e239f28df',
-      totalPrice: 1445389,
-      percent: 70,
-    },
-    {
       title: '사업수입',
       color: '#dded7e',
       _id: '5fc79e46233d1b4e239f28de',
       totalPrice: 803999,
       percent: 10,
+    },
+    {
+      title: '기타',
+      color: 'red',
+      _id: '5fc79e46233d1b48df',
+      totalPrice: 1445389,
+      percent: 80,
+    },
+    {
+      title: '기타수입',
+      color: '#be00a5',
+      _id: '5fc79e46233d1b4e239f28df',
+      totalPrice: 1445389,
+      percent: 6,
     },
   ];
   return (

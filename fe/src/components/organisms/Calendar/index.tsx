@@ -63,14 +63,21 @@ const getOneDateList = (transactions: any) =>
               income: acc2.income + els.price,
             };
           }
+          if (els.category.type === 'EXPENSE') {
+            return {
+              ...acc2,
+              expense: acc2.expense + els.price,
+            };
+          }
           return {
             ...acc2,
-            expense: acc2.expense + els.price,
+            unclassified: acc2.unclassified + els.price,
           };
         },
         {
           income: 0,
           expense: 0,
+          unclassified: 0,
         },
       );
       return {

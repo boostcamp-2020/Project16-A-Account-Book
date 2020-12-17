@@ -21,9 +21,10 @@ export const DateText = styled.div`
 `;
 
 export const PriceTextWrap = styled.div`
+  margin-top: 2em;
   font-size: 0.75rem;
   height: 50%;
-  text-align: center;
+  text-align: right;
 `;
 
 export const EmptyArea = styled.div`
@@ -31,9 +32,16 @@ export const EmptyArea = styled.div`
 `;
 
 export const IncomeText = styled.div`
+  font-size: 0.4rem;
   color: ${({ theme }) => theme.color.brandColor};
 `;
 
 export const ExpenseText = styled.div`
-  color: ${({ theme }) => theme.color.subText};
+  font-size: 0.4rem;
+  color: ${({ theme }) => theme.color.red};
+`;
+
+export const UnclassifiedText = styled.div`
+  font-size: 0.4rem;
+  color: ${({ theme }) => theme.color.black};
 `;

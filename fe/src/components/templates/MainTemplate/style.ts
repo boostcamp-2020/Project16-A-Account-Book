@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import FilterBarComponent from 'components/organisms/FilterBar';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  .main-contaner {
+    width: 100%;
+  }
+`;
 
 export const FilterBar = styled(FilterBarComponent)`
   margin-top: 0.3rem;
@@ -15,8 +19,20 @@ export const ContentArea = styled.div`
   width: 100%;
   top: 3rem;
   height: calc(100vh - 3rem - 4rem - 2px);
-  left: 0;
   padding: 0.5em 1em;
+  left: 0;
+  .content-warpper {
+    width: 100%;
+    margin: 0 auto;
+    @media only screen and (min-width: 768px) {
+      width: 700px;
+      margin: 0 auto;
+    }
+    @media only screen and (min-width: 1024px) {
+      width: 1000px;
+      margin: 0 auto;
+    }
+  }
 `;
 
 export const Header = styled.header`

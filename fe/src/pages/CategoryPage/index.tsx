@@ -3,7 +3,11 @@ import CategoryTemplate from 'components/templates/CategoryTemplate';
 import Header from 'components/organisms/HeaderBar';
 import CategoryArea from 'components/organisms/CategoryArea';
 import { observer } from 'mobx-react-lite';
-import { CategoryStore, categoryType } from 'stores/Category';
+import {
+  CategoryStore,
+  categoryType,
+  categoryConverter,
+} from 'stores/Category';
 import { TransactionStore } from 'stores/Transaction';
 import { MethodStore } from 'stores/Method';
 import Modal from 'components/molecules/Modal';
@@ -67,7 +71,7 @@ function CategoryPage(): React.ReactElement {
 
   const TabClickHandler = useCallback(
     ({ target: { value, id } }: ClickProps) => {
-      setType(value);
+      setType(categoryConverter(value));
       setSelectedTab(id);
     },
     [],
@@ -220,7 +224,6 @@ function CategoryPage(): React.ReactElement {
   return (
     <CategoryTemplate
       headerContent={<Header />}
-      title="카테고리 설정"
       bodyContent={bodyContent}
       NavBar={<NavBarComponent />}
     />

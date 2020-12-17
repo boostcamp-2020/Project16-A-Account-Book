@@ -23,7 +23,7 @@ const LineChart = ({
   const FONT_SIZE = width / 60;
   const maximumXFromData = data.length;
   const maximumYFromData = Math.max(...data.map((e) => e.totalPrice));
-  const digits = utils.moneyFormatter(maximumYFromData).length;
+  const digits = utils.summaryOfMoney(maximumYFromData).length;
 
   const paddingLeftWidth = (FONT_SIZE + digits) * 3;
   const paddingHeight = FONT_SIZE * 3;
@@ -129,14 +129,14 @@ const LineChart = ({
     return (
       <>
         {new Array(PARTS + 1).fill(0).map((_, index) => {
-          const x = FONT_SIZE;
+          const x = FONT_SIZE / 2;
           const ratio = index / numberOfHorizontalGuides;
           const y = getYpos(ratio) + FONT_SIZE / 2;
+          const money = Math.round(maximumYFromData * (index / PARTS));
+          const label = utils.summaryOfMoney(money);
           return (
             <text key={`label-y-${y}`} x={x} y={y} style={labelStyle}>
-              {utils.moneyFormatter(
-                Math.round(maximumYFromData * (index / PARTS)),
-              )}
+              {label}
             </text>
           );
         })}
