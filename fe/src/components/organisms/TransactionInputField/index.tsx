@@ -48,14 +48,14 @@ const TransactionInputField = ({
   const methods = MethodStore.getMethods();
   const categories = CategoryStore.getCategories(classification);
   const newPrice = price === 0 ? undefined : price;
-  const PriceMessage = message?.price && (
+  const PriceMessage = message?.price !== '' && (
     <Message tag="error" size="sm">
-      {message.price}
+      {message?.price || ''}
     </Message>
   );
-  const ClientMessage = message?.client && (
+  const ClientMessage = message?.client !== '' && (
     <Message tag="error" size="sm">
-      {message.client}
+      {message?.client || ''}
     </Message>
   );
   return (
@@ -69,7 +69,7 @@ const TransactionInputField = ({
             placeholder="금액을 입력하세요"
             onChangeHandler={formHandler}
             type="number"
-            className={message?.price ? 'invalid' : ''}
+            className={message?.price !== '' ? 'invalid' : ''}
           />
         </>
       </LabelWrap>
@@ -107,7 +107,7 @@ const TransactionInputField = ({
             value={client}
             placeholder="거래처명을 입력하세요"
             onChangeHandler={formHandler}
-            className={message?.client ? 'invalid' : ''}
+            className={message?.client !== '' ? 'invalid' : ''}
           />
         </>
       </LabelWrap>
