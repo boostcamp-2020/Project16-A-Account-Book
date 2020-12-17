@@ -14,10 +14,16 @@ export default {
   createAccount(title: string, userObjIdList: string[]) {
     return axios.post(url.account, { title, userObjIdList });
   },
-  updateAccount(accountId: string, title: string, userObjIdList: string[]) {
+  updateAccount(
+    accountId: string,
+    title: string,
+    userObjIdList: string[],
+    ownerName: string,
+  ) {
     return axios.put(url.accountUpdate(accountId), {
       title,
       userObjIdList,
+      ownerName,
     });
   },
   deleteAccount(accountId: string) {
