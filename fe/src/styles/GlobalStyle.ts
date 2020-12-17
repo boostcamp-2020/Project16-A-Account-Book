@@ -50,9 +50,6 @@ const GlobalStyle = createGlobalStyle`
   a:active {
     color: black;
   }
-
-
-
 `;
 
 export default GlobalStyle;
