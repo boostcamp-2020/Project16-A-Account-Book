@@ -1,6 +1,8 @@
 import React from 'react';
 import doubleArrowIcon from 'assets/svg/doubleArrow.svg';
 import PriceWithSign from 'components/molecules/PriceWithSign';
+import Icon from 'components/atoms/Icons';
+
 import * as S from './style';
 
 export interface Props {
@@ -14,13 +16,15 @@ const Transaction = ({ trans, onClick }: Props) => {
 
   return (
     <S.TransactionStyle onClick={() => onClick(trans.id)}>
-      <S.TransactionIcon icon={trans.icon || doubleArrowIcon} size="sm" />
+      <Icon icon={trans.icon || doubleArrowIcon} size="sm" />
       <S.Text>
         <S.PaymentInfo>
           <S.Client>{trans.client}</S.Client>
           <S.Classification>{classificationString}</S.Classification>
         </S.PaymentInfo>
-        <PriceWithSign price={trans.price} type={type} />
+        <S.PriceWrap>
+          <PriceWithSign price={trans.price} type={type} />
+        </S.PriceWrap>
       </S.Text>
     </S.TransactionStyle>
   );
