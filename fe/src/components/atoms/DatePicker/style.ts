@@ -44,6 +44,7 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.color.white};
     border: none;
     outline: none;
+    font-size: 0.8rem;
   }
   input {
     width: 4em;
