@@ -83,24 +83,30 @@ const AccountUpdatePage = ({ location }: Props) => {
     const title = titleInputRef.current.value;
 
     const verifyResult = accountTitleVerify(title, account.title);
+
     if (verifyResult !== '') {
       setTitleErrorMessage(verifyResult);
       return;
     }
     let serverMessage = '';
     if (isNewAccount) {
-      const result = await accountAPI.createAccount(title, checkedUserIdList);
-      if (result.data && 'error' in result.data) {
-        serverMessage = result.data.error;
+      const result: any = await accountAPI.createAccount(
+        title,
+        checkedUserIdList,
+      );
+
+      if (result.error) {
+        serverMessage = result.error;
       }
     } else {
-      const result = await accountAPI.updateAccount(
+      const result: any = await accountAPI.updateAccount(
         account._id,
         title,
         checkedUserIdList,
       );
-      if (result.data && 'error' in result.data) {
-        serverMessage = result.data.error;
+
+      if (result.error) {
+        serverMessage = result.error;
       }
     }
     if (serverMessage !== '') {
