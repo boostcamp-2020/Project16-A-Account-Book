@@ -10,8 +10,10 @@ export const ChattingBtn = styled(Input)`
   width: 20%;
 `;
 export const ChattingArea = styled.div`
-  width: 100%;
-  height: calc(100vh - 8.5rem);
+  box-sizing: border-box;
+  position: absolute;
+  height: calc(100% - 1rem);
+  width: calc(100% - 2em);
   overflow-x: hidden;
   border: 0.1rem solid ${({ theme }) => theme.color.brandColor};
   input {

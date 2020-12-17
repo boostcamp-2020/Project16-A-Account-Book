@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import CategoryTemplate from 'components/templates/CategoryTemplate';
 import Header from 'components/organisms/HeaderBar';
 import CategoryArea from 'components/organisms/CategoryArea';
 import { observer } from 'mobx-react-lite';
@@ -18,6 +17,7 @@ import categoryAPI from 'apis/category';
 import methodAPI from 'apis/method';
 import NavBarComponent from 'components/organisms/NavBar';
 import { getRandomColor } from 'utils/random';
+import MainTemplate from 'components/templates/MainTemplate';
 import * as S from './style';
 
 export interface MatchParams {
@@ -32,6 +32,7 @@ export interface ClickTarget extends EventTarget {
 export interface ClickProps extends MouseEvent {
   target: ClickTarget;
 }
+
 const DeleteModalContent = ({
   deleteConfirm,
   deleteCancel,
@@ -40,7 +41,7 @@ const DeleteModalContent = ({
   deleteCancel: any;
 }) => {
   return (
-    <S.ContantsWrapper>
+    <S.ContentsWrapper>
       <S.ContentWrapper>
         <span>정말 삭제하시겠습니까?</span>
       </S.ContentWrapper>
@@ -48,11 +49,11 @@ const DeleteModalContent = ({
         <Input type="button" onClick={deleteConfirm} value="확인" />
         <Input type="button" onClick={deleteCancel} value="취소" />
       </S.ContentWrapper>
-    </S.ContantsWrapper>
+    </S.ContentsWrapper>
   );
 };
 
-const D = React.memo(DeleteModalContent);
+export const D = React.memo(DeleteModalContent);
 
 function CategoryPage(): React.ReactElement {
   const [type, setType] = useState<string>(categoryType.EXPENSE);
@@ -192,7 +193,7 @@ function CategoryPage(): React.ReactElement {
   };
 
   const modalContent = (
-    <S.ContantsWrapper>
+    <S.ContentsWrapper>
       <div className="input-container">
         <LabelWrap htmlFor="input-category" title={type}>
           <Input id="input-category" type="text" inputRef={inputRef} />
@@ -210,7 +211,7 @@ function CategoryPage(): React.ReactElement {
         <Input type="button" onClick={confirm} value="확인" />
         <Input type="button" onClick={onCancle(setVisible)} value="취소" />
       </S.ContentWrapper>
-    </S.ContantsWrapper>
+    </S.ContentsWrapper>
   );
   const DC = (
     <D
@@ -238,11 +239,10 @@ function CategoryPage(): React.ReactElement {
       <Modal visible={deleteVisible} content={DC} />
     </>
   );
-
   return (
-    <CategoryTemplate
-      headerContent={<Header />}
-      bodyContent={bodyContent}
+    <MainTemplate
+      HeaderBar={<Header />}
+      Contents={bodyContent}
       NavBar={<NavBarComponent />}
     />
   );

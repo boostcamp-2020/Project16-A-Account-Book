@@ -38,7 +38,14 @@ export const EditButtonArea = styled.div`
 export const TabBottomArea = styled.div`
   position: fixed;
   bottom: 5rem;
-  right: 0.5rem;
+  right: 1.5rem;
+  @media only screen and (min-width: 768px) {
+    /* right: calc(-50% + 350px); */
+    right: calc(50% - 330px);
+  }
+  @media only screen and (min-width: 1024px) {
+    right: calc(50% - 480px);
+  } ;
 `;
 
 export const CategoryAreaContainer = styled.div`
