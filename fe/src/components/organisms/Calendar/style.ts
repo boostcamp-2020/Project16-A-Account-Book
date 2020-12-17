@@ -22,8 +22,9 @@ export const Calendar = styled.div`
   border: 2px solid white;
   border-radius: 1rem;
   padding: 1em 0.5em 0.5em;
+  border: 2px solid ${({ theme }) => theme.color.lightBorder};
   :hover {
-    border: 2px solid ${({ theme }) => theme.color.lightBorder};
+    border: 2px solid ${({ theme }) => theme.color.transparentBrandColor};
     ${CenterMonth} {
       color: ${({ theme }) => theme.color.transparentBrandColor};
     }
