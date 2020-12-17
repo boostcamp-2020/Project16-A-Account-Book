@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ContantsWrapper = styled.div`
+export const ContentsWrapper = styled.div`
   .input-container {
     label {
       padding: 0.5em 0;
