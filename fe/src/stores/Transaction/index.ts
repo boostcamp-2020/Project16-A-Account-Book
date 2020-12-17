@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction, toJS } from 'mobx';
 import transactionAPI from 'apis/transaction';
 import date from 'utils/date';
+import mathUtils from 'utils/math';
 import { categoryType } from 'stores/Category';
 import * as types from 'types';
 import {
@@ -179,14 +180,18 @@ export const TransactionStore = makeAutoObservable({
   get pieChartStatistics(): types.IStatistics {
     const totalPrice = this.totalPricesExceptFilterAndUnclassified;
     const totalCategoryObj = calTotalPriceByCategories(this.transactionList);
-    const incomeCategories = addPercentAndGetArray(
+    const incomeArray = addPercentAndGetArray(
       totalCategoryObj.totalIncomeCategoryObj,
       totalPrice.income,
     );
-    const expenseCategories = addPercentAndGetArray(
+    const expenseArray = addPercentAndGetArray(
       totalCategoryObj.totalExpenseCategoryObj,
       totalPrice.expense,
     );
+    const compByTotalPrice = mathUtils.getCompFuncByKey('totalPrice', false);
+    const incomeCategories = incomeArray.sort(compByTotalPrice);
+    const expenseCategories = expenseArray.sort(compByTotalPrice);
+
     return { totalPrice, incomeCategories, expenseCategories };
   },
   getTransactions(): types.IDateTransactionObj {
