@@ -2,7 +2,7 @@ import { AccountModel } from 'models/account';
 import { CategoryModel } from 'models/category';
 import { MethodModel } from 'models/method';
 import { NotVaildException } from 'models/account/static';
-import { UserHasNoAccount, accountNoChange } from 'libs/error';
+import { UserHasNoAccount, accountNoChange, duplicatedValue } from 'libs/error';
 import { IUserDocument, UserModel } from 'models/user';
 
 export const getAccountsByUserId = async (userId: string) => {
@@ -52,7 +52,10 @@ export const createNewAccount = async (
     CategoryModel.createDefaultCategory(),
     MethodModel.createDefaultMethod(),
   ]);
-
+  const findDuplicate = await AccountModel.find({ title });
+  if (findDuplicate.length !== 0) {
+    throw duplicatedValue;
+  }
   const newAccount = new AccountModel({
     title,
     ownerName: user.nickname,
@@ -75,16 +78,20 @@ export const updateAccountByUserAndAccountInfo = async (
   userObjIdList: string[],
   user: IUserDocument,
 ) => {
-  const inviteUsers = inviteUserList(
-    user.nickname,
-    accountObjId,
-    userObjIdList,
-  );
+  const findDuplicate = await AccountModel.find({ title });
+  if (findDuplicate.length !== 0) {
+    throw duplicatedValue;
+  }
   const updateAccount = AccountModel.updateOne(
     { _id: accountObjId },
     {
       title,
     },
+  );
+  const inviteUsers = inviteUserList(
+    user.nickname,
+    accountObjId,
+    userObjIdList,
   );
 
   return Promise.all([updateAccount, inviteUsers]);

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import AccountTitleImageUpdate from 'components/organisms/AccountImageTitleUpdate';
@@ -10,7 +10,7 @@ import AccountSubmitButtonList from 'components/organisms/AccountSubmitButtonLis
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import accountAPI from 'apis/account';
-import { AccountStore } from 'stores/Account';
+import { AccountStore, accountItem } from 'stores/Account';
 
 interface Props {
   location?: any;
@@ -30,6 +30,25 @@ const deleteHandler = (
   history.goBack();
 };
 
+const accountTitleVerify = (title: string, originTitle: string) => {
+  if (title.length < 2) {
+    return '2자리 이상 입력하세요';
+  }
+  if (title.length > 20) {
+    return '20자리 이하로 입력하세요';
+  }
+  const notDuplicated = AccountStore.getAccountList().every(
+    (account: accountItem) => {
+      if (originTitle === account.title) return true;
+      return account.title !== title;
+    },
+  );
+  if (!notDuplicated) {
+    return '중복된 가계부 이름 입니다.';
+  }
+  return '';
+};
+
 const AccountUpdatePage = ({ location }: Props) => {
   const history = useHistory();
   const { account, isNewAccount } = location.state;
@@ -40,6 +59,7 @@ const AccountUpdatePage = ({ location }: Props) => {
   const isOwner =
     sessionStorage.getItem('userObjId') === alreadyInvitedUserIdList[0];
   const titleInputRef = useRef<any>('');
+  const [titleErrorMessage, setTitleErrorMessage] = useState<string>('');
   useEffect(() => {
     titleInputRef.current.value = account.title;
   }, []);
@@ -61,10 +81,32 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const submitHandler = async () => {
     const title = titleInputRef.current.value;
+
+    const verifyResult = accountTitleVerify(title, account.title);
+    if (verifyResult !== '') {
+      setTitleErrorMessage(verifyResult);
+      return;
+    }
+    let serverMessage = '';
     if (isNewAccount) {
-      await accountAPI.createAccount(title, checkedUserIdList);
+      const result = await accountAPI.createAccount(title, checkedUserIdList);
+      if (result.data && 'error' in result.data) {
+        serverMessage = result.data.error;
+      }
     } else {
-      await accountAPI.updateAccount(account._id, title, checkedUserIdList);
+      const result = await accountAPI.updateAccount(
+        account._id,
+        title,
+        checkedUserIdList,
+      );
+      if (result.data && 'error' in result.data) {
+        serverMessage = result.data.error;
+      }
+    }
+    if (serverMessage !== '') {
+      setTitleErrorMessage(serverMessage);
+      AccountStore.loadAccounts();
+      return;
     }
     AccountStore.loadAccounts();
     history.goBack();
@@ -72,7 +114,11 @@ const AccountUpdatePage = ({ location }: Props) => {
 
   const Contents = (
     <>
-      <AccountTitleImageUpdate account={account} inputRef={titleInputRef} />
+      <AccountTitleImageUpdate
+        account={account}
+        errorMessage={titleErrorMessage}
+        inputRef={titleInputRef}
+      />
       <InviteUser
         dataList={userList}
         onClick={onSelectUser}

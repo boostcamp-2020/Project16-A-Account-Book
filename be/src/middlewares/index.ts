@@ -9,6 +9,7 @@ import {
   updateUnclassifiedMethod,
   invaildMethod,
   invaildTitleLengthTitle,
+  duplicatedValue,
   invalidForm,
   invalidPrice,
 } from 'libs/error';
@@ -104,6 +105,14 @@ export const isVaildLengthTitle = async (
   await next();
 };
 
+export const isDuplicateAccountTitle = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const { title } = ctx.request.body;
+  const findDuplicate = await AccountModel.find({ title });
+  if (findDuplicate.length !== 0) {
+    throw duplicatedValue;
 export const isValidPrice = async (
   ctx: Koa.Context,
   next: () => Promise<any>,
