@@ -119,13 +119,14 @@ export const isValidPrice = async (
   ctx: Koa.Context,
   next: () => Promise<any>,
 ) => {
+  const TRILLION = 10 ** 12;
   const {
     transaction: { price },
   } = ctx.request.body;
   if (!price) {
     throw invalidForm;
   }
-  if (price < 0) {
+  if (price < 0 || price >= TRILLION) {
     throw invalidPrice;
   }
   await next();
