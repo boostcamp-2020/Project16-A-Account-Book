@@ -20,10 +20,10 @@ const TabHeader = ({ onClickHandler, selectedTab }: Props) => {
       {titles.map((title, idx) => {
         return (
           <S.TabButton
-            // eslint-disable-next-line react/no-array-index-key
-            key={idx}
+            key={valueMap.get(title)}
             id={String(idx)}
             value={valueMap.get(title)}
+            type="button"
             color={
               Number(selectedTab) === idx
                 ? theme.color.selectedBlue
