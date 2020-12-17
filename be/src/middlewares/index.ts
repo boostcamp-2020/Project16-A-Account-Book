@@ -15,11 +15,13 @@ import {
 } from 'libs/error';
 import { UserModel } from 'models/user';
 import { CategoryModel, categoryType } from 'models/category';
-import { AccountModel } from 'models/account';
+import { AccountModel, IAccountDocument } from 'models/account';
 
 interface IDecodedData {
   id: string | number;
 }
+
+const PUT_METHOD = 'PUT';
 
 export const authorization = async (
   ctx: Koa.Context,
@@ -105,17 +107,37 @@ export const isVaildLengthTitle = async (
   await next();
 };
 
+const isCanPass = (
+  targetList: IAccountDocument[],
+  put: boolean,
+  putObjId?: string,
+) => {
+  if (!put && targetList.length !== 0) return false;
+  if (put) {
+    const mine = targetList.some((account) => String(account._id) === putObjId);
+    return mine;
+  }
+  return true;
+};
+
 export const isDuplicateAccountTitle = async (
   ctx: Koa.Context,
   next: () => Promise<any>,
 ) => {
   const { title } = ctx.request.body;
   const findDuplicate = await AccountModel.find({ title });
-  if (findDuplicate.length !== 0) {
+  if (
+    !isCanPass(
+      findDuplicate,
+      ctx.method === PUT_METHOD,
+      ctx.params.accountObjId,
+    )
+  ) {
     throw duplicatedValue;
   }
   await next();
 };
+
 export const isValidPrice = async (
   ctx: Koa.Context,
   next: () => Promise<any>,
