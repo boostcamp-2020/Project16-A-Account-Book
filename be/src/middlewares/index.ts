@@ -10,6 +10,8 @@ import {
   invaildMethod,
   invaildTitleLengthTitle,
   duplicatedValue,
+  invalidForm,
+  invalidPrice,
 } from 'libs/error';
 import { UserModel } from 'models/user';
 import { CategoryModel, categoryType } from 'models/category';
@@ -111,6 +113,18 @@ export const isDuplicateAccountTitle = async (
   const findDuplicate = await AccountModel.find({ title });
   if (findDuplicate.length !== 0) {
     throw duplicatedValue;
+export const isValidPrice = async (
+  ctx: Koa.Context,
+  next: () => Promise<any>,
+) => {
+  const {
+    transaction: { price },
+  } = ctx.request.body;
+  if (!price) {
+    throw invalidForm;
+  }
+  if (price < 0) {
+    throw invalidPrice;
   }
   await next();
 };

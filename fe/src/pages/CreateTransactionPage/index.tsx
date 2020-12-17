@@ -15,13 +15,8 @@ const CreateTransacionPage = () => {
   const [transactionState, setInputState] = useTransactionInput();
   const history = useHistory();
 
-  const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
-    date,
-    client,
-    memo,
-    price,
-    classification,
+    ...transactionState,
     classifications,
     formHandler: setInputState,
   };

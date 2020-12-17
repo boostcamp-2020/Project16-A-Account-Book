@@ -29,7 +29,7 @@ export const ModalInner = styled.div`
   box-sizing: border-box;
   box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.5);
   background-color: ${({ theme }) => theme.color.white};
-  width: 20rem;
+  width: 13rem;
   margin: 0 auto;
   padding: 1rem 1rem;
   border: 1px solid ${({ theme }) => theme.color.subText};

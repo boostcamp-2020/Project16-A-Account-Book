@@ -57,6 +57,26 @@ export async function findByPkAndPushTransaction(
   }).exec();
 }
 
+export async function findByPkAndPushCategory(
+  this: any,
+  accountObjId: string,
+  categoryObjId: string,
+) {
+  return this.findByIdAndUpdate(accountObjId, {
+    $push: { categories: categoryObjId },
+  }).exec();
+}
+
+export async function findByPkAndPushMethod(
+  this: any,
+  accountObjId: string,
+  methodObjId: string,
+) {
+  return this.findByIdAndUpdate(accountObjId, {
+    $push: { methods: methodObjId },
+  }).exec();
+}
+
 export class NotVaildException {
   message: string;
 
@@ -105,6 +125,22 @@ export async function findUnclassifiedCategory(
     .exec();
 
   return res.categories[0]._id;
+}
+
+export async function findMethodByTitle(
+  this: IAccountModel,
+  accountObjId: string,
+  methodTitle: string,
+) {
+  const res: any = await this.findById(accountObjId, { methods: true })
+    .populate({
+      path: 'methods',
+      match: { title: methodTitle },
+      select: '_id',
+    })
+    .exec();
+
+  return res.methods;
 }
 
 export async function findDuplicateCategory(
