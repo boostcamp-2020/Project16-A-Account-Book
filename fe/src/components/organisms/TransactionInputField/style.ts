@@ -8,11 +8,15 @@ export interface ButtonInputProps extends InputProps {
 export const Input = styled(InputAtom)`
   height: 2rem;
   border: transparent;
+  &.invalid {
+    border: 1px solid ${({ theme }) => theme.tag.error};
+  }
 `;
 
 export const ButtonInput = styled(InputAtom)<ButtonInputProps>`
   width: 25%;
   height: 2rem;
+  font-size: 1rem;
   border: 1px solid
     ${({ active, theme }) => (active ? theme.color.blue : theme.color.subText)};
   color: ${({ active, theme }) =>

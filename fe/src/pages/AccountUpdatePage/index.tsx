@@ -11,23 +11,35 @@ import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import accountAPI from 'apis/account';
 import { AccountStore, accountItem } from 'stores/Account';
+import { D } from 'pages/CategoryPage';
+import Modal from 'components/molecules/Modal';
 
 interface Props {
   location?: any;
 }
 
-const deleteHandler = (
-  history: any,
+const deleteConfirm = (
   isOwner: boolean,
-  accountObjId: string,
+  setDeleteVisible: any,
+  history: any,
+  accountId: string,
 ) => async () => {
   if (isOwner) {
-    await accountAPI.deleteAccount(accountObjId);
+    await accountAPI.deleteAccount(accountId);
   } else {
-    await accountAPI.deleteAccountUser(accountObjId);
+    await accountAPI.deleteAccountUser(accountId);
   }
+  setDeleteVisible(false);
   AccountStore.loadAccounts();
   history.goBack();
+};
+
+const deleteClicked = (setDeleteVisible: any) => () => {
+  setDeleteVisible(true);
+};
+
+const deleteCancel = (setDeleteVisible: any) => () => {
+  setDeleteVisible(false);
 };
 
 const accountTitleVerify = (title: string, originTitle: string) => {
@@ -52,6 +64,7 @@ const accountTitleVerify = (title: string, originTitle: string) => {
 const AccountUpdatePage = ({ location }: Props) => {
   const history = useHistory();
   const { account, isNewAccount } = location.state;
+  const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
   const alreadyInvitedUserIdList = account.users.map((user: any) => user._id);
   const [userList, checkedUserIdList, setCheckedUserIdList] = useInviteUser(
     alreadyInvitedUserIdList,
@@ -60,6 +73,7 @@ const AccountUpdatePage = ({ location }: Props) => {
     sessionStorage.getItem('userObjId') === alreadyInvitedUserIdList[0];
   const titleInputRef = useRef<any>('');
   const [titleErrorMessage, setTitleErrorMessage] = useState<string>('');
+
   useEffect(() => {
     titleInputRef.current.value = account.title;
   }, []);
@@ -83,24 +97,30 @@ const AccountUpdatePage = ({ location }: Props) => {
     const title = titleInputRef.current.value;
 
     const verifyResult = accountTitleVerify(title, account.title);
+
     if (verifyResult !== '') {
       setTitleErrorMessage(verifyResult);
       return;
     }
     let serverMessage = '';
     if (isNewAccount) {
-      const result = await accountAPI.createAccount(title, checkedUserIdList);
-      if (result.data && 'error' in result.data) {
-        serverMessage = result.data.error;
+      const result: any = await accountAPI.createAccount(
+        title,
+        checkedUserIdList,
+      );
+
+      if (result.error) {
+        serverMessage = result.error;
       }
     } else {
-      const result = await accountAPI.updateAccount(
+      const result: any = await accountAPI.updateAccount(
         account._id,
         title,
         checkedUserIdList,
       );
-      if (result.data && 'error' in result.data) {
-        serverMessage = result.data.error;
+
+      if (result.error) {
+        serverMessage = result.error;
       }
     }
     if (serverMessage !== '') {
@@ -111,6 +131,18 @@ const AccountUpdatePage = ({ location }: Props) => {
     AccountStore.loadAccounts();
     history.goBack();
   };
+
+  const DC = (
+    <D
+      deleteConfirm={deleteConfirm(
+        isOwner,
+        setDeleteVisible,
+        history,
+        account._id,
+      )}
+      deleteCancel={deleteCancel(setDeleteVisible)}
+    />
+  );
 
   const Contents = (
     <>
@@ -124,6 +156,7 @@ const AccountUpdatePage = ({ location }: Props) => {
         onClick={onSelectUser}
         checkList={checkedUserIdList}
       />
+      <Modal visible={deleteVisible} content={DC} />
     </>
   );
 
@@ -131,7 +164,7 @@ const AccountUpdatePage = ({ location }: Props) => {
     <AccountSubmitButtonList
       onSubmitClick={submitHandler}
       onCancelClick={() => history.goBack()}
-      onDeleteClick={deleteHandler(history, isOwner, account._id)}
+      onDeleteClick={deleteClicked(setDeleteVisible)}
       isOwner={isOwner}
       isNewAccount={isNewAccount}
     />

@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import CategoryTemplate from 'components/templates/CategoryTemplate';
 import Header from 'components/organisms/HeaderBar';
 import CategoryArea from 'components/organisms/CategoryArea';
 import { observer } from 'mobx-react-lite';
@@ -8,6 +7,7 @@ import {
   categoryType,
   categoryConverter,
 } from 'stores/Category';
+import { ICategory } from 'types';
 import { TransactionStore } from 'stores/Transaction';
 import { MethodStore } from 'stores/Method';
 import Modal from 'components/molecules/Modal';
@@ -17,6 +17,7 @@ import categoryAPI from 'apis/category';
 import methodAPI from 'apis/method';
 import NavBarComponent from 'components/organisms/NavBar';
 import { getRandomColor } from 'utils/random';
+import MainTemplate from 'components/templates/MainTemplate';
 import * as S from './style';
 
 export interface MatchParams {
@@ -31,6 +32,7 @@ export interface ClickTarget extends EventTarget {
 export interface ClickProps extends MouseEvent {
   target: ClickTarget;
 }
+
 const DeleteModalContent = ({
   deleteConfirm,
   deleteCancel,
@@ -39,7 +41,7 @@ const DeleteModalContent = ({
   deleteCancel: any;
 }) => {
   return (
-    <S.ContantsWrapper>
+    <S.ContentsWrapper>
       <S.ContentWrapper>
         <span>정말 삭제하시겠습니까?</span>
       </S.ContentWrapper>
@@ -47,11 +49,11 @@ const DeleteModalContent = ({
         <Input type="button" onClick={deleteConfirm} value="확인" />
         <Input type="button" onClick={deleteCancel} value="취소" />
       </S.ContentWrapper>
-    </S.ContantsWrapper>
+    </S.ContentsWrapper>
   );
 };
 
-const D = React.memo(DeleteModalContent);
+export const D = React.memo(DeleteModalContent);
 
 function CategoryPage(): React.ReactElement {
   const [type, setType] = useState<string>(categoryType.EXPENSE);
@@ -128,9 +130,11 @@ function CategoryPage(): React.ReactElement {
     if (exist && exist._id === selectedRef.current) {
       return Promise.resolve({ error: '변경사항이 없습니다!' });
     }
+
     if (exist) {
       return Promise.resolve({ error: '중복되는 입력입니다!' });
     }
+
     const body = {
       title: inputRef.current.value,
     };
@@ -139,20 +143,31 @@ function CategoryPage(): React.ReactElement {
       : methodAPI.createMethod;
     return func(TransactionStore.accountObjId, body, selectedRef.current);
   };
-  const categoryConfirm = async () => {
-    const exist = CategoryStore.getCategories(type).find(
-      (category) => category.title === inputRef.current.value.trim(),
-    );
+
+  const isMineAndCheckModify = (existCategory: ICategory | undefined) => {
     if (
-      exist &&
-      exist._id === selectedRef.current &&
-      exist.color === colorPicker.current.value
+      existCategory &&
+      existCategory._id === selectedRef.current &&
+      existCategory.color === colorPicker.current.value
     ) {
+      return true;
+    }
+    return false;
+  };
+  const isDuplicate = (existCategory: ICategory | undefined) =>
+    !!existCategory && existCategory._id !== selectedRef.current;
+  const categoryConfirm = async () => {
+    const newTitle = inputRef.current.value.trim();
+    const existCategory = CategoryStore.getCategories(type).find(
+      (category) => category.title === newTitle,
+    );
+    if (isMineAndCheckModify(existCategory)) {
       return Promise.resolve({ error: '변경사항이 없습니다!!' });
     }
-    if (exist && exist._id !== selectedRef.current) {
+    if (isDuplicate(existCategory)) {
       return Promise.resolve({ error: '중복된 타이틀이 존재합니다!' });
     }
+
     const body = {
       type,
       title: inputRef.current.value,
@@ -178,7 +193,7 @@ function CategoryPage(): React.ReactElement {
   };
 
   const modalContent = (
-    <S.ContantsWrapper>
+    <S.ContentsWrapper>
       <div className="input-container">
         <LabelWrap htmlFor="input-category" title={type}>
           <Input id="input-category" type="text" inputRef={inputRef} />
@@ -196,7 +211,7 @@ function CategoryPage(): React.ReactElement {
         <Input type="button" onClick={confirm} value="확인" />
         <Input type="button" onClick={onCancle(setVisible)} value="취소" />
       </S.ContentWrapper>
-    </S.ContantsWrapper>
+    </S.ContentsWrapper>
   );
   const DC = (
     <D
@@ -224,11 +239,10 @@ function CategoryPage(): React.ReactElement {
       <Modal visible={deleteVisible} content={DC} />
     </>
   );
-
   return (
-    <CategoryTemplate
-      headerContent={<Header />}
-      bodyContent={bodyContent}
+    <MainTemplate
+      HeaderBar={<Header />}
+      Contents={bodyContent}
       NavBar={<NavBarComponent />}
     />
   );

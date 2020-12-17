@@ -8,8 +8,25 @@ import Account from 'components/organisms/Account';
 import { useHistory } from 'react-router-dom';
 import AccountSvg from 'assets/svg/account.svg';
 import userApi from 'apis/user';
-
 import * as S from './styles';
+
+const setSessionByAccountIno = (
+  accountObjId: string,
+  accountTitle: string,
+  accountOwner: string,
+) => {
+  const accountInfo = {
+    title: accountTitle,
+    owner: accountOwner,
+    id: accountObjId,
+  };
+  sessionStorage.setItem('account', JSON.stringify(accountInfo));
+};
+
+const setTransactionStorageInfo = (accountObjId: string) => {
+  TransactionStore.resetFilter();
+  TransactionStore.setAccountObjId(accountObjId);
+};
 
 const onClickHandler = (
   history: any,
@@ -17,13 +34,9 @@ const onClickHandler = (
   accountTitle: string,
   accountOwner: string,
 ) => () => {
-  sessionStorage.setItem(
-    'account',
-    JSON.stringify({ id: accountObjId, title: accountTitle }),
-  );
+  setSessionByAccountIno(accountObjId, accountTitle, accountTitle);
   sessionStorage.removeItem('filter');
-  TransactionStore.resetFilter();
-  TransactionStore.setAccountObjId(accountObjId);
+  setTransactionStorageInfo(accountObjId);
   history.push(`/transactions/${accountOwner}/${accountTitle}`);
 };
 
