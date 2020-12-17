@@ -9,6 +9,8 @@ export const categoryType = {
   UNCLASSIFIED: 'UNCLASSIFIED',
 };
 
+const METHOD = 'METHOD';
+
 export const CategoryStore = makeAutoObservable({
   categoryList: {
     expense: [],
@@ -41,7 +43,7 @@ export const CategoryStore = makeAutoObservable({
   },
 });
 
-const categoryConverter = (input: string): string => {
+export const categoryConverter = (input: string): string => {
   switch (input) {
     case '지출':
     case 'expense':
@@ -52,6 +54,11 @@ const categoryConverter = (input: string): string => {
     case 'income':
     case categoryType.INCOME:
       return categoryType.INCOME;
+
+    case '결제수단':
+    case 'method':
+    case METHOD:
+      return METHOD;
 
     default:
       return categoryType.UNCLASSIFIED;
