@@ -3,9 +3,10 @@ import theme from 'styles/theme';
 import Button from '../../atoms/Button';
 
 export const GithubButton = styled(Button)`
-  background-color: ${theme.color.grayBackground};
+  background-color: ${theme.color.black};
   color: ${theme.color.white};
   border-radius: 2.5px;
+  width: 210px;
 `;
 
 export const Wrap = styled.div`
