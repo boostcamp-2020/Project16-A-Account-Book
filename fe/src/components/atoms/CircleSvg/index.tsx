@@ -1,4 +1,5 @@
 import React from 'react';
+import { Circle } from './style';
 
 export interface Props {
   r: number;
@@ -22,12 +23,12 @@ const CircleSvg = ({
   ...props
 }: Props): React.ReactElement => {
   return (
-    <circle
+    <Circle
       r={r}
       cx={cx}
       cy={cy}
       stroke={stroke}
-      strokeDasharray={strokeDasharray}
+      sd={strokeDasharray}
       fill={fill}
       {...props}
     />
