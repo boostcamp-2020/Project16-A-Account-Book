@@ -19,10 +19,14 @@ const checkAllRequiredInputFilled = (form: State) => {
   });
 };
 
-const isPositive = (num: number) => num >= 0;
+const isMoneyInRange = (money: number) => {
+  const TRILLION = 10 ** 12;
+  return money >= 0 && money < TRILLION;
+};
 
 export const transactionValidator = (form: State) => {
-  const isValid = checkAllRequiredInputFilled(form) && isPositive(form.price);
+  const isValid =
+    checkAllRequiredInputFilled(form) && isMoneyInRange(form.price);
   return isValid;
 };
 
