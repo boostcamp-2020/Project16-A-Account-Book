@@ -22,6 +22,7 @@ export const Calendar = styled.div`
   border: 2px solid white;
   border-radius: 1rem;
   padding: 1em 0.5em 0.5em;
+  margin-top: 1em;
   border: 2px solid ${({ theme }) => theme.color.lightBorder};
   :hover {
     border: 2px solid ${({ theme }) => theme.color.transparentBrandColor};
