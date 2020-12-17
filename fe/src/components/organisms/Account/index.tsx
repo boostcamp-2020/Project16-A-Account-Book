@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 import React from 'react';
 import settingIcon from 'assets/svg/setting.svg';
+import more from 'assets/imgs/more.png';
 import * as S from './style';
 
 export interface Props {
@@ -18,9 +19,10 @@ const Account = ({
   ...props
 }: Props) => {
   const text = `${account.ownerName}/${account.title}`;
-  const profileUrls = account.users.map((user: any) => {
+  const profileUrls = account.users.slice(0, 4).map((user: any) => {
     return user.profileUrl;
   });
+  if (account.users.length > 4) profileUrls.unshift(more);
   return (
     <S.Account onClick={onClick} {...props}>
       <S.Icon icon={account.icon} />
