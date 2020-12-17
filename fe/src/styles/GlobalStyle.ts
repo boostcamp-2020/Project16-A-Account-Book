@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
       font-family :  Bmeuljiro,sans-serif !important;
     }
     box-sizing: border-box;
-      font-size: 12px;
+    font-size: 12px;
     @media only screen and (min-width : 768px){
       font-size: 14px;
     }
@@ -50,6 +50,8 @@ const GlobalStyle = createGlobalStyle`
   a:active {
     color: black;
   }
+
+
 
 `;
 
