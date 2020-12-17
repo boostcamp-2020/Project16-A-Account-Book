@@ -148,7 +148,7 @@ function CategoryPage(): React.ReactElement {
       exist._id === selectedRef.current &&
       exist.color === colorPicker.current.value
     ) {
-      return Promise.resolve({ error: '변경사항이 없습니다!' });
+      return Promise.resolve({ error: '변경사항이 없습니다!!' });
     }
     if (exist && exist._id !== selectedRef.current) {
       return Promise.resolve({ error: '중복된 타이틀이 존재합니다!' });
