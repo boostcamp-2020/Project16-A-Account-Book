@@ -97,7 +97,6 @@ const ChattingPage = () => {
   return (
     <MainTemplate
       HeaderBar={<Header />}
-      SubHeaderBar={<div />}
       Contents={ChattingContent}
       NavBar={<NavBar />}
     />
