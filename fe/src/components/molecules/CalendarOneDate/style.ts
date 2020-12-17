@@ -40,3 +40,8 @@ export const ExpenseText = styled.div`
   font-size: 0.4rem;
   color: ${({ theme }) => theme.color.red};
 `;
+
+export const UnclassifiedText = styled.div`
+  font-size: 0.4rem;
+  color: ${({ theme }) => theme.color.black};
+`;

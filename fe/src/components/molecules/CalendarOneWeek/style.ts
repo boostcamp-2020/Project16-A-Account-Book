@@ -36,3 +36,8 @@ export const ExpensePriceTag = styled(PriceTagComponent)`
   ${PriceTag}
   color: ${({ theme }) => theme.color.red};
 `;
+
+export const UnclassifiedPriceTag = styled(PriceTagComponent)`
+  ${PriceTag}
+  color: ${({ theme }) => theme.color.black};
+`;
