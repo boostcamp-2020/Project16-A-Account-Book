@@ -9,6 +9,7 @@ export const SubmitButton = styled(Input)`
   color: ${({ theme }) => theme.color.white};
   text-align: center;
   font-size: large;
+  cursor: pointer;
 `;
 
 export const Form = styled.form`
