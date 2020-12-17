@@ -16,7 +16,7 @@ export const getCategories = async (accountObjId: string) => {
 
   return categorisedType;
 };
-const isDuplicated = (existCategory: any, objid: string) => {
+const isDuplicated = (existCategory: any, objid?: string) => {
   if (existCategory.categories.length === 0) return false;
   if (String(existCategory.categories[0]._id) === objid) return false;
   return true;
@@ -33,7 +33,7 @@ export const postCategory = async (
     type,
     title,
   );
-  if (isDuplicated(exist, 'new')) throw duplicatedValue;
+  if (isDuplicated(exist)) throw duplicatedValue;
 
   const newCategory = new CategoryModel({
     type,
