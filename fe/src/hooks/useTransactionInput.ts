@@ -20,7 +20,7 @@ const initState = {
   memo: '',
   price: 0,
   classification: '지출',
-  category: '미분류',
+  category: '',
   method: '',
 };
 const useTransactionInput = (transactionObjId?: string): [State, any] => {
@@ -32,16 +32,14 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
       [name]: value,
     }));
   };
-  const loadAndSetInitialMethod = async () => {
-    await MethodStore.loadMethods();
+  const setInitialMethod = () => {
     const initialMethod = MethodStore.getMethods()[0];
     setTransaction((prevState) => ({
       ...prevState,
       method: initialMethod._id,
     }));
   };
-  const loadAndSetInitialCategory = async () => {
-    await CategoryStore.loadCategories();
+  const setInitialCategory = () => {
     const initialCategory = CategoryStore.getCategories(
       transactionState.classification,
     )[0];
@@ -49,6 +47,13 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
       ...prevState,
       category: initialCategory._id,
     }));
+  };
+
+  const loadCategoryMethod = async () => {
+    await Promise.all([
+      CategoryStore.loadCategories(),
+      MethodStore.loadMethods(),
+    ]);
   };
 
   const loadTransactionAndSetInitialInput = async () => {
@@ -77,10 +82,12 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     }));
   }, [transactionState.classification]);
   useEffect(() => {
-    loadAndSetInitialCategory();
-    loadAndSetInitialMethod();
+    loadCategoryMethod();
     if (transactionObjId) {
       loadTransactionAndSetInitialInput();
+    } else {
+      setInitialCategory();
+      setInitialMethod();
     }
   }, []);
   return [transactionState, setInputState];
