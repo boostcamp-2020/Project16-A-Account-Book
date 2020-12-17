@@ -2,6 +2,7 @@ import React from 'react';
 import { IDateTotalprice } from 'types';
 import theme from 'styles/theme';
 import utils from 'utils';
+import { Polyline } from './style';
 
 const STROKE = 1;
 const labelStyle = {
@@ -170,9 +171,10 @@ const LineChart = ({
       <HorizontalGuides />
       <LabelLineInfo />
 
-      <polyline
+      <Polyline
         fill="none"
         stroke={theme.color.brandColor}
+        sd={chartWidth + paddingLeftWidth + 200}
         strokeWidth={STROKE}
         points={points}
       />
