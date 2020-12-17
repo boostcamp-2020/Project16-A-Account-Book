@@ -32,10 +32,17 @@ const color = {
   red: '#fa5252',
 };
 
+const tag = {
+  error: '#fa5252',
+  warning: '#EC8A13',
+  info: '#41BE69',
+  success: '#1F80E0',
+};
 const theme = {
   fontSize,
   color,
   len,
+  tag,
 };
 
 export default theme;
