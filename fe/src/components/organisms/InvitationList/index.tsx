@@ -23,8 +23,6 @@ const InvitationList = () => {
     const api =
       approve === 'true' ? userAPI.agreeInvitation : userAPI.denyInvitation;
     await api(id);
-    const message = approve === 'true' ? '수락되었습니다' : '거절되었습니다';
-    alert(message);
     initialState();
     if (location.pathname === '/accounts') AccountStore.loadAccounts();
   };
