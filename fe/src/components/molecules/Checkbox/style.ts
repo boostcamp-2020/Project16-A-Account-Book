@@ -13,6 +13,7 @@ const CheckboxContainer = styled(Button)<Prop>`
   align-items: center;
   background: ${({ theme }) => theme.color.brandColor};
   border: 1px solid ${({ theme }) => theme.color.brandColor};
+  border-radius: 15%;
   > img {
     display: ${({ checked }) => (checked ? 'block' : 'none')};
   }
