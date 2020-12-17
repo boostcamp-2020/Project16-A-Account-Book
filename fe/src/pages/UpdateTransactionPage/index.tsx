@@ -17,14 +17,8 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
     transactionObjId as string,
   );
   const history = useHistory();
-
-  const { date, client, memo, price, classification } = transactionState;
   const inputFieldProps = {
-    date,
-    client,
-    memo,
-    price,
-    classification,
+    ...transactionState,
     classifications,
     formHandler: setInputState,
   };
@@ -60,7 +54,6 @@ const UpdateTransacionPage = ({ location }: { location: any }) => {
       onDelete={onDeleteHandler}
     />
   );
-
   return (
     <FormTransactionTemplate
       header={<Header title="거래내역 수정" back />}

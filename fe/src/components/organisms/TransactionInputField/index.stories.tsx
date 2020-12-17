@@ -14,7 +14,7 @@ export const Transaction = () => {
   const classifications = ['지출', '수입'];
 
   const [formValue, setFormValue] = useState({
-    category: '미분류',
+    category: '',
     date: dayjs(new Date()).format('YYYY-MM-DD'),
     client: '',
     memo: '',
@@ -38,6 +38,8 @@ export const Transaction = () => {
         client={formValue.client}
         memo={formValue.memo}
         formHandler={formHandler}
+        method={formValue.method}
+        category={formValue.category}
       />
     </ThemeProvider>
   );

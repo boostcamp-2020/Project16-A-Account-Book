@@ -11,9 +11,7 @@ export default {
   decorators: [withKnobs],
 };
 export const Transaction = () => {
-  const categories = ['미분류', '급여', '용돈', '금융수입'];
-  const methods = ['현금', '카드', '카카오뱅크', '네이버페이'];
-  const classifications = ['지출', '수입', '이체'];
+  const classifications = ['지출', '수입'];
 
   const [formValue, setFormValue] = useState({
     date: dayjs(new Date()).format('YYYY-MM-DD'),
@@ -21,7 +19,7 @@ export const Transaction = () => {
     memo: '',
     price: 0,
     classification: '',
-    category: '미분류',
+    category: '',
     method: '',
   });
 
@@ -35,13 +33,7 @@ export const Transaction = () => {
     alert('save');
   };
   const inputFieldProps = {
-    date: formValue.date,
-    client: formValue.client,
-    memo: formValue.memo,
-    price: formValue.price,
-    classification: formValue.classification,
-    categories,
-    methods,
+    ...formValue,
     classifications,
     formHandler,
   };

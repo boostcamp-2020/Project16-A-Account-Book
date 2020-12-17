@@ -24,7 +24,9 @@ export const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  margin: 2% 0%;
+  span {
+    margin-bottom: 10%;
+  }
   input + input {
     margin-left: 0.3em;
   }

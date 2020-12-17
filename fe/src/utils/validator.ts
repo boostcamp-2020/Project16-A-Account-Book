@@ -1,11 +1,15 @@
 import { State } from 'hooks/useTransactionInput';
 
 const isBlank = (value: any) => {
-  return value === null || value === undefined || value === '';
+  return (
+    value === null ||
+    value === undefined ||
+    (typeof value === 'string' && value.trim() === '')
+  );
 };
 
-export const transactionValidator = (Form: State) => {
-  const isValid = Object.entries(Form).every(([key, value]) => {
+const checkAllRequiredInputFilled = (form: State) => {
+  return Object.entries(form).every(([key, value]) => {
     if (key !== 'memo' && key !== 'classification') {
       if (isBlank(value)) {
         return false;
@@ -13,6 +17,12 @@ export const transactionValidator = (Form: State) => {
     }
     return true;
   });
+};
+
+const isPositive = (num: number) => num >= 0;
+
+export const transactionValidator = (form: State) => {
+  const isValid = checkAllRequiredInputFilled(form) && isPositive(form.price);
   return isValid;
 };
 
