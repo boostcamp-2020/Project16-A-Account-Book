@@ -63,7 +63,7 @@ export const duplicatedValue = {
 
 export const invalidPrice = {
   status: 200,
-  error: '가격에 음수가 올 수 없습니다.',
+  error: '가격은 0이상 1조 미만이어야 합니다.',
   success: false,
 };
 export const invalidForm = {

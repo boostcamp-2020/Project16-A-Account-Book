@@ -12,6 +12,7 @@ export interface Props {
   type?: string;
   inputRef?: any;
   onKeyDown?: any;
+  className?: string;
 }
 
 const Input = ({
@@ -24,6 +25,7 @@ const Input = ({
   name,
   id,
   inputRef,
+  className,
   ...props
 }: Props): React.ReactElement => {
   return (
@@ -37,6 +39,7 @@ const Input = ({
       value={value}
       disabled={disabled}
       ref={inputRef}
+      className={className}
       {...props}
     />
   );

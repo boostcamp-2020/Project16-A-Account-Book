@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Icon from 'components/atoms/Icons';
 
 export const TransactionStyle = styled.div`
   box-sizing: border-box;
@@ -20,12 +19,29 @@ export const Text = styled.div`
 `;
 
 export const PaymentInfo = styled.div`
+  display: flex;
+  flex: 6 1 auto;
   margin-left: 0.5em;
+  flex-direction: column;
+  @media only screen and (min-width: 300px) {
+    width: 12em;
+  }
+  @media only screen and (min-width: 1024px) {
+    width: 20em;
+  }
 `;
 
-export const TransactionIcon = styled(Icon)``;
+export const PriceWrap = styled.div`
+  display: flex;
+  flex: 4 1 auto;
+  justify-content: flex-end;
+`;
 
-export const Client = styled.div``;
+export const Client = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 
 export const Classification = styled.div`
   font-size: 0.7rem;

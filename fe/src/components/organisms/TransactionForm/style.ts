@@ -9,13 +9,10 @@ export const SubmitButton = styled(Input)`
   color: ${({ theme }) => theme.color.white};
   text-align: center;
   font-size: large;
+  cursor: pointer;
 `;
 
-export const Form = styled.form`
-  div + div {
-    margin-top: 1rem;
-  }
-`;
+export const Form = styled.form``;
 
 export const IconButton = styled(IconBtn)`
   flex: 1 1 30%;

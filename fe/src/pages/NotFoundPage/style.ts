@@ -20,4 +20,11 @@ export const NotFound = styled.div`
   }
 `;
 
+export const BackButton = styled.input`
+  margin: 5% 0 0 5%;
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.color.selectedBlue};
+`;
+
 export default NotFound;

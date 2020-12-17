@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-curly-newline */
 import React from 'react';
 import LabelWrap from 'components/molecules/LabelWrap';
-import 'react-datepicker/dist/react-datepicker.css';
 import { MethodStore } from 'stores/Method';
 import { CategoryStore } from 'stores/Category';
 import { observer } from 'mobx-react-lite';
 import DatePicker from 'components/atoms/DatePicker';
+import Message from 'components/atoms/Message';
 import * as S from './style';
 
 const CLASSIFICATION = 'classification';
@@ -26,6 +26,10 @@ export interface Props {
   category: string;
   method: string;
   formHandler: any;
+  message?: {
+    price?: string;
+    client?: string;
+  };
 }
 
 const TransactionInputField = ({
@@ -38,20 +42,35 @@ const TransactionInputField = ({
   price,
   category,
   method,
+  message,
 }: Props): React.ReactElement => {
   const methods = MethodStore.getMethods();
   const categories = CategoryStore.getCategories(classification);
   const newPrice = price === 0 ? undefined : price;
+  const PriceMessage = message?.price !== '' && (
+    <Message tag="error" size="sm">
+      {message?.price || ''}
+    </Message>
+  );
+  const ClientMessage = message?.client !== '' && (
+    <Message tag="error" size="sm">
+      {message?.client || ''}
+    </Message>
+  );
   return (
     <S.Container>
       <LabelWrap htmlFor={PRICE} title="금액">
-        <S.Input
-          value={newPrice}
-          name={PRICE}
-          placeholder="금액을 입력하세요"
-          onChangeHandler={formHandler}
-          type="number"
-        />
+        <>
+          {PriceMessage}
+          <S.Input
+            value={newPrice}
+            name={PRICE}
+            placeholder="금액을 입력하세요"
+            onChangeHandler={formHandler}
+            type="number"
+            className={message?.price !== '' ? 'invalid' : ''}
+          />
+        </>
       </LabelWrap>
       <LabelWrap htmlFor={CLASSIFICATION} title="분류">
         {classifications.map((classItem) => (
@@ -80,12 +99,16 @@ const TransactionInputField = ({
         </select>
       </LabelWrap>
       <LabelWrap htmlFor={CLIENT} title="거래처">
-        <S.Input
-          name={CLIENT}
-          value={client}
-          placeholder="거래처명을 입력하세요"
-          onChangeHandler={formHandler}
-        />
+        <>
+          {ClientMessage}
+          <S.Input
+            name={CLIENT}
+            value={client}
+            placeholder="거래처명을 입력하세요"
+            onChangeHandler={formHandler}
+            className={message?.client !== '' ? 'invalid' : ''}
+          />
+        </>
       </LabelWrap>
       <LabelWrap htmlFor={METHOD} title="결제수단">
         <select name={METHOD} id={METHOD} onChange={formHandler}>

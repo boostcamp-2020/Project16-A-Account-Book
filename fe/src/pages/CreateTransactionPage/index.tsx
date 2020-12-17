@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormTransactionTemplate from 'components/templates/FormTransaction';
 import TransactionForm from 'components/organisms/TransactionForm';
 import useTransactionInput from 'hooks/useTransactionInput';
@@ -14,18 +14,15 @@ const classifications = ['지출', '수입'];
 const CreateTransacionPage = () => {
   const [transactionState, setInputState] = useTransactionInput();
   const history = useHistory();
-
-  const inputFieldProps = {
-    ...transactionState,
-    classifications,
-    formHandler: setInputState,
-  };
+  const [message, setMessage] = useState({
+    client: '',
+    price: '',
+  });
 
   const onSubmitHandler = async () => {
-    const flag = transactionValidator(transactionState);
-
-    if (!flag) {
-      alert('🙀입력을 확인하세요!🙀 ');
+    const [isValid, errorMessage] = transactionValidator(transactionState);
+    if (!isValid) {
+      setMessage(errorMessage);
       return;
     }
     await transactionAPI.saveTransaction(
@@ -34,6 +31,14 @@ const CreateTransacionPage = () => {
     );
     history.goBack();
   };
+
+  const inputFieldProps = {
+    ...transactionState,
+    classifications,
+    formHandler: setInputState,
+    message,
+  };
+
   const Main = (
     <TransactionForm
       InputFieldProps={inputFieldProps}

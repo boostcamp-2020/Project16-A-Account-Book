@@ -45,9 +45,9 @@ const PieChartPercent = ({
       />
       <text
         x={text.x()}
-        y={text.y(largestPiece.percent)}
+        y={text.y(largestPiece.percent) * 1.04}
         fill={theme.color.brandColor}
-        fontSize="1rem"
+        fontSize="0.8rem"
       >
         {`${largestPiece.percent || 0}%`}
       </text>
