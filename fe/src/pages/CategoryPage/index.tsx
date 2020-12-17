@@ -150,8 +150,8 @@ function CategoryPage(): React.ReactElement {
     ) {
       return Promise.resolve({ error: '변경사항이 없습니다!' });
     }
-    if (exist) {
-      return Promise.resolve({ error: '중복되는 입력입니다!' });
+    if (exist && exist._id !== selectedRef.current) {
+      return Promise.resolve({ error: '중복된 타이틀이 존재합니다!' });
     }
     const body = {
       type,
