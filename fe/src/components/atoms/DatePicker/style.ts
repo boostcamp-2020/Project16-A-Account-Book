@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   padding: 0.4em;
-  width: 100%;
+
   .react-datepicker {
     &-wrapper {
-      width: inherit;
+      width: 100%;
     }
     &__week {
       height: 1.7rem;
@@ -29,10 +29,10 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.color.white};
     border: none;
     outline: none;
-    width: inherit;
   }
   input {
-    width: 4em;
+    width: 100%;
+    min-width: 4rem;
   }
 `;
 
