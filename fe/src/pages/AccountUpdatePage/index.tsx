@@ -141,6 +141,7 @@ const AccountUpdatePage = ({ location }: Props) => {
         account._id,
       )}
       deleteCancel={deleteCancel(setDeleteVisible)}
+      isOut={!isOwner}
     />
   );
 
