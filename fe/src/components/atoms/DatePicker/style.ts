@@ -15,10 +15,36 @@ export const Container = styled.div`
   .react-datepicker__month-container {
     font-family: 'Bmeuljiro';
   }
+
+  @media only screen and (max-width: 768px) {
+    .react-datepicker__month-container {
+      height: 12.5rem;
+    }
+    .react-datepicker__week:not(:first-child) {
+      margin-top: 1em;
+    }
+    .react-datepicker__week {
+      height: 0.8em;
+    }
+    .react-datepicker__month {
+      margin-top: 0em;
+    }
+    .react-datepicker__day {
+      margin-top: 0.2em;
+    }
+    .react-datepicker__day-names {
+      margin-top: 0.2em;
+    }
+    .react-datepicker__day-name {
+      margin-top: 0.2em;
+    }
+  }
+
   .my-react-picker {
     background-color: ${({ theme }) => theme.color.white};
     border: none;
     outline: none;
+    font-size: 0.8rem;
   }
   input {
     width: 4em;

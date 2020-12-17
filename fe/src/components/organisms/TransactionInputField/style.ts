@@ -13,6 +13,7 @@ export const Input = styled(InputAtom)`
 export const ButtonInput = styled(InputAtom)<ButtonInputProps>`
   width: 25%;
   height: 2rem;
+  font-size: 1rem;
   border: 1px solid
     ${({ active, theme }) => (active ? theme.color.blue : theme.color.subText)};
   color: ${({ active, theme }) =>
