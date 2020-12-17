@@ -174,7 +174,7 @@ const LineChart = ({
       <Polyline
         fill="none"
         stroke={theme.color.brandColor}
-        sd={chartWidth + paddingLeftWidth}
+        sd={chartWidth + paddingLeftWidth + 200}
         strokeWidth={STROKE}
         points={points}
       />
