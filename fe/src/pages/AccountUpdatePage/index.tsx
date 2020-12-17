@@ -159,14 +159,16 @@ const AccountUpdatePage = ({ location }: Props) => {
         onClick={onSelectUser}
         checkList={checkedUserIdList}
       />
-      <UserList>
-        <h2>현재 가계부 사용자 목록</h2>
-        <UserContainer>
-          {account.users.map((user: any) => (
-            <IconText icon={user.profileUrl} text={user.nickname} />
-          ))}
-        </UserContainer>
-      </UserList>
+      {!isNewAccount && (
+        <UserList>
+          <h2>현재 가계부 사용자 목록</h2>
+          <UserContainer>
+            {account.users.map((user: any) => (
+              <IconText icon={user.profileUrl} text={user.nickname} />
+            ))}
+          </UserContainer>
+        </UserList>
+      )}
       <Modal visible={deleteVisible} content={DC} />
     </>
   );
