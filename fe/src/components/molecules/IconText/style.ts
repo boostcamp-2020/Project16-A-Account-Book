@@ -12,6 +12,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   margin: 0.3rem 0;
   &:hover {
+    margin-left: 2.3em;
     transform: scale(1.2);
   }
   .icontext {
