@@ -36,14 +36,16 @@ export interface ClickProps extends MouseEvent {
 const DeleteModalContent = ({
   deleteConfirm,
   deleteCancel,
+  isOut = false,
 }: {
   deleteConfirm: any;
   deleteCancel: any;
+  isOut?: boolean;
 }) => {
   return (
     <S.ContentsWrapper>
       <S.ContentWrapper>
-        <span>정말 삭제하시겠습니까?</span>
+        <span>{isOut ? `정말 나가시겠습니까?` : `정말 삭제하시겠습니까?`}</span>
       </S.ContentWrapper>
       <S.ContentWrapper>
         <Input type="button" onClick={deleteConfirm} value="확인" />

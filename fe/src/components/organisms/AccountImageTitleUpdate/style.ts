@@ -6,6 +6,7 @@ import Input from 'components/atoms/Input';
 export const AccountImageTitleUpdate = styled.div`
   width: 100%;
   height: 100%;
+  position: relative;
   display: flex;
   background-color: ${({ theme }) => theme.color.grayBackground};
 
@@ -57,7 +58,13 @@ export const TitleInput = styled(Input)`
 export const ErrorMessage = styled.div`
   position: absolute;
   font-size: 0.8rem;
-  top: 1.7rem;
-  right: 2rem;
+  top: 1.5rem;
+  right: 1.3rem;
+  @media only screen and (min-width: 768px) {
+    right: 2.8rem;
+  }
+  @media only screen and (min-width: 1024px) {
+    right: 4rem;
+  }
   color: ${({ theme }) => theme.color.red};
 `;

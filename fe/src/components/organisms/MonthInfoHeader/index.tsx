@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import DateRange from 'components/molecules/DateRange';
 import dayjs from 'dayjs';
+import { ChattingStore } from 'stores/Chatting';
 import * as S from './style';
 
 interface MonthInfoHeaderInterface {
@@ -39,7 +40,13 @@ const MonthInfoHeader = ({
         <TotalBox title="지출" total={total.expense} />
       </div>
       <Link to={`${baseUrl}/chatting`}>
-        <S.MonthButton onClick={() => {}}>채팅</S.MonthButton>
+        <S.MonthButton
+          onClick={() => {
+            ChattingStore.resetChattings();
+          }}
+        >
+          채팅
+        </S.MonthButton>
       </Link>
     </S.MonthInfoHeaderContainer>
   );

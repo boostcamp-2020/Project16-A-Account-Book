@@ -15,7 +15,16 @@ const GithubLogin = () => {
   return (
     <GithubButton size="xl" onClick={onGithubLogin}>
       <Wrap>
-        <img src={gitHubSVG} width="24px" alt="github" />
+        <img
+          src={gitHubSVG}
+          width="24px"
+          alt="github"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '50px',
+            border: '2px solid white',
+          }}
+        />
         <div>GITHUB LOGIN</div>
       </Wrap>
     </GithubButton>

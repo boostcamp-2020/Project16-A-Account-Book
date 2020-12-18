@@ -54,6 +54,8 @@ const pushEmptyCalendar = (
 };
 
 const dateToYearMonth = (date: Date) => {
+  console.log(date.getFullYear());
+  console.log(date.getMonth());
   return `${date.getFullYear()}-${date.getMonth() + 1}`;
 };
 
@@ -69,11 +71,15 @@ const CalendarBind = ({
   let nowTransactions: any = {};
   let nowSelectedDate = dateToYearMonth(selectedDate.startDate);
   let endDateString = dateToYearMonth(selectedDate.endDate);
-
+  console.log('endDateString : ', endDateString);
+  console.log('enddateString : ', selectedDate, endDateString);
   if (
     dayjs(selectedDate.startDate).format('YYYY-MM') ===
     dayjs(selectedDate.endDate).format('YYYY-MM')
   ) {
+    endDateString = nextMonth(endDateString);
+  }
+  if (selectedDate.endDate.getDate() !== 1) {
     endDateString = nextMonth(endDateString);
   }
   Object.entries(transactions).forEach((el) => {
@@ -88,7 +94,7 @@ const CalendarBind = ({
       endDateString,
       Calendars,
     );
-
+    console.log(nowYearMonthKey);
     if (checkLoopEnd(nowYearMonthKey, endDateString)) {
       return;
     }
@@ -129,6 +135,7 @@ const CalendarBind = ({
     endDateString !== nowSelectedDate &&
     !checkLoopEnd(nowYearMonthKey, endDateString)
   ) {
+    console.log(nowYearMonthKey);
     if (
       checkLoopEnd(nowYearMonthKey, endDateString) ||
       endDateString === nowSelectedDate
