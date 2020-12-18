@@ -52,7 +52,7 @@ const CalenderPage = () => {
 
     return (
       <Template
-        HeaderBar={<Header />}
+        HeaderBar={<Header title="달 력" />}
         SubHeaderBar={SubHeaderBar}
         Contents={ContentsComponent}
         NavBar={<NavBarComponent />}
@@ -78,7 +78,7 @@ const CalenderPage = () => {
 
   return (
     <Template
-      HeaderBar={<Header />}
+      HeaderBar={<Header title="달 력" />}
       SubHeaderBar={SubHeaderBar}
       Contents={Contents}
       NavBar={<NavBarComponent />}

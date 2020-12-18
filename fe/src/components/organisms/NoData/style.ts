@@ -18,7 +18,7 @@ export const NoData = styled.div`
     background-size: 300px 300px;
     -webkit-filter: grayscale(100%);
     filter: gray;
-
+    transition: 1s all;
     :hover {
       -webkit-filter: grayscale(50%);
     }

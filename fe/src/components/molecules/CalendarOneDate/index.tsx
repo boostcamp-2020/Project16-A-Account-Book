@@ -28,13 +28,14 @@ const CalendarOneDate = ({
       <S.DateText>{date}</S.DateText>
       <S.PriceTextWrap>
         <S.IncomeText>
-          {income && `${utils.summaryOfMoney(income)}원`}
+          {income !== undefined && `${utils.summaryOfMoney(income)}원`}
         </S.IncomeText>
         <S.ExpenseText>
-          {expense && `${utils.summaryOfMoney(expense)}원`}
+          {expense !== undefined && `${utils.summaryOfMoney(expense)}원`}
         </S.ExpenseText>
         <S.UnclassifiedText>
-          {unclassified && `${utils.summaryOfMoney(unclassified)}원`}
+          {unclassified !== undefined &&
+            `${utils.summaryOfMoney(unclassified)}원`}
         </S.UnclassifiedText>
       </S.PriceTextWrap>
       <S.EmptyArea />

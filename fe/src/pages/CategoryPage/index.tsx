@@ -248,7 +248,7 @@ function CategoryPage(): React.ReactElement {
   );
   return (
     <MainTemplate
-      HeaderBar={<Header />}
+      HeaderBar={<Header title="태 그" />}
       Contents={bodyContent}
       NavBar={<NavBarComponent />}
     />
