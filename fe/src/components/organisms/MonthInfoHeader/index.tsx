@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
-import DateRange from 'components/molecules/DateRange';
 import dayjs from 'dayjs';
 import { ChattingStore } from 'stores/Chatting';
 import * as S from './style';
@@ -33,7 +32,7 @@ const MonthInfoHeader = ({
   const baseUrl = `/transactions/${owner}/${title}`;
   return (
     <S.MonthInfoHeaderContainer>
-      <DateRange dates={date} disabled />
+      <S.DateRangeBox dates={date} disabled />
       <S.MoneyInfo>
         <div className="category-type income">
           <div className="category-type__title ">수입</div>

@@ -2,11 +2,21 @@ import Button from 'components/atoms/Button';
 import styled, { css } from 'styled-components';
 import { ButtonStyleProps } from 'components/atoms/Button/style';
 import { rgba } from 'polished';
+import DateRange from 'components/molecules/DateRange';
 
 export interface MonthHeaderInfoButton extends ButtonStyleProps {
   color?: string;
   border?: boolean;
 }
+
+export const DateRangeBox = styled(DateRange)`
+  @media only screen and (min-width: 300px) {
+    padding: 0;
+  }
+  @media only screen and (min-width: 400px) {
+    padding: 0.5rem 0.2rem;
+  }
+`;
 export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
   color: ${({ color, theme }) =>
     color ? theme.color[color] : theme.color.brandColor};
