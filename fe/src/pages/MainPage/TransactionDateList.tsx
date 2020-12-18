@@ -7,6 +7,7 @@ import {
 } from 'stores/Transaction/transactionStoreUtils';
 import { observer } from 'mobx-react-lite';
 import * as types from 'types';
+import dateUtil from 'utils/date';
 
 const TransactionDateList = ({
   list,
@@ -29,12 +30,14 @@ const TransactionDateList = ({
       transactionList,
     );
     return (
-      <TransactionList
-        key={date}
-        date={new Date(date)}
-        onClick={onClick}
-        transactionList={formattedTransactionList}
-      />
+      <>
+        <TransactionList
+          key={date}
+          date={new Date(dateUtil.addZero(date))}
+          onClick={onClick}
+          transactionList={formattedTransactionList}
+        />
+      </>
     );
   };
 

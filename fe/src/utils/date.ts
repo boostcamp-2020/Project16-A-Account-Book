@@ -73,4 +73,10 @@ export default {
       absoluteTargetDate <= absoluteEndDate
     );
   },
+  addZero(str: string) {
+    const [year, month, date] = str.split('-');
+    return `${year}-${month.length === 1 ? `0${month}` : month}-${
+      date.length === 1 ? `0${date}` : date
+    }`;
+  },
 };
