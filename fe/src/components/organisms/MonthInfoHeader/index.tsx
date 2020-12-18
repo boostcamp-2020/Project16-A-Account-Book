@@ -30,17 +30,19 @@ const MonthInfoHeader = ({
 }: MonthInfoHeaderInterface) => {
   const { title, owner } = useParams<Params>();
   const baseUrl = `/transactions/${owner}/${title}`;
+  const incomeMoney = `${total.income}원`;
+  const expenseMoney = `${total.expense}원`;
   return (
     <S.MonthInfoHeaderContainer>
       <S.DateRangeBox dates={date} disabled />
       <S.MoneyInfo>
         <div className="category-type income">
           <div className="category-type__title ">수입</div>
-          <div className="total-money">{total.income}</div>
+          <div className="total-money">{incomeMoney}</div>
         </div>
         <div className="category-type expense">
           <div className="category-type__title">지출</div>
-          <div className="total-money">{total.expense}</div>
+          <div className="total-money">{expenseMoney}</div>
         </div>
       </S.MoneyInfo>
       <Link to={`${baseUrl}/chatting`}>
