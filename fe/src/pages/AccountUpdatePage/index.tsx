@@ -117,6 +117,7 @@ const AccountUpdatePage = ({ location }: Props) => {
         account._id,
         title,
         checkedUserIdList,
+        alreadyInvitedUserIdList[0],
       );
 
       if (result.error) {

@@ -107,37 +107,22 @@ export const isVaildLengthTitle = async (
   await next();
 };
 
-const isCanPass = (
-  targetList: IAccountDocument[],
-  put: boolean,
-  putObjId?: string,
-) => {
-  if (!put && targetList.length !== 0) return false;
-  if (put) {
-    const mine = targetList.some((account) => String(account._id) === putObjId);
-    return mine;
-  }
-  return true;
-};
-
 export const isDuplicateAccountTitle = async (
   ctx: Koa.Context,
   next: () => Promise<any>,
 ) => {
-  const { title } = ctx.request.body;
-  const findDuplicate = await AccountModel.find({ title });
-  if (
-    !isCanPass(
-      findDuplicate,
-      ctx.method === PUT_METHOD,
-      ctx.params.accountObjId,
-    )
-  ) {
-    throw duplicatedValue;
-  }
+  const { title, user, ownerName } = ctx.request.body;
+  const put = ctx.method === PUT_METHOD;
+  const option = put
+    ? { title, ownerName, _id: { $ne: ctx.params.accountObjId } }
+    : {
+        title,
+        ownerName: user.nickname,
+      };
+  const result = await AccountModel.findOne(option);
+  if (result) throw duplicatedValue;
 
   await next();
-
 };
 
 export const isValidPrice = async (
