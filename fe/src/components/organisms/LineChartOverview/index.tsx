@@ -1,9 +1,11 @@
 import React from 'react';
 import LineChart from 'components/molecules/LineChart';
+import NodataMessage from 'components/molecules/NoDataMessage';
 import { TransactionStore } from 'stores/Transaction';
 import { observer } from 'mobx-react-lite';
 import { IDateTotalprice } from 'types';
 import dateUtils from 'utils/date';
+import theme from 'styles/theme';
 import * as S from './style';
 
 const checkDataIfScarce = (dataList: IDateTotalprice[]) => dataList.length <= 1;
@@ -27,8 +29,28 @@ const formalizeDate = (dataList: IDateTotalprice[]) => {
     date: dateUtils.dateCustomFormatter(data.date, FORMAT),
   }));
 };
+const noData = [
+  { date: '', totalPrice: 10 },
+  { date: '', totalPrice: 4 },
+  { date: '', totalPrice: 30 },
+  { date: '', totalPrice: 5 },
+  { date: '', totalPrice: 40 },
+  { date: '', totalPrice: 10 },
+  { date: '', totalPrice: 70 },
+];
 
-const WarningMessage = <div>데이터가 충분하지 않습니다 😢 </div>;
+const WarningMessage = (
+  <>
+    <LineChart
+      width={250}
+      height={100}
+      data={noData}
+      color={theme.color.subText}
+      horizontalGuides={5}
+    />
+    <NodataMessage />
+  </>
+);
 
 const LineChartOverview = (): React.ReactElement => {
   const dataList = TransactionStore.totalExpensePriceByDate;
