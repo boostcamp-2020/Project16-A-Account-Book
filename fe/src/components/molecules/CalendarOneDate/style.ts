@@ -32,16 +32,25 @@ export const PriceTextWrap = styled.div`
 `;
 
 export const IncomeText = styled.div`
-  font-size: 0.8rem;
+  font-size: 0.4rem;
+  @media only screen and (min-width: 500px) {
+    font-size: 0.8rem;
+  }
   color: ${({ theme }) => theme.color.brandColor};
 `;
 
 export const ExpenseText = styled.div`
-  font-size: 0.8rem;
+  font-size: 0.4rem;
+  @media only screen and (min-width: 500px) {
+    font-size: 0.8rem;
+  }
   color: ${({ theme }) => theme.color.red};
 `;
 
 export const UnclassifiedText = styled.div`
-  font-size: 0.8rem;
+  font-size: 0.4rem;
+  @media only screen and (min-width: 500px) {
+    font-size: 0.8rem;
+  }
   color: ${({ theme }) => theme.color.black};
 `;
