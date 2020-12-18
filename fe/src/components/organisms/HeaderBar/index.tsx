@@ -23,7 +23,7 @@ const BackButton = (goBack: any) => (
   </div>
 );
 const HeaderBar = ({
-  title = 'N석봉',
+  title = 'N 석 봉',
   back = false,
   ...props
 }: Props): React.ReactElement => {
@@ -44,8 +44,7 @@ const HeaderBar = ({
     <S.HeaderBar {...props}>
       <div className="content">
         {back && BackButton(goBack)}
-
-        <Link to="/accounts" onClick={onClickHandler}>
+        <Link className="header_title" to="/accounts" onClick={onClickHandler}>
           {title}
         </Link>
         <S.Icon icon={bell} onClick={onClickVisible} />

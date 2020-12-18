@@ -28,6 +28,9 @@ export const HeaderBar = styled.div`
     font-size: ${({ theme }) => theme.fontSize.xs};
     color: ${({ theme }) => theme.color.white};
   }
+  .header_title {
+    font-size: 1.2rem;
+  }
 `;
 
 export const Icon = styled(IconButton)`
