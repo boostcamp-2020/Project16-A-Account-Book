@@ -14,6 +14,7 @@ import Modal from 'components/molecules/Modal';
 import Input from 'components/atoms/Input';
 import LabelWrap from 'components/molecules/LabelWrap';
 import categoryAPI from 'apis/category';
+import Message from 'components/atoms/Message';
 import methodAPI from 'apis/method';
 import NavBarComponent from 'components/organisms/NavBar';
 import { getRandomColor } from 'utils/random';
@@ -63,6 +64,7 @@ function CategoryPage(): React.ReactElement {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
   const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [message, setMessage] = useState<string>('');
   const colorPicker = useRef<any>();
   const inputRef = useRef<any>();
   const selectedRef = useRef<string>('');
@@ -112,17 +114,18 @@ function CategoryPage(): React.ReactElement {
   const confirm = async () => {
     const trimedTitle = inputRef.current.value.trim();
     if (!isVaildLengthTitle(trimedTitle)) {
-      alert('최대 20자까지 입력이 가능합니다.');
+      setMessage('최대 20자까지 입력이 가능합니다.');
       return;
     }
     const apiFuc = type === 'METHOD' ? methodConfirm : categoryConfirm;
     const result: any = await apiFuc();
     if (result.error) {
-      alert(result.error);
+      setMessage(result.error);
     } else {
       loadStore();
       selectedRef.current = '';
       onCancle(setVisible)();
+      setMessage('');
     }
   };
   const methodConfirm = async () => {
@@ -185,6 +188,7 @@ function CategoryPage(): React.ReactElement {
   const onCancle = (fnc: any) => () => {
     inputRef.current.value = '';
     selectedRef.current = '';
+    setMessage('');
     fnc(false);
   };
 
@@ -197,6 +201,7 @@ function CategoryPage(): React.ReactElement {
   const modalContent = (
     <S.ContentsWrapper>
       <div className="input-container">
+        {message !== '' && <Message>{message}</Message>}
         <LabelWrap htmlFor="input-category" title={type}>
           <Input id="input-category" type="text" inputRef={inputRef} />
         </LabelWrap>
