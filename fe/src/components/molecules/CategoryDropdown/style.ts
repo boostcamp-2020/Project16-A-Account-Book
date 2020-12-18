@@ -4,9 +4,13 @@ import EditButton from 'components/atoms/EditButton';
 export const CheckBoxContainer = styled.div`
   margin-left: auto;
 `;
+
 export const DropdownItem = styled.div`
   border: none;
   padding: 0.5rem;
+  &:hover {
+    background: ${({ theme }) => theme.color.transparentBrandColor};
+  }
   & + & {
     border-top: 1px solid ${({ theme }) => theme.color.subText};
   }
