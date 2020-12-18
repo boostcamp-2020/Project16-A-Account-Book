@@ -29,6 +29,11 @@ export const HeaderBar = styled.div`
     color: ${({ theme }) => theme.color.white};
   }
   .header_title {
+    :hover {
+      transition: 0.4s all;
+      cursor: pointer;
+      color: ${({ theme }) => theme.color.white};
+    }
     font-size: 1.2rem;
   }
 `;
@@ -38,4 +43,9 @@ export const Icon = styled(IconButton)`
   right: 0;
   top: -0.08rem;
   background: transparent;
+  transition: 0.4s all;
+  :hover {
+    filter: contrast(120%);
+    transform: rotate(20deg);
+  }
 `;
