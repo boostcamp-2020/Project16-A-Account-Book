@@ -9,7 +9,7 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   transition: all 0.3s ease-in-out;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 0.3rem 0;
   &:hover {
     margin-left: 2.3em;
