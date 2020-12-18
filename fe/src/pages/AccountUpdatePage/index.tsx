@@ -13,6 +13,8 @@ import accountAPI from 'apis/account';
 import { AccountStore, accountItem } from 'stores/Account';
 import { D } from 'pages/CategoryPage';
 import Modal from 'components/molecules/Modal';
+import IconText from 'components/molecules/IconText';
+import UserContainer, { UserList } from './style';
 
 interface Props {
   location?: any;
@@ -69,6 +71,7 @@ const AccountUpdatePage = ({ location }: Props) => {
   const [userList, checkedUserIdList, setCheckedUserIdList] = useInviteUser(
     alreadyInvitedUserIdList,
   );
+
   const isOwner =
     sessionStorage.getItem('userObjId') === alreadyInvitedUserIdList[0];
   const titleInputRef = useRef<any>('');
@@ -157,6 +160,16 @@ const AccountUpdatePage = ({ location }: Props) => {
         onClick={onSelectUser}
         checkList={checkedUserIdList}
       />
+      {!isNewAccount && (
+        <UserList>
+          <h2>현재 가계부 사용자 목록</h2>
+          <UserContainer>
+            {account.users.map((user: any) => (
+              <IconText icon={user.profileUrl} text={user.nickname} />
+            ))}
+          </UserContainer>
+        </UserList>
+      )}
       <Modal visible={deleteVisible} content={DC} />
     </>
   );
