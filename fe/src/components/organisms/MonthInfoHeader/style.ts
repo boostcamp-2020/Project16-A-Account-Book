@@ -11,9 +11,7 @@ export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
   color: ${({ color, theme }) =>
     color ? theme.color[color] : theme.color.brandColor};
   border: 0;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 1.25rem;
+  border-radius: 50%;
   border: 1px solid ${({ theme }) => theme.color.brandColor};
   :hover {
     color: ${({ theme }) => theme.color.white};
@@ -26,6 +24,14 @@ export const MonthButton = styled(Button)<MonthHeaderInfoButton>`
       font-weight: 900;
     `}
   background: transparent;
+  @media only screen and (min-width: 300px) {
+    width: 2.5em;
+    height: 2.5em;
+  }
+  @media only screen and (min-width: 400px) {
+    width: 3em;
+    height: 3em;
+  }
 `;
 
 export const MonthInfoHeaderContainer = styled.section`
@@ -40,4 +46,33 @@ export const MonthInfoHeaderContainer = styled.section`
   justify-content: center;
   align-items: center;
   background: ${({ theme }) => theme.color.white};
+`;
+
+export const MoneyInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  .income {
+    color: ${({ theme }) => theme.color.brandColor};
+  }
+  .expense {
+    color: ${({ theme }) => theme.color.red};
+  }
+  @media only screen and (min-width: 300px) {
+    .category-type {
+      display: flex;
+      flex-direction: column;
+      & + & {
+        margin-top: 1000em;
+      }
+    }
+  }
+  @media only screen and (min-width: 400px) {
+    .category-type {
+      display: flex;
+      flex-direction: row;
+    }
+    .total-money {
+      margin-left: 0.4em;
+    }
+  }
 `;

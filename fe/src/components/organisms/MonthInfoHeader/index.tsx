@@ -1,5 +1,4 @@
 import React from 'react';
-import TotalBox from 'components/molecules/TotalBox';
 import { Link, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
@@ -35,10 +34,16 @@ const MonthInfoHeader = ({
   return (
     <S.MonthInfoHeaderContainer>
       <DateRange dates={date} disabled />
-      <div>
-        <TotalBox title="수입" total={total.income} />
-        <TotalBox title="지출" total={total.expense} />
-      </div>
+      <S.MoneyInfo>
+        <div className="category-type income">
+          <div className="category-type__title ">수입</div>
+          <div className="total-money">{total.income}</div>
+        </div>
+        <div className="category-type expense">
+          <div className="category-type__title">지출</div>
+          <div className="total-money">{total.expense}</div>
+        </div>
+      </S.MoneyInfo>
       <Link to={`${baseUrl}/chatting`}>
         <S.MonthButton
           onClick={() => {
