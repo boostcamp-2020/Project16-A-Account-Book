@@ -14,12 +14,14 @@ export interface Props {
   width: number;
   height: number;
   horizontalGuides: number;
+  color?: string;
 }
 const LineChart = ({
   data,
   height,
   width,
   horizontalGuides: numberOfHorizontalGuides,
+  color = theme.color.brandColor,
 }: Props) => {
   const FONT_SIZE = width / 60;
   const maximumXFromData = data.length;
@@ -101,7 +103,7 @@ const LineChart = ({
   const LabelsXAxis = () => {
     const y = yAxisPos.y.end + labelStyle.fontSize;
     const dateLength = data[0].date.length;
-    const labelLength = (labelStyle.fontSize + dateLength) * 1.3;
+    const labelLength = (labelStyle.fontSize + dateLength) * 1.4;
     let lastPrintedX = 0;
     return (
       <>
@@ -152,7 +154,7 @@ const LineChart = ({
     return (
       <>
         <polyline
-          stroke={theme.color.brandColor}
+          stroke={color}
           strokeWidth={STROKE}
           points={`${startX},${y} ${endX},${y}`}
         />
@@ -173,8 +175,7 @@ const LineChart = ({
 
       <Polyline
         fill="none"
-        stroke={theme.color.brandColor}
-        sd={chartWidth + paddingLeftWidth + 200}
+        stroke={color}
         strokeWidth={STROKE}
         points={points}
       />

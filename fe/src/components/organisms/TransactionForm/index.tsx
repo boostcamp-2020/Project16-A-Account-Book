@@ -23,7 +23,7 @@ const TransactionForm = ({
       <TransactionInputField {...InputFieldProps} />
       <S.ButtonArea>
         {isUpdate && <S.IconButton icon={trashSvg} onClick={onDelete} />}
-        <S.SubmitButton onClick={onSubmit} value="저장" />
+        <S.SubmitButton onClick={onSubmit} value="저장" type="button" />
       </S.ButtonArea>
     </S.Form>
   );

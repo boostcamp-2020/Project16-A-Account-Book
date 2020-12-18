@@ -21,6 +21,6 @@ export const ResetButton = styled(Input)`
   color: ${({ theme }) => theme.color.subText};
 `;
 export const FilterLabel = styled.div`
-  width: 4.6em;
+  width: 5em;
   height: 1.2em;
 `;

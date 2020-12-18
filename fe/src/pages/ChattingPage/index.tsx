@@ -96,7 +96,7 @@ const ChattingPage = () => {
   );
   return (
     <MainTemplate
-      HeaderBar={<Header />}
+      HeaderBar={<Header title="채 팅" />}
       Contents={ChattingContent}
       NavBar={<NavBar />}
     />

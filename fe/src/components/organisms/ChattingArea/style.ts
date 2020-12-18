@@ -12,8 +12,10 @@ export const ChattingBtn = styled(Input)`
 export const ChattingArea = styled.div`
   box-sizing: border-box;
   position: absolute;
-  height: calc(100% - 1rem);
-  width: calc(100% - 2em);
+  top: 1rem;
+  left: calc(5%);
+  right: calc(5%);
+  height: calc(100% - 2rem);
   overflow-x: hidden;
   border: 0.1rem solid ${({ theme }) => theme.color.brandColor};
   input {

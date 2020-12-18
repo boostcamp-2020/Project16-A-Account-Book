@@ -7,6 +7,12 @@ export const Content = styled.div`
   border-top-left-radius: 1.5rem;
   border-top-right-radius: 1.5rem;
   width: 90%;
+  @media only screen and (min-width: 768px) {
+    width: 69%;
+  }
+  @media only screen and (min-width: 1024px) {
+    width: 65%;
+  }
   height: 30%;
   bottom: -30%;
   z-index: 15;

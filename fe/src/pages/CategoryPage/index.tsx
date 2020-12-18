@@ -14,6 +14,7 @@ import Modal from 'components/molecules/Modal';
 import Input from 'components/atoms/Input';
 import LabelWrap from 'components/molecules/LabelWrap';
 import categoryAPI from 'apis/category';
+import Message from 'components/atoms/Message';
 import methodAPI from 'apis/method';
 import NavBarComponent from 'components/organisms/NavBar';
 import { getRandomColor } from 'utils/random';
@@ -36,14 +37,16 @@ export interface ClickProps extends MouseEvent {
 const DeleteModalContent = ({
   deleteConfirm,
   deleteCancel,
+  isOut = false,
 }: {
   deleteConfirm: any;
   deleteCancel: any;
+  isOut?: boolean;
 }) => {
   return (
     <S.ContentsWrapper>
       <S.ContentWrapper>
-        <span>정말 삭제하시겠습니까?</span>
+        <span>{isOut ? `정말 나가시겠습니까?` : `정말 삭제하시겠습니까?`}</span>
       </S.ContentWrapper>
       <S.ContentWrapper>
         <Input type="button" onClick={deleteConfirm} value="확인" />
@@ -61,6 +64,7 @@ function CategoryPage(): React.ReactElement {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
   const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [message, setMessage] = useState<string>('');
   const colorPicker = useRef<any>();
   const inputRef = useRef<any>();
   const selectedRef = useRef<string>('');
@@ -110,17 +114,18 @@ function CategoryPage(): React.ReactElement {
   const confirm = async () => {
     const trimedTitle = inputRef.current.value.trim();
     if (!isVaildLengthTitle(trimedTitle)) {
-      alert('최대 20자까지 입력이 가능합니다.');
+      setMessage('최대 20자까지 입력이 가능합니다.');
       return;
     }
     const apiFuc = type === 'METHOD' ? methodConfirm : categoryConfirm;
     const result: any = await apiFuc();
     if (result.error) {
-      alert(result.error);
+      setMessage(result.error);
     } else {
       loadStore();
       selectedRef.current = '';
       onCancle(setVisible)();
+      setMessage('');
     }
   };
   const methodConfirm = async () => {
@@ -183,6 +188,7 @@ function CategoryPage(): React.ReactElement {
   const onCancle = (fnc: any) => () => {
     inputRef.current.value = '';
     selectedRef.current = '';
+    setMessage('');
     fnc(false);
   };
 
@@ -195,6 +201,7 @@ function CategoryPage(): React.ReactElement {
   const modalContent = (
     <S.ContentsWrapper>
       <div className="input-container">
+        {message !== '' && <Message>{message}</Message>}
         <LabelWrap htmlFor="input-category" title={type}>
           <Input id="input-category" type="text" inputRef={inputRef} />
         </LabelWrap>
@@ -241,7 +248,7 @@ function CategoryPage(): React.ReactElement {
   );
   return (
     <MainTemplate
-      HeaderBar={<Header />}
+      HeaderBar={<Header title="태 그" />}
       Contents={bodyContent}
       NavBar={<NavBarComponent />}
     />

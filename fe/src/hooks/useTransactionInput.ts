@@ -55,13 +55,23 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
       MethodStore.loadMethods(),
     ]);
   };
-
+  const getUnclassfiedCategoryId = () => {
+    const categories = CategoryStore.getCategories(
+      transactionState.classification,
+    );
+    const foundCategory = categories.find((item) => item.title !== '미분류');
+    if (!foundCategory) {
+      return '';
+    }
+    return foundCategory._id;
+  };
   const loadTransactionAndSetInitialInput = async () => {
     const transaction = await transactionAPI.getTransaction(
       TransactionStore.accountObjId,
       transactionObjId as string,
     );
     const { date, memo, client, price, method, category } = transaction;
+
     setTransaction({
       date: utils.dateFormatter(date),
       client,
@@ -69,7 +79,8 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
       memo: memo || '',
       classification: category.type === categoryType.INCOME ? '수입' : '지출',
       method: method._id,
-      category: category._id,
+      category:
+        category.title === '미분류' ? getUnclassfiedCategoryId() : category._id,
     });
   };
   useEffect(() => {

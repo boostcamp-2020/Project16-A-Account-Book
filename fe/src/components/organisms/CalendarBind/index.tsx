@@ -69,11 +69,13 @@ const CalendarBind = ({
   let nowTransactions: any = {};
   let nowSelectedDate = dateToYearMonth(selectedDate.startDate);
   let endDateString = dateToYearMonth(selectedDate.endDate);
-
   if (
     dayjs(selectedDate.startDate).format('YYYY-MM') ===
     dayjs(selectedDate.endDate).format('YYYY-MM')
   ) {
+    endDateString = nextMonth(endDateString);
+  }
+  if (selectedDate.endDate.getDate() !== 1) {
     endDateString = nextMonth(endDateString);
   }
   Object.entries(transactions).forEach((el) => {
@@ -88,7 +90,6 @@ const CalendarBind = ({
       endDateString,
       Calendars,
     );
-
     if (checkLoopEnd(nowYearMonthKey, endDateString)) {
       return;
     }

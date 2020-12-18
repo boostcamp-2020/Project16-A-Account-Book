@@ -34,7 +34,7 @@ const StatisticsPage = ({ location }: { location: any }) => {
 
   return (
     <Template
-      HeaderBar={<Header />}
+      HeaderBar={<Header title="통 계" />}
       SubHeaderBar={SubHeaderBar}
       Contents={Contents}
       NavBar={<NavBarComponent />}

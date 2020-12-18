@@ -6,6 +6,11 @@ export const TotalViewButton = styled(Button)`
   border: 1px solid gray;
   background: ${({ theme }) => theme.color.white};
   color: gray;
+  :hover {
+    border: 1px solid ${({ theme }) => theme.color.brandColor};
+    background: ${({ theme }) => theme.color.transparentBrandColor};
+    color: ${({ theme }) => theme.color.brandColor};
+  }
 `;
 
 export const StatisticsTitle = styled.div`

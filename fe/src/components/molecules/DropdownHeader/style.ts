@@ -14,7 +14,7 @@ export interface Prop {
 export const Container = styled.div<Prop>`
   flex: 1;
   position: relative;
-  width: calc(100% - 0.6rem - 2px);
+  width: calc(100% - 0.2rem);
   border-bottom: 1px solid
     ${({ theme, border }) => (border ? theme.color.subText : 'transparent')};
 `;

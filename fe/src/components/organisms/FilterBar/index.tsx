@@ -1,6 +1,4 @@
 import React from 'react';
-import searchIcon from 'assets/svg/search.svg';
-import Icon from 'components/atoms/Icons';
 import { observer } from 'mobx-react-lite';
 import { TransactionStore } from 'stores/Transaction';
 import * as S from './style';
@@ -29,8 +27,6 @@ const FilterBar = ({ ...props }: Props): React.ReactElement => {
           onClick={onResetFilter}
         />
       )}
-
-      <Icon icon={searchIcon} size="sm" className="search" />
     </S.FilterBar>
   );
 };
