@@ -4,7 +4,6 @@ import PieChart from 'components/molecules/PieChart';
 import Checkbox from 'components/molecules/Checkbox';
 import PriceTag from 'components/atoms/PriceTag';
 import NoDataPieChartContents from 'components/molecules/NoDataPieChartContents';
-
 import { IStatistics } from 'types';
 import * as S from './style';
 
@@ -27,16 +26,20 @@ const PieChartDetail = ({
 
   const TotalStatusCheckBox = (
     <S.TotalStatusCheckBox>
-      <div className="total-checkbox-wrap">
+      <S.TotalCheckboxWrap>
         <Checkbox checked={checkStatus.income} onClick={onClick} />
-        수입
-        <PriceTag value={statistics.totalPrice.income} />
-      </div>
-      <div className="total-checkbox-wrap">
+        <S.PriceWrap className="income">
+          <span className="category-type">수입</span>
+          <PriceTag value={statistics.totalPrice.income} />
+        </S.PriceWrap>
+      </S.TotalCheckboxWrap>
+      <S.TotalCheckboxWrap className="income">
         <Checkbox checked={checkStatus.expense} onClick={onClick} />
-        지출
-        <PriceTag value={statistics.totalPrice.expense} />
-      </div>
+        <S.PriceWrap className="expense">
+          <span className="category-type">지출</span>
+          <PriceTag value={statistics.totalPrice.expense} />
+        </S.PriceWrap>
+      </S.TotalCheckboxWrap>
     </S.TotalStatusCheckBox>
   );
   return (
