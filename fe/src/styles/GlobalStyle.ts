@@ -28,6 +28,11 @@ const GlobalStyle = createGlobalStyle`
       font-size: 16px;
     }
   }
+  button, input {
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari and Chrome */
+    appearance: none;
+  }
 
   menu, ol, ul {
     list-style: none;
