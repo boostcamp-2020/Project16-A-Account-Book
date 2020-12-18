@@ -36,6 +36,6 @@ export const HeaderBar = styled.div`
 export const Icon = styled(IconButton)`
   position: absolute;
   right: 0;
-  top: -2px;
+  top: -0.08rem;
   background: transparent;
 `;
