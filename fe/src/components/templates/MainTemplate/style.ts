@@ -5,6 +5,15 @@ export const Container = styled.div`
   .main-contaner {
     width: 100%;
   }
+
+  .emptyList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20%;
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const FilterBar = styled(FilterBarComponent)`
