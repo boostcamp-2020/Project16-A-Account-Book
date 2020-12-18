@@ -108,7 +108,7 @@ const AccountListPage = () => {
 
   return (
     <Template
-      HeaderBar={<Header />}
+      HeaderBar={<Header title="가계부 목록" />}
       Contents={Contents}
       NavBar={newAccountBtn}
     />

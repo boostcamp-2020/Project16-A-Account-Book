@@ -46,7 +46,7 @@ const MainPage = () => {
   if (TransactionStore.state === state.PENDING) {
     return (
       <Template
-        HeaderBar={<Header />}
+        HeaderBar={<Header title="홈" />}
         SubHeaderBar={<MonthInfo />}
         Contents={renderLoading}
         NavBar={<NavBarComponent />}
@@ -56,7 +56,7 @@ const MainPage = () => {
 
   return (
     <Template
-      HeaderBar={<Header />}
+      HeaderBar={<Header title="홈" />}
       SubHeaderBar={<MonthInfo />}
       Contents={Contents}
       NavBar={<NavBarComponent />}
