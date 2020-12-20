@@ -34,7 +34,7 @@ const onClickHandler = (
   accountTitle: string,
   accountOwner: string,
 ) => () => {
-  setSessionByAccountIno(accountObjId, accountTitle, accountTitle);
+  setSessionByAccountIno(accountObjId, accountTitle, accountOwner);
   sessionStorage.removeItem('filter');
   setTransactionStorageInfo(accountObjId);
   history.push(`/transactions/${accountOwner}/${accountTitle}`);
