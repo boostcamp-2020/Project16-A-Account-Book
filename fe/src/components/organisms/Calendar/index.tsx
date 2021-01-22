@@ -96,7 +96,7 @@ const Calendar = ({
   selectedDate,
   ...props
 }: Props): React.ReactElement => {
-  const defaultStartDay = isSundayStart ? 0 : 1;
+  const defaultStartDay = isSundayStart ? 6 : 0;
   const nowYear = selectedDate.getFullYear();
   const nowMonth = selectedDate.getMonth();
   const nowYearDate = `${nowYear % 100} / ${nowMonth + 1}`;
