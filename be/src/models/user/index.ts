@@ -1,48 +1,30 @@
-import { Schema, model, Document, Types } from 'mongoose';
-
-export const UserSchema = new Schema({
-  timezone: {
-    type: String,
-    default: 'Asia/Seoul',
-  },
-  startOfWeek: {
-    type: String,
-    default: 'sunday',
-  },
-  nickname: {
-    type: String,
-    required: true,
-  },
-  id: {
-    type: String,
-  },
-  profileUrl: {
-    type: String,
-  },
-  invitations: [
-    {
-      accounts: {
-        type: Types.ObjectId,
-        ref: 'accounts',
-      },
-      host: String,
+module.exports = (sequelize: any, DataTypes: any) => {
+  return sequelize.define('user', {
+    id: {
+      allowNull: false,
+      unique: true,
+      primaryKey: true,
+      type: DataTypes.STRING,
     },
-  ],
-});
-
-export interface IInvitation {
-  host: String;
-  accounts: String;
-}
-export interface IUserDocument extends Document {
-  timezone?: String;
-  startOfWeek?: String;
-  id?: String;
-  password?: String;
-  salt?: String;
-  nickname: String;
-  profileUrl?: String;
-  invitations?: Array<IInvitation>;
-}
-
-export const UserModel = model<IUserDocument>('users', UserSchema);
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    salt: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    nickName: {
+      type: DataTypes.STRING,
+    },
+    profileURL: {
+      type: DataTypes.STRING,
+    },
+    startOfWeek: {
+      type: DataTypes.STRING,
+    },
+    timezone: {
+      type: DataTypes.STRING,
+    },
+  });
+};

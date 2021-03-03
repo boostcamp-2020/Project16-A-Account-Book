@@ -1,0 +1,9 @@
+{
+    "development": {
+        "username": "NSB",
+        "password": "NSB4869",
+        "database": "NSB",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    }
+}

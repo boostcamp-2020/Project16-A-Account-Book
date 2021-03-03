@@ -3,8 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbConfig = {
-  type: process.env.DB_TYPE,
+export const dbConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
@@ -40,6 +39,6 @@ export const getFrontUrl = () => {
 };
 
 export const corsOptions = {
-  origin: (ctx: Context) => ctx.request.header.origin,
+  origin: (ctx: Context) => ctx.request.header.origin || '*',
   credentials: true,
 };
