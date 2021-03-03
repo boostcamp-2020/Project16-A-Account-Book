@@ -12,7 +12,6 @@ interface SeqDb {
 }
 
 const env = process.env.NODE_ENV || 'development';
-// eslint-disable-next-line global-require
 const config = require('../config/config.json')[env];
 
 const db: SeqDb = {};
@@ -41,6 +40,10 @@ db.Account.hasMany(db.Category, { as: 'Categories' });
 db.Account.hasMany(db.Method, { as: 'Methods' });
 // 4. Account-Transaction (1:N)
 db.Account.hasMany(db.Transaction, { as: 'Transactions' });
+// 5. Category-Transaction (1:N)
+db.Category.hasMany(db.Transaction, { as: 'Transactions' });
+// 6. Method-Transaction (1:N)
+db.Method.hasMany(db.Transaction, { as: 'Transactions' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
