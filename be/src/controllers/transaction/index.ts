@@ -30,9 +30,8 @@ const getTransaction = async (ctx: Koa.Context) => {
 
 const post = async (ctx: Koa.Context) => {
   const { transaction } = ctx.request.body;
-  const { accountObjId } = ctx.params;
   try {
-    await service.saveAndAddToAccount(transaction, accountObjId);
+    await service.saveAndAddToAccount(transaction);
   } catch (e) {
     e.status = 400;
     throw e;
