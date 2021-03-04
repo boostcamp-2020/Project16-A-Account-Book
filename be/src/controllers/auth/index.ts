@@ -1,6 +1,5 @@
 import Koa from 'koa';
 import * as authService from 'services/auth';
-import { getFrontUrl } from 'config';
 
 export const githubAuthRequest = async (ctx: Koa.Context) => {
   const githubAuthUrl = await authService.getGithubURL();

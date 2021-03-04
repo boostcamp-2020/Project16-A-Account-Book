@@ -3,12 +3,11 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import randomstring from 'randomstring';
 import querystring from 'querystring';
-import { UserModel } from 'models/user';
-import { AccountModel } from 'models/account';
-import { CategoryModel } from 'models/category';
-import { MethodModel } from 'models/method';
 import { getFrontUrl, jwtConfig, githubConfig } from 'config';
 import URL from 'apis/urls';
+import { getRandomColor } from 'libs/random';
+
+const models = require('model');
 
 function getAccessTokenFromGitHub(code: string) {
   return axios.post(
@@ -46,6 +45,60 @@ export const getGithubURL = async () => {
   return url + query;
 };
 
+export const createDefaultCategory = async (accountId: any) => {
+  const expense = [
+    '식비',
+    '생활',
+    '온라인쇼핑',
+    '패션',
+    '뷰티/미용',
+    '교통',
+    '의료/건강',
+    '금융',
+    '문화/여가',
+    '교육/학습',
+    '반려동물',
+    '기타지출',
+  ];
+  const income = ['급여', '용돈', '금융수입', '사업수입', '기타수입'];
+
+  expense.forEach(async (title) => {
+    const color = getRandomColor();
+    await models.Category.create({
+      type: 'EXPENSE',
+      title,
+      color,
+      accountId,
+    });
+  });
+
+  income.forEach(async (title) => {
+    const color = getRandomColor();
+    await models.Category.create({
+      type: 'INCOME',
+      title,
+      color,
+      accountId,
+    });
+  });
+
+  await models.Category.create({
+    title: '미분류',
+    color: '#000000',
+    type: 'UNCLASSIFIED',
+  });
+};
+
+export const createDefaultMethod = async (accountId: any) => {
+  const titles = ['현금', '카드', '미분류'];
+  titles.forEach(async (title) => {
+    await models.Method.create({
+      title,
+      accountId,
+    });
+  });
+};
+
 export const getGithubAccessToken = async (code: string) => {
   const {
     data: { access_token: accessToken },
@@ -53,25 +106,25 @@ export const getGithubAccessToken = async (code: string) => {
   const { data: profile } = await getUserProfile(accessToken);
   const { id, login, avatar_url: avatarUrl } = profile;
 
-  let user = await UserModel.findOne({ id }).exec();
+  let user = await models.User.findOne({ where: { id } });
+
   if (!user) {
-    const categories = await CategoryModel.createDefaultCategory();
-    const methods = await MethodModel.createDefaultMethod();
-    user = new UserModel({
+    user = await models.User.create({
       id,
+      password: id + login,
+      salt: id + login,
       nickname: login,
       profileUrl: avatarUrl,
     });
-    const newAccount = new AccountModel({
+
+    const newAccount = await models.Account.create({
       title: login,
       ownerName: login,
-      categories,
-      methods,
-      users: [user],
-      imageUrl: user.profileUrl,
     });
 
-    await Promise.all([newAccount.save(), user.save()]);
+    await createDefaultCategory(newAccount.id);
+    await createDefaultMethod(newAccount.id);
+    await user.addAccount(newAccount, { through: 'User_Account' });
   }
   const token = jwt.sign(
     {
