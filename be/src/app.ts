@@ -31,8 +31,8 @@ app.use(async (ctx, next) => {
 
 app.use(cors(corsOptions));
 app.use(bodyParser());
-// app.use(Router.routes());
-// app.use(Router.allowedMethods());
+app.use(Router.routes());
+app.use(Router.allowedMethods());
 
 app.listen(hostConfig.backPort, () => {
   console.log(`Listening to port ${hostConfig.backPort}`);
