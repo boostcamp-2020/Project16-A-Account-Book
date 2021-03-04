@@ -1,6 +1,4 @@
-import { MethodModel } from 'models/method';
-import { TransactionModel } from 'models/transaction';
-import { AccountModel } from 'models/account';
+const models = require('models');
 
 export interface ParsedSMS {
   cardname: string;
@@ -17,34 +15,35 @@ export const postMms = async (
   mmsObj: ParsedSMS,
   client: string,
 ) => {
-  let method = await AccountModel.findMethodByTitle(
-    accountObjId,
-    mmsObj.cardname,
-  );
-  if (!method[0]) {
-    method = await MethodModel.create({
+  let method = await models.Method.findOne({
+    where: {
+      accountId: accountObjId,
       title: mmsObj.cardname,
+    },
+  });
+  if (!method) {
+    method = await models.Method.create({
+      title: mmsObj.cardname,
+      accountId: accountObjId,
     });
-    await AccountModel.findByPkAndPushMethod(accountObjId, method._id);
   } else [method] = method;
-  const unclassifiedId = await AccountModel.findUnclassifiedCategory(
-    accountObjId,
-  );
-  if (unclassifiedId != null) {
-    const newTransaction = await TransactionModel.create({
+
+  const unclassified = await models.Category.findOne({
+    attributes: ['id'],
+    where: { accountId: accountObjId, title: '미분류' },
+  });
+  if (unclassified != null) {
+    await models.Transaction.create({
       client,
-      method: method._id,
-      category: unclassifiedId,
+      methodId: method._id,
+      categoryId: unclassified.id,
+      accountId: accountObjId,
       date: new Date(`${mmsObj.date} ${mmsObj.time}`),
       price: mmsObj.amount,
       memo: '문자로 추가',
       excludeFromBudget: false,
       isDeleted: false,
     });
-    await AccountModel.updateOne(
-      { _id: accountObjId },
-      { $push: { transactions: newTransaction._id } },
-    );
     return { success: true };
   }
   return { success: false, error: '미분류 카테고리가 존재하지 않습니다' };
