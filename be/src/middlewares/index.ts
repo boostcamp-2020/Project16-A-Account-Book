@@ -13,9 +13,8 @@ import {
   invalidForm,
   invalidPrice,
 } from 'libs/error';
-import { UserModel } from 'models/user';
-import { CategoryModel, categoryType } from 'models/category';
-import { AccountModel, IAccountDocument } from 'models/account';
+
+const models = require('models');
 
 interface IDecodedData {
   id: string | number;
@@ -38,7 +37,8 @@ export const authorization = async (
       accessToken,
       jwtConfig.jwtSecret,
     ) as IDecodedData;
-    const user = await UserModel.findOne({ id: decodedData.id });
+    const user = await models.User.findOne({where:{id: decodedData.id}});
+
     if (!user) {
       throw unAuthroziedError;
     }
@@ -59,31 +59,22 @@ export const verifyAccountAccess = async (
   if (!user) {
     throw unAuthroziedError;
   }
-  const selectedAccount = await AccountModel.findById(accountObjId);
-  if (!selectedAccount) {
-    throw accountHasNoUserError;
-  }
-  const accountHasUserId = selectedAccount.users.some((el: any) => {
-    return String(el._id) === String(user._id);
-  });
-
-  if (!accountHasUserId) {
-    throw invalidAccessError;
-  }
-  await next();
+  const exist = models.User_Account.findOne({where:{userId:user.id,accountId:accountObjId}});
+  
+  return exist? true: false;
 };
 
-export const isUnclassifide = async (
-  ctx: Koa.Context,
-  next: () => Promise<any>,
-) => {
-  const { category } = ctx.params;
-  const cat = await CategoryModel.findById(category);
-  if (!cat || cat.type === categoryType.UNCLASSIFIED) {
-    throw invalidCategory;
-  }
-  await next();
-};
+// export const isUnclassifide = async (
+//   ctx: Koa.Context,
+//   next: () => Promise<any>,
+// ) => {
+//   const { category } = ctx.params;
+//   const cat = await CategoryModel.findById(category);
+//   if (!cat || cat.type === categoryType.UNCLASSIFIED) {
+//     throw invalidCategory;
+//   }
+//   await next();
+// };
 
 export const titleIsUnclassified = async (
   ctx: Koa.Context,
@@ -107,23 +98,23 @@ export const isVaildLengthTitle = async (
   await next();
 };
 
-export const isDuplicateAccountTitle = async (
-  ctx: Koa.Context,
-  next: () => Promise<any>,
-) => {
-  const { title, user, ownerName } = ctx.request.body;
-  const put = ctx.method === PUT_METHOD;
-  const option = put
-    ? { title, ownerName, _id: { $ne: ctx.params.accountObjId } }
-    : {
-        title,
-        ownerName: user.nickname,
-      };
-  const result = await AccountModel.findOne(option);
-  if (result) throw duplicatedValue;
+// export const isDuplicateAccountTitle = async (
+//   ctx: Koa.Context,
+//   next: () => Promise<any>,
+// ) => {
+//   const { title, user, ownerName } = ctx.request.body;
+//   const put = ctx.method === PUT_METHOD;
+//   const option = put
+//     ? { title, ownerName, _id: { $ne: ctx.params.accountObjId } }
+//     : {
+//         title,
+//         ownerName: user.nickname,
+//       };
+//   const result = await AccountModel.findOne(option);
+//   if (result) throw duplicatedValue;
 
-  await next();
-};
+//   await next();
+// };
 
 export const isValidPrice = async (
   ctx: Koa.Context,

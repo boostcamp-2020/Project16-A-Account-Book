@@ -7,7 +7,7 @@ import { getFrontUrl, jwtConfig, githubConfig } from 'config';
 import URL from 'apis/urls';
 import { getRandomColor } from 'libs/random';
 
-const models = require('model');
+const models = require('models');
 
 function getAccessTokenFromGitHub(code: string) {
   return axios.post(

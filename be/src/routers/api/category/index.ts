@@ -2,7 +2,6 @@ import Router from 'koa-router';
 import koaCompose from 'koa-compose';
 import categoryController from 'controllers/category';
 import {
-  isUnclassifide,
   titleIsUnclassified,
   isVaildLengthTitle,
 } from 'middlewares';
@@ -24,7 +23,7 @@ router.put(
 );
 router.delete(
   '/:category',
-  koaCompose([isUnclassifide, categoryController.deleteCategory]),
+  koaCompose([categoryController.deleteCategory]),
 );
 
 export default router;

@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import koaCompose from 'koa-compose';
 import accountController from 'controllers/account';
-import { isVaildLengthTitle, isDuplicateAccountTitle } from 'middlewares';
+import { isVaildLengthTitle } from 'middlewares';
 
 const router = new Router();
 
@@ -11,7 +11,6 @@ router.post(
   '/',
   koaCompose([
     isVaildLengthTitle,
-    isDuplicateAccountTitle,
     accountController.postAccount,
   ]),
 );
@@ -19,7 +18,6 @@ router.put(
   '/',
   koaCompose([
     isVaildLengthTitle,
-    isDuplicateAccountTitle,
     accountController.putAccount,
   ]),
 );
