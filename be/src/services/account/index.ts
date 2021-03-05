@@ -1,12 +1,14 @@
-import { AccountModel } from 'models/account';
-import { CategoryModel } from 'models/category';
-import { MethodModel } from 'models/method';
-import { NotVaildException } from 'models/account/static';
-import { UserHasNoAccount, accountNoChange, duplicatedValue } from 'libs/error';
-import { IUserDocument, UserModel } from 'models/user';
+import {
+  UserHasNoAccount,
+  accountNoChange,
+  NotVaildException,
+} from 'libs/error';
+import { createDefaultCategory, createDefaultMethod } from 'services/auth';
+
+const models = require('models');
 
 export const getAccountsByUserId = async (userId: string) => {
-  const res = await AccountModel.findAccountByUserId(userId);
+  const res = await models.User.getAccounts({ where: { id: userId } });
 
   if (!res) throw UserHasNoAccount;
   return res;
@@ -14,85 +16,64 @@ export const getAccountsByUserId = async (userId: string) => {
 
 export const getAccountByTitleAndOwner = async (
   title: string,
-  owner: string,
+  ownerName: string,
 ) => {
-  const account = await AccountModel.findByTitleAndOwner(title, owner);
+  const account = await models.Account.findOne({ where: { title, ownerName } });
 
   if (!account) throw new NotVaildException();
   return account;
 };
 
-const inviteUserList = (
-  host: String,
-  accountObjId: string,
-  userObjIdList: string[],
-) => {
-  return UserModel.updateMany(
-    {
-      _id: { $in: userObjIdList },
-      'invitations.accounts': { $ne: accountObjId },
-    },
-    {
-      $addToSet: {
-        invitations: {
-          host,
-          accounts: accountObjId,
-        },
-      },
-    },
-  );
-};
+// const inviteUserList = (
+//   host: String,
+//   accountObjId: string,
+//   userObjIdList: string[],
+// ) => {
+//   return UserModel.updateMany(
+//     {
+//            하나라도 있으면
+//       _id: { $in: userObjIdList },
+//                                 없으면
+//       'invitations.accounts': { $ne: accountObjId },
+//     },
+//     {
+//       없으면 추가
+//       $addToSet: {
+//         invitations: {
+//           host,
+//           accounts: accountObjId,
+//         },
+//       },
+//     },
+//   );
+// };
 
-export const createNewAccount = async (
-  user: IUserDocument,
-  title: any,
-  userObjIdList: string[],
-) => {
-  const [categories, methods] = await Promise.all([
-    CategoryModel.createDefaultCategory(),
-    MethodModel.createDefaultMethod(),
-  ]);
-
-  const newAccount = new AccountModel({
+export const createNewAccount = async (user: any, title: any) => {
+  const newAccount = await models.Account.create({
     title,
     ownerName: user.nickname,
-    categories,
-    methods,
-    users: [user],
-    imageUrl: user.profileUrl,
   });
-  const inviteUsers = inviteUserList(
-    user.nickname,
-    newAccount._id,
-    userObjIdList,
-  );
-  return Promise.all([newAccount.save(), inviteUsers]);
+  createDefaultCategory(newAccount.id);
+  createDefaultMethod(newAccount.id);
+
+  // const inviteUsers = inviteUserList(
+  //   user.nickname,
+  //   newAccount._id,
+  //   userObjIdList,
+  // );
+  return true;
 };
 
 export const updateAccountByUserAndAccountInfo = async (
   title: any,
   accountObjId: string,
-  userObjIdList: string[],
-  user: IUserDocument,
 ) => {
-  const updateAccount = AccountModel.updateOne(
-    { _id: accountObjId },
-    {
-      title,
-    },
-  );
-  const inviteUsers = inviteUserList(
-    user.nickname,
-    accountObjId,
-    userObjIdList,
-  );
-
-  return Promise.all([updateAccount, inviteUsers]);
+  return models.Account.update({ title }, { where: { id: accountObjId } });
 };
 
 export const deleteAccountByAccountInfo = async (accountObjId: String) => {
-  const deleteAccount = await AccountModel.findOneAndDelete({
-    _id: accountObjId,
+  const deleteAccount = await models.Account.destroy({
+    where: { id: accountObjId },
   });
 
   if (!deleteAccount) {
@@ -104,25 +85,21 @@ export const addUserInAccount = async (
   accountObjId: string,
   userObjId: string,
 ) => {
-  const result = await AccountModel.findByPkAndPushUser(
-    userObjId,
-    accountObjId,
-  );
+  const account = await models.Account.findOne({ where: { id: accountObjId } });
+  const result = await models.User.addAccount(account, {
+    through: 'User_Account',
+  });
 
-  if (result.ok && result.nModified === 0) {
-    return { success: true, message: '중복된 유저 입력' };
-  }
-  if (result.ok) {
-    return { success: true, message: '정상적으로 유저 추가' };
-  }
-  return { success: false, message: result };
+  return { success: true, message: result };
 };
 
 export const deleteUserInAccount = async (
   accountObjId: string,
   userObjId: string,
 ) => {
-  return AccountModel.findOneAndDeleteUser(accountObjId, userObjId);
+  return models.User_Account.destroy({
+    where: { userId: userObjId, accountId: accountObjId },
+  });
 };
 
 export default {};

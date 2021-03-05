@@ -11,19 +11,17 @@ export const get = async (ctx: Koa.Context) => {
 };
 
 export const postAccount = async (ctx: Koa.Context) => {
-  const { user, title, userObjIdList } = ctx.request.body;
-  await accountService.createNewAccount(user, title, userObjIdList);
+  const { user, title } = ctx.request.body;
+  await accountService.createNewAccount(user, title);
   ctx.status = 201;
   ctx.response.body = { success: true };
 };
 
 export const putAccount = async (ctx: Koa.Context) => {
-  const { user, title, userObjIdList } = ctx.request.body;
+  const { title } = ctx.request.body;
   await accountService.updateAccountByUserAndAccountInfo(
     title,
     ctx.params.accountObjId,
-    userObjIdList,
-    user,
   );
   ctx.status = 200;
   ctx.response.body = { success: true };

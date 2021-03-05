@@ -71,3 +71,14 @@ export const invalidForm = {
   error: '폼이 다 채워지지 않았거나, 폼의 내용이 잘못되었습니다.',
   success: false,
 };
+
+export class NotVaildException {
+  message: string;
+
+  status: number;
+
+  constructor() {
+    this.message = '잘못된 접근 입니다.';
+    this.status = 400;
+  }
+}
