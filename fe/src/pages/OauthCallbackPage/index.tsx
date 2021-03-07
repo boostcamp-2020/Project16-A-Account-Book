@@ -18,7 +18,7 @@ function OauthCallbackPage({
       if (code == null) return;
       const res = await auth.getAccessToken(code);
 
-      sessionStorage.setItem('userObjId', (res as any)._id);
+      sessionStorage.setItem('userObjId', (res as any).id);
       setIsLoading(false);
       history.push('/accounts');
     };

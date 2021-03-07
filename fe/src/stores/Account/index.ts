@@ -7,10 +7,9 @@ const state = {
   ERROR: 'ERROR',
 };
 export type accountItem = {
-  _id: string;
+  id: string;
   title: string;
   ownerName: string;
-  imageUrl?: string;
 };
 export interface Account {
   accountList: Array<accountItem>;

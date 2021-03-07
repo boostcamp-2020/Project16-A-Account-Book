@@ -8,7 +8,14 @@ import { createDefaultCategory, createDefaultMethod } from 'services/auth';
 const models = require('models');
 
 export const getAccountsByUserId = async (userId: string) => {
-  const res = await models.User.getAccounts({ where: { id: userId } });
+  const res = await models.Account.findAll({ 
+    include: {
+      model: models.User,
+      where: {
+        id: userId
+      }
+    }
+  });
 
   if (!res) throw UserHasNoAccount;
   return res;

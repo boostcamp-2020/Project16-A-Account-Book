@@ -59,9 +59,11 @@ export const verifyAccountAccess = async (
   if (!user) {
     throw unAuthroziedError;
   }
-  const exist = models.User_Account.findOne({where:{userId:user.id,accountId:accountObjId}});
-  
-  return exist? true: false;
+  const exist = await models.User.findOne({where:{id:user.id},include: {model:models.Account, where:{id:accountObjId}}});
+  if (!exist){
+    throw invalidAccessError;
+  }
+  await next();
 };
 
 // export const isUnclassifide = async (
