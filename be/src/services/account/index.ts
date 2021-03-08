@@ -58,8 +58,12 @@ export const getAccountByTitleAndOwner = async (
 export const createNewAccount = async (user: any, title: any) => {
   const newAccount = await models.Account.create({
     title,
-    ownerName: user.nickname,
+    ownerName: user.nickName,
   });
+
+  const accountUser = await models.User.findOne({where:{id:user.id}})
+
+  await accountUser.addAccount(newAccount);
   createDefaultCategory(newAccount.id);
   createDefaultMethod(newAccount.id);
 
@@ -68,7 +72,7 @@ export const createNewAccount = async (user: any, title: any) => {
   //   newAccount._id,
   //   userObjIdList,
   // );
-  return true;
+  return newAccount;
 };
 
 export const updateAccountByUserAndAccountInfo = async (

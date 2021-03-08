@@ -113,7 +113,7 @@ export const getGithubAccessToken = async (code: string) => {
       id,
       password: id + login,
       salt: id + login,
-      nickname: login,
+      nickName: login,
       profileUrl: avatarUrl,
     });
 

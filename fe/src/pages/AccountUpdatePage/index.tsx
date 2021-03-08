@@ -67,7 +67,7 @@ const AccountUpdatePage = ({ location }: Props) => {
   const history = useHistory();
   const { account, isNewAccount } = location.state;
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
-  const alreadyInvitedUserIdList = account.users.map((user: any) => user._id);
+  const alreadyInvitedUserIdList = account.users.map((user: any) => user.id);
   const [userList, checkedUserIdList, setCheckedUserIdList] = useInviteUser(
     alreadyInvitedUserIdList,
   );
@@ -82,12 +82,12 @@ const AccountUpdatePage = ({ location }: Props) => {
   }, []);
 
   const onSelectUser = (user: IUser) => {
-    const selectedId = user._id;
+    const selectedId = user.id;
     if (selectedId === 'ALL') {
       if (checkedUserIdList.length === userList.length) {
         setCheckedUserIdList([]);
       } else {
-        setCheckedUserIdList(userList.map((userData) => userData._id));
+        setCheckedUserIdList(userList.map((userData) => userData.id));
       }
     } else {
       setCheckedUserIdList((prevCheckedList: string[]) =>
@@ -117,7 +117,7 @@ const AccountUpdatePage = ({ location }: Props) => {
       }
     } else {
       const result: any = await accountAPI.updateAccount(
-        account._id,
+        account.id,
         title,
         checkedUserIdList,
         alreadyInvitedUserIdList[0],
@@ -142,7 +142,7 @@ const AccountUpdatePage = ({ location }: Props) => {
         isOwner,
         setDeleteVisible,
         history,
-        account._id,
+        account.id,
       )}
       deleteCancel={deleteCancel(setDeleteVisible)}
       isOut={!isOwner}

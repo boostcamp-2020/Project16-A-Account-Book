@@ -9,7 +9,6 @@ interface SeqDb {
   Method?: any;
   Transaction?: any;
   User?: any;
-  User_Account?: any;
 }
 
 const env = process.env.NODE_ENV || 'development';
@@ -30,14 +29,11 @@ db.Category = require('models/Category')(sequelize, Sequelize);
 db.Method = require('models/Method')(sequelize, Sequelize);
 db.Transaction = require('models/Transaction')(sequelize, Sequelize);
 db.User = require('models/User')(sequelize, Sequelize);
-db.User_Account = require('models/User_Account')(sequelize,Sequelize);
 
 // Relation Setting
 // 1. User-Account (N:M)
 db.User.belongsToMany(db.Account, { through: 'User_Account' });
 db.Account.belongsToMany(db.User, { through: 'User_Account' });
-db.User_Account.belongsTo(db.Account, { foreignKey: 'accountId'});
-db.User_Account.belongsTo(db.User, { foreignKey: 'userId'});
 // 2. Account-Category (1:N)
 db.Account.hasMany(db.Category, { as: 'Categories' });
 // 3. Account-Method (1:N)

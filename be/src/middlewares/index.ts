@@ -56,6 +56,7 @@ export const verifyAccountAccess = async (
 ) => {
   const { accountObjId } = ctx.params;
   const { user } = ctx.request.body;
+
   if (!user) {
     throw unAuthroziedError;
   }
