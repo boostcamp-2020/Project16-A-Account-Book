@@ -1,11 +1,10 @@
 import React from 'react';
 import CircleSvg from 'components/atoms/CircleSvg';
 import math from 'utils/math';
-import { ICategoryStatistics } from 'types';
 import PieChartPercent from 'components/molecules/PieChartPercent';
 
 export interface Props {
-  pieces: ICategoryStatistics[];
+  pieces: any[];
 }
 
 const SIZE = 160;
@@ -26,11 +25,11 @@ const circle = {
 
 const circumference = 2 * Math.PI * circle.r;
 
-const getBasePiece = (allPieces: ICategoryStatistics[]) => {
+const getBasePiece = (allPieces: any[]) => {
   const sumPercent = math.sumByKey(allPieces, 'percent');
   return { color: 'lightgrey', percent: 100 - sumPercent };
 };
-const getDrawingOrderedPieces = (pieces: ICategoryStatistics[]) => {
+const getDrawingOrderedPieces = (pieces: any[]) => {
   const ascOrderPieces = pieces.sort(math.getCompFuncByKey('percent'));
   const basePiece = getBasePiece(ascOrderPieces);
   return [basePiece, ...ascOrderPieces];

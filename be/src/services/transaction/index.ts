@@ -3,6 +3,11 @@ import { Op } from 'sequelize';
 
 const models = require('models');
 
+const typeMap = (type: any) => {
+  if(type == '수입') return 'INCOME'
+  return 'EXPENSE';
+}
+
 const oneMonthTransactionsReducer = (acc: any, transaction: any) => {
   const year = transaction.date.getFullYear();
   const month = transaction.date.getMonth() + 1;
@@ -42,7 +47,25 @@ export const sortAndGroupByDate = (transactionList: any[]) => {
   return groupedByDateTransactionList;
 };
 
-export const saveAndAddToAccount = async (transaction: any) => {
+export const saveAndAddToAccount = async (transaction: any, accountId: string) => {
+  let category = await models.Category.findOne({
+    attributes:  ['id'],
+    where:{
+      title: transaction.category,
+      accountId
+    }
+  });
+  let method = await models.Method.findOne({
+    attributes:  ['id'],
+    where: {
+      title: transaction.method,
+      accountId
+    }
+  });
+  transaction.accountId = accountId;
+  transaction.categoryId = category.id;
+  transaction.methodId = method.id;
+  transaction.classification = typeMap(transaction.classification);
   return models.Transaction.create(transaction);
 };
 

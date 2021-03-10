@@ -37,7 +37,6 @@ const TransactionDateList = ({
       />
     );
   };
-
   return <>{Object.entries(list).map(getTransactionListComponent)}</>;
 };
 

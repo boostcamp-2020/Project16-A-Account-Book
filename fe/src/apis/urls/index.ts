@@ -14,6 +14,9 @@ export default {
   category: (accountObjId: string) => {
     return `/api/${accountObjId}/categories/`;
   },
+  oneCategory: (accountObjId: number, categoryId: number) => {
+    return `/api/${accountObjId}/categories/one/${categoryId}`;
+  },
   defaultCategory: 'api/categories',
   account: '/api/accounts',
   postCategory: '/api/categories',

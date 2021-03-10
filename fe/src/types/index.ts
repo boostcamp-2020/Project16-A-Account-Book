@@ -1,42 +1,31 @@
 export interface TransactionDBType {
   excludeFromBudget: boolean;
-  _id: string;
+  id: number;
   client: string;
   date: Date;
   memo?: string;
-  method: {
-    _id: string;
-    title: string;
-    __v?: number;
-  };
-  category: {
-    _id: string;
-    title: string;
-    color: string;
-    type: string;
-    __v?: number;
-  };
   price: number;
+  classification: string;
+  methodId: number;
+  categoryId: number;
+  accountId: number;
 }
 export interface IDateTransactionObj {
   [date: string]: TransactionDBType[];
 }
 export interface IMethod {
-  _id: string;
+  id: string;
   title: string;
-  __v?: number;
 }
 
 export interface ICategory {
-  _id: string;
+  id: string;
   title: string;
   color: string;
   type: string;
-  __v?: number;
 }
 
 export interface IUser {
-  _id: string;
   timezone: string;
   startOfWeek: string;
   id: string;

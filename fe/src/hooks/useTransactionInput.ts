@@ -36,7 +36,7 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     const initialMethod = MethodStore.getMethods()[0];
     setTransaction((prevState) => ({
       ...prevState,
-      method: initialMethod?._id,
+      method: initialMethod?.id,
     }));
   };
   const setInitialCategory = () => {
@@ -45,7 +45,7 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     )[0];
     setTransaction((prevState) => ({
       ...prevState,
-      category: initialCategory?._id,
+      category: initialCategory?.id,
     }));
   };
 
@@ -63,30 +63,40 @@ const useTransactionInput = (transactionObjId?: string): [State, any] => {
     if (!foundCategory) {
       return '';
     }
-    return foundCategory._id;
+    return foundCategory.id;
   };
   const loadTransactionAndSetInitialInput = async () => {
     const transaction = await transactionAPI.getTransaction(
       TransactionStore.accountObjId,
       transactionObjId as string,
     );
-    const { date, memo, client, price, method, category } = transaction;
+    const {
+      date,
+      memo,
+      client,
+      price,
+      methodId,
+      classification,
+      categoryId,
+    } = transaction;
 
     setTransaction({
       date: utils.dateFormatter(date),
       client,
       price,
       memo: memo || '',
-      classification: category.type === categoryType.INCOME ? '수입' : '지출',
-      method: method._id,
+      classification: classification === categoryType.INCOME ? '수입' : '지출',
+      method: String(methodId),
       category:
-        category.title === '미분류' ? getUnclassfiedCategoryId() : category._id,
+        classification === '미분류'
+          ? getUnclassfiedCategoryId()
+          : String(categoryId),
     });
   };
   useEffect(() => {
     const { classification } = transactionState;
     const defaultCategory = CategoryStore.getCategories(classification)[0];
-    const input = defaultCategory ? defaultCategory._id : '';
+    const input = defaultCategory ? defaultCategory.id : '';
     setTransaction((preState) => ({
       ...preState,
       category: input,

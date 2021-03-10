@@ -1,10 +1,18 @@
 import { Context } from 'koa';
 import {
+  getCategoryById,
   getCategories,
   postCategory,
   updateCategory,
   deleteOneCategory,
 } from 'services/category';
+
+const getOneCategory = async (ctx: Context) => {
+  const { categoryId } = ctx.params;
+  const category = await getCategoryById(categoryId);
+  ctx.status = 200;
+  ctx.body = category;
+}
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
@@ -38,4 +46,4 @@ const deleteCategory = async (ctx: Context) => {
   ctx.res.end();
 };
 
-export default { get, post, put, deleteCategory };
+export default { getOneCategory, get, post, put, deleteCategory };

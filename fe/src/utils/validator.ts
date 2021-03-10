@@ -45,6 +45,7 @@ const isMoneyInRange = (money: number): [boolean, Message] => {
 
 export const transactionValidator = (form: State): [boolean, Message] => {
   const [isAllFilled, fieldMessage] = checkAllRequiredInputFilled(form);
+  console.log(isAllFilled, fieldMessage);
   if (!isAllFilled) {
     return [false, fieldMessage];
   }

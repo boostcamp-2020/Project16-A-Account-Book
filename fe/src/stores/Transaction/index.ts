@@ -144,6 +144,7 @@ export const TransactionStore = makeAutoObservable({
     const res = toJS(this.transactions[dateString]);
 
     if (!res) return [];
+    console.log(res);
     return convertTransactionDBTypetoTransactionType(res);
   },
 

@@ -6,7 +6,6 @@ const initialState = [
   {
     timezone: '',
     startOfWeek: '',
-    _id: '',
     id: '',
     nickname: '',
     profileUrl: '',
@@ -28,7 +27,7 @@ const useInviteUser = (
 
   const deleteInvitedUser = (loadedUserList: IUser[]) => {
     return loadedUserList.filter(
-      (user) => !alreadyInvitedUser.includes(user._id),
+      (user) => !alreadyInvitedUser.includes(user.id),
     );
   };
 

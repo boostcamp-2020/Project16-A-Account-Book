@@ -36,7 +36,7 @@ const MainFilterForm = () => {
     const selectedCategoryIdList =
       categories[type].list.length === fetchedCategories.length
         ? []
-        : fetchedCategories.map((cat) => cat._id);
+        : fetchedCategories.map((cat) => cat.id);
 
     dispatch(actions.setAllCategories(type, selectedCategoryIdList));
   };
@@ -48,7 +48,7 @@ const MainFilterForm = () => {
     if (!TransactionStore.isFiltered) {
       Object.values(categoryType).forEach((cat) => selectAll(convert(cat)));
       const selectedMethodList = MethodStore.getMethods().map(
-        (method) => method._id,
+        (method) => method.id,
       );
       dispatch(actions.setAllMethod(selectedMethodList));
     }
@@ -108,7 +108,7 @@ const MainFilterForm = () => {
       const m =
         methods.length === MethodStore.getMethods().length
           ? []
-          : MethodStore.getMethods().map((method) => method._id);
+          : MethodStore.getMethods().map((method) => method.id);
       dispatch(actions.setAllMethod(m));
       return;
     }

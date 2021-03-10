@@ -2,19 +2,27 @@ import { duplicatedValue } from 'libs/error';
 
 const models = require('models');
 
+export const getCategoryById = async(id: number) => {
+  const category = await models.Category.findOne({
+    where:{
+      id
+    }
+  });
+  return category;
+}
+
 export const getCategories = async (accountObjId: string) => {
   const res = await models.Category.findAll({
     where: {
       accountId: accountObjId,
     },
   });
-  const categorisedType = res?.categories?.reduce((acc: any, cur: any) => {
+  const categorisedType = await res?.reduce((acc: any, cur: any) => {
     const { type } = cur;
     if (!acc[type]) acc[type] = [];
     acc[type].push(cur);
     return acc;
   }, {});
-
   return categorisedType;
 };
 

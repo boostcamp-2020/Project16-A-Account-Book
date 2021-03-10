@@ -7,7 +7,7 @@ import {
 } from 'middlewares';
 
 const router = new Router();
-
+router.get('/one/:categoryId', categoryController.getOneCategory);
 router.get('/', categoryController.get);
 router.post(
   '/',
