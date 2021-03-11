@@ -1,12 +1,13 @@
 import { Context } from 'koa';
 import { updateUnclassifiedMethod } from 'libs/error';
-import { models } from 'mongoose';
 import {
   getMethods,
   createMethod,
   removeMethod,
   updateMethod,
 } from 'services/method';
+
+const models = require('models');
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
@@ -40,7 +41,7 @@ const put = async (ctx: Context) => {
     throw updateUnclassifiedMethod;
   const unclassifiedMethod = await models.Method.findOne({
     where: {
-      accountId: accountObjId,
+      accountId: Number(accountObjId),
       title: '미분류',
     },
   });

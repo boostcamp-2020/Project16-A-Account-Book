@@ -64,8 +64,8 @@ export const createNewAccount = async (user: any, title: any) => {
   const accountUser = await models.User.findOne({where:{id:user.id}})
 
   await accountUser.addAccount(newAccount);
-  createDefaultCategory(newAccount.id);
-  createDefaultMethod(newAccount.id);
+  await createDefaultCategory(newAccount.id);
+  await createDefaultMethod(newAccount.id);
 
   // const inviteUsers = inviteUserList(
   //   user.nickname,

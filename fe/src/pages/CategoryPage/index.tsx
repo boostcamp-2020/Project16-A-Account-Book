@@ -84,7 +84,7 @@ function CategoryPage(): React.ReactElement {
   );
 
   const dropDownItemClicked = (data: any) => {
-    selectedRef.current = data._id;
+    selectedRef.current = data.id;
     colorPicker.current.value = data.color;
     inputRef.current.value = data.title;
     setVisible(true);

@@ -21,13 +21,14 @@ export const removeMethod = async (
 ) => {
   const unclassifiedMethod = await models.Method.findOne({
     where: {
-      accountId: accountObjId,
+      accountId: Number(accountObjId),
       title: '미분류',
     },
   });
   if (String(unclassifiedMethod.id) === methodObjId)
     throw removeUnclassifiedMethod;
-  return models.Transaction.update(
+  
+  await models.Transaction.update(
     { methodId: unclassifiedMethod.id },
     {
       where: {
@@ -35,6 +36,8 @@ export const removeMethod = async (
       },
     },
   );
+  
+  return models.Method.destroy({where:{id: methodObjId}});
 };
 
 export const updateMethod = async (methodObjId: string, title: string) => {

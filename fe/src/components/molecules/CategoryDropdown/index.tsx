@@ -25,10 +25,10 @@ const CategoryDropdown = ({
         (data: any): React.ReactElement => {
           if (data.title === '미분류') return <></>;
           return (
-            <S.DropdownItem key={data._id} {...props}>
+            <S.DropdownItem key={data.id} {...props}>
               <div className="flex-container modify-button">
                 <S.CategoryEditButton
-                  key={`category-edit-${data._id}`}
+                  key={`category-edit-${data.id}`}
                   isClicked={isClicked}
                   onClick={(e: MouseEvent) => {
                     e.preventDefault();
@@ -40,15 +40,15 @@ const CategoryDropdown = ({
               </div>
               {!!data.color && <S.ColorBox color={data.color}> </S.ColorBox>}
               <div className="title-container flex-container">
-                <span key={data.objectId}>{data.title}</span>
+                <span key={data.id}>{data.title}</span>
               </div>
               <div className="flex-container">
                 <S.CategoryEditButton
-                  key={data._id}
+                  key={data.id}
                   isClicked={isClicked}
                   onClick={(e: MouseEvent) => {
                     e.preventDefault();
-                    deleteClicked(data._id);
+                    deleteClicked(data.id);
                   }}
                   type="button"
                   value="삭제"
