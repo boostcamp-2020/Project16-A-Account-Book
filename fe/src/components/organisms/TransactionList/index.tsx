@@ -18,7 +18,6 @@ interface accType {
 
 const TransactionList = ({ date, transactionList, onClick }: Props) => {
   const reduceTransactionList = (acc: accType, transEl: any) => {
-    console.log(acc);
     acc.transList.push(
       <S.AccountTransaction
         key={transEl.id}

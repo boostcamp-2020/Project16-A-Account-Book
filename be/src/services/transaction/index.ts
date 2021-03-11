@@ -28,6 +28,16 @@ export const getTransactionList = async ({
   accountObjId: string;
 }) => {
   const transactionList = await models.Transaction.findAll({
+    include: [
+      {
+        model: models.Category,
+        attributes: ['id','type','title','color']
+      },
+      {
+        model: models.Method,
+        attributes: ['id','title']
+      }
+    ],
     where: {
       accountId: accountObjId,
       date: {
@@ -83,6 +93,9 @@ export const updateTransaction = async (
   transactionObjId: string,
   transaction: any,
 ) => {
+  transaction.methodId = Number(transaction.method);
+  transaction.categoryId = Number(transaction.category);
+  console.log(transaction);
   return models.Transaction.update(transaction, {
     where: { id: transactionObjId },
   });

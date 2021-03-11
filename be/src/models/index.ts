@@ -42,8 +42,10 @@ db.Account.hasMany(db.Method, { as: 'Methods' });
 db.Account.hasMany(db.Transaction, { as: 'Transactions' });
 // 5. Category-Transaction (1:N)
 db.Category.hasMany(db.Transaction, { as: 'Transactions' });
+db.Transaction.belongsTo(db.Category, {foreignKey: 'categoryId'});
 // 6. Method-Transaction (1:N)
 db.Method.hasMany(db.Transaction, { as: 'Transactions' });
+db.Transaction.belongsTo(db.Method, {foreignKey: 'methodId'});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

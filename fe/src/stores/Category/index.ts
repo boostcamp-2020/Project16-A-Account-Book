@@ -68,10 +68,12 @@ export const categoryConvertBig2Small = (input: string) => {
   switch (input) {
     case categoryType.EXPENSE:
     case 'expense':
+    case '지출':
       return 'expense';
 
     case categoryType.INCOME:
     case 'income':
+    case '수입':
       return 'income';
 
     default:

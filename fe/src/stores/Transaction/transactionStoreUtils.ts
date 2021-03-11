@@ -38,14 +38,14 @@ export const isNotMatchedWithFilterInfo = (transaction: TransactionDBType) => {
 };
 export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
   const output = input.reduce((acc, transaction) => {
-    const { id, accountId, categoryId, methodId, ...other } = transaction;
+    const { id, accountId, category, method, ...other } = transaction;
     return [
       ...acc,
       {
         ...other,
         id,
-        category: categoryId,
-        method: methodId,
+        category: category.title,
+        method: method.title,
         categoryType: transaction.classification,
       },
     ];
