@@ -9,7 +9,6 @@ import {
 import { TransactionStore } from 'stores/Transaction';
 import { categoryConvertBig2Small, categoryType } from 'stores/Category';
 import dateUtil from 'utils/date';
-import categoryAPI from 'apis/category';
 
 export const initTotalPrice = {
   income: 0,
@@ -110,26 +109,23 @@ interface ITotalObj {
 }
 
 export const calTotalPriceByCategories = (
-  transactionList: TransactionDBType[],
+  transactionList: any[],
 ): ITotalObj => {
   const initTotalObj = {
     totalIncomeCategoryObj: {},
     totalExpenseCategoryObj: {},
   };
   const totalPriceByCategories = transactionList.reduce(
-    async (prevTotalObj: any, transaction) => {
+    (prevTotalObj: any, transaction) => {
       const newTotalObj = prevTotalObj;
       const { price } = transaction;
-      const { accountId, categoryId } = transaction;
-      const category: any = await categoryAPI.getOneCategory(
-        accountId,
-        categoryId,
-      );
-      if (category.classification === categoryType.UNCLASSIFIED) {
+      const { categoryId } = transaction;
+      const { category } = transaction;
+      if (category.type === categoryType.UNCLASSIFIED) {
         return prevTotalObj;
       }
       const typeKey =
-        category.classification === categoryType.EXPENSE
+        category.type === categoryType.EXPENSE
           ? 'totalExpenseCategoryObj'
           : 'totalIncomeCategoryObj';
       if (newTotalObj[typeKey][category.title]) {

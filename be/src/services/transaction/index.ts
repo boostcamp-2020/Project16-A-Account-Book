@@ -61,14 +61,14 @@ export const saveAndAddToAccount = async (transaction: any, accountId: string) =
   let category = await models.Category.findOne({
     attributes:  ['id'],
     where:{
-      title: transaction.category,
+      id: Number(transaction.category),
       accountId
     }
   });
   let method = await models.Method.findOne({
     attributes:  ['id'],
     where: {
-      title: transaction.method,
+      id: transaction.method,
       accountId
     }
   });
