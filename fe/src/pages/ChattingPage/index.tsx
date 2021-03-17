@@ -7,6 +7,17 @@ import { ChattingStore } from 'stores/Chatting';
 import { TransactionStore } from 'stores/Transaction';
 import { paymentList, solution } from 'utils/parseMMS';
 import chattingAPI from 'apis/mms';
+import { io } from 'socket.io-client';
+
+const socket = io('localhost:5000');
+
+socket.on('connect', () => {
+  console.log(socket.connected);
+});
+
+socket.on('message', (message) => {
+  ChattingStore.addChat(message, 'server');
+});
 
 export interface ParsedSMS {
   cardname: string;
@@ -56,8 +67,10 @@ const ChattingPage = () => {
     );
     if (processedMMS.success) {
       ChattingStore.addChat('확인되었습니다.', 'server');
+      socket.emit('message', '확인되었습니다.');
     } else {
-      ChattingStore.addChat('실패했습니다', 'server');
+      ChattingStore.addChat('실패했습니다.', 'server');
+      socket.emit('message', '실패했습니다.');
     }
     setProcessing(false);
     setParsedMMS(defaultMMS);
@@ -66,13 +79,14 @@ const ChattingPage = () => {
 
   const onSubmitHandler = () => {
     ChattingStore.addChat(changedValue, myMessage);
-
+    socket.emit('message', changedValue);
     if (!processing) {
       const parsedMms = solution(changedValue);
       if (paymentList.indexOf(parsedMms.cardname) > -1) {
         setProcessing(true);
         setParsedMMS(parsedMms);
         ChattingStore.addChat('사용처를 입력해주세요.', 'server');
+        socket.emit('message', '사용처를 입력해주세요.');
         setChangedValue('');
       } else setChangedValue('');
     } else {
