@@ -11,9 +11,11 @@ const io = new Server(httpServer, {
 });
 
 io.on('connection', (socket: ISocket) => {
-    if (socket.account){
-        socket.join(socket.account);
-    }
+    
+    socket.on('new_connect', (room) => {
+        socket.account = room;
+        socket.join(room);
+    })
 
     socket.on('discounnect', () => {
         if (socket.account){

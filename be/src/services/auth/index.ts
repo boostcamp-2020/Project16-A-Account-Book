@@ -86,6 +86,7 @@ export const createDefaultCategory = async (accountId: any) => {
     title: '미분류',
     color: '#000000',
     type: 'UNCLASSIFIED',
+    accountId,
   });
 };
 

@@ -10,15 +10,18 @@ var io = new socket_io_1.Server(httpServer, {
     }
 });
 io.on('connection', function (socket) {
-    if (socket.account) {
-        socket.join(socket.account);
-    }
+    socket.on('new_connect', function (room) {
+        console.log(room + ' join');
+        socket.account = room;
+        socket.join(room);
+    });
     socket.on('discounnect', function () {
         if (socket.account) {
             socket.to(socket.account).emit('leave user');
         }
     });
     socket.on('message', function (room, msg) {
+        console.log(room, msg);
         socket.to(room).emit('message', msg);
     });
 });
