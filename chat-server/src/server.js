@@ -15,14 +15,15 @@ io.on('connection', function (socket) {
         socket.account = room;
         socket.join(room);
     });
-    socket.on('discounnect', function () {
+    socket.on('disconnect', function () {
         if (socket.account) {
             socket.to(socket.account).emit('leave user');
         }
     });
     socket.on('message', function (room, msg) {
+        console.log(socket.id);
         console.log(room, msg);
-        socket.to(room).emit('message', msg);
+        io.to(room).emit('message', msg);
     });
 });
 httpServer.listen(5000);

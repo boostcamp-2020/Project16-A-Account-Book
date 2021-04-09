@@ -89,7 +89,6 @@ const AccountListPage = () => {
   }
 
   const List = AccountStore.getAccountList().map((el) => {
-    console.log(el);
     return (
       <Account
         key={String(el.id) + String(el.title)}

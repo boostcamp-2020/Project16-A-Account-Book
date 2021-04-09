@@ -65,3 +65,8 @@ export interface IDateTotalprice {
   date: string;
   totalPrice: number;
 }
+
+export interface IMessage {
+  sender: string;
+  message: string;
+}

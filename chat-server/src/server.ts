@@ -17,14 +17,14 @@ io.on('connection', (socket: ISocket) => {
         socket.join(room);
     })
 
-    socket.on('discounnect', () => {
+    socket.on('disconnect', () => {
         if (socket.account){
             socket.to(socket.account).emit('leave user');
         }
     });
 
     socket.on('message', (room:string, msg:string) => {
-            socket.to(room).emit('message', msg);
+            socket.broadcast.to(room).emit('message', msg);
     });
 
 });

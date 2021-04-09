@@ -5,7 +5,7 @@ export interface CorpusProps {
   type: string;
 }
 
-const myMessage = 'mine';
+const myMessage = String(window.sessionStorage.getItem('userObjId'));
 
 const fontsize = theme.fontSize.sm;
 // color수정
