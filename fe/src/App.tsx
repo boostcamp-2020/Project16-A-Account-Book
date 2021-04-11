@@ -22,6 +22,7 @@ import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ChattingPage from './pages/ChattingPage';
+import { SocketContext, socket } from './context';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
@@ -100,21 +101,23 @@ const AccountRouter = () => {
 const App = () => {
   return (
     <GlobalThemeProvider>
-      <Router>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={() => {
-              return <Redirect to="/accounts" />;
-            }}
-          />
-          <Route path="/login" component={LoginRouter} />
-          <Route path="/accounts" component={AccountRouter} />
-          <Route path="/transactions" component={TransactionRouter} />
-          <Route path="/" component={NotFoundPage} />
-        </Switch>
-      </Router>
+      <SocketContext.Provider value={socket}>
+        <Router>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={() => {
+                return <Redirect to="/accounts" />;
+              }}
+            />
+            <Route path="/login" component={LoginRouter} />
+            <Route path="/accounts" component={AccountRouter} />
+            <Route path="/transactions" component={TransactionRouter} />
+            <Route path="/" component={NotFoundPage} />
+          </Switch>
+        </Router>
+      </SocketContext.Provider>
     </GlobalThemeProvider>
   );
 };

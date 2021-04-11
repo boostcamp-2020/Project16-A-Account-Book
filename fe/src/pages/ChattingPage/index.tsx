@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { SocketContext } from 'context';
 import MainTemplate from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import ChattingArea from 'components/organisms/ChattingArea';
@@ -7,7 +8,6 @@ import { ChattingStore } from 'stores/Chatting';
 import { TransactionStore } from 'stores/Transaction';
 import { paymentList, solution } from 'utils/parseMMS';
 import chattingAPI from 'apis/mms';
-import { io } from 'socket.io-client';
 import { IMessage } from 'types';
 
 export interface ParsedSMS {
@@ -37,26 +37,20 @@ const ChattingPage = () => {
   const [processing, setProcessing] = useState<boolean>(false);
   const [parsedMMS, setParsedMMS] = useState<ParsedSMS>(defaultMMS);
   const [chattings, setChattings] = useState<any[]>([]);
-  const socket = useRef<any>();
+  const socket = useContext(SocketContext);
 
   useEffect(() => {
-    console.log('use Effect');
-
-    socket.current = io('localhost:5000');
-
-    socket.current.on('connect', () => {
-      socket.current.emit('new_connect', TransactionStore.accountObjId);
-    });
-    socket.current.on('message', (messageObj: IMessage) => {
+    socket.emit('new_connect', TransactionStore.accountObjId);
+    socket.on('message', (messageObj: IMessage) => {
       const { message, sender } = messageObj;
       ChattingStore.addChat(message, sender);
       setChattings(ChattingStore.getChattings());
     });
 
     return () => {
-      socket.current.disconnect();
+      socket.off('message');
     };
-  }, []);
+  }, [socket]);
 
   const ref = useRef<HTMLDivElement>();
   const onPressEnter = (e: any) => {
@@ -79,12 +73,12 @@ const ChattingPage = () => {
       client,
     );
     if (processedMMS.success) {
-      socket.current.emit('message', TransactionStore.accountObjId, {
+      socket.emit('message', TransactionStore.accountObjId, {
         message: '확인되었습니다.',
         sender: 'server',
       });
     } else {
-      socket.current.emit('message', TransactionStore.accountObjId, {
+      socket.emit('message', TransactionStore.accountObjId, {
         message: '실패했습니다.',
         sender: 'server',
       });
@@ -95,7 +89,7 @@ const ChattingPage = () => {
   };
 
   const onSubmitHandler = () => {
-    socket.current.emit('message', TransactionStore.accountObjId, {
+    socket.emit('message', TransactionStore.accountObjId, {
       message: changedValue,
       sender: myMessage,
     });
@@ -104,7 +98,7 @@ const ChattingPage = () => {
       if (paymentList.indexOf(parsedMms.cardname) > -1) {
         setProcessing(true);
         setParsedMMS(parsedMms);
-        socket.current.emit('message', TransactionStore.accountObjId, {
+        socket.emit('message', TransactionStore.accountObjId, {
           message: '사용처를 입력해주세요.',
           sender: 'server',
         });

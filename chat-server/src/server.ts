@@ -24,7 +24,7 @@ io.on('connection', (socket: ISocket) => {
     });
 
     socket.on('message', (room:string, msg:string) => {
-            socket.broadcast.to(room).emit('message', msg);
+        io.to(room).emit('message', msg);
     });
 
 });
