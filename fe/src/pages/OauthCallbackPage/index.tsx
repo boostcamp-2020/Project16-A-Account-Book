@@ -10,13 +10,13 @@ function OauthCallbackPage({
 }: {
   location: any;
 }): React.ReactElement {
-  const { code } = qs.parse(location.search);
+  const { code, state } = qs.parse(location.search);
   const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
   useEffect(() => {
     const getToken = async () => {
       if (code == null) return;
-      const res = await auth.getAccessToken(code);
+      const res = await auth.getAccessToken(code, state);
 
       sessionStorage.setItem('userObjId', (res as any).id);
       setIsLoading(false);

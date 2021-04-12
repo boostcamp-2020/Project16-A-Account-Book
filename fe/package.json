@@ -65,7 +65,12 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000",
+  "proxy": {
+    "/api/*": {
+      "target": "http://localhost:4000",
+      "changeOrigin": true
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@storybook/addon-actions": "^6.0.28",

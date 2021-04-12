@@ -21,12 +21,13 @@ export const postMms = async (
       title: mmsObj.cardname,
     },
   });
+
   if (!method) {
     method = await models.Method.create({
       title: mmsObj.cardname,
       accountId: accountObjId,
     });
-  } else [method] = method;
+  }
 
   const unclassified = await models.Category.findOne({
     attributes: ['id'],
@@ -36,7 +37,7 @@ export const postMms = async (
   if (unclassified != null) {
     await models.Transaction.create({
       client,
-      methodId: method._id,
+      methodId: method.id,
       categoryId: unclassified.id,
       accountId: accountObjId,
       date: new Date(`${mmsObj.date} ${mmsObj.time}`),

@@ -27,6 +27,11 @@ export const githubConfig = {
   githubSecret: process.env.GITHUB_SECRET,
 };
 
+export const facebookConfig = {
+  facebookId: process.env.FACEBOOK_ID,
+  facebookSecret: process.env.FACEBOOK_SECRET,
+}
+
 export const getDbUri = () => {
   const localUri = `mongodb://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
   const srvUri = `mongodb+srv://${dbConfig.user}:${dbConfig.password}@${dbConfig.host}/${dbConfig.database}`;
