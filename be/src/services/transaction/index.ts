@@ -95,7 +95,7 @@ export const updateTransaction = async (
 ) => {
   transaction.methodId = Number(transaction.method);
   transaction.categoryId = Number(transaction.category);
-  console.log(transaction);
+
   return models.Transaction.update(transaction, {
     where: { id: transactionObjId },
   });

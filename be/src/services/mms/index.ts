@@ -32,7 +32,7 @@ export const postMms = async (
     attributes: ['id'],
     where: { accountId: accountObjId, title: '미분류' },
   });
-  console.log(unclassified);
+
   if (unclassified != null) {
     await models.Transaction.create({
       client,
