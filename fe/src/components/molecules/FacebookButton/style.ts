@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import theme from 'styles/theme';
 import Button from '../../atoms/Button';
 
-export const GithubButton = styled(Button)`
-  background-color: ${theme.color.black};
+export const FacebookButton = styled(Button)`
+  background-color: ${theme.color.selectedBlue};
   color: ${theme.color.white};
   border: none;
   border-radius: 5px;

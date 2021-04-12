@@ -9,5 +9,7 @@ export const Container = styled.div`
 `;
 
 export const ButtonItem = styled.div`
+  margin: 1% 0;
+  border-radius: 100px;
   width: 100%;
 `;

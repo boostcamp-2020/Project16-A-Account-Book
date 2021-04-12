@@ -8,6 +8,7 @@ export default {
     `/api/${accountObjId}/transactions/detail/${transactionObjId}`,
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
+  facebook: '/api/auth/facebook',
   user: `/api/users`,
   userInfo: `/api/users/userInfo`,
   userTitle: '/api/users/titleByAccountId?accountId=',
