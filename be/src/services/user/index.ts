@@ -17,11 +17,19 @@ export const getUserList = async () => {
 };
 
 export const putUser = async (user: any, startOfWeek: String) => {
-  const result = models.User.update(
-    { startOfWeek },
-    { where: { id: user.id } },
-  );
-  return result;
+  let transaction = null;
+  try{
+    transaction = await models.sequelize.transaction();
+    const result = models.User.update(
+      { startOfWeek },
+      { where: { id: user.id } },
+      { transaction },
+    );
+
+    return result;
+  } catch (e) {
+    return e;
+  }
 };
 
 // export const getInvitation = async (user: IUserDocument) => {

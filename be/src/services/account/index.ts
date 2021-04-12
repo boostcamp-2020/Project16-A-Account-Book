@@ -1,3 +1,4 @@
+import transaction from 'controllers/transaction';
 import {
   UserHasNoAccount,
   accountNoChange,
@@ -56,23 +57,32 @@ export const getAccountByTitleAndOwner = async (
 // };
 
 export const createNewAccount = async (user: any, title: any) => {
-  const newAccount = await models.Account.create({
-    title,
-    ownerName: user.nickName,
-  });
+  let transaction: any = null;
+  try{
+    
 
-  const accountUser = await models.User.findOne({where:{id:user.id}})
+    const newAccount = await models.Account.create({
+      title,
+      ownerName: user.nickName,
+    });
 
-  await accountUser.addAccount(newAccount);
-  await createDefaultCategory(newAccount.id);
-  await createDefaultMethod(newAccount.id);
+    const accountUser = await models.User.findOne({where:{id:user.id}})
 
-  // const inviteUsers = inviteUserList(
-  //   user.nickname,
-  //   newAccount._id,
-  //   userObjIdList,
-  // );
-  return newAccount;
+    await accountUser.addAccount(newAccount);
+    await createDefaultCategory(newAccount.id);
+    await createDefaultMethod(newAccount.id);
+
+    // const inviteUsers = inviteUserList(
+    //   user.nickname,
+    //   newAccount._id,
+    //   userObjIdList,
+    // );
+    return newAccount;
+  } catch (e) {
+    if (transaction != null){
+      await transaction.rollback();
+    }
+  }
 };
 
 export const updateAccountByUserAndAccountInfo = async (
