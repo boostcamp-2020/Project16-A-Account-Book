@@ -6,7 +6,6 @@ export default {
     code: string | string[],
     state: string | string[] | null,
   ) {
-    console.log(code);
     let url = '';
     if (state === 'github') {
       url = `${urls.githubAccessToken}${code}`;
@@ -14,7 +13,6 @@ export default {
     if (state === 'facebook') {
       url = `${urls.facebookAccessToken}${code}`;
     }
-    console.log(url);
     return axios.get(url);
   },
 };
