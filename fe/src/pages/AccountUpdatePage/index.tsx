@@ -3,6 +3,7 @@ import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import AccountTitleImageUpdate from 'components/organisms/AccountImageTitleUpdate';
 import InviteUser from 'components/organisms/InviteUser';
+import UserSearch from 'components/organisms/UserSearch';
 import useInviteUser from 'hooks/useInviteUser';
 import utils from 'utils';
 import { IUser } from 'types';
@@ -166,11 +167,12 @@ const AccountUpdatePage = ({ location }: Props) => {
           <h2>현재 가계부 사용자 목록</h2>
           <UserContainer>
             {account.users.map((user: any) => (
-              <IconText icon={user.profileUrl} text={user.nickname} />
+              <IconText icon={user.profileUrl} text={user.nickName} />
             ))}
           </UserContainer>
         </UserList>
       )}
+      <UserSearch />
       <Modal visible={deleteVisible} content={DC} />
     </>
   );

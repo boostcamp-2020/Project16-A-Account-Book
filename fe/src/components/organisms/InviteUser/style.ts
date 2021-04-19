@@ -4,6 +4,8 @@ import Icon from 'components/atoms/Icons';
 
 export const InviteUser = styled.div`
   display: flex;
+  justify-content: space-around;
+  align-items: center;
   padding: 1rem;
   background-color: ${({ theme }) => theme.color.grayBackground};
 `;

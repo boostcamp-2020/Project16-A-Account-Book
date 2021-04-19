@@ -70,3 +70,8 @@ export interface IMessage {
   sender: string;
   message: string;
 }
+
+export interface ISearch {
+  onClick: any;
+  onChange: any;
+}

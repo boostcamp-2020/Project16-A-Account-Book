@@ -25,7 +25,7 @@ const DropdownBody = ({
   return (
     <S.DropdownBodyWrap>
       <div
-        onClick={() => onClick({ _id: 'ALL', type })}
+        onClick={() => onClick({ id: 'ALL', type })}
         className="dropdown-item"
       >
         <span>모두 선택</span>
@@ -38,17 +38,17 @@ const DropdownBody = ({
         (data: any): React.ReactElement => (
           <div
             onClick={() => onClick({ ...data, ...props, type })}
-            key={data._id}
+            key={data.id}
             className="dropdown-item"
           >
             {data.title ? (
               data.title
             ) : (
-              <ProileName imgUrl={data.profileUrl} name={data.nickname} />
+              <ProileName imgUrl={data.profileUrl} name={data.nickName} />
             )}
             <S.CheckBoxContainer>
               <CheckBox
-                checked={!!checkList?.find((x: string) => x === data._id)}
+                checked={!!checkList?.find((x: string) => x === data.id)}
               />
             </S.CheckBoxContainer>
           </div>
