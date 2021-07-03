@@ -89,9 +89,9 @@ const TransactionInputField = ({
         <select name={CATEGORY} id={CATEGORY} onChange={formHandler}>
           {categories.map((categoryItem) => (
             <option
-              key={categoryItem._id}
-              value={categoryItem._id}
-              selected={category === categoryItem._id}
+              key={categoryItem.id}
+              value={categoryItem.id}
+              selected={category === categoryItem.id}
             >
               {categoryItem.title}
             </option>
@@ -116,9 +116,9 @@ const TransactionInputField = ({
             if (methodItem.title === '미분류') return <></>;
             return (
               <option
-                key={methodItem._id}
-                value={methodItem._id}
-                selected={method === methodItem._id}
+                key={methodItem.id}
+                value={methodItem.id}
+                selected={method === methodItem.id}
               >
                 {methodItem.title}
               </option>

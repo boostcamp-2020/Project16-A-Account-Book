@@ -5,7 +5,8 @@ import Button from '../../atoms/Button';
 export const GithubButton = styled(Button)`
   background-color: ${theme.color.black};
   color: ${theme.color.white};
-  border-radius: 2.5px;
+  border: none;
+  border-radius: 5px;
   width: 210px;
 `;
 

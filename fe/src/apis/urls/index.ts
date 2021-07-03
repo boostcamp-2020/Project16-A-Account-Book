@@ -8,11 +8,16 @@ export default {
     `/api/${accountObjId}/transactions/detail/${transactionObjId}`,
   github: '/api/auth/github',
   githubAccessToken: '/api/auth/github/access_token?code=',
+  facebook: '/api/auth/facebook',
+  facebookAccessToken: '/api/auth/facebook/access_token?code=',
   user: `/api/users`,
   userInfo: `/api/users/userInfo`,
   userTitle: '/api/users/titleByAccountId?accountId=',
   category: (accountObjId: string) => {
     return `/api/${accountObjId}/categories/`;
+  },
+  oneCategory: (accountObjId: number, categoryId: number) => {
+    return `/api/${accountObjId}/categories/one/${categoryId}`;
   },
   defaultCategory: 'api/categories',
   account: '/api/accounts',

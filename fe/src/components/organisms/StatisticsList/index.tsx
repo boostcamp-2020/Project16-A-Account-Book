@@ -9,7 +9,7 @@ const StatisticsList = ({ categories }: Props): React.ReactElement => {
   return (
     <>
       {categories.map((category) => (
-        <StatisticsItem category={category} key={category._id} />
+        <StatisticsItem category={category} key={category.id} />
       ))}
     </>
   );

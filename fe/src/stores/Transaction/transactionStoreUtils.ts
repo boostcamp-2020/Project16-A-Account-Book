@@ -18,7 +18,7 @@ export const initTotalPrice = {
 
 export const sumAllPricesByType = (transactions: TransactionDBType[]) => {
   return transactions.reduce((summedPriceByType, transaction) => {
-    const type = categoryConvertBig2Small(transaction.category.type);
+    const type = categoryConvertBig2Small(transaction.classification);
     return {
       ...summedPriceByType,
       [type]: summedPriceByType[type] + transaction.price,
@@ -27,37 +27,29 @@ export const sumAllPricesByType = (transactions: TransactionDBType[]) => {
 };
 
 export const isNotMatchedWithFilterInfo = (transaction: TransactionDBType) => {
-  const {
-    methods: methodFilterIds,
-    categories: caregoryFilterIds,
-  } = TransactionStore.getFilter();
-  const { category, method } = transaction;
-  const type = categoryConvertBig2Small(category.type);
+  const { categories: caregoryFilterIds } = TransactionStore.getFilter();
+  const { classification } = transaction;
+  const type = categoryConvertBig2Small(classification);
   if (caregoryFilterIds[type].disabled) {
-    return true;
-  }
-  if (!caregoryFilterIds[type].list.some((id: string) => id === category._id)) {
-    return true;
-  }
-  if (!methodFilterIds.some((id: string) => id === method._id)) {
     return true;
   }
   return false;
 };
 export const convertTransactionDBTypetoTransactionType = (input: any[]) => {
-  return input.reduce((acc, transaction) => {
-    const { _id, category, method, ...other } = transaction;
+  const output = input.reduce((acc, transaction) => {
+    const { id, accountId, category, method, ...other } = transaction;
     return [
       ...acc,
       {
         ...other,
-        id: _id,
+        id,
         category: category.title,
         method: method.title,
-        categoryType: category.type,
+        categoryType: transaction.classification,
       },
     ];
   }, []);
+  return output;
 };
 
 export const calTotalPrices = (list: IDateTransactionObj) => {
@@ -81,7 +73,7 @@ export const calTotalPriceByDateAndType = (
   const totalPriceByDateList = Object.keys(transactions).reduce(
     (acc: IDateTotalprice[], date: string) => {
       const filteredTransactions = transactions[date].filter(
-        (transaction: TransactionDBType) => transaction.category.type === type,
+        (transaction: TransactionDBType) => transaction.classification === type,
       );
       const totalPrice = math.sumByKey(filteredTransactions, 'price');
       return [...acc, { date, totalPrice }];
@@ -117,31 +109,32 @@ interface ITotalObj {
 }
 
 export const calTotalPriceByCategories = (
-  transactionList: TransactionDBType[],
+  transactionList: any[],
 ): ITotalObj => {
   const initTotalObj = {
     totalIncomeCategoryObj: {},
     totalExpenseCategoryObj: {},
   };
   const totalPriceByCategories = transactionList.reduce(
-    (prevTotalObj: ITotalObj, transaction) => {
+    (prevTotalObj: any, transaction) => {
       const newTotalObj = prevTotalObj;
       const { price } = transaction;
-      const { type, title, _id, color } = transaction.category;
-      if (type === categoryType.UNCLASSIFIED) {
+      const { categoryId } = transaction;
+      const { category } = transaction;
+      if (category.type === categoryType.UNCLASSIFIED) {
         return prevTotalObj;
       }
       const typeKey =
-        type === categoryType.EXPENSE
+        category.type === categoryType.EXPENSE
           ? 'totalExpenseCategoryObj'
           : 'totalIncomeCategoryObj';
-      if (newTotalObj[typeKey][title]) {
-        newTotalObj[typeKey][title].totalPrice += price;
+      if (newTotalObj[typeKey][category.title]) {
+        newTotalObj[typeKey][category.title].totalPrice += price;
       } else {
-        newTotalObj[typeKey][title] = {
-          _id,
-          title,
-          color,
+        newTotalObj[typeKey][category.title] = {
+          id: categoryId,
+          title: category.title,
+          color: category.color,
           totalPrice: price,
         };
       }

@@ -7,7 +7,8 @@ export interface Props {
 
 const ProfileImgList = ({ profileImgList, ...props }: Props) => {
   const ImgList = profileImgList.map((el: any, index: number) => {
-    return <S.Icon key={el} rightMargin={index} icon={el} size="lg" />;
+    const key = el + index;
+    return <S.Icon key={key} rightMargin={index} icon={el} size="lg" />;
   });
   return <S.Wrap {...props}>{ImgList}</S.Wrap>;
 };

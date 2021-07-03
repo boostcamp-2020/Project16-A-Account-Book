@@ -9,8 +9,6 @@ instance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       window.location.href = '/login';
-    } else {
-      window.location.href = '/not-found';
     }
     return Promise.reject(error);
   },

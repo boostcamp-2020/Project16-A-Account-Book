@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { SocketContext } from 'context';
 import MainTemplate from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import ChattingArea from 'components/organisms/ChattingArea';
@@ -7,6 +8,7 @@ import { ChattingStore } from 'stores/Chatting';
 import { TransactionStore } from 'stores/Transaction';
 import { paymentList, solution } from 'utils/parseMMS';
 import chattingAPI from 'apis/mms';
+import { IMessage } from 'types';
 
 export interface ParsedSMS {
   cardname: string;
@@ -28,12 +30,28 @@ const defaultMMS = {
   isDeposit: false,
 };
 
-const myMessage = 'mine';
+const myMessage: string = String(window.sessionStorage.getItem('userObjId'));
 
 const ChattingPage = () => {
   const [changedValue, setChangedValue] = useState<string>('');
   const [processing, setProcessing] = useState<boolean>(false);
   const [parsedMMS, setParsedMMS] = useState<ParsedSMS>(defaultMMS);
+  const [chattings, setChattings] = useState<any[]>([]);
+  const socket = useContext(SocketContext);
+
+  useEffect(() => {
+    socket.emit('new_connect', TransactionStore.accountObjId);
+    socket.on('message', (messageObj: IMessage) => {
+      const { message, sender } = messageObj;
+      ChattingStore.addChat(message, sender);
+      setChattings(ChattingStore.getChattings());
+    });
+
+    return () => {
+      socket.off('message');
+    };
+  }, [socket]);
+
   const ref = useRef<HTMLDivElement>();
   const onPressEnter = (e: any) => {
     const ENTER_KEYCODE = 13;
@@ -55,9 +73,15 @@ const ChattingPage = () => {
       client,
     );
     if (processedMMS.success) {
-      ChattingStore.addChat('확인되었습니다.', 'server');
+      socket.emit('message', TransactionStore.accountObjId, {
+        message: '확인되었습니다.',
+        sender: 'server',
+      });
     } else {
-      ChattingStore.addChat('실패했습니다', 'server');
+      socket.emit('message', TransactionStore.accountObjId, {
+        message: '실패했습니다.',
+        sender: 'server',
+      });
     }
     setProcessing(false);
     setParsedMMS(defaultMMS);
@@ -65,14 +89,19 @@ const ChattingPage = () => {
   };
 
   const onSubmitHandler = () => {
-    ChattingStore.addChat(changedValue, myMessage);
-
+    socket.emit('message', TransactionStore.accountObjId, {
+      message: changedValue,
+      sender: myMessage,
+    });
     if (!processing) {
       const parsedMms = solution(changedValue);
       if (paymentList.indexOf(parsedMms.cardname) > -1) {
         setProcessing(true);
         setParsedMMS(parsedMms);
-        ChattingStore.addChat('사용처를 입력해주세요.', 'server');
+        socket.emit('message', TransactionStore.accountObjId, {
+          message: '사용처를 입력해주세요.',
+          sender: 'server',
+        });
         setChangedValue('');
       } else setChangedValue('');
     } else {
@@ -89,7 +118,7 @@ const ChattingPage = () => {
       onChangeHandler={onChangeHandler}
       onPressEnter={onPressEnter}
       onSubmitHandler={onSubmitHandler}
-      dataList={ChattingStore.getChattings()}
+      dataList={chattings}
       chatValue={changedValue}
       scroll={ref}
     />

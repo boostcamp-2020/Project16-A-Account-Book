@@ -3,6 +3,7 @@ import Template from 'components/templates/MainTemplate';
 import Header from 'components/organisms/HeaderBar';
 import AccountTitleImageUpdate from 'components/organisms/AccountImageTitleUpdate';
 import InviteUser from 'components/organisms/InviteUser';
+import UserSearch from 'components/organisms/UserSearch';
 import useInviteUser from 'hooks/useInviteUser';
 import utils from 'utils';
 import { IUser } from 'types';
@@ -67,7 +68,7 @@ const AccountUpdatePage = ({ location }: Props) => {
   const history = useHistory();
   const { account, isNewAccount } = location.state;
   const [deleteVisible, setDeleteVisible] = useState<boolean>(false);
-  const alreadyInvitedUserIdList = account.users.map((user: any) => user._id);
+  const alreadyInvitedUserIdList = account.users.map((user: any) => user.id);
   const [userList, checkedUserIdList, setCheckedUserIdList] = useInviteUser(
     alreadyInvitedUserIdList,
   );
@@ -82,12 +83,12 @@ const AccountUpdatePage = ({ location }: Props) => {
   }, []);
 
   const onSelectUser = (user: IUser) => {
-    const selectedId = user._id;
+    const selectedId = user.id;
     if (selectedId === 'ALL') {
       if (checkedUserIdList.length === userList.length) {
         setCheckedUserIdList([]);
       } else {
-        setCheckedUserIdList(userList.map((userData) => userData._id));
+        setCheckedUserIdList(userList.map((userData) => userData.id));
       }
     } else {
       setCheckedUserIdList((prevCheckedList: string[]) =>
@@ -117,7 +118,7 @@ const AccountUpdatePage = ({ location }: Props) => {
       }
     } else {
       const result: any = await accountAPI.updateAccount(
-        account._id,
+        account.id,
         title,
         checkedUserIdList,
         alreadyInvitedUserIdList[0],
@@ -142,7 +143,7 @@ const AccountUpdatePage = ({ location }: Props) => {
         isOwner,
         setDeleteVisible,
         history,
-        account._id,
+        account.id,
       )}
       deleteCancel={deleteCancel(setDeleteVisible)}
       isOut={!isOwner}
@@ -166,11 +167,12 @@ const AccountUpdatePage = ({ location }: Props) => {
           <h2>현재 가계부 사용자 목록</h2>
           <UserContainer>
             {account.users.map((user: any) => (
-              <IconText icon={user.profileUrl} text={user.nickname} />
+              <IconText icon={user.profileUrl} text={user.nickName} />
             ))}
           </UserContainer>
         </UserList>
       )}
+      <UserSearch />
       <Modal visible={deleteVisible} content={DC} />
     </>
   );

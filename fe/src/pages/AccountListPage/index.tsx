@@ -78,7 +78,7 @@ const AccountListPage = () => {
   if (!userId && loading === false) {
     setLoading(true);
     userApi.getUserInfo().then((res) => {
-      sessionStorage.setItem('userObjId', (res as any)._id);
+      sessionStorage.setItem('userObjId', (res as any).id);
       sessionStorage.setItem(
         'userIsSundayStart',
         String((res as any).startOfWeek === 'sunday'),
@@ -91,9 +91,9 @@ const AccountListPage = () => {
   const List = AccountStore.getAccountList().map((el) => {
     return (
       <Account
-        key={String(el._id) + String(el.title)}
-        account={{ ...el, icon: el.imageUrl || AccountSvg }}
-        onClick={onClickHandler(history, el._id, el.title, el.ownerName)}
+        key={String(el.id) + String(el.title)}
+        account={{ ...el, AccountSvg }}
+        onClick={onClickHandler(history, el.id, el.title, el.ownerName)}
         onSettingClick={settingClickHandler(history, el)}
       />
     );

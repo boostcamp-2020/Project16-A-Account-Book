@@ -7,8 +7,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import GlobalThemeProvider from 'styles/GlobalThemeProvider';
-import AccountListPage from 'pages/AccountListPage';
-import AccountUpdatePage from 'pages/AccountUpdatePage';
 import CalendarPage from 'pages/CalendarPage';
 import AuthCheck from 'pages/AuthCheck';
 import StatisticsPage from 'pages/StatisticsPage';
@@ -22,6 +20,7 @@ import UpdateTransactionPage from './pages/UpdateTransactionPage';
 import CategoryPage from './pages/CategoryPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ChattingPage from './pages/ChattingPage';
+import { SocketContext, socket } from './context';
 
 const TransactionRouter = () => {
   const { url } = useRouteMatch();
@@ -84,37 +83,28 @@ const LoginRouter = () => {
   );
 };
 
-const AccountRouter = () => {
-  const { url } = useRouteMatch();
-  return (
-    <>
-      <AuthCheck />
-      <Switch>
-        <Route path={`${url}/update`} component={AccountUpdatePage} />
-        <Route path={`${url}`} component={AccountListPage} />
-      </Switch>
-    </>
-  );
-};
+const AccountRouter = React.lazy(() => import('routes/Account'));
 
 const App = () => {
   return (
     <GlobalThemeProvider>
-      <Router>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={() => {
-              return <Redirect to="/accounts" />;
-            }}
-          />
-          <Route path="/login" component={LoginRouter} />
-          <Route path="/accounts" component={AccountRouter} />
-          <Route path="/transactions" component={TransactionRouter} />
-          <Route path="/" component={NotFoundPage} />
-        </Switch>
-      </Router>
+      <SocketContext.Provider value={socket}>
+        <Router>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={() => {
+                return <Redirect to="/accounts" />;
+              }}
+            />
+            <Route path="/login" component={LoginRouter} />
+            <Route path="/accounts" component={AccountRouter} />
+            <Route path="/transactions" component={TransactionRouter} />
+            <Route path="/" component={NotFoundPage} />
+          </Switch>
+        </Router>
+      </SocketContext.Provider>
     </GlobalThemeProvider>
   );
 };

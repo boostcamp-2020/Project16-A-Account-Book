@@ -16,7 +16,7 @@ export const DefaultPieChartDetail = () => {
       {
         title: '기타수입',
         color: '#be00a5',
-        _id: '5fc79e46233d1b4e239f28df',
+        id: '5fc79e46233d1b4e239f28df',
         totalPrice: 1234,
         percent: 64,
       },
@@ -25,7 +25,7 @@ export const DefaultPieChartDetail = () => {
       {
         title: '지출',
         color: '#be00a5',
-        _id: '5fc79e46233d1b4e239f28df',
+        id: '5fc79e46233d1b4e239f28df',
         totalPrice: 10000,
         percent: 64,
       },

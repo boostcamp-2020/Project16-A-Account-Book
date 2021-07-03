@@ -2,7 +2,7 @@ import React from 'react';
 import Corpus from 'components/atoms/Corpus';
 import * as S from './style';
 
-const myMessage = 'mine';
+const myMessage: string = String(window.sessionStorage.getItem('userObjId'));
 
 export interface DataProps {
   type: string;

@@ -84,7 +84,7 @@ function CategoryPage(): React.ReactElement {
   );
 
   const dropDownItemClicked = (data: any) => {
-    selectedRef.current = data._id;
+    selectedRef.current = data.id;
     colorPicker.current.value = data.color;
     inputRef.current.value = data.title;
     setVisible(true);
@@ -132,7 +132,7 @@ function CategoryPage(): React.ReactElement {
     const exist = MethodStore.getMethods().find(
       (method) => method.title === inputRef.current.value.trim(),
     );
-    if (exist && exist._id === selectedRef.current) {
+    if (exist && exist.id === selectedRef.current) {
       return Promise.resolve({ error: '변경사항이 없습니다!' });
     }
 
@@ -152,7 +152,7 @@ function CategoryPage(): React.ReactElement {
   const isMineAndCheckModify = (existCategory: ICategory | undefined) => {
     if (
       existCategory &&
-      existCategory._id === selectedRef.current &&
+      existCategory.id === selectedRef.current &&
       existCategory.color === colorPicker.current.value
     ) {
       return true;
@@ -160,7 +160,7 @@ function CategoryPage(): React.ReactElement {
     return false;
   };
   const isDuplicate = (existCategory: ICategory | undefined) =>
-    !!existCategory && existCategory._id !== selectedRef.current;
+    !!existCategory && existCategory.id !== selectedRef.current;
   const categoryConfirm = async () => {
     const newTitle = inputRef.current.value.trim();
     const existCategory = CategoryStore.getCategories(type).find(

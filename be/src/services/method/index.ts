@@ -1,46 +1,45 @@
-import { AccountModel } from 'models/account';
-import { MethodModel } from 'models/method';
-import { TransactionModel } from 'models/transaction';
 import { removeUnclassifiedMethod } from 'libs/error';
 
+const models = require('models');
+
 export const getMethods = async (accountObjId: string) => {
-  const res = await AccountModel.findOne(
-    { _id: accountObjId },
-    { methods: true, _id: false },
-  )
-    .populate('methods')
-    .exec();
-  return res?.methods;
+  const res = await models.Method.findAll({
+    where: {
+      accountId: accountObjId,
+    },
+  });
+  return res;
 };
 
 export const createMethod = async (accountObjId: string, title: string) => {
-  const method = new MethodModel({
-    title,
-  });
-  method.save();
-  return AccountModel.findByIdAndUpdate(accountObjId, {
-    $push: { methods: method._id },
-  });
+  return models.Method.create({ title, accountId: accountObjId });
 };
 
 export const removeMethod = async (
   accountObjId: string,
   methodObjId: string,
 ) => {
-  const unclassifiedMethod = await AccountModel.findUnclassifiedMethod(
-    accountObjId,
-  );
-  if (String(unclassifiedMethod) === methodObjId)
+  const unclassifiedMethod = await models.Method.findOne({
+    where: {
+      accountId: Number(accountObjId),
+      title: '미분류',
+    },
+  });
+  if (String(unclassifiedMethod.id) === methodObjId)
     throw removeUnclassifiedMethod;
-  return Promise.all([
-    TransactionModel.updateMany(
-      { method: methodObjId },
-      { method: unclassifiedMethod },
-    ).exec(),
-    MethodModel.deleteOne({ _id: methodObjId }),
-  ]);
+  
+  await models.Transaction.update(
+    { methodId: unclassifiedMethod.id },
+    {
+      where: {
+        accountId: accountObjId,
+      },
+    },
+  );
+  
+  return models.Method.destroy({where:{id: methodObjId}});
 };
 
 export const updateMethod = async (methodObjId: string, title: string) => {
-  return MethodModel.updateOne({ _id: methodObjId }, { title });
+  return models.Method.update({ title }, { where: { id: methodObjId } });
 };

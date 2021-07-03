@@ -30,8 +30,11 @@
     "koa-compose": "^4.1.0",
     "koa-router": "^10.0.0",
     "mongoose": "~5.10.15",
+    "mysql2": "^2.2.5",
     "passport-local-mongoose": "^6.0.1",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -45,6 +48,7 @@
     "@types/koa__cors": "^3.0.2",
     "@types/mongoose": "~5.10.1",
     "@types/node": "^14.14.9",
+    "@types/sequelize": "^4.28.9",
     "@typescript-eslint/eslint-plugin": "^4.8.0",
     "@typescript-eslint/parser": "^4.8.0",
     "babel-jest": "^26.6.3",

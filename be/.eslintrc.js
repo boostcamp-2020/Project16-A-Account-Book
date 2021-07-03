@@ -18,6 +18,12 @@ module.exports = {
   },
   plugins: ['@typescript-eslint'],
   rules: {
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'import/no-unresolved': 0,
     'no-await-in-loop': 0,
     'no-unused-vars': 0,

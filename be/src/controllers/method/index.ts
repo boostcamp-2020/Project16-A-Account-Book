@@ -1,5 +1,4 @@
 import { Context } from 'koa';
-import { AccountModel } from 'models/account';
 import { updateUnclassifiedMethod } from 'libs/error';
 import {
   getMethods,
@@ -7,6 +6,8 @@ import {
   removeMethod,
   updateMethod,
 } from 'services/method';
+
+const models = require('models');
 
 const get = async (ctx: Context) => {
   const { accountObjId } = ctx.params;
@@ -38,11 +39,14 @@ const put = async (ctx: Context) => {
   const { title }: { title: string | null | undefined } = ctx.request.body;
   if (!title || title.trim() === '' || title.trim() === '미분류')
     throw updateUnclassifiedMethod;
-  const unclassifiedMethod = await AccountModel.findUnclassifiedMethod(
-    accountObjId,
-  );
+  const unclassifiedMethod = await models.Method.findOne({
+    where: {
+      accountId: Number(accountObjId),
+      title: '미분류',
+    },
+  });
   const target = title.trim();
-  if (String(unclassifiedMethod) === methodObjId)
+  if (String(unclassifiedMethod.id) === methodObjId)
     throw updateUnclassifiedMethod;
 
   await updateMethod(methodObjId, target);
